@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.diff.@base;
+using POCOMerger.diffResult;
 
 namespace POCOMerger.implementation
 {

@@ -46,10 +46,18 @@
   <ItemGroup>
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="definition\DiffDefinition.cs" />
+    <Compile Include="diffResult\action\IDiffAdded.cs" />
+    <Compile Include="diffResult\action\IDiffChanged.cs" />
+    <Compile Include="diffResult\action\IDiffReplaced.cs" />
+    <Compile Include="diffResult\type\IDiffClass.cs" />
+    <Compile Include="diffResult\action\IDiffRemoved.cs" />
+    <Compile Include="fastReflection\Property.cs" />
+    <Compile Include="diffResult\type\IDiffCollection.cs" />
     <Compile Include="diff\base\IDiffAlgorithm.cs" />
-    <Compile Include="diff\base\IDiffResult.cs" />
+    <Compile Include="diffResult\IDiffResult.cs" />
     <Compile Include="definition\IMergerDefinition.cs" />
     <Compile Include="definition\MergerDefinition.cs" />
+    <Compile Include="fastReflection\Class.cs" />
     <Compile Include="implementation\MergerImplementation.cs" />
     <Compile Include="implementation\PartialMergerAlgorithms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
