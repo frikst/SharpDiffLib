@@ -1,3 +1,5 @@
+using POCOMerger.diffResult.@base;
+
 namespace POCOMerger.diffResult.action
 {
 	public interface IDiffItemRemoved : IDiffItem

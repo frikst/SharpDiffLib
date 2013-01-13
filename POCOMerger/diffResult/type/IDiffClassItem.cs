@@ -1,3 +1,4 @@
+using POCOMerger.diffResult.@base;
 using POCOMerger.fastReflection;
 
 namespace POCOMerger.diffResult.type

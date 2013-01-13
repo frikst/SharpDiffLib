@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.diffResult.action
 {

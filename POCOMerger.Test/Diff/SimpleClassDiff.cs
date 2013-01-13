@@ -30,7 +30,13 @@ namespace POCOMerger.Test.Diff
 		[TestMethod]
 		public void TestDifferent()
 		{
-			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one" }, new Sample { Value = "two" }).ToList();
+			const string diff =
+				"-Value:one\n" +
+				"+Value:two";
+
+			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one" }, new Sample { Value = "two" });
+
+			Assert.AreEqual(diff, ret.ToString());
 		}
 	}
 }
