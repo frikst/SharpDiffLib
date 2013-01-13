@@ -2,8 +2,8 @@
 
 namespace POCOMerger.diffResult
 {
-	public interface IDiffResult
+	public interface IDiffItem
 	{
-		Type Type { get; }
+		Type ItemType { get; }
 	}
 }

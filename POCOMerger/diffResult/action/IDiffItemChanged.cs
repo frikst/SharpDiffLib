@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace POCOMerger.diffResult.action
 {
-	public interface IDiffChanged : IDiffResult
+	public interface IDiffItemChanged : IDiffItem
 	{
-		IEnumerable<IDiffResult> Changes { get; }
+		IDiff ValueDiff { get; }
 	}
 }

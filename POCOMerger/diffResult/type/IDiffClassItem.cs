@@ -2,7 +2,7 @@ using POCOMerger.fastReflection;
 
 namespace POCOMerger.diffResult.type
 {
-	public interface IDiffClass : IDiffResult
+	public interface IDiffClassItem : IDiffItem
 	{
 		Property Property { get; }
 	}

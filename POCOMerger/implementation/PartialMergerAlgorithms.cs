@@ -13,22 +13,22 @@ namespace POCOMerger.implementation
 			this.aMergerImplementation = mergerImplementation;
 		}
 
-		public IEnumerable<IDiffResult> Diff<TType>(TType @base, TType changed)
+		public IDiff<TType> Diff<TType>(TType @base, TType changed)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<IDiffResult> Merge(IEnumerable<IDiffResult> left, IEnumerable<IDiffResult> right)
+		public IDiff<TType> Merge<TType>(IDiff<TType> left, IDiff<TType> right)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<IDiffResult> ResolveConflicts(IEnumerable<IDiffResult> conflicted)
+		public IDiff<TType> ResolveConflicts<TType>(IDiff<TType> conflicted)
 		{
 			throw new NotImplementedException();
 		}
 
-		public TType ApplyPatch<TType>(TType @object, IEnumerable<IDiffResult> patch)
+		public TType ApplyPatch<TType>(TType @object, IDiff<TType> patch)
 		{
 			throw new NotImplementedException();
 		}
