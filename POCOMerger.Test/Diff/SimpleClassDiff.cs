@@ -21,9 +21,7 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<Sample>()
-					.Diff(x => 
-						x.Using<ClassDiff>()
-					);
+					.Rules<ClassDiffRules>();
 			}
 		}
 

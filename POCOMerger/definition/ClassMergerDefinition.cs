@@ -1,24 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace POCOMerger.definition
 {
 	public class ClassMergerDefinition<TClass> : IMergerDefinition
 	{
-		private DiffDefinition<TClass> aDiffDefinition;
+		private readonly List<IAlgorithmRules> aRules;
 
 		public ClassMergerDefinition()
 		{
-			this.aDiffDefinition = null;
+			aRules = new List<IAlgorithmRules>();
 		}
 
-		public void Diff(Action<DiffDefinition<TClass>> func)
+		public void Rules<TRules>(Action<TRules> func)
+			where TRules : IAlgorithmRules, new()
 		{
-			if (this.aDiffDefinition != null)
-				throw new Exception("You cannot call Diff definition twice");
-
-			DiffDefinition<TClass> definition = new DiffDefinition<TClass>();
+			TRules definition = new TRules();
 			func(definition);
-			this.aDiffDefinition = definition;
+			aRules.Add(definition);
 		}
+
+		public void Rules<TRules>()
+			where TRules : IAlgorithmRules, new()
+		{
+			this.aRules.Add(new TRules());
+		}
+
+		#region Implementation of IMergerDefinition
+
+		Type IMergerDefinition.DefinedFor
+		{
+			get { return typeof(TClass); }
+		}
+
+		TRules IMergerDefinition.GetRules<TRules>()
+		{
+			return this.aRules.OfType<TRules>().FirstOrDefault();
+		}
+
+		#endregion
 	}
 }

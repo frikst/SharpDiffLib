@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using POCOMerger.definition;
 
@@ -27,6 +28,11 @@ namespace POCOMerger.implementation
 					)
 				)
 			);
+		}
+
+		internal IMergerDefinition GetMergerFor(Type type)
+		{
+			return this.aDefinitions.FirstOrDefault(mergerDefinition => mergerDefinition.DefinedFor == type);
 		}
 	}
 }

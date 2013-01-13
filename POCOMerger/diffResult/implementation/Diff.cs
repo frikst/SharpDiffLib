@@ -7,7 +7,7 @@ using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class Diff<TObject> : IDiff<TObject>
+	internal class Diff<TType> : IDiff<TType>
 	{
 		private readonly List<IDiffItem> aItems;
 
@@ -16,7 +16,7 @@ namespace POCOMerger.diffResult.implementation
 			this.aItems = items;
 		}
 
-		#region Implementation of IEnumerable<TObject>
+		#region Implementation of IEnumerable<TType>
 
 		public IEnumerator<IDiffItem> GetEnumerator()
 		{

@@ -10,7 +10,7 @@ namespace POCOMerger.definition
 	{
 		private static MergerImplementation aMerger;
 		private bool aFinished;
-		private List<IMergerDefinition> aDefinitions;
+		private readonly List<IMergerDefinition> aDefinitions;
 
 		public MergerDefinition()
 		{

@@ -8,7 +8,7 @@ namespace POCOMerger.diffResult.@base
 		string ToString();
 	}
 
-	public interface IDiff<TObject> : IDiff
+	public interface IDiff<TType> : IDiff
 	{
 
 	}
