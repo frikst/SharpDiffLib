@@ -34,7 +34,7 @@ namespace POCOMerger.definition.rules
 
 		#region Implementation of IAlgorithmRules
 
-		public void Initialize(MergerImplementation mergerImplementation)
+		void IAlgorithmRules.Initialize(MergerImplementation mergerImplementation)
 		{
 			
 		}

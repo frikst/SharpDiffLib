@@ -1,23 +1,27 @@
-﻿using POCOMerger.definition;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using POCOMerger.definition;
 using POCOMerger.diff.@base;
 using POCOMerger.implementation;
 
-namespace POCOMerger.diff.common
+namespace POCOMerger.diff.collection
 {
-	public class ClassDiffRules : IDiffAlgorithmRules
+	public class SortedCollectionDiffRules : IDiffAlgorithmRules
 	{
 		private MergerImplementation aMergerImplementation;
 
-		public ClassDiffRules()
+		public SortedCollectionDiffRules()
 		{
 			this.aMergerImplementation = null;
 		}
 
-		#region Implementation of IDiffAlgorithmRules
+		#region Implementation of IAlgorithmRules
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
-			return new ClassDiff<TType>(this.aMergerImplementation);
+			return new SortedCollectionDiff<TType>(this.aMergerImplementation);
 		}
 
 		#endregion

@@ -49,6 +49,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Diff\ArrayOfPrimitivesTest.cs" />
     <Compile Include="Diff\SimpleClassDiff.cs" />
     <Compile Include="Diff\StructuredClassDiff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
