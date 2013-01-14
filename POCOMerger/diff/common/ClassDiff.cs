@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using POCOMerger.definition;
+using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
 using POCOMerger.fastReflection;
+using POCOMerger.implementation;
 using POCOMerger.@internal;
 
 namespace POCOMerger.diff.common
 {
 	public class ClassDiff<TType> : IDiffAlgorithm<TType>
 	{
+		private readonly MergerImplementation aMergerImplementation;
 		private Func<TType, TType, List<IDiffItem>> aCompiled;
 
-		public ClassDiff()
+		public ClassDiff(MergerImplementation mergerImplementation)
 		{
+			this.aMergerImplementation = mergerImplementation;
 			this.aCompiled = null;
 		}
 
@@ -31,6 +36,8 @@ namespace POCOMerger.diff.common
 
 			return new Diff<TType>(this.aCompiled(@base, changed));
 		}
+
+		#endregion
 
 		private Expression<Func<TType, TType, List<IDiffItem>>> Compile()
 		{
@@ -51,24 +58,21 @@ namespace POCOMerger.diff.common
 
 			foreach (Property property in Class<TType>.Properties)
 			{
-				body.Add(
-					Expression.IfThen(
-						Expression.NotEqual(
-							Expression.Property(@base, property.ReflectionPropertyInfo),
-							Expression.Property(changed, property.ReflectionPropertyInfo)
-						),
-						Expression.Call(
-							ret,
-							Members.List.Add(typeof(IDiffItem)),
-							Expression.New(
-								Members.DiffItems.NewClassReplaced(property.Type),
-								Expression.Constant(property),
-								Expression.Property(@base, property.ReflectionPropertyInfo),
-								Expression.Property(changed, property.ReflectionPropertyInfo)
-							)
-						)
-					)
-				);
+				Property IdProperty = null;
+				IClassMergerDefinition mergerDefinition = this.aMergerImplementation.GetMergerFor(property.Type);
+
+				if (mergerDefinition != null)
+				{
+					IGeneralRules rules = mergerDefinition.GetRules<IGeneralRules>();
+					if (rules != null)
+						IdProperty = rules.IdProperty;
+				}
+
+
+				if (IdProperty != null)
+					body.Add(MightBeChanged(ret, property, IdProperty, @base, changed));
+				else
+					body.Add(MightBeReplaced(ret, property, @base, changed));
 			}
 
 			body.Add(ret);
@@ -76,9 +80,106 @@ namespace POCOMerger.diff.common
 			return Expression.Lambda<Func<TType, TType, List<IDiffItem>>>(
 				Expression.Block(new[] { ret }, body),
 				@base, changed
-				);
+			);
 		}
 
-		#endregion
+		private ConditionalExpression MightBeReplaced(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
+		{
+			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
+			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
+
+			return Expression.IfThen(
+				Expression.NotEqual(
+					baseProperty,
+					changedProperty
+				),
+				this.NewDiffReplaced(ret, property, @base, changed)
+			);
+		}
+
+		private ConditionalExpression MightBeChanged(ParameterExpression ret, Property property, Property id, ParameterExpression @base, ParameterExpression changed)
+		{
+			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
+			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
+
+			MemberExpression baseId = Expression.Property(baseProperty, id.ReflectionPropertyInfo);
+			MemberExpression changedId = Expression.Property(changedProperty, id.ReflectionPropertyInfo);
+
+			Expression newDiffChanged = this.NewDiffChanged(ret, property, @base, changed);
+			return Expression.IfThenElse(
+				Expression.Or(
+					Expression.ReferenceEqual(
+						baseProperty,
+						Expression.Constant(null)
+					),
+					Expression.ReferenceEqual(
+						changedProperty,
+						Expression.Constant(null)
+					)
+				),
+				this.NewDiffReplaced(ret, property, @base, changed),
+				Expression.IfThenElse(
+					Expression.NotEqual(
+						baseId,
+						changedId
+					),
+					this.NewDiffReplaced(ret, property, @base, changed),
+					newDiffChanged
+				)
+			);
+		}
+
+		private MethodCallExpression NewDiffReplaced(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
+		{
+			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
+			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
+
+			return Expression.Call(
+				ret,
+				Members.List.Add(typeof(IDiffItem)),
+				Expression.New(
+					Members.DiffItems.NewClassReplaced(property.Type),
+					Expression.Constant(property),
+					baseProperty,
+					changedProperty
+				)
+			);
+		}
+
+		private Expression NewDiffChanged(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
+		{
+			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
+			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
+
+			ParameterExpression tmp = Expression.Parameter(typeof(IDiff), "tmp");
+
+			return Expression.Block(
+				new[] { tmp },
+				Expression.Assign(
+					tmp,
+					Expression.Call(
+						Expression.Constant(this.aMergerImplementation.Partial),
+						Members.MergerAlgorithms.Diff(property.Type),
+						baseProperty,
+						changedProperty
+					)
+				),
+				Expression.IfThen(
+					Expression.NotEqual(
+						Expression.Property(tmp, Members.Diff.Count()),
+						Expression.Constant(0)
+					),
+					Expression.Call(
+						ret,
+						Members.List.Add(typeof(IDiffItem)),
+						Expression.New(
+							Members.DiffItems.NewClassChanged(property.Type),
+							Expression.Constant(property),
+							tmp
+						)
+					)
+				)
+			);
+		}
 	}
 }

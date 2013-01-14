@@ -8,6 +8,7 @@ using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
 using POCOMerger.fastReflection;
+using POCOMerger.implementation;
 
 namespace POCOMerger.@internal
 {
@@ -25,14 +26,22 @@ namespace POCOMerger.@internal
 
 		public static class DiffItems
 		{
-			public static ConstructorInfo NewClassChanged()
+			public static ConstructorInfo NewClassChanged(Type tItemType)
 			{
-				return typeof(DiffClassChanged).GetConstructor(new[] { typeof(Property), typeof(IDiff) });
+				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), typeof(IDiff) });
 			}
 
 			public static ConstructorInfo NewClassReplaced(Type tItemType)
 			{
 				return typeof(DiffClassReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), tItemType, tItemType });
+			}
+		}
+
+		public static class Diff
+		{
+			public static PropertyInfo Count()
+			{
+				return typeof(IDiff).GetProperty("Count");
 			}
 		}
 
@@ -46,6 +55,14 @@ namespace POCOMerger.@internal
 			public static MethodInfo Add(Type tItemType)
 			{
 				return typeof(List<>).MakeGenericType(tItemType).GetMethod("Add", BindingFlags.Public | BindingFlags.Instance);
+			}
+		}
+
+		public class MergerAlgorithms
+		{
+			public static MethodInfo Diff(Type tType)
+			{
+				return typeof(PartialMergerAlgorithms).GetMethod("Diff").MakeGenericMethod(tType);
 			}
 		}
 

@@ -1,12 +1,15 @@
 ﻿using System;
+using POCOMerger.implementation;
 
 namespace POCOMerger.definition
 {
-	public interface IMergerDefinition
+	internal interface IClassMergerDefinition
 	{
 		Type DefinedFor { get; }
 
 		TRules GetRules<TRules>()
 			where TRules : class, IAlgorithmRules;
+
+		void Initialize(MergerImplementation mergerImplementation);
 	}
 }

@@ -7,11 +7,17 @@ namespace POCOMerger.implementation
 {
 	public class MergerImplementation
 	{
-		private readonly IEnumerable<IMergerDefinition> aDefinitions;
+		private readonly IEnumerable<IClassMergerDefinition> aDefinitions;
 
-		public MergerImplementation(IEnumerable<IMergerDefinition> definitions)
+		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions)
 		{
 			this.aDefinitions = definitions.ToList();
+
+			foreach (IClassMergerDefinition definition in definitions)
+			{
+				definition.Initialize(this);
+			}
+
 			this.Partial = new PartialMergerAlgorithms(this);
 		}
 
@@ -30,7 +36,7 @@ namespace POCOMerger.implementation
 			);
 		}
 
-		internal IMergerDefinition GetMergerFor(Type type)
+		internal IClassMergerDefinition GetMergerFor(Type type)
 		{
 			return this.aDefinitions.FirstOrDefault(mergerDefinition => mergerDefinition.DefinedFor == type);
 		}

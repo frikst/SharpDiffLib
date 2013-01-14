@@ -15,6 +15,11 @@ namespace POCOMerger.Test.Diff
 		{
 			public string Value { get; set; }
 			public string Value2 { get; set; }
+
+			public override string ToString()
+			{
+				return "<Sample>";
+			}
 		}
 
 		private class Merger : MergerDefinition<Merger>
@@ -33,7 +38,10 @@ namespace POCOMerger.Test.Diff
 				"-Value:one\r\n" +
 				"+Value:two";
 
-			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one" }, new Sample { Value = "two" });
+			var @base = new Sample { Value = "one" };
+			var changed = new Sample { Value = "two" };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
 			Assert.AreEqual(1, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
@@ -48,7 +56,18 @@ namespace POCOMerger.Test.Diff
 				"-Value2:one2\r\n" +
 				"+Value2:two2";
 
-			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one", Value2 = "one2" }, new Sample { Value = "two", Value2 = "two2" });
+			var @base = new Sample
+			{
+				Value = "one",
+				Value2 = "one2"
+			};
+			var changed = new Sample
+			{
+				Value = "two",
+				Value2 = "two2"
+			};
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
 			Assert.AreEqual(2, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
@@ -57,10 +76,23 @@ namespace POCOMerger.Test.Diff
 		[TestMethod]
 		public void TestNoneDifferent()
 		{
-			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one", Value2 = "one2" }, new Sample { Value = "one", Value2 = "one2" });
+			const string diff = "";
+
+			var @base = new Sample
+			{
+				Value = "one",
+				Value2 = "one2"
+			};
+			var changed = new Sample
+			{
+				Value = "one",
+				Value2 = "one2"
+			};
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
 			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(string.Empty, ret.ToString());
+			Assert.AreEqual(diff, ret.ToString());
 		}
 	}
 }

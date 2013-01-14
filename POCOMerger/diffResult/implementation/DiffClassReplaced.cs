@@ -3,6 +3,7 @@ using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
 using POCOMerger.fastReflection;
+using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
@@ -26,8 +27,8 @@ namespace POCOMerger.diffResult.implementation
 		{
 			StringBuilder ret = new StringBuilder();
 
-			ret.AppendFormat("{0}-{1}:{2}", new String('\t', indentLevel), this.Property.Name, this.OldValue).AppendLine();
-			ret.AppendFormat("{0}+{1}:{2}", new String('\t', indentLevel), this.Property.Name, this.NewValue);
+			ret.AppendIndent(indentLevel).Append('-').Append(this.Property.Name).Append(':').AppendNullable(this.OldValue).AppendLine();
+			ret.AppendIndent(indentLevel).Append('+').Append(this.Property.Name).Append(':').AppendNullable(this.NewValue);
 
 			return ret.ToString();
 		}

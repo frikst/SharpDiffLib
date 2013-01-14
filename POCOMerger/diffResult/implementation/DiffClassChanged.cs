@@ -4,10 +4,11 @@ using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.type;
 using POCOMerger.fastReflection;
+using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffClassChanged : IDiffItemChanged, IDiffClassItem
+	internal class DiffClassChanged<TItemType> : IDiffItemChanged, IDiffClassItem
 	{
 		public DiffClassChanged(Property property, IDiff diff)
 		{
@@ -19,14 +20,16 @@ namespace POCOMerger.diffResult.implementation
 
 		public Type ItemType
 		{
-			get { return this.Property.Type; }
+			get { return typeof(TItemType); }
 		}
 
 		public string ToString(int indentLevel)
 		{
 			StringBuilder ret = new StringBuilder();
-			ret.AppendFormat("{0}={1}:", new String('\t', indentLevel), this.Property.Name).AppendLine();
+
+			ret.AppendIndent(indentLevel).Append('=').Append(this.Property.Name).Append(':').AppendLine();
 			ret.Append(this.ValueDiff.ToString(indentLevel + 1));
+
 			return ret.ToString();
 		}
 

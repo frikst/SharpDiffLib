@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace POCOMerger.fastReflection
 {
@@ -57,6 +58,11 @@ namespace POCOMerger.fastReflection
 
 				return aProperties;
 			}
+		}
+
+		public static Property GetProperty(MemberInfo member)
+		{
+			return Properties.FirstOrDefault(property => property.ReflectionPropertyInfo == member);
 		}
 	}
 }

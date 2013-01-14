@@ -2,6 +2,7 @@
 using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
+using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
@@ -23,7 +24,9 @@ namespace POCOMerger.diffResult.implementation
 		public string ToString(int indentLevel)
 		{
 			StringBuilder ret = new StringBuilder();
-			ret.AppendFormat("{0}+{1}:{2}", new String('\t', indentLevel), this.Id, this.NewValue);
+
+			ret.AppendIndent(indentLevel).Append('+').Append(this.Id).Append(':').AppendNullable(this.NewValue);
+
 			return ret.ToString();
 		}
 

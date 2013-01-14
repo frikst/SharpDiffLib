@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="definition\IAlgorithmRules.cs" />
+    <Compile Include="definition\rules\GeneralRules.cs" />
     <Compile Include="diffResult\action\IDiffItemAdded.cs" />
     <Compile Include="diffResult\action\IDiffItemChanged.cs" />
     <Compile Include="diffResult\action\IDiffItemReplaced.cs" />
@@ -72,12 +73,13 @@
     <Compile Include="diffResult\type\IDiffOrderedCollectionItem.cs" />
     <Compile Include="diff\base\IDiffAlgorithm.cs" />
     <Compile Include="diffResult\base\IDiffItem.cs" />
-    <Compile Include="definition\IMergerDefinition.cs" />
+    <Compile Include="definition\IClassMergerDefinition.cs" />
     <Compile Include="definition\MergerDefinition.cs" />
     <Compile Include="fastReflection\Class.cs" />
     <Compile Include="implementation\MergerImplementation.cs" />
     <Compile Include="implementation\PartialMergerAlgorithms.cs" />
     <Compile Include="internal\Members.cs" />
+    <Compile Include="internal\StringBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="diff\common\ClassDiff.cs" />
   </ItemGroup>
