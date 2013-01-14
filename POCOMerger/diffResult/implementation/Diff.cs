@@ -43,12 +43,17 @@ namespace POCOMerger.diffResult.implementation
 			foreach (IDiffItem diffItem in this)
 				ret.AppendLine(diffItem.ToString(indentLevel));
 
-			return ret.ToString().TrimEnd('\n');
+			return ret.ToString().TrimEnd('\r', '\n');
 		}
 
 		public override string ToString()
 		{
 			return this.ToString(0);
+		}
+
+		public int Count
+		{
+			get { return this.aItems.Count; }
 		}
 
 		#endregion

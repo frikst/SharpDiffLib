@@ -6,6 +6,8 @@ namespace POCOMerger.diffResult.@base
 	{
 		string ToString(int indentLevel);
 		string ToString();
+
+		int Count { get; }
 	}
 
 	public interface IDiff<TType> : IDiff

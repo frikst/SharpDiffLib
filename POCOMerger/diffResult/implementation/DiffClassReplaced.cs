@@ -8,11 +8,11 @@ namespace POCOMerger.diffResult.implementation
 {
 	internal class DiffClassReplaced<TItemType> : IDiffItemReplaced<TItemType>, IDiffClassItem
 	{
-		public DiffClassReplaced(Property property, TItemType newValue, TItemType oldValue)
+		public DiffClassReplaced(Property property, TItemType oldValue, TItemType newValue)
 		{
 			this.Property = property;
-			this.NewValue = newValue;
 			this.OldValue = oldValue;
+			this.NewValue = newValue;
 		}
 
 		#region Implementation of IDiffItem
@@ -26,8 +26,8 @@ namespace POCOMerger.diffResult.implementation
 		{
 			StringBuilder ret = new StringBuilder();
 
-			ret.AppendFormat("{0}-{1}:{2}\n", new String('\t', indentLevel), this.Property.Name, this.OldValue);
-			ret.AppendFormat("{0}+{1}:{2}\n", new String('\t', indentLevel), this.Property.Name, this.NewValue);
+			ret.AppendFormat("{0}-{1}:{2}", new String('\t', indentLevel), this.Property.Name, this.OldValue).AppendLine();
+			ret.AppendFormat("{0}+{1}:{2}", new String('\t', indentLevel), this.Property.Name, this.NewValue);
 
 			return ret.ToString();
 		}

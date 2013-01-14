@@ -25,15 +25,9 @@ namespace POCOMerger.diffResult.implementation
 		public string ToString(int indentLevel)
 		{
 			StringBuilder ret = new StringBuilder();
-			ret.AppendFormat("{0}={1}:\n", new String('\t', indentLevel), this.Property.Name);
+			ret.AppendFormat("{0}={1}:", new String('\t', indentLevel), this.Property.Name).AppendLine();
 			ret.Append(this.ValueDiff.ToString(indentLevel + 1));
-
-			//foreach (IDiffItem diffItem in this.ValueDiff)
-			//{
-			//    ret.AppendLine(diffItem.ToString(indentLevel + 1));
-			//}
-
-			return ret.ToString().TrimEnd('\n');
+			return ret.ToString();
 		}
 
 		public override string ToString()

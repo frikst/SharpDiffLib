@@ -14,6 +14,7 @@ namespace POCOMerger.Test.Diff
 		private class Sample
 		{
 			public string Value { get; set; }
+			public string Value2 { get; set; }
 		}
 
 		private class Merger : MergerDefinition<Merger>
@@ -26,15 +27,40 @@ namespace POCOMerger.Test.Diff
 		}
 
 		[TestMethod]
-		public void TestDifferent()
+		public void TestOneDifferent()
 		{
 			const string diff =
-				"-Value:one\n" +
+				"-Value:one\r\n" +
 				"+Value:two";
 
 			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one" }, new Sample { Value = "two" });
 
+			Assert.AreEqual(1, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void TestAllDifferent()
+		{
+			const string diff =
+				"-Value:one\r\n" +
+				"+Value:two\r\n" +
+				"-Value2:one2\r\n" +
+				"+Value2:two2";
+
+			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one", Value2 = "one2" }, new Sample { Value = "two", Value2 = "two2" });
+
+			Assert.AreEqual(2, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void TestNoneDifferent()
+		{
+			var ret = Merger.Instance.Partial.Diff(new Sample { Value = "one", Value2 = "one2" }, new Sample { Value = "one", Value2 = "one2" });
+
+			Assert.AreEqual(0, ret.Count);
+			Assert.AreEqual(string.Empty, ret.ToString());
 		}
 	}
 }

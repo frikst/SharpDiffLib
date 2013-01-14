@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
 
@@ -20,7 +21,9 @@ namespace POCOMerger.diffResult.implementation
 
 		public string ToString(int indentLevel)
 		{
-			return string.Format("{0}+{1}\n", new String('\t', indentLevel), this.NewValue);
+			StringBuilder ret = new StringBuilder();
+			ret.AppendFormat("{0}+{1}", new String('\t', indentLevel), this.NewValue);
+			return ret.ToString();
 		}
 
 		public override string ToString()

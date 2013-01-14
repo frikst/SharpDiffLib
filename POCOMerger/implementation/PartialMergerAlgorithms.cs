@@ -25,7 +25,7 @@ namespace POCOMerger.implementation
 		private IDiffAlgorithm GetDiffAlgorithm(Type type)
 		{
 			object rules = this.aMergerImplementation.GetMergerFor(type).GetRules<IDiffAlgorithmRules>();
-			return (IDiffAlgorithm) InterfaceMembers.GetAlgorithm.MakeGenericMethod(type).Invoke(rules, null);
+			return (IDiffAlgorithm) Members.DiffAlgorithm.GetAlgorithm(type).Invoke(rules, null);
 		}
 
 		public IDiff<TType> Diff<TType>(TType @base, TType changed)
