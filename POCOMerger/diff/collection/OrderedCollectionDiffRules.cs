@@ -8,11 +8,11 @@ using POCOMerger.implementation;
 
 namespace POCOMerger.diff.collection
 {
-	public class SortedCollectionDiffRules : IDiffAlgorithmRules
+	public class OrderedCollectionDiffRules : IDiffAlgorithmRules
 	{
 		private MergerImplementation aMergerImplementation;
 
-		public SortedCollectionDiffRules()
+		public OrderedCollectionDiffRules()
 		{
 			this.aMergerImplementation = null;
 		}
@@ -32,10 +32,10 @@ namespace POCOMerger.diff.collection
 			}
 
 			if (itemType == null)
-				throw new Exception("Cannot compare non-collection type with SortedCollectionDiff");
+				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
 
-			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(SortedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.aMergerImplementation);
+			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(OrderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.aMergerImplementation);
 		}
 
 		#endregion

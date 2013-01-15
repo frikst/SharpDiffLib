@@ -14,7 +14,7 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diff.collection
 {
-	public class SortedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
+	public class OrderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
 	{
 		private MergerImplementation aMergerImplementation;
 
@@ -22,7 +22,7 @@ namespace POCOMerger.diff.collection
 		private IDiffAlgorithm<TItemType> aItemDiff;
 		private Property aIDProperty;
 
-		public SortedCollectionDiff(MergerImplementation mergerImplementation)
+		public OrderedCollectionDiff(MergerImplementation mergerImplementation)
 		{
 			this.aMergerImplementation = mergerImplementation;
 

@@ -67,8 +67,8 @@
     <Compile Include="diffResult\type\IDiffUnorderedCollectionItem.cs" />
     <Compile Include="diffResult\type\IDiffUnorderedCollectionItemWithID.cs" />
     <Compile Include="diff\base\IDiffAlgorithmRules.cs" />
-    <Compile Include="diff\collection\SortedCollectionDiff.cs" />
-    <Compile Include="diff\collection\SortedCollectionDiffRules.cs" />
+    <Compile Include="diff\collection\OrderedCollectionDiff.cs" />
+    <Compile Include="diff\collection\OrderedCollectionDiffRules.cs" />
     <Compile Include="diff\common\ClassDiffRules.cs" />
     <Compile Include="fastReflection\ICountableEnumerable.cs" />
     <Compile Include="fastReflection\Property.cs" />
