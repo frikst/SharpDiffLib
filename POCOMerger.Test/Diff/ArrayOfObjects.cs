@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<Sample[]>()
-					.Rules<SortedCollectionDiffRules>();
+					.Rules<OrderedCollectionDiffRules>();
 
 				Define<Sample>()
 					.Rules<ClassDiffRules>()
@@ -106,6 +107,29 @@ namespace POCOMerger.Test.Diff
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
 			Assert.AreEqual(1, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void OneReplacedWithNull()
+		{
+			const string diff =
+				"-1:<Sample:2>\r\n" +
+				"+1:(null)";
+			var @base = new[]
+			{
+				new Sample { Id = 1, Value = "a" },
+				new Sample { Id = 2, Value = "b" }
+			};
+			var changed = new[]
+			{
+				new Sample { Id = 1, Value = "a" },
+				null
+			};
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(2, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
 	}

@@ -16,11 +16,12 @@ namespace POCOMerger.diff.collection
 {
 	public class OrderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
 	{
-		private MergerImplementation aMergerImplementation;
+		private readonly MergerImplementation aMergerImplementation;
+
+		private readonly Property aIDProperty;
 
 		private Func<TItemType, TItemType, bool> aIsTheSame;
 		private IDiffAlgorithm<TItemType> aItemDiff;
-		private Property aIDProperty;
 
 		public OrderedCollectionDiff(MergerImplementation mergerImplementation)
 		{
@@ -68,10 +69,17 @@ namespace POCOMerger.diff.collection
 
 				Expression<Func<TItemType, TItemType, bool>> isTheSameExpression =
 					Expression.Lambda<Func<TItemType, TItemType, bool>>(
-						Expression.Equal(
-							Expression.Property(baseParameter, this.aIDProperty.ReflectionPropertyInfo),
-							Expression.Property(changedParameter, this.aIDProperty.ReflectionPropertyInfo)
+						Expression.Condition(
+							Expression.Or(
+								Expression.ReferenceEqual(baseParameter, Expression.Constant(null)),
+								Expression.ReferenceEqual(changedParameter, Expression.Constant(null))
 							),
+							Expression.Constant(false),
+							Expression.Equal(
+								Expression.Property(baseParameter, this.aIDProperty.ReflectionPropertyInfo),
+								Expression.Property(changedParameter, this.aIDProperty.ReflectionPropertyInfo)
+							)
+						),
 						baseParameter, changedParameter
 					);
 
@@ -82,7 +90,7 @@ namespace POCOMerger.diff.collection
 		private IDiff<TType> ComputeInternal(IEnumerable<TItemType> @base, IEnumerable<TItemType> changed)
 		{
 
-			Func<TItemType, TItemType, bool> isTheSame = (Func<TItemType, TItemType, bool>) this.aIsTheSame;
+			Func<TItemType, TItemType, bool> isTheSame = this.aIsTheSame;
 
 			IEnumerator<TItemType> baseEnumerator = @base.GetEnumerator();
 			Queue<TItemType> baseQueue = new Queue<TItemType>();

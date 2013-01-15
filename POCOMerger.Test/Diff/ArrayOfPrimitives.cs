@@ -16,7 +16,7 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<int[]>()
-					.Rules<SortedCollectionDiffRules>();
+					.Rules<OrderedCollectionDiffRules>();
 			}
 		}
 
