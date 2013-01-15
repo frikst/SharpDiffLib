@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Text;
 using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.type;
 using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffUnorderedCollectionWithIDAdded<TItemType, TIdType> : IDiffItemAdded<TItemType>, IDiffUnorderedCollectionItemWithID<TIdType>
+	internal class DiffUnorderedCollectionChanged<TIdType, TItemType> : IDiffItemChanged, IDiffUnorderedCollectionItemWithID<TIdType>
 	{
-		public DiffUnorderedCollectionWithIDAdded(TIdType id, TItemType newValue)
+		public DiffUnorderedCollectionChanged(TIdType id, IDiff valueDiff)
 		{
 			this.Id = id;
-			this.NewValue = newValue;
+			this.ValueDiff = valueDiff;
 		}
 
 		#region Implementation of IDiffItem
@@ -25,7 +26,8 @@ namespace POCOMerger.diffResult.implementation
 		{
 			StringBuilder ret = new StringBuilder();
 
-			ret.AppendIndent(indentLevel).Append('+').Append(this.Id).Append(':').AppendNullable(this.NewValue);
+			ret.AppendIndent(indentLevel).Append('=').Append(this.Id).Append(':');
+			ret.Append(this.ValueDiff.ToString(indentLevel + 1));
 
 			return ret.ToString();
 		}
@@ -37,18 +39,9 @@ namespace POCOMerger.diffResult.implementation
 
 		#endregion
 
-		#region Implementation of IDiffItemAdded
+		#region Implementation of IDiffItemChanged
 
-		object IDiffItemAdded.NewValue
-		{
-			get { return this.NewValue; }
-		}
-
-		#endregion
-
-		#region Implementation of IDiffItemAdded<TItemType>
-
-		public TItemType NewValue { get; private set; }
+		public IDiff ValueDiff { get; private set; }
 
 		#endregion
 

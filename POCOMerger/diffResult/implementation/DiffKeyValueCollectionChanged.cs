@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
@@ -7,11 +9,11 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffUnorderedCollectionWithIDChanged<TItemType, TIdType> : IDiffItemChanged, IDiffUnorderedCollectionItemWithID<TIdType>
+	internal class DiffKeyValueCollectionChanged<TKeyType, TItemType> : IDiffKeyValueCollection<TKeyType>, IDiffItemChanged
 	{
-		public DiffUnorderedCollectionWithIDChanged(TIdType id, IDiff valueDiff)
+		public DiffKeyValueCollectionChanged(TKeyType key, IDiff valueDiff)
 		{
-			this.Id = id;
+			this.Key = key;
 			this.ValueDiff = valueDiff;
 		}
 
@@ -26,7 +28,7 @@ namespace POCOMerger.diffResult.implementation
 		{
 			StringBuilder ret = new StringBuilder();
 
-			ret.AppendIndent(indentLevel).Append('=').Append(this.Id).Append(':');
+			ret.AppendIndent(indentLevel).Append('=').Append(this.Key).Append(':');
 			ret.Append(this.ValueDiff.ToString(indentLevel + 1));
 
 			return ret.ToString();
@@ -45,23 +47,23 @@ namespace POCOMerger.diffResult.implementation
 
 		#endregion
 
-		#region Implementation of IDiffUnorderedCollectionItemWithID
+		#region Implementation of IDiffKeyValueCollection
 
-		public Type IdType
+		public Type KeyType
 		{
-			get { return typeof(TIdType); }
+			get { return typeof(TKeyType); }
 		}
 
-		object IDiffUnorderedCollectionItemWithID.Id
+		object IDiffKeyValueCollection.Key
 		{
-			get { return this.Id; }
+			get { return this.Key; }
 		}
 
 		#endregion
 
-		#region Implementation of IDiffUnorderedCollectionItemWithID<TIdType>
+		#region Implementation of IDiffKeyValueCollection<TKeyType>
 
-		public TIdType Id { get; private set; }
+		public TKeyType Key { get; private set; }
 
 		#endregion
 	}
