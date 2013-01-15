@@ -9,7 +9,7 @@ using POCOMerger.diff.collection;
 namespace POCOMerger.Test.Diff
 {
 	[TestClass]
-	public class ArrayOfPrimitivesTest
+	public class ArrayOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
 		{
@@ -110,7 +110,7 @@ namespace POCOMerger.Test.Diff
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			//Assert.AreEqual(5, ret.Count);
+			Assert.AreEqual(5, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
 

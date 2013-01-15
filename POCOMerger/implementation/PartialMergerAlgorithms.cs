@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using POCOMerger.definition;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult;
 using POCOMerger.diffResult.@base;
@@ -24,7 +25,16 @@ namespace POCOMerger.implementation
 
 		private IDiffAlgorithm GetDiffAlgorithm(Type type)
 		{
-			object rules = this.aMergerImplementation.GetMergerFor(type).GetRules<IDiffAlgorithmRules>();
+			IClassMergerDefinition definition = this.aMergerImplementation.GetMergerFor(type);
+
+			if (definition == null)
+				return null;
+
+			object rules = definition.GetRules<IDiffAlgorithmRules>();
+
+			if (rules == null)
+				return null;
+
 			return (IDiffAlgorithm) Members.DiffAlgorithm.GetAlgorithm(type).Invoke(rules, null);
 		}
 

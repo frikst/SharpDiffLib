@@ -21,7 +21,21 @@ namespace POCOMerger.diff.collection
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
-			return new SortedCollectionDiff<TType>(this.aMergerImplementation);
+			Type itemType = null;
+
+			foreach (Type @interface in typeof(TType).GetInterfaces())
+			{
+				if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+				{
+					itemType = @interface.GetGenericArguments()[0];
+				}
+			}
+
+			if (itemType == null)
+				throw new Exception("Cannot compare non-collection type with SortedCollectionDiff");
+
+
+			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(SortedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.aMergerImplementation);
 		}
 
 		#endregion
