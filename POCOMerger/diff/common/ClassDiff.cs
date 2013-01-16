@@ -12,7 +12,7 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diff.common
 {
-	public class ClassDiff<TType> : IDiffAlgorithm<TType>
+	internal class ClassDiff<TType> : IDiffAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
 		private Func<TType, TType, List<IDiffItem>> aCompiled;

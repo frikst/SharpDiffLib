@@ -57,6 +57,7 @@
     <Compile Include="diffResult\implementation\DiffKeyValueCollectionAdded.cs" />
     <Compile Include="diffResult\implementation\DiffKeyValueCollectionChanged.cs" />
     <Compile Include="diffResult\implementation\DiffKeyValueCollectionRemoved.cs" />
+    <Compile Include="diffResult\implementation\DiffKeyValueCollectionReplaced.cs" />
     <Compile Include="diffResult\implementation\DiffOrderedCollectionAdded.cs" />
     <Compile Include="diffResult\implementation\DiffOrderedCollectionChanged.cs" />
     <Compile Include="diffResult\implementation\DiffOrderedCollectionRemoved.cs" />
@@ -68,9 +69,13 @@
     <Compile Include="diffResult\type\IDiffKeyValueCollection.cs" />
     <Compile Include="diffResult\type\IDiffUnorderedCollectionItem.cs" />
     <Compile Include="diff\base\IDiffAlgorithmRules.cs" />
+    <Compile Include="diff\collection\KeyValueCollectionDiff.cs" />
+    <Compile Include="diff\collection\KeyValueCollectionDiffRules.cs" />
     <Compile Include="diff\collection\OrderedCollectionDiff.cs" />
     <Compile Include="diff\collection\OrderedCollectionDiffRules.cs" />
+    <Compile Include="diff\collection\UnorderedCollectionDiff.cs" />
     <Compile Include="diff\common\ClassDiffRules.cs" />
+    <Compile Include="diff\collection\UnorderedCollectionDiffRules.cs" />
     <Compile Include="fastReflection\ICountableEnumerable.cs" />
     <Compile Include="fastReflection\Property.cs" />
     <Compile Include="diffResult\type\IDiffOrderedCollectionItem.cs" />

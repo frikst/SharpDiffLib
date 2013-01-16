@@ -14,7 +14,7 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diff.collection
 {
-	public class OrderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
+	internal class OrderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
 
@@ -99,7 +99,7 @@ namespace POCOMerger.diff.collection
 
 			List<IDiffItem> ret = new List<IDiffItem>(20); // 20 seems to be a good value :)
 
-			List<TItemType> baseQueueNew = new List<TItemType>(); // same here
+			List<TItemType> baseQueueNew = new List<TItemType>();
 			List<TItemType> changedQueueNew = new List<TItemType>();
 
 			int index = 0;
