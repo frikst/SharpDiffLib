@@ -29,16 +29,7 @@ namespace POCOMerger.diff.collection
 
 			this.aIsTheSame = null;
 
-			this.aIDProperty = null;
-
-			IClassMergerDefinition mergerDefinition = this.aMergerImplementation.GetMergerFor(typeof(TItemType));
-
-			if (mergerDefinition != null)
-			{
-				IGeneralRules rules = mergerDefinition.GetRules<IGeneralRules>();
-				if (rules != null)
-					this.aIDProperty = rules.IdProperty;
-			}
+			this.aIDProperty = GeneralRulesHelper<TItemType>.GetIdProperty(mergerImplementation);
 		}
 
 		#region Implementation of IDiffAlgorithm<TType>

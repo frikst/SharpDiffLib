@@ -58,19 +58,10 @@ namespace POCOMerger.diff.common
 
 			foreach (Property property in Class<TType>.Properties)
 			{
-				Property IdProperty = null;
-				IClassMergerDefinition mergerDefinition = this.aMergerImplementation.GetMergerFor(property.Type);
+				Property idProperty = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, property.Type);
 
-				if (mergerDefinition != null)
-				{
-					IGeneralRules rules = mergerDefinition.GetRules<IGeneralRules>();
-					if (rules != null)
-						IdProperty = rules.IdProperty;
-				}
-
-
-				if (IdProperty != null)
-					body.Add(MightBeChanged(ret, property, IdProperty, @base, changed));
+				if (idProperty != null)
+					body.Add(MightBeChanged(ret, property, idProperty, @base, changed));
 				else
 					body.Add(MightBeReplaced(ret, property, @base, changed));
 			}

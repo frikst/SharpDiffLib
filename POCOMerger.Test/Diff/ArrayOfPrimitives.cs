@@ -191,5 +191,67 @@ namespace POCOMerger.Test.Diff
 			Assert.AreEqual(10, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
+
+		[TestMethod]
+		public void AllAdded()
+		{
+			const string diff =
+				"+0:3\r\n" +
+				"+1:3\r\n" +
+				"+2:3\r\n" +
+				"+3:3\r\n" +
+				"+4:3";
+			var @base = new int[] { };
+			var changed = new[] { 3, 3, 3, 3, 3 };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(5, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void AllRemoved()
+		{
+			const string diff =
+				"-0:2\r\n" +
+				"-0:2\r\n" +
+				"-0:2\r\n" +
+				"-0:2\r\n" +
+				"-0:2";
+			var @base = new[] { 2, 2, 2, 2, 2 };
+			var changed = new int[] { };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(5, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void EmptyUnchanged()
+		{
+			const string diff = "";
+			var @base = new int[] { };
+			var changed = new int[] { };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(0, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void NonEmptyUnchanged()
+		{
+			const string diff = "";
+			var @base = new[] { 2, 2, 2, 2, 2 };
+			var changed = new[] { 2, 2, 2, 2, 2 };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(0, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
 	}
 }

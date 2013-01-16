@@ -9,6 +9,11 @@ using POCOMerger.implementation;
 
 namespace POCOMerger.definition.rules
 {
+	internal interface IGeneralRules : IAlgorithmRules
+	{
+		Property IdProperty { get; }
+	}
+
 	public class GeneralRules<TType> : IGeneralRules
 	{
 		private Property aIdProperty;
@@ -40,10 +45,5 @@ namespace POCOMerger.definition.rules
 		}
 
 		#endregion
-	}
-
-	internal interface IGeneralRules : IAlgorithmRules
-	{
-		Property IdProperty { get; }
 	}
 }
