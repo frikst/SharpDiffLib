@@ -70,6 +70,7 @@
     <Compile Include="diffResult\type\IDiffKeyValueCollection.cs" />
     <Compile Include="diffResult\type\IDiffUnorderedCollectionItem.cs" />
     <Compile Include="diff\base\IDiffAlgorithmRules.cs" />
+    <Compile Include="diff\collection\UnorderedCollectionWithIdDiff.cs" />
     <Compile Include="diff\collection\KeyValueCollectionDiff.cs" />
     <Compile Include="diff\collection\KeyValueCollectionDiffRules.cs" />
     <Compile Include="diff\collection\OrderedCollectionDiff.cs" />

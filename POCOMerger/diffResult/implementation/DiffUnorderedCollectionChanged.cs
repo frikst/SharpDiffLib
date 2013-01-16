@@ -26,7 +26,7 @@ namespace POCOMerger.diffResult.implementation
 		{
 			StringBuilder ret = new StringBuilder();
 
-			ret.AppendIndent(indentLevel).Append('=').Append(this.Id).Append(':');
+			ret.AppendIndent(indentLevel).Append('=').Append(this.Id).Append(':').AppendLine();
 			ret.Append(this.ValueDiff.ToString(indentLevel + 1));
 
 			return ret.ToString();

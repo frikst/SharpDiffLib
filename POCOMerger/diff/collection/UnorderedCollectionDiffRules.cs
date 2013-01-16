@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
+using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 
 namespace POCOMerger.diff.collection
@@ -31,8 +33,18 @@ namespace POCOMerger.diff.collection
 			if (itemType == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
+			Property idProperty = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, itemType);
 
-			return (IDiffAlgorithm<TType>)Activator.CreateInstance(typeof(UnorderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.aMergerImplementation);
+			if (idProperty == null)
+				return (IDiffAlgorithm<TType>) Activator.CreateInstance(
+					typeof(UnorderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType),
+					this.aMergerImplementation
+				);
+			else
+				return (IDiffAlgorithm<TType>) Activator.CreateInstance(
+					typeof(UnorderedCollectionWithIdDiff<,,>).MakeGenericType(typeof(TType), idProperty.Type, itemType),
+					this.aMergerImplementation
+				);
 		}
 
 		#endregion

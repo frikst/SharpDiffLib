@@ -25,6 +25,7 @@ namespace POCOMerger.Test.Diff
 				return "<Sample:" + Id + ">";
 			}
 		}
+
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()
