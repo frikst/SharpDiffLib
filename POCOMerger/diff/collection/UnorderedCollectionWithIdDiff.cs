@@ -18,13 +18,13 @@ namespace POCOMerger.diff.collection
 		private readonly MergerImplementation aMergerImplementation;
 		private Func<TItemType, TIdType> aIdAccessor;
 		private IDiffAlgorithm<TItemType> aItemDiff;
-		private readonly Property aIDProperty;
+		private readonly Property aIdProperty;
 
 		public UnorderedCollectionWithIdDiff(MergerImplementation mergerImplementation)
 		{
 			this.aMergerImplementation = mergerImplementation;
 
-			this.aIDProperty = GeneralRulesHelper<TItemType>.GetIdProperty(mergerImplementation);
+			this.aIdProperty = GeneralRulesHelper<TItemType>.GetIdProperty(mergerImplementation);
 		}
 
 		#region Implementation of IDiffAlgorithm<TType>
@@ -33,7 +33,7 @@ namespace POCOMerger.diff.collection
 		{
 			if (this.aIdAccessor == null)
 			{
-				this.aIdAccessor = this.CreateIdAccessor();
+				this.aIdAccessor = IdHelpers.CreateIdAccessor<TItemType, TIdType>(this.aIdProperty);
 				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
 			}
 
@@ -41,19 +41,6 @@ namespace POCOMerger.diff.collection
 		}
 
 		#endregion
-
-		private Func<TItemType, TIdType> CreateIdAccessor()
-		{
-			ParameterExpression obj = Expression.Parameter(typeof(TItemType), "obj");
-
-			Expression<Func<TItemType, TIdType>> propertyGetter =
-				Expression.Lambda<Func<TItemType, TIdType>>(
-					Expression.Property(obj, this.aIDProperty.ReflectionPropertyInfo),
-					obj
-				);
-
-			return propertyGetter.Compile();
-		}
 
 		private IDiff<TType> ComputeInternal(IEnumerable<TItemType> @base, IEnumerable<TItemType> changed)
 		{

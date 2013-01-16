@@ -38,7 +38,7 @@ namespace POCOMerger.diff.collection
 		{
 			if (this.aIsTheSame == null)
 			{
-				this.aIsTheSame = this.CompileIsTheSame();
+				this.aIsTheSame = IdHelpers.CompileIsTheSame<TItemType>(this.aIDProperty);
 				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
 			}
 
@@ -46,37 +46,6 @@ namespace POCOMerger.diff.collection
 		}
 
 		#endregion
-
-		private Func<TItemType, TItemType, bool> CompileIsTheSame()
-		{
-			if (this.aIDProperty == null)
-			{
-				return EqualityComparer<TItemType>.Default.Equals;
-			}
-			else
-			{
-				ParameterExpression baseParameter = Expression.Parameter(typeof(TItemType), "base");
-				ParameterExpression changedParameter = Expression.Parameter(typeof(TItemType), "changed");
-
-				Expression<Func<TItemType, TItemType, bool>> isTheSameExpression =
-					Expression.Lambda<Func<TItemType, TItemType, bool>>(
-						Expression.Condition(
-							Expression.Or(
-								Expression.ReferenceEqual(baseParameter, Expression.Constant(null)),
-								Expression.ReferenceEqual(changedParameter, Expression.Constant(null))
-							),
-							Expression.Constant(false),
-							Expression.Equal(
-								Expression.Property(baseParameter, this.aIDProperty.ReflectionPropertyInfo),
-								Expression.Property(changedParameter, this.aIDProperty.ReflectionPropertyInfo)
-							)
-						),
-						baseParameter, changedParameter
-					);
-
-				return isTheSameExpression.Compile();
-			}
-		}
 
 		private IDiff<TType> ComputeInternal(IEnumerable<TItemType> @base, IEnumerable<TItemType> changed)
 		{

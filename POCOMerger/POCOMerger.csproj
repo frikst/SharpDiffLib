@@ -88,6 +88,7 @@
     <Compile Include="fastReflection\Class.cs" />
     <Compile Include="implementation\MergerImplementation.cs" />
     <Compile Include="implementation\PartialMergerAlgorithms.cs" />
+    <Compile Include="internal\IdHelpers.cs" />
     <Compile Include="internal\LinqExtensions.cs" />
     <Compile Include="internal\Members.cs" />
     <Compile Include="internal\PropertyEqualityComparer.cs" />
