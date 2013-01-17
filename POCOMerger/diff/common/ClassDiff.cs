@@ -108,7 +108,13 @@ namespace POCOMerger.diff.common
 						Expression.Constant(null)
 					)
 				),
-				this.NewDiffReplaced(ret, property, @base, changed),
+				Expression.IfThen(
+					Expression.ReferenceNotEqual(
+						baseProperty,
+						changedProperty
+					),
+					this.NewDiffReplaced(ret, property, @base, changed)
+				),
 				Expression.IfThenElse(
 					Expression.NotEqual(
 						baseId,

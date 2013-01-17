@@ -197,5 +197,27 @@ namespace POCOMerger.Test.Diff
 			Assert.AreEqual(1, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
+
+		[TestMethod]
+		public void TestInnerNullBoth()
+		{
+			const string diff = "";
+
+			var @base = new Sample
+			{
+				Value = "one",
+				ValueInner = null
+			};
+			var changed = new Sample
+			{
+				Value = "one",
+				ValueInner = null
+			};
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(0, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
 	}
 }
