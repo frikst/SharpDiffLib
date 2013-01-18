@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using POCOMerger.implementation;
 
 namespace POCOMerger.definition.rules
@@ -13,6 +14,8 @@ namespace POCOMerger.definition.rules
 		protected MergerImplementation MergerImplementation { get; private set; }
 
 		#region Implementation of IAlgorithmRules
+
+		public abstract IEnumerable<Type> GetPossibleResults();
 
 		void IAlgorithmRules.Initialize(MergerImplementation mergerImplementation)
 		{

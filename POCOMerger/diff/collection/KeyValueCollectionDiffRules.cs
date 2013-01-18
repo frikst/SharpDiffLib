@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
+using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.type;
 using POCOMerger.implementation;
 
 namespace POCOMerger.diff.collection
@@ -48,6 +50,15 @@ namespace POCOMerger.diff.collection
 			itemType = null;
 
 			return false;
+		}
+
+		public override IEnumerable<Type> GetPossibleResults()
+		{
+			yield return typeof(IDiffKeyValueCollectionItem);
+			yield return typeof(IDiffItemAdded);
+			yield return typeof(IDiffItemRemoved);
+			yield return typeof(IDiffItemChanged);
+			yield return typeof(IDiffItemReplaced);
 		}
 
 		#endregion

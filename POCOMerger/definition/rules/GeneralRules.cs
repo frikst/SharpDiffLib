@@ -46,6 +46,11 @@ namespace POCOMerger.definition.rules
 
 		#region Implementation of IAlgorithmRules
 
+		public override IEnumerable<Type> GetPossibleResults()
+		{
+			return null;
+		}
+
 		IAlgorithmRules IAlgorithmRules.InheritAfter
 		{
 			get { return this.aInheritAfter; }

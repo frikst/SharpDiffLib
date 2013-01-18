@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
+using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.type;
 using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 
@@ -38,6 +40,16 @@ namespace POCOMerger.diff.collection
 					typeof(UnorderedCollectionWithIdDiff<,,>).MakeGenericType(typeof(TType), idProperty.Type, itemType),
 					this.MergerImplementation
 				);
+		}
+
+		public override IEnumerable<Type> GetPossibleResults()
+		{
+			yield return typeof(IDiffUnorderedCollectionItem);
+			yield return typeof(IDiffUnorderedCollectionItemWithID);
+			yield return typeof(IDiffItemAdded);
+			yield return typeof(IDiffItemRemoved);
+			yield return typeof(IDiffItemChanged);
+			yield return typeof(IDiffItemReplaced);
 		}
 
 		#endregion
