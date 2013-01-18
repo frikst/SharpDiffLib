@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="definition\ClassMergerDefinition.cs" />
-    <Compile Include="definition\IAlgorithmRules.cs" />
+    <Compile Include="definition\rules\IAlgorithmRules.cs" />
+    <Compile Include="definition\rules\BaseRules.cs" />
     <Compile Include="definition\rules\GeneralRules.cs" />
     <Compile Include="definition\rules\GeneralRulesHelper.cs" />
     <Compile Include="diffResult\action\IDiffItemAdded.cs" />

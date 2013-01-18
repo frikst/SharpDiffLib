@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 
@@ -21,14 +18,10 @@ namespace POCOMerger.definition.rules
 		{
 			Property idProperty = null;
 
-			IClassMergerDefinition mergerDefinition = mergerImplementation.GetMergerFor(type);
+			IGeneralRules rules = mergerImplementation.GetMergerRulesFor<IGeneralRules>(type);
 
-			if (mergerDefinition != null)
-			{
-				IGeneralRules rules = mergerDefinition.GetRules<IGeneralRules>();
-				if (rules != null)
-					idProperty = rules.IdProperty;
-			}
+			if (rules != null)
+				idProperty = rules.IdProperty;
 
 			return idProperty;
 		}

@@ -7,15 +7,8 @@ using POCOMerger.implementation;
 
 namespace POCOMerger.diff.collection
 {
-	public class UnorderedCollectionDiffRules : IDiffAlgorithmRules
+	public class UnorderedCollectionDiffRules : BaseRules, IDiffAlgorithmRules
 	{
-		private MergerImplementation aMergerImplementation;
-
-		public UnorderedCollectionDiffRules()
-		{
-			this.aMergerImplementation = null;
-		}
-
 		#region Implementation of IDiffAlgorithmRules
 
 		public IDiffAlgorithm<TType> GetAlgorithm<TType>()
@@ -33,27 +26,18 @@ namespace POCOMerger.diff.collection
 			if (itemType == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
-			Property idProperty = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, itemType);
+			Property idProperty = GeneralRulesHelper.GetIdProperty(this.MergerImplementation, itemType);
 
 			if (idProperty == null)
 				return (IDiffAlgorithm<TType>) Activator.CreateInstance(
 					typeof(UnorderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType),
-					this.aMergerImplementation
+					this.MergerImplementation
 				);
 			else
 				return (IDiffAlgorithm<TType>) Activator.CreateInstance(
 					typeof(UnorderedCollectionWithIdDiff<,,>).MakeGenericType(typeof(TType), idProperty.Type, itemType),
-					this.aMergerImplementation
+					this.MergerImplementation
 				);
-		}
-
-		#endregion
-
-		#region Implementation of IAlgorithmRules
-
-		public void Initialize(MergerImplementation mergerImplementation)
-		{
-			this.aMergerImplementation = mergerImplementation;
 		}
 
 		#endregion

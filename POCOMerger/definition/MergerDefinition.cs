@@ -12,7 +12,7 @@ namespace POCOMerger.definition
 		private bool aFinished;
 		private readonly List<IClassMergerDefinition> aDefinitions;
 
-		public MergerDefinition()
+		protected MergerDefinition()
 		{
 			this.aDefinitions = new List<IClassMergerDefinition>();
 			this.aFinished = false;
@@ -44,7 +44,7 @@ namespace POCOMerger.definition
 			if (this.aFinished)
 				throw new Exception("Cannot modify the mapping");
 
-			ClassMergerDefinition<TClass> ret = new ClassMergerDefinition<TClass>();
+			ClassMergerDefinition<TClass> ret = new ClassMergerDefinition<TClass>(this.aDefinitions);
 			this.aDefinitions.Add(ret);
 			return ret;
 		}

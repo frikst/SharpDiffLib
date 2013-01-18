@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Diff\ArrayOfObjects.cs" />
     <Compile Include="Diff\ArrayOfPrimitives.cs" />
+    <Compile Include="Diff\RulesInheritance.cs" />
     <Compile Include="Diff\ValueObjectDiff.cs" />
     <Compile Include="Diff\DictionaryOfPrimitives.cs" />
     <Compile Include="Diff\SetOfObjects.cs" />

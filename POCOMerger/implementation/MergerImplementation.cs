@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using POCOMerger.definition;
+using POCOMerger.definition.rules;
 
 namespace POCOMerger.implementation
 {
@@ -36,9 +37,22 @@ namespace POCOMerger.implementation
 			);
 		}
 
-		internal IClassMergerDefinition GetMergerFor(Type type)
+		internal TRules GetMergerRulesFor<TRules>(Type type)
+			where TRules : class, IAlgorithmRules
 		{
-			return this.aDefinitions.FirstOrDefault(mergerDefinition => mergerDefinition.DefinedFor == type);
+
+
+			for (Type tmp = type; tmp != null; tmp = tmp.BaseType)
+			{
+				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tmp))
+				{
+					TRules rules = definition.GetRules<TRules>();
+
+					if (rules != null && (rules.IsInheritable || tmp == type))
+						return rules;
+				}
+			}
+			return null;
 		}
 	}
 }

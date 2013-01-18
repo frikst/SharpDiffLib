@@ -14,9 +14,10 @@ namespace POCOMerger.definition.rules
 		Property IdProperty { get; }
 	}
 
-	public class GeneralRules<TType> : IGeneralRules
+	public class GeneralRules<TType> : BaseRules, IGeneralRules
 	{
 		private Property aIdProperty;
+		private IAlgorithmRules aInheritAfter;
 
 		public GeneralRules()
 		{
@@ -32,16 +33,23 @@ namespace POCOMerger.definition.rules
 
 		Property IGeneralRules.IdProperty
 		{
-			get { return this.aIdProperty; }
+			get
+			{
+				if (this.aIdProperty == null && this.aInheritAfter is IGeneralRules)
+					this.aIdProperty = ((IGeneralRules) this.aInheritAfter).IdProperty;
+
+				return this.aIdProperty;
+			}
 		}
 
 		#endregion
 
 		#region Implementation of IAlgorithmRules
 
-		void IAlgorithmRules.Initialize(MergerImplementation mergerImplementation)
+		IAlgorithmRules IAlgorithmRules.InheritAfter
 		{
-			
+			get { return this.aInheritAfter; }
+			set { this.aInheritAfter = value; }
 		}
 
 		#endregion

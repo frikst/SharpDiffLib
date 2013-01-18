@@ -12,9 +12,11 @@ namespace POCOMerger.implementation
 	public class PartialMergerAlgorithms
 	{
 		private readonly MergerImplementation aMergerImplementation;
+		private Dictionary<Type, IDiffAlgorithm> aDiffAlgorithms;
 
 		public PartialMergerAlgorithms(MergerImplementation mergerImplementation)
 		{
+			this.aDiffAlgorithms = new Dictionary<Type, IDiffAlgorithm>();
 			this.aMergerImplementation = mergerImplementation;
 		}
 
@@ -25,17 +27,24 @@ namespace POCOMerger.implementation
 
 		private IDiffAlgorithm GetDiffAlgorithm(Type type)
 		{
-			IClassMergerDefinition definition = this.aMergerImplementation.GetMergerFor(type);
+			IDiffAlgorithm ret;
 
-			if (definition == null)
-				return null;
+			if (this.aDiffAlgorithms.TryGetValue(type, out ret))
+				return ret;
 
-			object rules = definition.GetRules<IDiffAlgorithmRules>();
+			IDiffAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesFor<IDiffAlgorithmRules>(type);
 
 			if (rules == null)
+			{
+				this.aDiffAlgorithms[type] = null;
 				return null;
+			}
 
-			return (IDiffAlgorithm) Members.DiffAlgorithm.GetAlgorithm(type).Invoke(rules, null);
+			ret = (IDiffAlgorithm) Members.DiffAlgorithm.GetAlgorithm(type).Invoke(rules, null);
+
+			aDiffAlgorithms[type] = ret;
+
+			return ret;
 		}
 
 		public IDiff<TType> Diff<TType>(TType @base, TType changed)

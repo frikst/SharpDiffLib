@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using POCOMerger.definition;
+using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.implementation;
 
 namespace POCOMerger.diff.collection
 {
-	public class OrderedCollectionDiffRules : IDiffAlgorithmRules
+	public class OrderedCollectionDiffRules : BaseRules, IDiffAlgorithmRules
 	{
-		private MergerImplementation aMergerImplementation;
-
-		public OrderedCollectionDiffRules()
-		{
-			this.aMergerImplementation = null;
-		}
-
 		#region Implementation of IDiffAlgorithmRules
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
@@ -33,16 +27,7 @@ namespace POCOMerger.diff.collection
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
 
-			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(OrderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.aMergerImplementation);
-		}
-
-		#endregion
-
-		#region Implementation of IAlgorithmRules
-
-		void IAlgorithmRules.Initialize(MergerImplementation mergerImplementation)
-		{
-			this.aMergerImplementation = mergerImplementation;
+			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(OrderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.MergerImplementation);
 		}
 
 		#endregion
