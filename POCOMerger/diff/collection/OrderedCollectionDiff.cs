@@ -195,5 +195,14 @@ namespace POCOMerger.diff.collection
 				return false;
 			}
 		}
+
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		#endregion
 	}
 }

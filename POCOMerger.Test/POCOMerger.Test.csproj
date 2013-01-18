@@ -51,11 +51,13 @@
   <ItemGroup>
     <Compile Include="Diff\ArrayOfObjects.cs" />
     <Compile Include="Diff\ArrayOfPrimitives.cs" />
+    <Compile Include="Diff\ValueObjectDiff.cs" />
     <Compile Include="Diff\DictionaryOfPrimitives.cs" />
     <Compile Include="Diff\SetOfObjects.cs" />
     <Compile Include="Diff\SetOfPrimitives.cs" />
     <Compile Include="Diff\SimpleClassDiff.cs" />
     <Compile Include="Diff\StructuredClassDiff.cs" />
+    <Compile Include="Diff\ValueNonObjectDiff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

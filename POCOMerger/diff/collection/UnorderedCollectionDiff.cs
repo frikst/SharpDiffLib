@@ -56,5 +56,14 @@ namespace POCOMerger.diff.collection
 
 			return new Diff<TType>(ret);
 		}
+
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		#endregion
 	}
 }

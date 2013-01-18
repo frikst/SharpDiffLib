@@ -4,6 +4,7 @@ namespace POCOMerger.diff.@base
 {
 	public interface IDiffAlgorithm
 	{
+		bool IsDirect { get; }
 	}
 
 	public interface IDiffAlgorithm<TType> : IDiffAlgorithm

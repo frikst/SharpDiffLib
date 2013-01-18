@@ -9,9 +9,9 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffKeyValueCollectionChanged<TKeyType, TItemType> : IDiffKeyValueCollection<TKeyType>, IDiffItemChanged
+	internal class DiffKeyValueCollectionItemChanged<TKeyType, TItemType> : IDiffKeyValueCollectionItem<TKeyType>, IDiffItemChanged
 	{
-		public DiffKeyValueCollectionChanged(TKeyType key, IDiff valueDiff)
+		public DiffKeyValueCollectionItemChanged(TKeyType key, IDiff valueDiff)
 		{
 			this.Key = key;
 			this.ValueDiff = valueDiff;
@@ -47,21 +47,21 @@ namespace POCOMerger.diffResult.implementation
 
 		#endregion
 
-		#region Implementation of IDiffKeyValueCollection
+		#region Implementation of IDiffKeyValueCollectionItem
 
 		public Type KeyType
 		{
 			get { return typeof(TKeyType); }
 		}
 
-		object IDiffKeyValueCollection.Key
+		object IDiffKeyValueCollectionItem.Key
 		{
 			get { return this.Key; }
 		}
 
 		#endregion
 
-		#region Implementation of IDiffKeyValueCollection<TKeyType>
+		#region Implementation of IDiffKeyValueCollectionItem<TKeyType>
 
 		public TKeyType Key { get; private set; }
 

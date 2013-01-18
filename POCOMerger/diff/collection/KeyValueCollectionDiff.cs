@@ -66,20 +66,29 @@ namespace POCOMerger.diff.collection
 							IDiff itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
 
 							if (itemDiff.Count > 0)
-								ret.Add(new DiffKeyValueCollectionChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
+								ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
 						}
 					}
 					else
-						ret.Add(new DiffKeyValueCollectionReplaced<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value, changedItem));
+						ret.Add(new DiffKeyValueCollectionItemReplaced<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value, changedItem));
 				}
 				else
-					ret.Add(new DiffKeyValueCollectionRemoved<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value));
+					ret.Add(new DiffKeyValueCollectionItemRemoved<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value));
 			}
 
 			foreach (KeyValuePair<TKeyType, TItemType> item in changedDict)
-				ret.Add(new DiffKeyValueCollectionAdded<TKeyType, TItemType>(item.Key, item.Value));
+				ret.Add(new DiffKeyValueCollectionItemAdded<TKeyType, TItemType>(item.Key, item.Value));
 
 			return new Diff<TType>(ret);
 		}
+
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		#endregion
 	}
 }

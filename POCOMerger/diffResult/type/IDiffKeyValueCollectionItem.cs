@@ -5,12 +5,12 @@ using System.Text;
 
 namespace POCOMerger.diffResult.type
 {
-	public interface IDiffKeyValueCollection
+	public interface IDiffKeyValueCollectionItem
 	{
 		object Key { get; }
 	}
 
-	public interface IDiffKeyValueCollection<TKeyType> : IDiffKeyValueCollection
+	public interface IDiffKeyValueCollectionItem<TKeyType> : IDiffKeyValueCollectionItem
 	{
 		Type KeyType { get; }
 

@@ -96,7 +96,6 @@ namespace POCOMerger.diff.common
 			MemberExpression baseId = Expression.Property(baseProperty, id.ReflectionPropertyInfo);
 			MemberExpression changedId = Expression.Property(changedProperty, id.ReflectionPropertyInfo);
 
-			Expression newDiffChanged = this.NewDiffChanged(ret, property, @base, changed);
 			return Expression.IfThenElse(
 				Expression.Or(
 					Expression.ReferenceEqual(
@@ -121,7 +120,7 @@ namespace POCOMerger.diff.common
 						changedId
 					),
 					this.NewDiffReplaced(ret, property, @base, changed),
-					newDiffChanged
+					this.NewDiffChanged(ret, property, @base, changed)
 				)
 			);
 		}
@@ -178,5 +177,14 @@ namespace POCOMerger.diff.common
 				)
 			);
 		}
+
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		#endregion
 	}
 }

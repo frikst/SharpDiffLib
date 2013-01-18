@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
@@ -8,12 +6,12 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffKeyValueCollectionRemoved<TKeyType, TItemType> : IDiffItemRemoved<TItemType>, IDiffKeyValueCollection<TKeyType>
+	internal class DiffKeyValueCollectionItemAdded<TKeyType, TItemType> : IDiffKeyValueCollectionItem<TKeyType>, IDiffItemAdded<TItemType>
 	{
-		public DiffKeyValueCollectionRemoved(TKeyType key, TItemType oldValue)
+		public DiffKeyValueCollectionItemAdded(TKeyType key, TItemType newValue)
 		{
 			this.Key = key;
-			this.OldValue = oldValue;
+			this.NewValue = newValue;
 		}
 
 		#region Implementation of IDiffItem
@@ -27,7 +25,7 @@ namespace POCOMerger.diffResult.implementation
 		{
 			StringBuilder ret = new StringBuilder();
 
-			ret.AppendIndent(indentLevel).Append('-').Append(this.Key).Append(':').AppendNullable(this.OldValue);
+			ret.AppendIndent(indentLevel).Append('+').Append(this.Key).Append(':').AppendNullable(this.NewValue);
 
 			return ret.ToString();
 		}
@@ -39,36 +37,36 @@ namespace POCOMerger.diffResult.implementation
 
 		#endregion
 
-		#region Implementation of IDiffItemRemoved
+		#region Implementation of IDiffItemAdded
 
-		object IDiffItemRemoved.OldValue
+		object IDiffItemAdded.NewValue
 		{
-			get { return this.OldValue; }
+			get { return this.NewValue; }
 		}
 
 		#endregion
 
-		#region Implementation of IDiffItemRemoved<TItemType>
+		#region Implementation of IDiffItemAdded<TItemType>
 
-		public TItemType OldValue { get; private set; }
+		public TItemType NewValue { get; private set; }
 
 		#endregion
 
-		#region Implementation of IDiffKeyValueCollection
+		#region Implementation of IDiffKeyValueCollectionItem
 
 		public Type KeyType
 		{
 			get { return typeof(TKeyType); }
 		}
 
-		object IDiffKeyValueCollection.Key
+		object IDiffKeyValueCollectionItem.Key
 		{
 			get { return this.Key; }
 		}
 
 		#endregion
 
-		#region Implementation of IDiffKeyValueCollection<TKeyType>
+		#region Implementation of IDiffKeyValueCollectionItem<TKeyType>
 
 		public TKeyType Key { get; private set; }
 
