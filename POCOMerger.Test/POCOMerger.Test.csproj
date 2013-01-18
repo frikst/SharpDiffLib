@@ -52,6 +52,7 @@
     <Compile Include="Diff\AlgorithmGuessing.cs" />
     <Compile Include="Diff\ArrayOfObjects.cs" />
     <Compile Include="Diff\ArrayOfPrimitives.cs" />
+    <Compile Include="Diff\DictionaryOfObjects.cs" />
     <Compile Include="Diff\RulesInheritance.cs" />
     <Compile Include="Diff\ValueDiffWithId.cs" />
     <Compile Include="Diff\ValueObjectDiff.cs" />
