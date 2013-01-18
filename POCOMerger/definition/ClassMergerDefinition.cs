@@ -87,6 +87,11 @@ namespace POCOMerger.definition
 			return this.aRules.OfType<TRules>().FirstOrDefault();
 		}
 
+		public IEnumerable<TRules> GetAllRules<TRules>() where TRules : class, IAlgorithmRules
+		{
+			return this.aRules.OfType<TRules>();
+		}
+
 		void IClassMergerDefinition.Initialize(MergerImplementation mergerImplementation)
 		{
 			foreach (IAlgorithmRules algorithmRules in aRules)

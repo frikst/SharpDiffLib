@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using POCOMerger.definition.rules;
 using POCOMerger.implementation;
 
@@ -9,6 +10,9 @@ namespace POCOMerger.definition
 		Type DefinedFor { get; }
 
 		TRules GetRules<TRules>()
+			where TRules : class, IAlgorithmRules;
+
+		IEnumerable<TRules> GetAllRules<TRules>()
 			where TRules : class, IAlgorithmRules;
 
 		void Initialize(MergerImplementation mergerImplementation);

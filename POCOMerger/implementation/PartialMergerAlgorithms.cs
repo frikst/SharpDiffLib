@@ -32,7 +32,7 @@ namespace POCOMerger.implementation
 			if (this.aDiffAlgorithms.TryGetValue(type, out ret))
 				return ret;
 
-			IDiffAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesFor<IDiffAlgorithmRules>(type);
+			IDiffAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<IDiffAlgorithmRules>(type);
 
 			if (rules == null)
 			{
