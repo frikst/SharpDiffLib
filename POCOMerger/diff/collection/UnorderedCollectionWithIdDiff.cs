@@ -19,6 +19,7 @@ namespace POCOMerger.diff.collection
 		private Func<TItemType, TIdType> aIdAccessor;
 		private IDiffAlgorithm<TItemType> aItemDiff;
 		private readonly Property aIdProperty;
+		private EqualityComparer<TItemType> aItemComparer;
 
 		public UnorderedCollectionWithIdDiff(MergerImplementation mergerImplementation)
 		{
@@ -35,6 +36,7 @@ namespace POCOMerger.diff.collection
 			{
 				this.aIdAccessor = IdHelpers.CreateIdAccessor<TItemType, TIdType>(this.aIdProperty);
 				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
+				this.aItemComparer = EqualityComparer<TItemType>.Default;
 			}
 
 			return this.ComputeInternal((IEnumerable<TItemType>) @base, (IEnumerable<TItemType>) changed);
@@ -58,10 +60,18 @@ namespace POCOMerger.diff.collection
 				{
 					changedSet.Remove(id);
 
-					IDiff itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
+					if (this.aItemDiff.IsDirect)
+					{
+						if (!this.aItemComparer.Equals(baseItem, changedItem))
+							ret.Add(new DiffUnorderedCollectionReplaced<TItemType>(baseItem, changedItem));
+					}
+					else
+					{
+						IDiff itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
 
-					if (itemDiff.Count > 0)
-						ret.Add(new DiffUnorderedCollectionChanged<TIdType, TItemType>(id, itemDiff));
+						if (itemDiff.Count > 0)
+							ret.Add(new DiffUnorderedCollectionChanged<TIdType, TItemType>(id, itemDiff));
+					}
 				}
 				else
 					ret.Add(new DiffUnorderedCollectionRemoved<TItemType>(baseItem));

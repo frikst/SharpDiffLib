@@ -25,7 +25,7 @@ namespace POCOMerger.implementation
 			return (IDiffAlgorithm<TType>) this.GetDiffAlgorithm(typeof(TType));
 		}
 
-		private IDiffAlgorithm GetDiffAlgorithm(Type type)
+		public IDiffAlgorithm GetDiffAlgorithm(Type type)
 		{
 			IDiffAlgorithm ret;
 

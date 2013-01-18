@@ -144,6 +144,11 @@ namespace POCOMerger.diff.common
 
 		private Expression NewDiffChanged(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
 		{
+			IDiffAlgorithm diff = this.aMergerImplementation.Partial.GetDiffAlgorithm(property.Type);
+
+			if (diff.IsDirect)
+				return this.NewDiffReplaced(ret, property, @base, changed);
+
 			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
 			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
 
@@ -154,8 +159,8 @@ namespace POCOMerger.diff.common
 				Expression.Assign(
 					tmp,
 					Expression.Call(
-						Expression.Constant(this.aMergerImplementation.Partial),
-						Members.MergerAlgorithms.Diff(property.Type),
+						Expression.Constant(diff),
+						Members.DiffAlgorithm.Compute(property.Type),
 						baseProperty,
 						changedProperty
 					)

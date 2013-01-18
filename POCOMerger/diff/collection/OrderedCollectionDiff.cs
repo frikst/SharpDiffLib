@@ -22,6 +22,7 @@ namespace POCOMerger.diff.collection
 
 		private Func<TItemType, TItemType, bool> aIsTheSame;
 		private IDiffAlgorithm<TItemType> aItemDiff;
+		private IEqualityComparer<TItemType> aItemComparer;
 
 		public OrderedCollectionDiff(MergerImplementation mergerImplementation)
 		{
@@ -40,6 +41,7 @@ namespace POCOMerger.diff.collection
 			{
 				this.aIsTheSame = IdHelpers.CompileIsTheSame<TItemType>(this.aIDProperty);
 				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
+				this.aItemComparer = EqualityComparer<TItemType>.Default;
 			}
 
 			return this.ComputeInternal((IEnumerable<TItemType>) @base, (IEnumerable<TItemType>) changed);
@@ -75,12 +77,20 @@ namespace POCOMerger.diff.collection
 				{
 					if (isTheSame(baseItem, changedItem))
 					{
-						if (this.aIDProperty != null && this.aItemDiff != null)
+						if (this.aIDProperty != null)
 						{
-							IDiff itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
+							if (this.aItemDiff.IsDirect)
+							{
+								if (!this.aItemComparer.Equals(baseItem, changedItem))
+									ret.Add(new DiffOrderedCollectionReplaced<TItemType>(index, baseItem, changedItem));
+							}
+							else
+							{
+								IDiff itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
 
-							if (itemDiff.Count > 0)
-								ret.Add(new DiffOrderedCollectionChanged<TItemType>(index, itemDiff));
+								if (itemDiff.Count > 0)
+									ret.Add(new DiffOrderedCollectionChanged<TItemType>(index, itemDiff));
+							}
 						}
 
 						index++;

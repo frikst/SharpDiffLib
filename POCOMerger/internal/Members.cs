@@ -22,6 +22,11 @@ namespace POCOMerger.@internal
 			{
 				return aGetAlgorithm.MakeGenericMethod(tType);
 			}
+
+			public static MethodInfo Compute(Type tType)
+			{
+				return typeof(IDiffAlgorithm<>).MakeGenericType(tType).GetMethod("Compute");
+			}
 		}
 
 		public static class DiffItems

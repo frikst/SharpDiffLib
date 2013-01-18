@@ -17,6 +17,7 @@ namespace POCOMerger.diff.collection
 		private Func<TItemType, TItemType, bool> aIsTheSame;
 		private IDiffAlgorithm<TItemType> aItemDiff;
 		private readonly Property aIdProperty;
+		private IEqualityComparer<TItemType> aItemComparer;
 
 		public KeyValueCollectionDiff(MergerImplementation mergerImplementation)
 		{
@@ -35,6 +36,7 @@ namespace POCOMerger.diff.collection
 			{
 				this.aIsTheSame = IdHelpers.CompileIsTheSame<TItemType>(this.aIdProperty);
 				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
+				this.aItemComparer = EqualityComparer<TItemType>.Default;
 			}
 
 			return this.ComputeInternal((IEnumerable<KeyValuePair<TKeyType, TItemType>>)@base, (IEnumerable<KeyValuePair<TKeyType, TItemType>>)changed);
@@ -61,12 +63,20 @@ namespace POCOMerger.diff.collection
 
 					if (this.aIsTheSame(baseKeyValue.Value, changedItem))
 					{
-						if (this.aIdProperty != null && this.aItemDiff != null)
+						if (this.aIdProperty != null)
 						{
-							IDiff itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
+							if (this.aItemDiff.IsDirect)
+							{
+								if (!this.aItemComparer.Equals(baseKeyValue.Value, changedItem))
+									ret.Add(new DiffKeyValueCollectionItemReplaced<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value, changedItem));
+							}
+							else
+							{
+								IDiff itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
 
-							if (itemDiff.Count > 0)
-								ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
+								if (itemDiff.Count > 0)
+									ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
+							}
 						}
 					}
 					else

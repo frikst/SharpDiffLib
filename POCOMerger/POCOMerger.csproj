@@ -63,9 +63,11 @@
     <Compile Include="diffResult\implementation\DiffOrderedCollectionAdded.cs" />
     <Compile Include="diffResult\implementation\DiffOrderedCollectionChanged.cs" />
     <Compile Include="diffResult\implementation\DiffOrderedCollectionRemoved.cs" />
+    <Compile Include="diffResult\implementation\DiffOrderedCollectionReplaced.cs" />
     <Compile Include="diffResult\implementation\DiffUnorderedCollectionAdded.cs" />
     <Compile Include="diffResult\implementation\DiffUnorderedCollectionRemoved.cs" />
     <Compile Include="diffResult\implementation\DiffUnorderedCollectionChanged.cs" />
+    <Compile Include="diffResult\implementation\DiffUnorderedCollectionReplaced.cs" />
     <Compile Include="diffResult\implementation\DiffValueReplaced.cs" />
     <Compile Include="diffResult\type\IDiffClassItem.cs" />
     <Compile Include="diffResult\action\IDiffItemRemoved.cs" />
