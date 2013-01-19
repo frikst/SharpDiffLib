@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff.collection;
-using POCOMerger.diff.collection.ordered;
-using POCOMerger.diff.common;
-using POCOMerger.diff.common.@class;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -31,13 +28,13 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<SampleBase>()
-					.Inheritable.Rules<ClassDiffRules>()
-					.Inheritable.Rules<GeneralRules<SampleBase>>(rules => rules
+					.Inheritable.ClassDiffRules()
+					.Inheritable.GeneralRules(rules => rules
 						.Id(x => x.Id)
 					);
 
 				Define<Sample[]>()
-					.Rules<OrderedCollectionDiffRules>();
+					.OrderedCollectionDiffRules();
 			}
 		}
 

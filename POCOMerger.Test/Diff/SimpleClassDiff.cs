@@ -1,11 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
-using POCOMerger.diff.common;
-using POCOMerger.diff.common.@class;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -28,7 +23,7 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<Sample>()
-					.Rules<ClassDiffRules>();
+					.ClassDiffRules();
 			}
 		}
 

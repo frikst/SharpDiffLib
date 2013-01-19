@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="definition\ClassMergerDefinition.cs" />
+    <Compile Include="definition\rules\GeneralRulesExtensions.cs" />
     <Compile Include="definition\rules\IAlgorithmRules.cs" />
     <Compile Include="definition\rules\BaseRules.cs" />
     <Compile Include="definition\rules\GeneralRules.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="diff\collection\unordered\UnorderedCollectionDiffRules.cs" />
     <Compile Include="diff\common\value\ValueDiff.cs" />
     <Compile Include="diff\common\value\ValueDiffRules.cs" />
+    <Compile Include="diff\DiffRulesExtensions.cs" />
     <Compile Include="fastReflection\ICountableEnumerable.cs" />
     <Compile Include="fastReflection\Property.cs" />
     <Compile Include="diffResult\type\IDiffOrderedCollectionItem.cs" />

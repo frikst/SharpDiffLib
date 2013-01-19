@@ -2,10 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff.collection;
-using POCOMerger.diff.collection.keyValue;
-using POCOMerger.diff.common;
-using POCOMerger.diff.common.@class;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -29,11 +26,11 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<Dictionary<string, Sample>>()
-					.Rules<KeyValueCollectionDiffRules>();
+					.KeyValueCollectionDiffRules();
 
 				Define<Sample>()
-					.Rules<ClassDiffRules>()
-					.Rules<GeneralRules<Sample>>(rules => rules
+					.ClassDiffRules()
+					.GeneralRules(rules => rules
 						.Id(x => x.Id)
 					);
 			}

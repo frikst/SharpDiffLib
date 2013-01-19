@@ -1,11 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
-using POCOMerger.diff.collection;
-using POCOMerger.diff.collection.keyValue;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -17,7 +13,7 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<Dictionary<string, int>>()
-					.Rules<KeyValueCollectionDiffRules>();
+					.KeyValueCollectionDiffRules();
 			}
 		}
 

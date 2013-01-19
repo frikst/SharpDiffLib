@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff.common;
-using POCOMerger.diff.common.@class;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -38,13 +35,13 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<SampleInner>()
-					.Rules<GeneralRules<SampleInner>>(rules => rules
+					.GeneralRules(rules => rules
 						.Id(x => x.Id)
 					)
-					.Rules<ClassDiffRules>();
+					.ClassDiffRules();
 
 				Define<Sample>()
-					.Rules<ClassDiffRules>();
+					.ClassDiffRules();
 			}
 		}
 

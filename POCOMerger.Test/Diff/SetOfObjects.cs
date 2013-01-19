@@ -1,14 +1,8 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff.collection;
-using POCOMerger.diff.collection.unordered;
-using POCOMerger.diff.common;
-using POCOMerger.diff.common.@class;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -32,12 +26,12 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<HashSet<Sample>>()
-					.Rules<UnorderedCollectionDiffRules>();
+					.UnorderedCollectionDiffRules();
 				Define<Sample>()
-					.Rules<GeneralRules<Sample>>(rules => rules
+					.GeneralRules(rules => rules
 					    .Id(x => x.Id)
 					)
-					.Rules<ClassDiffRules>();
+					.ClassDiffRules();
 			}
 		}
 

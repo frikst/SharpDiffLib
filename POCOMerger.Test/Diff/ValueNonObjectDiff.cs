@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
-using POCOMerger.diff.common;
-using POCOMerger.diff.common.value;
+using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
@@ -13,7 +12,7 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<int>()
-					.Rules<ValueDiffRules>();
+					.ValueDiffRules();
 			}
 		}
 
