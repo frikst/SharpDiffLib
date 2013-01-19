@@ -10,54 +10,54 @@ namespace POCOMerger.diff
 {
 	public static class DiffRulesExtensions
 	{
-		public static ClassMergerDefinition<TClass> KeyValueCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<KeyValueCollectionDiffRules> func)
+		public static ClassMergerDefinition<TClass> KeyValueCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<KeyValueCollectionDiffRules<TClass>> func)
 		{
 			return definition.Rules(func);
 		}
 
 		public static ClassMergerDefinition<TClass> KeyValueCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
-			return definition.Rules<KeyValueCollectionDiffRules>();
+			return definition.Rules<KeyValueCollectionDiffRules<TClass>>();
 		}
 
-		public static ClassMergerDefinition<TClass> OrderedCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<OrderedCollectionDiffRules> func)
+		public static ClassMergerDefinition<TClass> OrderedCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<OrderedCollectionDiffRules<TClass>> func)
 		{
 			return  definition.Rules(func);
 		}
 
 		public static ClassMergerDefinition<TClass> OrderedCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
-			return definition.Rules<OrderedCollectionDiffRules>();
+			return definition.Rules<OrderedCollectionDiffRules<TClass>>();
 		}
 
-		public static ClassMergerDefinition<TClass> UnorderedCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<UnorderedCollectionDiffRules> func)
+		public static ClassMergerDefinition<TClass> UnorderedCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<UnorderedCollectionDiffRules<TClass>> func)
 		{
 			return definition.Rules(func);
 		}
 
 		public static ClassMergerDefinition<TClass> UnorderedCollectionDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
-			return definition.Rules<UnorderedCollectionDiffRules>();
+			return definition.Rules<UnorderedCollectionDiffRules<TClass>>();
 		}
 
-		public static ClassMergerDefinition<TClass> ClassDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<ClassDiffRules> func)
+		public static ClassMergerDefinition<TClass> ClassDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<ClassDiffRules<TClass>> func)
 		{
 			return definition.Rules(func);
 		}
 
 		public static ClassMergerDefinition<TClass> ClassDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
-			return definition.Rules<ClassDiffRules>();
+			return definition.Rules<ClassDiffRules<TClass>>();
 		}
 
-		public static ClassMergerDefinition<TClass> ValueDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<ValueDiffRules> func)
+		public static ClassMergerDefinition<TClass> ValueDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<ValueDiffRules<TClass>> func)
 		{
 			return definition.Rules(func);
 		}
 
 		public static ClassMergerDefinition<TClass> ValueDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
-			return definition.Rules<ValueDiffRules>();
+			return definition.Rules<ValueDiffRules<TClass>>();
 		}
 	}
 }

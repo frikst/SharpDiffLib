@@ -14,7 +14,7 @@ namespace POCOMerger.definition.rules
 		Property IdProperty { get; }
 	}
 
-	public class GeneralRules<TType> : BaseRules, IGeneralRules
+	public class GeneralRules<TType> : BaseRules<TType>, IGeneralRules
 	{
 		private Property aIdProperty;
 		private IAlgorithmRules aInheritAfter;
@@ -46,7 +46,7 @@ namespace POCOMerger.definition.rules
 
 		#region Implementation of IAlgorithmRules
 
-		public override IEnumerable<Type> GetPossibleResults()
+		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
 		{
 			return null;
 		}

@@ -12,4 +12,9 @@ namespace POCOMerger.definition.rules
 		bool IsInheritable { get; set; }
 		IAlgorithmRules InheritAfter { get; set; }
 	}
+
+	public interface IAlgorithmRules<TDefinedFor> : IAlgorithmRules
+	{
+
+	}
 }

@@ -119,15 +119,15 @@ namespace POCOMerger.implementation
 				if (typeof(IDiffAlgorithmRules).IsAssignableFrom(typeof(TRules)))
 				{
 					if (implementsISet)
-						ret = (TRules) (object) new UnorderedCollectionDiffRules();
+						ret = (TRules) Activator.CreateInstance(typeof(UnorderedCollectionDiffRules<>).MakeGenericType(type));
 					else if (implementsIEnumerableKeyValue)
-						ret = (TRules)(object)new KeyValueCollectionDiffRules();
+						ret = (TRules) Activator.CreateInstance(typeof(KeyValueCollectionDiffRules<>).MakeGenericType(type));
 					else if (implementsIEnumerable)
-						ret = (TRules)(object)new OrderedCollectionDiffRules();
+						ret = (TRules) Activator.CreateInstance(typeof(OrderedCollectionDiffRules<>).MakeGenericType(type));
 					else if (this.GetMergerAnyDefinition(type) != null)
-						ret = (TRules)(object)new ClassDiffRules();
+						ret = (TRules) Activator.CreateInstance(typeof(ClassDiffRules<>).MakeGenericType(type));
 					else
-						ret = (TRules)(object)new ValueDiffRules();
+						ret = (TRules) Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
 				}
 			}
 

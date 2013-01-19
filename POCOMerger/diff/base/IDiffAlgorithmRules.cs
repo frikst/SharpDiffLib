@@ -7,4 +7,9 @@ namespace POCOMerger.diff.@base
 	{
 		IDiffAlgorithm<TType> GetAlgorithm<TType>();
 	}
+
+	public interface IDiffAlgorithmRules<TDefinedFor> : IDiffAlgorithmRules, IAlgorithmRules<TDefinedFor>
+	{
+		
+	}
 }

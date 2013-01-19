@@ -7,7 +7,7 @@ using POCOMerger.diffResult.type;
 
 namespace POCOMerger.diff.collection.ordered
 {
-	public class OrderedCollectionDiffRules : BaseRules, IDiffAlgorithmRules
+	public class OrderedCollectionDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IDiffAlgorithmRules
 
@@ -30,7 +30,7 @@ namespace POCOMerger.diff.collection.ordered
 			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(OrderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.MergerImplementation);
 		}
 
-		public override IEnumerable<Type> GetPossibleResults()
+		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
 		{
 			yield return typeof(IDiffOrderedCollectionItem);
 			yield return typeof(IDiffItemAdded);

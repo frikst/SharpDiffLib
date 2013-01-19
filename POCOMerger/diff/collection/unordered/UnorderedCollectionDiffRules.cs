@@ -8,11 +8,11 @@ using POCOMerger.fastReflection;
 
 namespace POCOMerger.diff.collection.unordered
 {
-	public class UnorderedCollectionDiffRules : BaseRules, IDiffAlgorithmRules
+	public class UnorderedCollectionDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IDiffAlgorithmRules
 
-		public IDiffAlgorithm<TType> GetAlgorithm<TType>()
+		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
 			Type itemType = null;
 
@@ -41,7 +41,7 @@ namespace POCOMerger.diff.collection.unordered
 				);
 		}
 
-		public override IEnumerable<Type> GetPossibleResults()
+		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
 		{
 			yield return typeof(IDiffUnorderedCollectionItem);
 			yield return typeof(IDiffUnorderedCollectionItemWithID);

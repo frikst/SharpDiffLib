@@ -7,7 +7,7 @@ using POCOMerger.diffResult.type;
 
 namespace POCOMerger.diff.common.value
 {
-	public class ValueDiffRules : BaseRules, IDiffAlgorithmRules
+	public class ValueDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IDiffAlgorithmRules
 
@@ -16,7 +16,7 @@ namespace POCOMerger.diff.common.value
 			return new ValueDiff<TType>(this.MergerImplementation);
 		}
 
-		public override IEnumerable<Type> GetPossibleResults()
+		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
 		{
 			yield return typeof(IDiffValue);
 			yield return typeof(IDiffItemReplaced);

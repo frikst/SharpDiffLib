@@ -9,12 +9,12 @@ namespace POCOMerger.definition
 	public class ClassMergerDefinition<TClass> : IClassMergerDefinition
 	{
 		private readonly List<IClassMergerDefinition> aDefinitions;
-		private readonly List<IAlgorithmRules> aRules;
+		private readonly List<IAlgorithmRules<TClass>> aRules;
 		private bool aInheritable;
 
 		internal ClassMergerDefinition(List<IClassMergerDefinition> definitions)
 		{
-			this.aRules = new List<IAlgorithmRules>();
+			this.aRules = new List<IAlgorithmRules<TClass>>();
 
 			this.aDefinitions = definitions;
 			this.aInheritable = false;
@@ -30,7 +30,7 @@ namespace POCOMerger.definition
 		}
 
 		public ClassMergerDefinition<TClass> Rules<TRules>(Action<TRules> func)
-			where TRules : class, IAlgorithmRules, new()
+			where TRules : class, IAlgorithmRules<TClass>, new()
 		{
 			TRules definition = new TRules();
 
@@ -47,13 +47,13 @@ namespace POCOMerger.definition
 		}
 
 		public ClassMergerDefinition<TClass> Rules<TRules>()
-			where TRules : class, IAlgorithmRules, new()
+			where TRules : class, IAlgorithmRules<TClass>, new()
 		{
 			return this.Rules<TRules>(null);
 		}
 
 		private TRules GetAncestor<TRules>()
-			where TRules : class, IAlgorithmRules
+			where TRules : class, IAlgorithmRules<TClass>
 		{
 			Type tmp = typeof(TRules);
 
@@ -94,7 +94,7 @@ namespace POCOMerger.definition
 
 		void IClassMergerDefinition.Initialize(MergerImplementation mergerImplementation)
 		{
-			foreach (IAlgorithmRules algorithmRules in aRules)
+			foreach (IAlgorithmRules<TClass> algorithmRules in aRules)
 			{
 				algorithmRules.Initialize(mergerImplementation);
 			}

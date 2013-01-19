@@ -4,7 +4,7 @@ using POCOMerger.implementation;
 
 namespace POCOMerger.definition.rules
 {
-	public abstract class BaseRules : IAlgorithmRules
+	public abstract class BaseRules<TDefinedFor> : IAlgorithmRules<TDefinedFor>
 	{
 		protected BaseRules()
 		{
@@ -15,7 +15,10 @@ namespace POCOMerger.definition.rules
 
 		#region Implementation of IAlgorithmRules
 
-		public abstract IEnumerable<Type> GetPossibleResults();
+		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
+		{
+			return null;
+		}
 
 		void IAlgorithmRules.Initialize(MergerImplementation mergerImplementation)
 		{
