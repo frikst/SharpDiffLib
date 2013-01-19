@@ -82,6 +82,8 @@
     <Compile Include="diff\collection\ordered\OrderedCollectionDiff.cs" />
     <Compile Include="diff\collection\ordered\OrderedCollectionDiffRules.cs" />
     <Compile Include="diff\collection\unordered\UnorderedCollectionDiff.cs" />
+    <Compile Include="diff\common\baseClass\BaseClassDiff.cs" />
+    <Compile Include="diff\common\baseClass\BaseClassDiffRules.cs" />
     <Compile Include="diff\common\class\ClassDiffRules.cs" />
     <Compile Include="diff\collection\unordered\UnorderedCollectionDiffRules.cs" />
     <Compile Include="diff\common\value\ValueDiff.cs" />

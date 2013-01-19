@@ -14,7 +14,7 @@ namespace POCOMerger.Test.Diff
 
 			public override string ToString()
 			{
-				return "<Sample:" + Id + ">";
+				return "<SampleBase:" + Id + ">";
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace POCOMerger.Test.Diff
 		public void OneAdded()
 		{
 			const string diff =
-				"+1:<Sample:2>";
+				"+1:<SampleBase:2>";
 			var @base = new[]
 			{
 				new Sample { Id = 1, Value = "a" },

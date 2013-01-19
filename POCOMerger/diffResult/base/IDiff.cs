@@ -10,7 +10,7 @@ namespace POCOMerger.diffResult.@base
 		int Count { get; }
 	}
 
-	public interface IDiff<TType> : IDiff
+	public interface IDiff<out TType> : IDiff
 	{
 
 	}

@@ -3,6 +3,7 @@ using POCOMerger.definition;
 using POCOMerger.diff.collection.keyValue;
 using POCOMerger.diff.collection.ordered;
 using POCOMerger.diff.collection.unordered;
+using POCOMerger.diff.common.baseClass;
 using POCOMerger.diff.common.@class;
 using POCOMerger.diff.common.value;
 
@@ -58,6 +59,16 @@ namespace POCOMerger.diff
 		public static ClassMergerDefinition<TClass> ValueDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
 			return definition.Rules<ValueDiffRules<TClass>>();
+		}
+
+		public static ClassMergerDefinition<TClass> BaseClassDiffRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<BaseClassDiffRules<TClass>> func)
+		{
+			return definition.Rules(func);
+		}
+
+		public static ClassMergerDefinition<TClass> BaseClassDiffRules<TClass>(this ClassMergerDefinition<TClass> definition)
+		{
+			return definition.Rules<BaseClassDiffRules<TClass>>();
 		}
 	}
 }

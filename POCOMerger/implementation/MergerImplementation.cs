@@ -50,13 +50,22 @@ namespace POCOMerger.implementation
 		public TRules GetMergerRulesFor<TRules>(Type type)
 			where TRules : class, IAlgorithmRules
 		{
-			for (Type tmp = type; tmp != null; tmp = tmp.BaseType)
+			foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == type))
 			{
-				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tmp))
+				TRules rules = definition.GetRules<TRules>();
+
+				if (rules != null)
+					return rules;
+			}
+
+			for (Type tmp = type.BaseType; tmp != null; tmp = tmp.BaseType)
+			{
+				Type tested = tmp;
+				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tested))
 				{
 					TRules rules = definition.GetRules<TRules>();
 
-					if (rules != null && (rules.IsInheritable || tmp == type))
+					if (rules != null && rules.IsInheritable)
 						return rules;
 				}
 			}
@@ -66,13 +75,15 @@ namespace POCOMerger.implementation
 
 		private IClassMergerDefinition GetMergerAnyDefinition(Type type)
 		{
-			for (Type tmp = type; tmp != null; tmp = tmp.BaseType)
-			{
-				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tmp))
-				{
-					bool anyInheritable = definition.GetAllRules<IAlgorithmRules>().Any(x => x.IsInheritable);
+			foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == type))
+				return definition;
 
-					if (anyInheritable || tmp == type)
+			for (Type tmp = type.BaseType; tmp != null; tmp = tmp.BaseType)
+			{
+				Type tested = tmp;
+				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tested))
+				{
+					if (definition.GetAllRules<IAlgorithmRules>().Any(x => x.IsInheritable))
 						return definition;
 				}
 			}

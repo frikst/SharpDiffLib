@@ -38,6 +38,23 @@ namespace POCOMerger.diff.common.value
 
 		#endregion
 
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return true; }
+		}
+
+		IDiff IDiffAlgorithm.Compute(object @base, object changed)
+		{
+			if (!(@base is TType && changed is TType))
+				throw new InvalidOperationException("base and changed has to be of type " + typeof(TType).Name);
+
+			return this.Compute((TType)@base, (TType)changed);
+		}
+
+		#endregion
+
 		private Func<TType, TType, List<IDiffItem>> CompileDiff()
 		{
 			ParameterExpression ret = Expression.Parameter(typeof(List<IDiffItem>), "ret");
@@ -119,14 +136,5 @@ namespace POCOMerger.diff.common.value
 
 			return comparer.Compile();
 		}
-
-		#region Implementation of IDiffAlgorithm
-
-		public bool IsDirect
-		{
-			get { return true; }
-		}
-
-		#endregion
 	}
 }

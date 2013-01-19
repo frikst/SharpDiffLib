@@ -43,6 +43,23 @@ namespace POCOMerger.diff.collection.keyValue
 
 		#endregion
 
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		IDiff IDiffAlgorithm.Compute(object @base, object changed)
+		{
+			if (!(@base is TType && changed is TType))
+				throw new InvalidOperationException("base and changed has to be of type " + typeof(TType).Name);
+
+			return this.Compute((TType)@base, (TType)changed);
+		}
+
+		#endregion
+
 		public IDiff<TType> ComputeInternal(IEnumerable<KeyValuePair<TKeyType, TItemType>> @base, IEnumerable<KeyValuePair<TKeyType, TItemType>> changed)
 		{
 			List<IDiffItem> ret = new List<IDiffItem>(); // 20 seems to be a good value :)
@@ -90,14 +107,5 @@ namespace POCOMerger.diff.collection.keyValue
 
 			return new Diff<TType>(ret);
 		}
-
-		#region Implementation of IDiffAlgorithm
-
-		public bool IsDirect
-		{
-			get { return false; }
-		}
-
-		#endregion
 	}
 }

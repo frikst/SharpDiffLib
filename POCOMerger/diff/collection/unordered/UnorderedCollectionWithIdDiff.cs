@@ -42,6 +42,23 @@ namespace POCOMerger.diff.collection.unordered
 
 		#endregion
 
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		IDiff IDiffAlgorithm.Compute(object @base, object changed)
+		{
+			if (!(@base is TType && changed is TType))
+				throw new InvalidOperationException("base and changed has to be of type " + typeof(TType).Name);
+
+			return this.Compute((TType)@base, (TType)changed);
+		}
+
+		#endregion
+
 		private IDiff<TType> ComputeInternal(IEnumerable<TItemType> @base, IEnumerable<TItemType> changed)
 		{
 			Dictionary<TIdType, TItemType> changedSet = changed.ToDictionary(this.aIdAccessor);
@@ -80,14 +97,5 @@ namespace POCOMerger.diff.collection.unordered
 
 			return new Diff<TType>(ret);
 		}
-
-		#region Implementation of IDiffAlgorithm
-
-		public bool IsDirect
-		{
-			get { return false; }
-		}
-
-		#endregion
 	}
 }

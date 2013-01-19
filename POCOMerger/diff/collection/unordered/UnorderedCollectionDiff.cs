@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
@@ -22,6 +23,23 @@ namespace POCOMerger.diff.collection.unordered
 				this.aEqualityComparer = this.CreateEqualityComparer();
 
 			return this.ComputeInternal((IEnumerable<TItemType>) @base, (IEnumerable<TItemType>) changed);
+		}
+
+		#endregion
+
+		#region Implementation of IDiffAlgorithm
+
+		public bool IsDirect
+		{
+			get { return false; }
+		}
+
+		IDiff IDiffAlgorithm.Compute(object @base, object changed)
+		{
+			if (!(@base is TType && changed is TType))
+				throw new InvalidOperationException("base and changed has to be of type " + typeof(TType).Name);
+
+			return this.Compute((TType)@base, (TType)changed);
 		}
 
 		#endregion
@@ -50,14 +68,5 @@ namespace POCOMerger.diff.collection.unordered
 
 			return new Diff<TType>(ret);
 		}
-
-		#region Implementation of IDiffAlgorithm
-
-		public bool IsDirect
-		{
-			get { return false; }
-		}
-
-		#endregion
 	}
 }
