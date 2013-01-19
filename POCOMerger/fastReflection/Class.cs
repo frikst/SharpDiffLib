@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using POCOMerger.@internal;
 
 namespace POCOMerger.fastReflection
 {
@@ -49,12 +50,22 @@ namespace POCOMerger.fastReflection
 			get
 			{
 				if (aProperties == null)
+				{
+					IEnumerable<Property> parentProperties;
+
+					if (typeof(TClass).BaseType != null)
+						parentProperties = (IEnumerable<Property>) Members.Class.Properties(typeof(TClass).BaseType).GetValue(null, null);
+					else
+						parentProperties = Enumerable.Empty<Property>();
+
 					aProperties = new CountableEnumerableWrapper<Property>(
 						typeof(TClass)
-							.GetProperties()
-							.Select(x => new Property(x)),
+							.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+							.Select(x => new Property(x))
+							.Union(parentProperties),
 						(a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal)
 					);
+				}
 
 				return aProperties;
 			}

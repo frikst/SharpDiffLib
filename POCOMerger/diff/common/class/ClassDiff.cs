@@ -14,11 +14,13 @@ namespace POCOMerger.diff.common.@class
 	internal class ClassDiff<TType> : IDiffAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
+		private readonly ISet<Property> aIgnoreProperties;
 		private Func<TType, TType, List<IDiffItem>> aCompiled;
 
-		public ClassDiff(MergerImplementation mergerImplementation)
+		public ClassDiff(MergerImplementation mergerImplementation, IEnumerable<Property> ignoreProperties)
 		{
 			this.aMergerImplementation = mergerImplementation;
+			this.aIgnoreProperties = new HashSet<Property>(ignoreProperties);
 			this.aCompiled = null;
 		}
 
@@ -74,6 +76,9 @@ namespace POCOMerger.diff.common.@class
 
 			foreach (Property property in Class<TType>.Properties)
 			{
+				if (this.aIgnoreProperties.Contains(property))
+					continue;
+
 				Property idProperty = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, property.Type);
 
 				if (idProperty != null)

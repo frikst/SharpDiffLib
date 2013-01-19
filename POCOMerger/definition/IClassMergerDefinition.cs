@@ -15,6 +15,8 @@ namespace POCOMerger.definition
 		IEnumerable<TRules> GetAllRules<TRules>()
 			where TRules : class, IAlgorithmRules;
 
+		IAlgorithmRules GetRules(Type rulesType);
+
 		void Initialize(MergerImplementation mergerImplementation);
 	}
 }

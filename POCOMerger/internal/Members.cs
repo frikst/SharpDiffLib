@@ -68,11 +68,19 @@ namespace POCOMerger.@internal
 			}
 		}
 
-		public class MergerAlgorithms
+		public static class MergerAlgorithms
 		{
 			public static MethodInfo Diff(Type tType)
 			{
 				return typeof(PartialMergerAlgorithms).GetMethod("Diff").MakeGenericMethod(tType);
+			}
+		}
+
+		public static class Class
+		{
+			public static PropertyInfo Properties(Type tType)
+			{
+				return typeof(Class<>).MakeGenericType(tType).GetProperty("Properties", BindingFlags.Static | BindingFlags.Public);
 			}
 		}
 

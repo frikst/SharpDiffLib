@@ -34,7 +34,7 @@ namespace POCOMerger.definition
 		{
 			TRules definition = new TRules();
 
-			definition.InheritAfter = this.GetAncestor<TRules>();
+			definition.InheritAfter = this.GetAncestor<TRules>(typeof(TClass));
 			definition.IsInheritable = this.aInheritable;
 			this.aInheritable = false;
 
@@ -52,10 +52,10 @@ namespace POCOMerger.definition
 			return this.Rules<TRules>(null);
 		}
 
-		private TRules GetAncestor<TRules>()
+		private IAlgorithmRules GetAncestor<TRules>(Type type)
 			where TRules : class, IAlgorithmRules<TClass>
 		{
-			Type tmp = typeof(TRules);
+			Type tmp = type;
 
 			while (tmp.BaseType != null)
 			{
@@ -65,7 +65,7 @@ namespace POCOMerger.definition
 				{
 					if (def.DefinedFor == tmp)
 					{
-						TRules rules = def.GetRules<TRules>();
+						IAlgorithmRules rules = def.GetRules(typeof(TRules));
 						if (rules != null && rules.IsInheritable)
 							return rules;
 					}
@@ -90,6 +90,20 @@ namespace POCOMerger.definition
 		public IEnumerable<TRules> GetAllRules<TRules>() where TRules : class, IAlgorithmRules
 		{
 			return this.aRules.OfType<TRules>();
+		}
+
+		public IAlgorithmRules GetRules(Type rulesType)
+		{
+			foreach (IAlgorithmRules<TClass> rules in this.aRules)
+			{
+				Type currentRulesType = rules.GetType();
+				if (rulesType.IsAssignableFrom(currentRulesType))
+					return rules;
+				else if (rulesType.IsGenericType && currentRulesType.IsGenericType && rulesType.GetGenericTypeDefinition().IsAssignableFrom(currentRulesType.GetGenericTypeDefinition()))
+					return rules;
+			}
+
+			return null;
 		}
 
 		void IClassMergerDefinition.Initialize(MergerImplementation mergerImplementation)

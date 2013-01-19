@@ -27,7 +27,11 @@ namespace POCOMerger.definition.rules
 
 		bool IAlgorithmRules.IsInheritable { get; set; }
 
-		IAlgorithmRules IAlgorithmRules.InheritAfter { get; set; }
+		IAlgorithmRules IAlgorithmRules.InheritAfter
+		{
+			get { return null; }
+			set { if (value != null) throw new InvalidOperationException("Cannot inherit rules for " + this.GetType().Name); }
+		}
 
 		#endregion
 	}
