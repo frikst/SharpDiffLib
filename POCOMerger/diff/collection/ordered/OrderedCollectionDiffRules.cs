@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
-using POCOMerger.implementation;
 
-namespace POCOMerger.diff.collection
+namespace POCOMerger.diff.collection.ordered
 {
 	public class OrderedCollectionDiffRules : BaseRules, IDiffAlgorithmRules
 	{

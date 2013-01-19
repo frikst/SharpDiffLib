@@ -6,7 +6,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.collection;
+using POCOMerger.diff.collection.keyValue;
+using POCOMerger.diff.collection.ordered;
+using POCOMerger.diff.collection.unordered;
 using POCOMerger.diff.common;
+using POCOMerger.diff.common.@class;
+using POCOMerger.diff.common.value;
 
 namespace POCOMerger.Test.Diff
 {

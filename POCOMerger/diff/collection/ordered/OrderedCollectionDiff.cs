@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
@@ -12,7 +9,7 @@ using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 using POCOMerger.@internal;
 
-namespace POCOMerger.diff.collection
+namespace POCOMerger.diff.collection.ordered
 {
 	internal class OrderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
 	{

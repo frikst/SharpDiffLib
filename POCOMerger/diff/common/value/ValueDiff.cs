@@ -9,7 +9,7 @@ using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 using POCOMerger.@internal;
 
-namespace POCOMerger.diff.common
+namespace POCOMerger.diff.common.value
 {
 	internal class ValueDiff<TType> : IDiffAlgorithm<TType>
 	{

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
@@ -10,7 +9,7 @@ using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 using POCOMerger.@internal;
 
-namespace POCOMerger.diff.common
+namespace POCOMerger.diff.common.@class
 {
 	internal class ClassDiff<TType> : IDiffAlgorithm<TType>
 	{
@@ -61,9 +60,9 @@ namespace POCOMerger.diff.common
 				Property idProperty = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, property.Type);
 
 				if (idProperty != null)
-					body.Add(MightBeChanged(ret, property, idProperty, @base, changed));
+					body.Add(this.MightBeChanged(ret, property, idProperty, @base, changed));
 				else
-					body.Add(MightBeReplaced(ret, property, @base, changed));
+					body.Add(this.MightBeReplaced(ret, property, @base, changed));
 			}
 
 			body.Add(ret);

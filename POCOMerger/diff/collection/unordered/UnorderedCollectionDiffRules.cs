@@ -5,9 +5,8 @@ using POCOMerger.diff.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
 using POCOMerger.fastReflection;
-using POCOMerger.implementation;
 
-namespace POCOMerger.diff.collection
+namespace POCOMerger.diff.collection.unordered
 {
 	public class UnorderedCollectionDiffRules : BaseRules, IDiffAlgorithmRules
 	{

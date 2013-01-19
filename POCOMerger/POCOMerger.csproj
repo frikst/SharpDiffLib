@@ -75,16 +75,16 @@
     <Compile Include="diffResult\type\IDiffUnorderedCollectionItem.cs" />
     <Compile Include="diffResult\type\IDiffValue.cs" />
     <Compile Include="diff\base\IDiffAlgorithmRules.cs" />
-    <Compile Include="diff\collection\UnorderedCollectionWithIdDiff.cs" />
-    <Compile Include="diff\collection\KeyValueCollectionDiff.cs" />
-    <Compile Include="diff\collection\KeyValueCollectionDiffRules.cs" />
-    <Compile Include="diff\collection\OrderedCollectionDiff.cs" />
-    <Compile Include="diff\collection\OrderedCollectionDiffRules.cs" />
-    <Compile Include="diff\collection\UnorderedCollectionDiff.cs" />
-    <Compile Include="diff\common\ClassDiffRules.cs" />
-    <Compile Include="diff\collection\UnorderedCollectionDiffRules.cs" />
-    <Compile Include="diff\common\ValueDiff.cs" />
-    <Compile Include="diff\common\ValueDiffRules.cs" />
+    <Compile Include="diff\collection\unordered\UnorderedCollectionWithIdDiff.cs" />
+    <Compile Include="diff\collection\keyValue\KeyValueCollectionDiff.cs" />
+    <Compile Include="diff\collection\keyValue\KeyValueCollectionDiffRules.cs" />
+    <Compile Include="diff\collection\ordered\OrderedCollectionDiff.cs" />
+    <Compile Include="diff\collection\ordered\OrderedCollectionDiffRules.cs" />
+    <Compile Include="diff\collection\unordered\UnorderedCollectionDiff.cs" />
+    <Compile Include="diff\common\class\ClassDiffRules.cs" />
+    <Compile Include="diff\collection\unordered\UnorderedCollectionDiffRules.cs" />
+    <Compile Include="diff\common\value\ValueDiff.cs" />
+    <Compile Include="diff\common\value\ValueDiffRules.cs" />
     <Compile Include="fastReflection\ICountableEnumerable.cs" />
     <Compile Include="fastReflection\Property.cs" />
     <Compile Include="diffResult\type\IDiffOrderedCollectionItem.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="internal\PropertyEqualityComparer.cs" />
     <Compile Include="internal\StringBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="diff\common\ClassDiff.cs" />
+    <Compile Include="diff\common\class\ClassDiff.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

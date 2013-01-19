@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
-using POCOMerger.definition.rules;
+﻿using System.Collections.Generic;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
-using POCOMerger.fastReflection;
 using POCOMerger.implementation;
-using POCOMerger.@internal;
 
-namespace POCOMerger.diff.collection
+namespace POCOMerger.diff.collection.unordered
 {
 	internal class UnorderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
 	{

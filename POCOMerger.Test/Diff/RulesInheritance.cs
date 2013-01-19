@@ -2,7 +2,9 @@
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diff.collection;
+using POCOMerger.diff.collection.ordered;
 using POCOMerger.diff.common;
+using POCOMerger.diff.common.@class;
 
 namespace POCOMerger.Test.Diff
 {

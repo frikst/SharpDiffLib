@@ -5,7 +5,7 @@ using POCOMerger.diff.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
 
-namespace POCOMerger.diff.common
+namespace POCOMerger.diff.common.value
 {
 	public class ValueDiffRules : BaseRules, IDiffAlgorithmRules
 	{

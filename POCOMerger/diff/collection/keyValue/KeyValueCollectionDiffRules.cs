@@ -4,9 +4,8 @@ using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
-using POCOMerger.implementation;
 
-namespace POCOMerger.diff.collection
+namespace POCOMerger.diff.collection.keyValue
 {
 	public class KeyValueCollectionDiffRules : BaseRules, IDiffAlgorithmRules
 	{

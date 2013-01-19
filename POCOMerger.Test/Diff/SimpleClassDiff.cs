@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.diff.common;
+using POCOMerger.diff.common.@class;
 
 namespace POCOMerger.Test.Diff
 {
