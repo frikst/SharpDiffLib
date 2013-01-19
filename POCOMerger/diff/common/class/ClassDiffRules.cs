@@ -61,7 +61,7 @@ namespace POCOMerger.diff.common.@class
 
 		#region Implementation of IClassDiffRules
 
-		public IEnumerable<Property> IgnoredProperties
+		IEnumerable<Property> IClassDiffRules.IgnoredProperties
 		{
 			get { return this.aIgnoreProperties; }
 		}
