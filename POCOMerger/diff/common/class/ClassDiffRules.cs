@@ -17,7 +17,7 @@ namespace POCOMerger.diff.common.@class
 
 	public class ClassDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>, IClassDiffRules
 	{
-		private HashSet<Property> aIgnoreProperties;
+		private readonly HashSet<Property> aIgnoreProperties;
 		private IAlgorithmRules aInheritAfter;
 
 		public ClassDiffRules()
@@ -36,12 +36,7 @@ namespace POCOMerger.diff.common.@class
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
-			IEnumerable<Property> ignored = this.aIgnoreProperties;
-
-			if (this.aInheritAfter is IClassDiffRules)
-				ignored = ignored.Union(((IClassDiffRules)this.aInheritAfter).IgnoredProperties);
-
-			return new ClassDiff<TType>(this.MergerImplementation, ignored);
+			return new ClassDiff<TType>(this.MergerImplementation, ((IClassDiffRules)this).IgnoredProperties);
 		}
 
 		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
@@ -63,7 +58,15 @@ namespace POCOMerger.diff.common.@class
 
 		IEnumerable<Property> IClassDiffRules.IgnoredProperties
 		{
-			get { return this.aIgnoreProperties; }
+			get
+			{
+				IEnumerable<Property> ignored = this.aIgnoreProperties;
+
+				if (this.aInheritAfter is IClassDiffRules)
+					ignored = ignored.Union(((IClassDiffRules) this.aInheritAfter).IgnoredProperties);
+
+				return ignored;
+			}
 		}
 
 		#endregion
