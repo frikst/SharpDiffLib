@@ -53,6 +53,7 @@
     <Compile Include="Diff\ArrayOfObjects.cs" />
     <Compile Include="Diff\ArrayOfPrimitives.cs" />
     <Compile Include="Diff\BaseDefinition.cs" />
+    <Compile Include="Diff\CollectionAsItem.cs" />
     <Compile Include="Diff\DictionaryOfObjects.cs" />
     <Compile Include="Diff\IgnoreProperty.cs" />
     <Compile Include="Diff\RulesInheritance.cs" />

@@ -79,12 +79,12 @@ namespace POCOMerger.diff.common.@class
 				if (this.aIgnoreProperties.Contains(property))
 					continue;
 
-				Property idProperty = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, property.Type);
+				IDiffAlgorithm diff = this.aMergerImplementation.Partial.GetDiffAlgorithm(property.Type);
 
-				if (idProperty != null)
-					body.Add(this.MightBeChanged(ret, property, idProperty, @base, changed));
-				else
+				if (diff.IsDirect)
 					body.Add(this.MightBeReplaced(ret, property, @base, changed));
+				else
+					body.Add(this.MightBeChanged(ret, property, @base, changed));
 			}
 
 			body.Add(ret);
@@ -109,13 +109,28 @@ namespace POCOMerger.diff.common.@class
 			);
 		}
 
-		private ConditionalExpression MightBeChanged(ParameterExpression ret, Property property, Property id, ParameterExpression @base, ParameterExpression changed)
+		private ConditionalExpression MightBeChanged(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
 		{
+			Property id = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, property.Type);
+
 			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
 			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
 
-			MemberExpression baseId = Expression.Property(baseProperty, id.ReflectionPropertyInfo);
-			MemberExpression changedId = Expression.Property(changedProperty, id.ReflectionPropertyInfo);
+			Expression finalize;
+
+			if (id != null)
+			{
+				MemberExpression baseId = Expression.Property(baseProperty, id.ReflectionPropertyInfo);
+				MemberExpression changedId = Expression.Property(changedProperty, id.ReflectionPropertyInfo);
+
+				finalize = Expression.IfThenElse(
+					Expression.Equal(baseId, changedId),
+					this.NewDiffChanged(ret, property, @base, changed),
+					this.NewDiffReplaced(ret, property, @base, changed)
+				);
+			}
+			else
+				finalize = this.NewDiffChanged(ret, property, @base, changed);
 
 			return Expression.IfThenElse(
 				Expression.Or(
@@ -135,14 +150,7 @@ namespace POCOMerger.diff.common.@class
 					),
 					this.NewDiffReplaced(ret, property, @base, changed)
 				),
-				Expression.IfThenElse(
-					Expression.NotEqual(
-						baseId,
-						changedId
-					),
-					this.NewDiffReplaced(ret, property, @base, changed),
-					this.NewDiffChanged(ret, property, @base, changed)
-				)
+				finalize
 			);
 		}
 

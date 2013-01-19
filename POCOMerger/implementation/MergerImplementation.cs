@@ -50,7 +50,15 @@ namespace POCOMerger.implementation
 		public TRules GetMergerRulesFor<TRules>(Type type)
 			where TRules : class, IAlgorithmRules
 		{
-			foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == type))
+			//foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
+			//{
+			//    TRules rules = definition.GetRules<TRules>();
+
+			//    if (rules != null && !rules.IsInheritable)
+			//        return rules;
+			//}
+
+			foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
 			{
 				TRules rules = definition.GetRules<TRules>();
 
@@ -60,8 +68,7 @@ namespace POCOMerger.implementation
 
 			for (Type tmp = type.BaseType; tmp != null; tmp = tmp.BaseType)
 			{
-				Type tested = tmp;
-				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tested))
+				foreach (IClassMergerDefinition definition in this.GetDefinitionFor(tmp))
 				{
 					TRules rules = definition.GetRules<TRules>();
 
@@ -73,15 +80,19 @@ namespace POCOMerger.implementation
 			return null;
 		}
 
+		private IEnumerable<IClassMergerDefinition> GetDefinitionFor(Type tested)
+		{
+			return this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tested);
+		}
+
 		private IClassMergerDefinition GetMergerAnyDefinition(Type type)
 		{
-			foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == type))
+			foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
 				return definition;
 
 			for (Type tmp = type.BaseType; tmp != null; tmp = tmp.BaseType)
 			{
-				Type tested = tmp;
-				foreach (IClassMergerDefinition definition in this.aDefinitions.Where(mergerDefinition => mergerDefinition.DefinedFor == tested))
+				foreach (IClassMergerDefinition definition in this.GetDefinitionFor(tmp))
 				{
 					if (definition.GetAllRules<IAlgorithmRules>().Any(x => x.IsInheritable))
 						return definition;
@@ -104,8 +115,6 @@ namespace POCOMerger.implementation
 
 			if (ret == null)
 			{
-
-
 				// guess rules for the given type
 
 				bool implementsIEnumerable = false;
@@ -129,16 +138,18 @@ namespace POCOMerger.implementation
 
 				if (typeof(IDiffAlgorithmRules).IsAssignableFrom(typeof(TRules)))
 				{
-					if (implementsISet)
-						ret = (TRules) Activator.CreateInstance(typeof(UnorderedCollectionDiffRules<>).MakeGenericType(type));
+					if (type.IsValueType || type == typeof(string))
+						ret = (TRules)Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
+					else if (implementsISet)
+						ret = (TRules)Activator.CreateInstance(typeof(UnorderedCollectionDiffRules<>).MakeGenericType(type));
 					else if (implementsIEnumerableKeyValue)
-						ret = (TRules) Activator.CreateInstance(typeof(KeyValueCollectionDiffRules<>).MakeGenericType(type));
+						ret = (TRules)Activator.CreateInstance(typeof(KeyValueCollectionDiffRules<>).MakeGenericType(type));
 					else if (implementsIEnumerable)
-						ret = (TRules) Activator.CreateInstance(typeof(OrderedCollectionDiffRules<>).MakeGenericType(type));
+						ret = (TRules)Activator.CreateInstance(typeof(OrderedCollectionDiffRules<>).MakeGenericType(type));
 					else if (this.GetMergerAnyDefinition(type) != null)
-						ret = (TRules) Activator.CreateInstance(typeof(ClassDiffRules<>).MakeGenericType(type));
+						ret = (TRules)Activator.CreateInstance(typeof(ClassDiffRules<>).MakeGenericType(type));
 					else
-						ret = (TRules) Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
+						ret = (TRules)Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
 				}
 			}
 

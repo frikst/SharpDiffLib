@@ -62,7 +62,7 @@ namespace POCOMerger.diff.collection.keyValue
 
 		public IDiff<TType> ComputeInternal(IEnumerable<KeyValuePair<TKeyType, TItemType>> @base, IEnumerable<KeyValuePair<TKeyType, TItemType>> changed)
 		{
-			List<IDiffItem> ret = new List<IDiffItem>(); // 20 seems to be a good value :)
+			List<IDiffItem> ret = new List<IDiffItem>(20); // 20 seems to be a good value :)
 
 			IDictionary<TKeyType, TItemType> changedDict = new Dictionary<TKeyType, TItemType>();
 
@@ -96,7 +96,17 @@ namespace POCOMerger.diff.collection.keyValue
 						}
 					}
 					else
-						ret.Add(new DiffKeyValueCollectionItemReplaced<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value, changedItem));
+					{
+						if (this.aIdProperty != null || this.aItemDiff.IsDirect)
+							ret.Add(new DiffKeyValueCollectionItemReplaced<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value, changedItem));
+						else
+						{
+							IDiff itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
+
+							if (itemDiff.Count > 0)
+								ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
+						}
+					}
 				}
 				else
 					ret.Add(new DiffKeyValueCollectionItemRemoved<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value));

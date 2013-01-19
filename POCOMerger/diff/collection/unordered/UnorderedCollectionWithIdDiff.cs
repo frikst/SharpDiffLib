@@ -63,7 +63,7 @@ namespace POCOMerger.diff.collection.unordered
 		{
 			Dictionary<TIdType, TItemType> changedSet = changed.ToDictionary(this.aIdAccessor);
 
-			List<IDiffItem> ret = new List<IDiffItem>(); // 20 seems to be a good value :)
+			List<IDiffItem> ret = new List<IDiffItem>(20); // 20 seems to be a good value :)
 
 			foreach (TItemType baseItem in @base)
 			{

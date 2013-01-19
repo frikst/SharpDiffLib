@@ -53,7 +53,7 @@ namespace POCOMerger.diff.collection.unordered
 		{
 			HashSet<TItemType> changedSet = new HashSet<TItemType>(changed, this.aEqualityComparer);
 
-			List<IDiffItem> ret = new List<IDiffItem>(); // 20 seems to be a good value :)
+			List<IDiffItem> ret = new List<IDiffItem>(20); // 20 seems to be a good value :)
 
 			foreach (TItemType item in @base)
 			{
