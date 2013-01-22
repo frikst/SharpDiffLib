@@ -54,6 +54,7 @@
     <Compile Include="diffResult\action\IDiffItemChanged.cs" />
     <Compile Include="diffResult\action\IDiffItemReplaced.cs" />
     <Compile Include="diffResult\base\IDiff.cs" />
+    <Compile Include="diffResult\DiffResultFactory.cs" />
     <Compile Include="diffResult\implementation\Diff.cs" />
     <Compile Include="diffResult\implementation\DiffClassChanged.cs" />
     <Compile Include="diffResult\implementation\DiffClassReplaced.cs" />

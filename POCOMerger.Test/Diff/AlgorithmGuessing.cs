@@ -10,7 +10,6 @@ namespace POCOMerger.Test.Diff
 		private class Sample
 		{
 			public string Value { get; set; }
-			public string Value2 { get; set; }
 
 			public override string ToString()
 			{
