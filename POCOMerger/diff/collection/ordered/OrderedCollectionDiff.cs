@@ -136,10 +136,7 @@ namespace POCOMerger.diff.collection.ordered
 								baseQueueNew.Clear();
 
 								foreach (TItemType item in changedQueueNew)
-								{
 									ret.Add(new DiffOrderedCollectionAdded<TItemType>(index, item));
-									index++;
-								}
 								changedQueueNew.Clear();
 
 								break;
@@ -156,10 +153,7 @@ namespace POCOMerger.diff.collection.ordered
 								baseQueueNew.Add(baseItem);
 
 								foreach (TItemType item in changedQueueNew.Take(idxFromChanged))
-								{
 									ret.Add(new DiffOrderedCollectionAdded<TItemType>(index, item));
-									index++;
-								}
 								changedQueueNew.RemoveRange(0, idxFromChanged);
 
 								break;
@@ -172,10 +166,7 @@ namespace POCOMerger.diff.collection.ordered
 								baseQueueNew.RemoveRange(0, idxFromBase);
 
 								foreach (TItemType item in changedQueueNew.Take(changedQueueNew.Count - 1))
-								{
 									ret.Add(new DiffOrderedCollectionAdded<TItemType>(index, item));
-									index++;
-								}
 								changedQueueNew.Clear();
 								changedQueueNew.Add(changedItem);
 
@@ -190,10 +181,7 @@ namespace POCOMerger.diff.collection.ordered
 				else if (baseHasItem)
 					ret.Add(new DiffOrderedCollectionRemoved<TItemType>(index, baseItem));
 				else if (changedHasItem)
-				{
 					ret.Add(new DiffOrderedCollectionAdded<TItemType>(index, changedItem));
-					index++;
-				}
 				else
 					break;
 			}
