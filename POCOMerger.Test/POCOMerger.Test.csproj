@@ -57,6 +57,7 @@
     <Compile Include="Diff\DictionaryOfObjects.cs" />
     <Compile Include="Diff\IgnoreProperty.cs" />
     <Compile Include="Diff\RulesInheritance.cs" />
+    <Compile Include="Diff\StructDiff.cs" />
     <Compile Include="Diff\ValueDiffWithId.cs" />
     <Compile Include="Diff\ValueObjectDiff.cs" />
     <Compile Include="Diff\DictionaryOfPrimitives.cs" />

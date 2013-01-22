@@ -67,7 +67,7 @@ namespace POCOMerger.diff.common.value
 			if (this.aIDProperty == null)
 			{
 				differ = Expression.IfThen(
-					Expression.NotEqual(@base, changed),
+					ExpressionExtensions.NotEqual(@base, changed),
 					Expression.Call(
 						ret,
 						Members.List.Add(typeof(IDiffItem)),
@@ -82,7 +82,7 @@ namespace POCOMerger.diff.common.value
 			else
 			{
 				differ = Expression.IfThen(
-					Expression.NotEqual(
+					ExpressionExtensions.NotEqual(
 						Expression.Property(@base, this.aIDProperty.ReflectionPropertyInfo),
 						Expression.Property(changed, this.aIDProperty.ReflectionPropertyInfo)
 					),

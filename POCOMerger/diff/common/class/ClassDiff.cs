@@ -101,7 +101,7 @@ namespace POCOMerger.diff.common.@class
 			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
 
 			return Expression.IfThen(
-				Expression.NotEqual(
+				ExpressionExtensions.NotEqual(
 					baseProperty,
 					changedProperty
 				),
@@ -109,7 +109,7 @@ namespace POCOMerger.diff.common.@class
 			);
 		}
 
-		private ConditionalExpression MightBeChanged(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
+		private Expression MightBeChanged(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
 		{
 			Property id = GeneralRulesHelper.GetIdProperty(this.aMergerImplementation, property.Type);
 
@@ -132,26 +132,31 @@ namespace POCOMerger.diff.common.@class
 			else
 				finalize = this.NewDiffChanged(ret, property, @base, changed);
 
-			return Expression.IfThenElse(
-				Expression.Or(
-					Expression.ReferenceEqual(
-						baseProperty,
-						Expression.Constant(null)
+			if (!property.ReflectionPropertyInfo.PropertyType.IsValueType)
+			{
+				finalize = Expression.IfThenElse(
+					Expression.Or(
+						Expression.ReferenceEqual(
+							baseProperty,
+							Expression.Constant(null)
+						),
+						Expression.ReferenceEqual(
+							changedProperty,
+							Expression.Constant(null)
+						)
 					),
-					Expression.ReferenceEqual(
-						changedProperty,
-						Expression.Constant(null)
-					)
-				),
-				Expression.IfThen(
-					Expression.ReferenceNotEqual(
-						baseProperty,
-						changedProperty
+					Expression.IfThen(
+						Expression.ReferenceNotEqual(
+							baseProperty,
+							changedProperty
+						),
+						this.NewDiffReplaced(ret, property, @base, changed)
 					),
-					this.NewDiffReplaced(ret, property, @base, changed)
-				),
-				finalize
-			);
+					finalize
+				);
+			}
+
+			return finalize;
 		}
 
 		private MethodCallExpression NewDiffReplaced(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)

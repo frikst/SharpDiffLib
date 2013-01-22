@@ -84,6 +84,19 @@ namespace POCOMerger.@internal
 			}
 		}
 
+		public static class EqualityComparerImplementation
+		{
+			public static MethodInfo Equals(Type tType)
+			{
+				return typeof(IEqualityComparer<>).MakeGenericType(tType).GetMethod("Equals");
+			}
+
+			public static PropertyInfo Default(Type tType)
+			{
+				return typeof(EqualityComparer<>).MakeGenericType(tType).GetProperty("Default", BindingFlags.Static | BindingFlags.Public);
+			}
+		}
+
 		private static MethodInfo GetMethod<TType, TReturnType>(Expression<Func<TType, TReturnType>> func)
 		{
 			MethodInfo methodInfo = ((MethodCallExpression) func.Body).Method;
