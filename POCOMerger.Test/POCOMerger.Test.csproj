@@ -49,6 +49,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyPatch\SimpleClass.cs" />
     <Compile Include="General\DiffResultFactory.cs" />
     <Compile Include="Diff\AlgorithmGuessing.cs" />
     <Compile Include="Diff\ArrayOfObjects.cs" />
@@ -75,6 +76,7 @@
       <Name>POCOMerger</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

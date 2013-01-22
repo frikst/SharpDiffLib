@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using POCOMerger.definition;
+using POCOMerger.applyPatch.@base;
 using POCOMerger.diff.@base;
-using POCOMerger.diffResult;
 using POCOMerger.diffResult.@base;
 using POCOMerger.@internal;
 
@@ -12,11 +10,13 @@ namespace POCOMerger.implementation
 	public class PartialMergerAlgorithms
 	{
 		private readonly MergerImplementation aMergerImplementation;
-		private Dictionary<Type, IDiffAlgorithm> aDiffAlgorithms;
+		private readonly Dictionary<Type, IDiffAlgorithm> aDiffAlgorithms;
+		private readonly Dictionary<Type, IApplyPatchAlgorithm> aApplyPatchAlgorithms;
 
 		public PartialMergerAlgorithms(MergerImplementation mergerImplementation)
 		{
 			this.aDiffAlgorithms = new Dictionary<Type, IDiffAlgorithm>();
+			this.aApplyPatchAlgorithms = new Dictionary<Type, IApplyPatchAlgorithm>();
 			this.aMergerImplementation = mergerImplementation;
 		}
 
@@ -63,9 +63,37 @@ namespace POCOMerger.implementation
 			throw new NotImplementedException();
 		}
 
+		public IApplyPatchAlgorithm<TType> GetApplyPatchAlgorithm<TType>()
+		{
+			return (IApplyPatchAlgorithm<TType>) this.GetApplyPatchAlgorithm(typeof(TType));
+		}
+
+		public IApplyPatchAlgorithm GetApplyPatchAlgorithm(Type type)
+		{
+			IApplyPatchAlgorithm ret;
+
+			if (this.aApplyPatchAlgorithms.TryGetValue(type, out ret))
+				return ret;
+
+			IApplyPatchAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<IApplyPatchAlgorithmRules>(type);
+
+			if (rules == null)
+			{
+				this.aDiffAlgorithms[type] = null;
+				return null;
+			}
+
+			ret = (IApplyPatchAlgorithm)Members.ApplyPatchAlgorithm.GetAlgorithm(type).Invoke(rules, null);
+
+			aApplyPatchAlgorithms[type] = ret;
+
+			return ret;
+		}
+
 		public TType ApplyPatch<TType>(TType @object, IDiff<TType> patch)
 		{
-			throw new NotImplementedException();
+			IApplyPatchAlgorithm<TType> algorithm = this.GetApplyPatchAlgorithm<TType>();
+			return algorithm.Apply(@object, patch);
 		}
 	}
 }

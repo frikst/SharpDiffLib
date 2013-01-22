@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using POCOMerger.applyPatch.@base;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
@@ -26,6 +27,16 @@ namespace POCOMerger.@internal
 			public static MethodInfo Compute(Type tType)
 			{
 				return typeof(IDiffAlgorithm<>).MakeGenericType(tType).GetMethod("Compute");
+			}
+		}
+
+		public static class ApplyPatchAlgorithm
+		{
+			private static readonly MethodInfo aGetAlgorithm = GetMethod<IApplyPatchAlgorithmRules, IApplyPatchAlgorithm>(x => x.GetAlgorithm<object>());
+
+			public static MethodInfo GetAlgorithm(Type tType)
+			{
+				return aGetAlgorithm.MakeGenericMethod(tType);
 			}
 		}
 

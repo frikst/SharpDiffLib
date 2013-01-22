@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="applyPatch\base\IApplyPatchAlgorithm.cs" />
+    <Compile Include="applyPatch\base\IApplyPatchAlgorithmRules.cs" />
+    <Compile Include="applyPatch\common\class\ApplyClassPatch.cs" />
+    <Compile Include="applyPatch\common\class\ApplyClassPatchRules.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="definition\rules\GeneralRulesExtensions.cs" />
     <Compile Include="definition\rules\IAlgorithmRules.cs" />
