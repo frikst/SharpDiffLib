@@ -4,6 +4,7 @@ using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
+using POCOMerger.fastReflection;
 
 namespace POCOMerger.diff.collection.keyValue
 {
@@ -13,20 +14,17 @@ namespace POCOMerger.diff.collection.keyValue
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
-			Type keyType = null;
-			Type itemType = null;
-
-			foreach (Type @interface in typeof(TType).GetInterfaces())
-			{
-				if (IsEnumerableOfKeyValuePair(@interface, out keyType, out itemType))
-					break;
-			}
-
-			if (itemType == null)
+			if (Class<TType>.KeyValueParams == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
-
-			return (IDiffAlgorithm<TType>)Activator.CreateInstance(typeof(KeyValueCollectionDiff<,,>).MakeGenericType(typeof(TType), keyType, itemType), this.MergerImplementation);
+			return (IDiffAlgorithm<TType>)Activator.CreateInstance(
+				typeof(KeyValueCollectionDiff<,,>).MakeGenericType(
+					typeof(TType),
+					Class<TType>.KeyValueParams[0],
+					Class<TType>.KeyValueParams[1]
+				),
+				this.MergerImplementation
+			);
 		}
 
 		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
@@ -39,27 +37,5 @@ namespace POCOMerger.diff.collection.keyValue
 		}
 
 		#endregion
-
-		private static bool IsEnumerableOfKeyValuePair(Type @interface, out Type keyType, out Type itemType)
-		{
-			if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-			{
-				Type enumerableItemType = @interface.GetGenericArguments()[0];
-
-				if (enumerableItemType.IsGenericType && enumerableItemType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-				{
-					Type[] keyValue = enumerableItemType.GetGenericArguments();
-					keyType = keyValue[0];
-					itemType = keyValue[1];
-
-					return true;
-				}
-			}
-
-			keyType = null;
-			itemType = null;
-
-			return false;
-		}
 	}
 }

@@ -14,29 +14,26 @@ namespace POCOMerger.diff.collection.unordered
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
-			Type itemType = null;
-
-			foreach (Type @interface in typeof(TType).GetInterfaces())
-			{
-				if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-				{
-					itemType = @interface.GetGenericArguments()[0];
-				}
-			}
-
-			if (itemType == null)
+			if (Class<TType>.EnumerableParam == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
-			Property idProperty = GeneralRulesHelper.GetIdProperty(this.MergerImplementation, itemType);
+			Property idProperty = GeneralRulesHelper.GetIdProperty(this.MergerImplementation, Class<TType>.EnumerableParam);
 
 			if (idProperty == null)
 				return (IDiffAlgorithm<TType>) Activator.CreateInstance(
-					typeof(UnorderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType),
+					typeof(UnorderedCollectionDiff<,>).MakeGenericType(
+						typeof(TType),
+						Class<TType>.EnumerableParam
+					),
 					this.MergerImplementation
 				);
 			else
 				return (IDiffAlgorithm<TType>) Activator.CreateInstance(
-					typeof(UnorderedCollectionWithIdDiff<,,>).MakeGenericType(typeof(TType), idProperty.Type, itemType),
+					typeof(UnorderedCollectionWithIdDiff<,,>).MakeGenericType(
+						typeof(TType),
+						idProperty.Type,
+						Class<TType>.EnumerableParam
+					),
 					this.MergerImplementation
 				);
 		}

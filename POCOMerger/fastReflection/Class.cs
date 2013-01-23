@@ -75,5 +75,40 @@ namespace POCOMerger.fastReflection
 		{
 			return Properties.FirstOrDefault(property => property.ReflectionPropertyInfo == member);
 		}
+
+		public static Type[] KeyValueParams
+		{
+			get
+			{
+				foreach (Type @interface in typeof(TClass).GetInterfaces())
+				{
+					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof (IEnumerable<>))
+					{
+						Type enumerableItemType = @interface.GetGenericArguments()[0];
+
+						if (enumerableItemType.IsGenericType && enumerableItemType.GetGenericTypeDefinition() == typeof (KeyValuePair<,>))
+							return enumerableItemType.GetGenericArguments();
+					}
+				}
+
+				return null;
+			}
+		}
+
+		public static Type EnumerableParam
+		{
+			get
+			{
+				foreach (Type @interface in typeof(TClass).GetInterfaces())
+				{
+					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof (IEnumerable<>))
+					{
+						return @interface.GetGenericArguments()[0];
+					}
+				}
+
+				return null;
+			}
+		}
 	}
 }

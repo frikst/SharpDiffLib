@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.applyPatch;
 using POCOMerger.applyPatch.common.@class;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
@@ -25,7 +26,7 @@ namespace POCOMerger.Test.ApplyPatch
 			private Merger()
 			{
 				Define<Sample>()
-					.Rules<ApplyClassPatchRules<Sample>>();
+					.ApplyClassPatchRules();
 			}
 		}
 

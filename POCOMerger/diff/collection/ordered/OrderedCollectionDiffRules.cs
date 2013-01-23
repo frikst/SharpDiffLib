@@ -4,6 +4,7 @@ using POCOMerger.definition.rules;
 using POCOMerger.diff.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
+using POCOMerger.fastReflection;
 
 namespace POCOMerger.diff.collection.ordered
 {
@@ -13,21 +14,17 @@ namespace POCOMerger.diff.collection.ordered
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
-			Type itemType = null;
-
-			foreach (Type @interface in typeof(TType).GetInterfaces())
-			{
-				if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-				{
-					itemType = @interface.GetGenericArguments()[0];
-				}
-			}
-
-			if (itemType == null)
+			if (Class<TType>.EnumerableParam == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
 
-			return (IDiffAlgorithm<TType>) Activator.CreateInstance(typeof(OrderedCollectionDiff<,>).MakeGenericType(typeof(TType), itemType), this.MergerImplementation);
+			return (IDiffAlgorithm<TType>) Activator.CreateInstance(
+				typeof(OrderedCollectionDiff<,>).MakeGenericType(
+					typeof(TType),
+					Class<TType>.EnumerableParam
+				),
+				this.MergerImplementation
+			);
 		}
 
 		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
