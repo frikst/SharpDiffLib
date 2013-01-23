@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplyPatch\ArrayOfPrimitives.cs" />
+    <Compile Include="ApplyPatch\DictionaryOfPrimitives.cs" />
     <Compile Include="ApplyPatch\SimpleClass.cs" />
     <Compile Include="ApplyPatch\StructuredClass.cs" />
     <Compile Include="General\DiffResultFactory.cs" />

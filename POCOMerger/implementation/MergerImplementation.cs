@@ -9,8 +9,6 @@ using POCOMerger.algorithms.diff.common.@class;
 using POCOMerger.algorithms.diff.common.value;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff.collection;
-using POCOMerger.diff.common;
 
 namespace POCOMerger.implementation
 {

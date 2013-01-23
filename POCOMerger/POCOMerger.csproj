@@ -47,6 +47,8 @@
     <Compile Include="algorithms\applyPatch\ApplyPatchRulesExtensions.cs" />
     <Compile Include="algorithms\applyPatch\base\IApplyPatchAlgorithm.cs" />
     <Compile Include="algorithms\applyPatch\base\IApplyPatchAlgorithmRules.cs" />
+    <Compile Include="algorithms\applyPatch\collection\keyValue\ApplyKeyValueCollectionPatch.cs" />
+    <Compile Include="algorithms\applyPatch\collection\keyValue\ApplyKeyValueCollectionPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatch.cs" />
     <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatch.cs" />
