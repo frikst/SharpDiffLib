@@ -51,12 +51,12 @@ namespace POCOMerger.@internal
 		{
 			public static ConstructorInfo NewClassChanged(Type tItemType)
 			{
-				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(FastProperty), typeof(IDiff) });
+				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), typeof(IDiff) });
 			}
 
 			public static ConstructorInfo NewClassReplaced(Type tItemType)
 			{
-				return typeof(DiffClassReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(FastProperty), tItemType, tItemType });
+				return typeof(DiffClassReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), tItemType, tItemType });
 			}
 
 			public static ConstructorInfo NewValueReplaced(Type tItemType)
@@ -135,6 +135,19 @@ namespace POCOMerger.@internal
 			public static PropertyInfo Default(Type tType)
 			{
 				return typeof(EqualityComparer<>).MakeGenericType(tType).GetProperty("Default", BindingFlags.Static | BindingFlags.Public);
+			}
+		}
+
+		public static class HashSet
+		{
+			public static ConstructorInfo NewHashSetFromEnumerable(Type tType)
+			{
+				return typeof(HashSet<>).MakeGenericType(tType).GetConstructor(new[] { typeof(IEnumerable<>).MakeGenericType(tType) });
+			}
+
+			public static MethodInfo Remove(Type tType)
+			{
+				return typeof(HashSet<>).MakeGenericType(tType).GetMethod("Remove");
 			}
 		}
 

@@ -1,1 +1,2 @@
 - Better support for value types [DONE]
+- Optional patch validation in applyPatch algorithms

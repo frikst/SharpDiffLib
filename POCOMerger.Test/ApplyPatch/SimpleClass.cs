@@ -30,6 +30,18 @@ namespace POCOMerger.Test.ApplyPatch
 		}
 
 		[TestMethod]
+		public void EmptyPatch()
+		{
+			IDiff<Sample> diff = DiffResultFactory<Sample>.Class.Create()
+				.MakeDiff();
+
+			Sample obj = new Sample { Value = "hello" };
+			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
+
+			Assert.AreEqual(ret.Value, "hello");
+		}
+
+		[TestMethod]
 		public void ReplaceGoodValue()
 		{
 			IDiff<Sample> diff = DiffResultFactory<Sample>.Class.Create()

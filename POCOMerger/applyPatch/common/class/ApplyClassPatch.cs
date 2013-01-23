@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using POCOMerger.applyPatch.@base;
@@ -40,6 +41,8 @@ namespace POCOMerger.applyPatch.common.@class
 
 		private Expression<Func<TType, IDiff, TType>> Compile()
 		{
+			ParameterExpression notChanged = Expression.Parameter(typeof(HashSet<Property>), "notChanged");
+			ParameterExpression itemNotChanged = Expression.Parameter(typeof(Property), "item");
 			ParameterExpression ret = Expression.Parameter(typeof(TType), "ret");
 			ParameterExpression orig = Expression.Parameter(typeof(TType), "orig");
 			ParameterExpression diff = Expression.Parameter(typeof(IDiff), "diff");
@@ -47,29 +50,57 @@ namespace POCOMerger.applyPatch.common.@class
 
 			return Expression.Lambda<Func<TType, IDiff, TType>>(
 				Expression.Block(
-					new [] { ret },
+					new[] { ret, notChanged },
 					Expression.Assign(
 						ret,
 						Expression.New(typeof(TType))
 					),
+					Expression.Assign(
+						notChanged,
+						Expression.New(
+							Members.HashSet.NewHashSetFromEnumerable(typeof(Property)),
+							Expression.Constant(Class<TType>.Properties.ToArray())
+						)
+					),
 					ExpressionExtensions.ForEach(
 						item,
 						diff,
+						Expression.Block(
+							Expression.Switch(
+								Expression.Property(
+									Expression.Property(item, Members.DiffItems.ClassProperty()),
+									Members.FastProperty.UniqueID()
+								),
+								Expression.Throw(
+									Expression.New(
+										typeof(Exception) // TODO: Better exception
+									)
+								),
+								null,
+								Class<TType>
+									.Properties
+									.Select(x => this.CompileCase(x, ret, orig, item))
+									.Where(x => x != null)
+							),
+							Expression.Call(
+								notChanged,
+								Members.HashSet.Remove(typeof(Property)),
+								Expression.Property(item, Members.DiffItems.ClassProperty())
+							)
+						)
+					),
+					ExpressionExtensions.ForEach(
+						itemNotChanged,
+						notChanged,
 						Expression.Switch(
-							Expression.Property(
-								Expression.Property(item, Members.DiffItems.ClassProperty()),
-								Members.FastProperty.UniqueID()
-							),
-							Expression.Throw(
-								Expression.New(
-									typeof(Exception) // TODO: Better exception
-								)
-							),
+							typeof(void),
+							Expression.Property(itemNotChanged, Members.FastProperty.UniqueID()),
+							null,
 							null,
 							Class<TType>
-								.Properties
-								.Select(x => this.CompileCase(x, ret, orig, item))
-								.Where(x => x != null)
+									.Properties
+									.Select(x => this.CompileCaseDefaultValue(x, ret, orig, itemNotChanged))
+									.Where(x => x != null)
 						)
 					),
 					ret
@@ -108,9 +139,12 @@ namespace POCOMerger.applyPatch.common.@class
 							Expression.Constant(algorithm),
 							Members.ApplyPatchAlgorithm.Apply(property.Type),
 							Expression.Property(orig, property.ReflectionPropertyInfo),
-							Expression.Property(
-								Expression.Convert(item, typeof(IDiffItemChanged)),
-								Members.DiffItems.ChangedDiff()
+							Expression.Convert(
+								Expression.Property(
+									Expression.Convert(item, typeof(IDiffItemChanged)),
+									Members.DiffItems.ChangedDiff()
+								),
+								typeof(IDiff<>).MakeGenericType(property.Type)
 							)
 						)
 					),
@@ -119,6 +153,17 @@ namespace POCOMerger.applyPatch.common.@class
 			}
 
 			return Expression.SwitchCase(caseBody, Expression.Constant(property.UniqueID));
+		}
+
+		private SwitchCase CompileCaseDefaultValue(Property property, ParameterExpression ret, ParameterExpression orig, ParameterExpression itemNotChanged)
+		{
+			return Expression.SwitchCase(
+				Expression.Assign(
+					Expression.Property(ret, property.ReflectionPropertyInfo),
+					Expression.Property(orig, property.ReflectionPropertyInfo)
+				),
+				Expression.Constant(property.UniqueID)
+			);
 		}
 	}
 }
