@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.applyPatch;
+using POCOMerger.algorithms.applyPatch;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
 using POCOMerger.diffResult.@base;

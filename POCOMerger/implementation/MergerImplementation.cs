@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using POCOMerger.algorithms.diff.@base;
+using POCOMerger.algorithms.diff.collection.keyValue;
+using POCOMerger.algorithms.diff.collection.ordered;
+using POCOMerger.algorithms.diff.collection.unordered;
+using POCOMerger.algorithms.diff.common.@class;
+using POCOMerger.algorithms.diff.common.value;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff.@base;
 using POCOMerger.diff.collection;
-using POCOMerger.diff.collection.keyValue;
-using POCOMerger.diff.collection.ordered;
-using POCOMerger.diff.collection.unordered;
 using POCOMerger.diff.common;
-using POCOMerger.diff.common.@class;
-using POCOMerger.diff.common.value;
 
 namespace POCOMerger.implementation
 {

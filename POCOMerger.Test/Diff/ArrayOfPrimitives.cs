@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
-using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.applyPatch.@base;
-using POCOMerger.diff.@base;
+using POCOMerger.algorithms.applyPatch.@base;
+using POCOMerger.algorithms.diff.@base;
 using POCOMerger.diffResult.@base;
 using POCOMerger.@internal;
 

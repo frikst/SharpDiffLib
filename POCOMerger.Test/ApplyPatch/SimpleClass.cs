@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.applyPatch;
-using POCOMerger.applyPatch.common.@class;
+using POCOMerger.algorithms.applyPatch;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
 using POCOMerger.diffResult.@base;

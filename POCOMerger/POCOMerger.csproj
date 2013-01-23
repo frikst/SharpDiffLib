@@ -44,13 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="applyPatch\ApplyPatchRulesExtensions.cs" />
-    <Compile Include="applyPatch\base\IApplyPatchAlgorithm.cs" />
-    <Compile Include="applyPatch\base\IApplyPatchAlgorithmRules.cs" />
-    <Compile Include="applyPatch\collection\order\ApplyOrderedCollectionPatch.cs" />
-    <Compile Include="applyPatch\collection\order\ApplyOrderedCollectionPatchRules.cs" />
-    <Compile Include="applyPatch\common\class\ApplyClassPatch.cs" />
-    <Compile Include="applyPatch\common\class\ApplyClassPatchRules.cs" />
+    <Compile Include="algorithms\applyPatch\ApplyPatchRulesExtensions.cs" />
+    <Compile Include="algorithms\applyPatch\base\IApplyPatchAlgorithm.cs" />
+    <Compile Include="algorithms\applyPatch\base\IApplyPatchAlgorithmRules.cs" />
+    <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatch.cs" />
+    <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatchRules.cs" />
+    <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatch.cs" />
+    <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatchRules.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="definition\rules\GeneralRulesExtensions.cs" />
     <Compile Include="definition\rules\IAlgorithmRules.cs" />
@@ -83,24 +83,24 @@
     <Compile Include="diffResult\type\IDiffKeyValueCollectionItem.cs" />
     <Compile Include="diffResult\type\IDiffUnorderedCollectionItem.cs" />
     <Compile Include="diffResult\type\IDiffValue.cs" />
-    <Compile Include="diff\base\IDiffAlgorithmRules.cs" />
-    <Compile Include="diff\collection\unordered\UnorderedCollectionWithIdDiff.cs" />
-    <Compile Include="diff\collection\keyValue\KeyValueCollectionDiff.cs" />
-    <Compile Include="diff\collection\keyValue\KeyValueCollectionDiffRules.cs" />
-    <Compile Include="diff\collection\ordered\OrderedCollectionDiff.cs" />
-    <Compile Include="diff\collection\ordered\OrderedCollectionDiffRules.cs" />
-    <Compile Include="diff\collection\unordered\UnorderedCollectionDiff.cs" />
-    <Compile Include="diff\common\baseClass\BaseClassDiff.cs" />
-    <Compile Include="diff\common\baseClass\BaseClassDiffRules.cs" />
-    <Compile Include="diff\common\class\ClassDiffRules.cs" />
-    <Compile Include="diff\collection\unordered\UnorderedCollectionDiffRules.cs" />
-    <Compile Include="diff\common\value\ValueDiff.cs" />
-    <Compile Include="diff\common\value\ValueDiffRules.cs" />
-    <Compile Include="diff\DiffRulesExtensions.cs" />
+    <Compile Include="algorithms\diff\base\IDiffAlgorithmRules.cs" />
+    <Compile Include="algorithms\diff\collection\unordered\UnorderedCollectionWithIdDiff.cs" />
+    <Compile Include="algorithms\diff\collection\keyValue\KeyValueCollectionDiff.cs" />
+    <Compile Include="algorithms\diff\collection\keyValue\KeyValueCollectionDiffRules.cs" />
+    <Compile Include="algorithms\diff\collection\ordered\OrderedCollectionDiff.cs" />
+    <Compile Include="algorithms\diff\collection\ordered\OrderedCollectionDiffRules.cs" />
+    <Compile Include="algorithms\diff\collection\unordered\UnorderedCollectionDiff.cs" />
+    <Compile Include="algorithms\diff\common\baseClass\BaseClassDiff.cs" />
+    <Compile Include="algorithms\diff\common\baseClass\BaseClassDiffRules.cs" />
+    <Compile Include="algorithms\diff\common\class\ClassDiffRules.cs" />
+    <Compile Include="algorithms\diff\collection\unordered\UnorderedCollectionDiffRules.cs" />
+    <Compile Include="algorithms\diff\common\value\ValueDiff.cs" />
+    <Compile Include="algorithms\diff\common\value\ValueDiffRules.cs" />
+    <Compile Include="algorithms\diff\DiffRulesExtensions.cs" />
     <Compile Include="fastReflection\ICountableEnumerable.cs" />
     <Compile Include="fastReflection\Property.cs" />
     <Compile Include="diffResult\type\IDiffOrderedCollectionItem.cs" />
-    <Compile Include="diff\base\IDiffAlgorithm.cs" />
+    <Compile Include="algorithms\diff\base\IDiffAlgorithm.cs" />
     <Compile Include="diffResult\base\IDiffItem.cs" />
     <Compile Include="definition\IClassMergerDefinition.cs" />
     <Compile Include="definition\MergerDefinition.cs" />
@@ -114,7 +114,7 @@
     <Compile Include="internal\PropertyEqualityComparer.cs" />
     <Compile Include="internal\StringBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="diff\common\class\ClassDiff.cs" />
+    <Compile Include="algorithms\diff\common\class\ClassDiff.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

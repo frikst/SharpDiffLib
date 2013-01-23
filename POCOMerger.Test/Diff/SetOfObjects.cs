@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
-using POCOMerger.diff;
 
 namespace POCOMerger.Test.Diff
 {
