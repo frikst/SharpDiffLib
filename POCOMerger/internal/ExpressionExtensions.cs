@@ -34,5 +34,34 @@ namespace POCOMerger.@internal
 				);
 			}
 		}
+
+		public static Expression ForEach(ParameterExpression item, Expression source, Expression body)
+		{
+			ParameterExpression enumerator = Expression.Parameter(typeof(IEnumerator), "enumerator");
+			LabelTarget forEachEnd = Expression.Label();
+
+			return Expression.Block(
+				new[] { item, enumerator },
+
+				Expression.Assign(
+					enumerator,
+					Expression.Call(source, typeof(IEnumerable).GetMethod("GetEnumerator"))
+				),
+
+				Expression.Loop(
+					Expression.IfThenElse(
+						Expression.Call(enumerator, typeof(IEnumerator).GetMethod("MoveNext")),
+
+						Expression.Block(
+							Expression.Assign(item, Expression.Convert(Expression.Property(enumerator, "Current"), item.Type)),
+							body
+						),
+
+						Expression.Break(forEachEnd)
+					),
+					forEachEnd
+				)
+			);
+		}
 	}
 }

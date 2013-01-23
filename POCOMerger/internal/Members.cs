@@ -6,8 +6,10 @@ using System.Reflection;
 using System.Text;
 using POCOMerger.applyPatch.@base;
 using POCOMerger.diff.@base;
+using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
+using POCOMerger.diffResult.type;
 using POCOMerger.fastReflection;
 using POCOMerger.implementation;
 
@@ -38,23 +40,43 @@ namespace POCOMerger.@internal
 			{
 				return aGetAlgorithm.MakeGenericMethod(tType);
 			}
+
+			public static MethodInfo Apply(Type tType)
+			{
+				return typeof(IApplyPatchAlgorithm<>).MakeGenericType(tType).GetMethod("Apply");
+			}
 		}
 
 		public static class DiffItems
 		{
 			public static ConstructorInfo NewClassChanged(Type tItemType)
 			{
-				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), typeof(IDiff) });
+				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(FastProperty), typeof(IDiff) });
 			}
 
 			public static ConstructorInfo NewClassReplaced(Type tItemType)
 			{
-				return typeof(DiffClassReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), tItemType, tItemType });
+				return typeof(DiffClassReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(FastProperty), tItemType, tItemType });
 			}
 
 			public static ConstructorInfo NewValueReplaced(Type tItemType)
 			{
 				return typeof(DiffValueReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { tItemType, tItemType });
+			}
+
+			public static PropertyInfo ClassProperty()
+			{
+				return typeof(IDiffClassItem).GetProperty("Property");
+			}
+
+			public static PropertyInfo ReplacedNewValue(Type tType)
+			{
+				return typeof(IDiffItemReplaced<>).MakeGenericType(tType).GetProperty("NewValue");
+			}
+
+			public static PropertyInfo ChangedDiff()
+			{
+				return typeof(IDiffItemChanged).GetProperty("ValueDiff");
 			}
 		}
 
@@ -87,11 +109,19 @@ namespace POCOMerger.@internal
 			}
 		}
 
-		public static class Class
+		public static class FastClass
 		{
 			public static PropertyInfo Properties(Type tType)
 			{
 				return typeof(Class<>).MakeGenericType(tType).GetProperty("Properties", BindingFlags.Static | BindingFlags.Public);
+			}
+		}
+
+		public static class FastProperty
+		{
+			public static PropertyInfo UniqueID()
+			{
+				return typeof(Property).GetProperty("UniqueID");
 			}
 		}
 

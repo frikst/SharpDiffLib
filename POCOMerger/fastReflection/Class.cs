@@ -54,7 +54,7 @@ namespace POCOMerger.fastReflection
 					IEnumerable<Property> parentProperties;
 
 					if (typeof(TClass).BaseType != null)
-						parentProperties = (IEnumerable<Property>) Members.Class.Properties(typeof(TClass).BaseType).GetValue(null, null);
+						parentProperties = (IEnumerable<Property>) Members.FastClass.Properties(typeof(TClass).BaseType).GetValue(null, null);
 					else
 						parentProperties = Enumerable.Empty<Property>();
 
