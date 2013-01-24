@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.diffResult.type
 {
-	public interface IDiffValue
+	public interface IDiffValue : IDiffItem
 	{
 
 	}
