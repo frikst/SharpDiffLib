@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using POCOMerger.algorithms.applyPatch.@base;
+using POCOMerger.algorithms.applyPatch.collection.keyValue;
+using POCOMerger.algorithms.applyPatch.collection.order;
+using POCOMerger.algorithms.applyPatch.collection.unordered;
+using POCOMerger.algorithms.applyPatch.common.@class;
+using POCOMerger.algorithms.applyPatch.common.value;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.diff.collection.keyValue;
 using POCOMerger.algorithms.diff.collection.ordered;
@@ -149,6 +155,21 @@ namespace POCOMerger.implementation
 						ret = (TRules)Activator.CreateInstance(typeof(ClassDiffRules<>).MakeGenericType(type));
 					else
 						ret = (TRules)Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
+				}
+				else if (typeof(IApplyPatchAlgorithmRules).IsAssignableFrom(typeof(TRules)))
+				{
+					if (type.IsValueType || type == typeof(string))
+						ret = (TRules)Activator.CreateInstance(typeof(ApplyValuePatchRules<>).MakeGenericType(type));
+					else if (implementsISet)
+						ret = (TRules)Activator.CreateInstance(typeof(ApplyUnorderedCollectionPatchRules<>).MakeGenericType(type));
+					else if (implementsIEnumerableKeyValue)
+						ret = (TRules)Activator.CreateInstance(typeof(ApplyKeyValueCollectionPatchRules<>).MakeGenericType(type));
+					else if (implementsIEnumerable)
+						ret = (TRules)Activator.CreateInstance(typeof(ApplyOrderedCollectionPatchRules<>).MakeGenericType(type));
+					else if (this.GetMergerAnyDefinition(type) != null)
+						ret = (TRules)Activator.CreateInstance(typeof(ApplyClassPatchRules<>).MakeGenericType(type));
+					else
+						ret = (TRules)Activator.CreateInstance(typeof(ApplyValuePatchRules<>).MakeGenericType(type));
 				}
 			}
 

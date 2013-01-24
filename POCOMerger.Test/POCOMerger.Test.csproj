@@ -49,6 +49,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyPatch\AlgorithmGuessing.cs" />
     <Compile Include="ApplyPatch\ArrayOfObjects.cs" />
     <Compile Include="ApplyPatch\ArrayOfPrimitives.cs" />
     <Compile Include="ApplyPatch\BaseDefinition.cs" />
