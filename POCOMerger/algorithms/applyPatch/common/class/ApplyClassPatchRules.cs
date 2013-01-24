@@ -3,7 +3,7 @@ using POCOMerger.definition.rules;
 
 namespace POCOMerger.algorithms.applyPatch.common.@class
 {
-	public class ApplyClassPatchRules<TClass> : BaseRules<TClass>, IApplyPatchAlgorithmRules<TClass>
+	public class ApplyClassPatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IApplyPatchAlgorithmRules
 

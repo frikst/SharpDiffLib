@@ -51,6 +51,8 @@
     <Compile Include="algorithms\applyPatch\collection\keyValue\ApplyKeyValueCollectionPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatch.cs" />
     <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatchRules.cs" />
+    <Compile Include="algorithms\applyPatch\collection\unordered\ApplyUnorderedCollectionPatch.cs" />
+    <Compile Include="algorithms\applyPatch\collection\unordered\ApplyUnorderedCollectionPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatch.cs" />
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatchRules.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
