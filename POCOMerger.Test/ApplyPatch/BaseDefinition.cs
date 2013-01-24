@@ -3,11 +3,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.algorithms.applyPatch;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
+using POCOMerger.diffResult;
+using POCOMerger.diffResult.@base;
 
-namespace POCOMerger.Test.Diff
+namespace POCOMerger.Test.ApplyPatch
 {
 	[TestClass]
 	public class BaseDefinition
@@ -15,6 +18,28 @@ namespace POCOMerger.Test.Diff
 		private abstract class SampleBase
 		{
 			public int Id { get; set; }
+
+			#region Equality members
+
+			public override bool Equals(object obj)
+			{
+				if (ReferenceEquals(null, obj))
+					return false;
+				if (ReferenceEquals(this, obj))
+					return true;
+				if (!(obj is SampleBase))
+					return false;
+
+				return this.Id == ((SampleBase) obj).Id
+					&& this.GetType() == obj.GetType();
+			}
+
+			public override int GetHashCode()
+			{
+				return this.Id;
+			}
+
+			#endregion
 		}
 
 		private class Sample1 : SampleBase
@@ -42,23 +67,25 @@ namespace POCOMerger.Test.Diff
 			private Merger()
 			{
 				Define<SampleBase>()
-					.BaseClassDiffRules()
-					.Inheritable.ClassDiffRules()
+					.ApplyValuePatchRules()
+					.Inheritable.ApplyClassPatchRules()
 					.Inheritable.GeneralRules(rules => rules
 						.Id(x => x.Id)
 					);
 
 				Define<SampleBase[]>()
-					.OrderedCollectionDiffRules();
+					.ApplyOrderedCollectionPatchRules();
 			}
 		}
 
 		[TestMethod]
 		public void OneAdded()
 		{
-			const string diff =
-				"+1:<Sample1:2>";
-			var @base = new SampleBase[]
+			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
+				.Added(1, new Sample1 { Id = 2, Value = "b" })
+				.MakeDiff();
+
+			var obj = new SampleBase[]
 			{
 				new Sample1 { Id = 1, Value = "a" }
 			};
@@ -68,20 +95,25 @@ namespace POCOMerger.Test.Diff
 				new Sample1 { Id = 2, Value = "b" }
 			};
 
-			var ret = Merger.Instance.Partial.Diff(@base, changed);
+			var ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			CollectionAssert.AreEqual(changed, ret);
 		}
 
 		[TestMethod]
 		public void OneReplacedWithOtherDescendant()
 		{
-			const string diff =
-				"=1:\r\n" +
-				"\t-<Sample1:2>\r\n" +
-				"\t+<Sample2:2>";
-			var @base = new SampleBase[]
+			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
+				.Changed(1, DiffResultFactory.Value<SampleBase>.Create()
+					.Replaced(
+						new Sample1 { Id = 2, Value = "b" },
+						new Sample2 { Id = 2, Value = "b" }
+					)
+					.MakeDiff()
+				)
+				.MakeDiff();
+
+			var obj = new SampleBase[]
 			{
 				new Sample1 { Id = 1, Value = "a" },
 				new Sample1 { Id = 2, Value = "b" }
@@ -92,21 +124,25 @@ namespace POCOMerger.Test.Diff
 				new Sample2 { Id = 2, Value = "b" }
 			};
 
-			var ret = Merger.Instance.Partial.Diff(@base, changed);
+			var ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			CollectionAssert.AreEqual(changed, ret);
 		}
 
 		[TestMethod]
 		public void OneChangedProperty()
 		{
-			const string diff =
-				"=1:\r\n" +
-				"\t=:\r\n" +
-				"\t\t-Value:b\r\n" +
-				"\t\t+Value:c";
-			var @base = new SampleBase[]
+			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
+				.Changed(1, DiffResultFactory.Value<SampleBase>.Create()
+					.Changed(DiffResultFactory.Class<Sample1>.Create()
+						.Replaced(x => x.Value, "b", "c")
+						.MakeDiff()
+					)
+					.MakeDiff()
+				)
+				.MakeDiff();
+
+			var obj = new SampleBase[]
 			{
 				new Sample1 { Id = 1, Value = "a" },
 				new Sample1 { Id = 2, Value = "b" }
@@ -117,10 +153,9 @@ namespace POCOMerger.Test.Diff
 				new Sample1 { Id = 2, Value = "c" }
 			};
 
-			var ret = Merger.Instance.Partial.Diff(@base, changed);
+			var ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			CollectionAssert.AreEqual(changed, ret);
 		}
 	}
 }

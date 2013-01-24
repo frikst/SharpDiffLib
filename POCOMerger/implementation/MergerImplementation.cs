@@ -68,10 +68,11 @@ namespace POCOMerger.implementation
 			{
 				foreach (IClassMergerDefinition definition in this.GetDefinitionFor(tmp))
 				{
-					TRules rules = definition.GetRules<TRules>();
-
-					if (rules != null && rules.IsInheritable)
-						return rules;
+					foreach (TRules rules in definition.GetAllRules<TRules>())
+					{
+						if (rules.IsInheritable)
+							return rules;
+					}
 				}
 			}
 

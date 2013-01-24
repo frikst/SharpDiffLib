@@ -229,6 +229,12 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public Value Changed(IDiff<TType> diff)
+			{
+				this.aDiffItems.Add(new DiffValueChanged<TType>(diff));
+				return this;
+			}
+
 			public Value Custom(IDiffItem item)
 			{
 				this.aDiffItems.Add(item);

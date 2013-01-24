@@ -23,6 +23,15 @@ namespace POCOMerger.algorithms.applyPatch.common.@class
 			this.aCompiled = null;
 		}
 
+		#region Implementation of IApplyPatchAlgorithm
+
+		public object Apply(object source, IDiff patch)
+		{
+			return this.Apply((TType)source, (IDiff<TType>)patch);
+		}
+
+		#endregion
+
 		#region Implementation of IApplyPatchAlgorithm<TType>
 
 		public TType Apply(TType source, IDiff<TType> patch)

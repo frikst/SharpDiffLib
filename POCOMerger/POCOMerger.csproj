@@ -56,6 +56,8 @@
     <Compile Include="algorithms\applyPatch\collection\unordered\ApplyUnorderedCollectionWithIdPatch.cs" />
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatch.cs" />
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatchRules.cs" />
+    <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatch.cs" />
+    <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatchRules.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="definition\rules\GeneralRulesExtensions.cs" />
     <Compile Include="definition\rules\IAlgorithmRules.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="diffResult\implementation\DiffUnorderedCollectionRemoved.cs" />
     <Compile Include="diffResult\implementation\DiffUnorderedCollectionChanged.cs" />
     <Compile Include="diffResult\implementation\DiffUnorderedCollectionReplaced.cs" />
+    <Compile Include="diffResult\implementation\DiffValueChanged.cs" />
     <Compile Include="diffResult\implementation\DiffValueReplaced.cs" />
     <Compile Include="diffResult\type\IDiffClassItem.cs" />
     <Compile Include="diffResult\action\IDiffItemRemoved.cs" />

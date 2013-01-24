@@ -4,7 +4,7 @@ namespace POCOMerger.algorithms.applyPatch.@base
 {
 	public interface IApplyPatchAlgorithm
 	{
-
+		object Apply(object source, IDiff patch);
 	}
 
 	public interface IApplyPatchAlgorithm<TType> : IApplyPatchAlgorithm

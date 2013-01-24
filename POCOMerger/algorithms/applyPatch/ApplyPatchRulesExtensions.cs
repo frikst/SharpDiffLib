@@ -3,6 +3,7 @@ using POCOMerger.algorithms.applyPatch.collection.keyValue;
 using POCOMerger.algorithms.applyPatch.collection.order;
 using POCOMerger.algorithms.applyPatch.collection.unordered;
 using POCOMerger.algorithms.applyPatch.common.@class;
+using POCOMerger.algorithms.applyPatch.common.value;
 using POCOMerger.definition;
 
 namespace POCOMerger.algorithms.applyPatch
@@ -47,6 +48,16 @@ namespace POCOMerger.algorithms.applyPatch
 		public static ClassMergerDefinition<TClass> ApplyClassPatchRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
 			return definition.Rules<ApplyClassPatchRules<TClass>>();
+		}
+
+		public static ClassMergerDefinition<TClass> ApplyValuePatchRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<ApplyValuePatchRules<TClass>> func)
+		{
+			return definition.Rules(func);
+		}
+
+		public static ClassMergerDefinition<TClass> ApplyValuePatchRules<TClass>(this ClassMergerDefinition<TClass> definition)
+		{
+			return definition.Rules<ApplyValuePatchRules<TClass>>();
 		}
 	}
 }
