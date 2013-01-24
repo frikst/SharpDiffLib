@@ -81,12 +81,15 @@ namespace POCOMerger.algorithms.applyPatch.collection.order
 				if (item is IDiffItemAdded<TItemType>)
 					ret.Add(((IDiffItemAdded<TItemType>)item).NewValue);
 				else if (item is IDiffItemChanged)
+				{
 					ret.Add(
 						this.aApplyItemDiff.Apply(
 							enumerator.Current,
 							(IDiff<TItemType>)((IDiffItemChanged)item).ValueDiff
 						)
 					);
+					lastMoveNext = enumerator.MoveNext();
+				}
 				else if (item is IDiffItemRemoved<TItemType>)
 					lastMoveNext = enumerator.MoveNext();
 				else if (item is IDiffItemReplaced<TItemType>)

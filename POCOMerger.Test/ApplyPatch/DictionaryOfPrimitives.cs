@@ -22,7 +22,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void OneAdded()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.Added("c", 3)
 				.MakeDiff();
 
@@ -37,7 +37,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void TwoAdded()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.Added("c", 3)
 				.Added("d", 4)
 				.MakeDiff();
@@ -53,7 +53,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void TwoRemoved()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.Removed("c", 3)
 				.Removed("d", 4)
 				.MakeDiff();
@@ -69,7 +69,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void OneReplaced()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.Replaced("c", 3, 4)
 				.MakeDiff();
 
@@ -84,7 +84,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void AllAdded()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.Added("a", 1)
 				.Added("b", 2)
 				.MakeDiff();
@@ -100,7 +100,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void AllRemoved()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.Removed("a", 1)
 				.Removed("b", 2)
 				.MakeDiff();
@@ -116,7 +116,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void UnchangedEmpty()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.MakeDiff();
 
 			var obj = new Dictionary<string, int> { };
@@ -130,7 +130,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void UnchangedNonEmpty()
 		{
-			IDiff<Dictionary<string, int>> diff = DiffResultFactory<Dictionary<string, int>>.KeyValue<string, int>.Create()
+			var diff = DiffResultFactory.KeyValue<string, int>.Create()
 				.MakeDiff();
 
 			var obj = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };

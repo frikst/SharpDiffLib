@@ -21,7 +21,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void OneAdded()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Added(2, 3)
 				.MakeDiff();
 
@@ -36,7 +36,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void TwoAdded()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Added(2, 2)
 				.Added(2, 3)
 				.MakeDiff();
@@ -52,7 +52,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void ManyAdded()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Added(0, 2)
 				.Added(1, 2)
 				.Added(2, 2)
@@ -71,7 +71,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void OneRemoved()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(2, 3)
 				.MakeDiff();
 
@@ -86,7 +86,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void TwoRemoved()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(2, 2)
 				.Removed(2, 3)
 				.MakeDiff();
@@ -102,7 +102,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void ManyRemoved()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 2)
 				.Removed(1, 2)
 				.Removed(2, 2)
@@ -121,7 +121,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void OneReplaced()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(2, 3)
 				.Added(2, 4)
 				.MakeDiff();
@@ -137,7 +137,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void OneReplacedWithReplace()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Replaced(2, 3, 4)
 				.MakeDiff();
 
@@ -152,7 +152,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void TwoReplaced()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(2, 2)
 				.Removed(2, 3)
 				.Added(2, 4)
@@ -170,7 +170,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void TwoReplacedWithReplace()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Replaced(2, 2, 4)
 				.Replaced(3, 3, 5)
 				.MakeDiff();
@@ -186,7 +186,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void ManyReplaced()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 2)
 				.Added(0, 3)
 				.Removed(1, 2)
@@ -210,7 +210,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void ManyReplacedWithReplace()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Replaced(0, 2, 3)
 				.Replaced(2, 2, 3)
 				.Replaced(4, 2, 3)
@@ -229,7 +229,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void AllReplaced()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 2)
 				.Removed(0, 2)
 				.Removed(0, 2)
@@ -253,7 +253,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void AllReplacedWithReplace()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Replaced(0, 2, 3)
 				.Replaced(1, 2, 3)
 				.Replaced(2, 2, 3)
@@ -272,7 +272,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void AllAdded()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Added(0, 3)
 				.Added(0, 3)
 				.Added(0, 3)
@@ -291,7 +291,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void AllRemoved()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 2)
 				.Removed(0, 2)
 				.Removed(0, 2)
@@ -310,7 +310,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void EmptyUnchanged()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.MakeDiff();
 
 			var obj = new int[] { };
@@ -324,7 +324,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void NonEmptyUnchanged()
 		{
-			IDiff<int[]> diff = DiffResultFactory<int[]>.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>.Create()
 				.MakeDiff();
 
 			var obj = new[] { 2, 2, 2, 2, 2 };

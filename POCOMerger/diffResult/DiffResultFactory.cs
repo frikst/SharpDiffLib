@@ -241,4 +241,47 @@ namespace POCOMerger.diffResult
 			}
 		}
 	}
+
+	public static class DiffResultFactory
+	{
+		public static class Class<TType>
+		{
+			public static DiffResultFactory<TType>.Class Create()
+			{
+				return DiffResultFactory<TType>.Class.Create();
+			}
+		}
+
+		public static class KeyValue<TKey, TValue>
+		{
+			public static DiffResultFactory<Dictionary<TKey, TValue>>.KeyValue<TKey, TValue> Create()
+			{
+				return DiffResultFactory<Dictionary<TKey, TValue>>.KeyValue<TKey, TValue>.Create();
+			}
+		}
+
+		public static class Ordered<TValue>
+		{
+			public static DiffResultFactory<TValue[]>.Ordered<TValue> Create()
+			{
+				return DiffResultFactory<TValue[]>.Ordered<TValue>.Create();
+			}
+		}
+
+		public static class Unordered<TValue>
+		{
+			public static DiffResultFactory<HashSet<TValue>>.Unordered<TValue> Create()
+			{
+				return DiffResultFactory<HashSet<TValue>>.Unordered<TValue>.Create();
+			}
+		}
+
+		public static class Value<TType>
+		{
+			public static DiffResultFactory<TType>.Value Create()
+			{
+				return DiffResultFactory<TType>.Value.Create();
+			}
+		}
+	}
 }

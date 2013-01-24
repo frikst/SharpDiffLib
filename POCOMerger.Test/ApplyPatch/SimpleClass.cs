@@ -32,7 +32,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void EmptyPatch()
 		{
-			IDiff<Sample> diff = DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.Class<Sample>.Create()
 				.MakeDiff();
 
 			Sample obj = new Sample { Value = "hello" };
@@ -44,7 +44,7 @@ namespace POCOMerger.Test.ApplyPatch
 		[TestMethod]
 		public void ReplaceGoodValue()
 		{
-			IDiff<Sample> diff = DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.Class<Sample>.Create()
 				.Replaced(x => x.Value, "hello", "world")
 				.MakeDiff();
 

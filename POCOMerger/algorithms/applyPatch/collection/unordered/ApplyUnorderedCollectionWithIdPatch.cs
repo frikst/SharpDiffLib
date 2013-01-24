@@ -50,7 +50,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.unordered
 			if (typeof(TType).IsArray)
 				return x => (TType)(object)x.ToArray();
 
-			ParameterExpression from = Expression.Parameter(typeof(List<TItemType>), "from");
+			ParameterExpression from = Expression.Parameter(typeof(ICollection<TItemType>), "from");
 
 			Expression<Func<ICollection<TItemType>, TType>> convertor = Expression.Lambda<Func<ICollection<TItemType>, TType>>(
 				Expression.New(

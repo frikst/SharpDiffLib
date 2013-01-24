@@ -44,7 +44,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.keyValue
 								|| typeof(TType).GetGenericTypeDefinition() == typeof(IDictionary<,>)))
 				return x => (TType)(object)x;
 
-			ParameterExpression from = Expression.Parameter(typeof(List<TItemType>), "from");
+			ParameterExpression from = Expression.Parameter(typeof(Dictionary<TKeyType, TItemType>), "from");
 
 			Expression<Func<Dictionary<TKeyType, TItemType>, TType>> convertor =
 				Expression.Lambda<Func<Dictionary<TKeyType, TItemType>, TType>>(
