@@ -14,13 +14,25 @@ namespace POCOMerger.algorithms.applyPatch.collection.unordered
 			if (Class<TType>.EnumerableParam == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 
-			return (IApplyPatchAlgorithm<TType>)Activator.CreateInstance(
-				typeof(ApplyUnorderedCollectionPatch<,>).MakeGenericType(
-					typeof(TType),
-					Class<TType>.EnumerableParam
-				),
-				this.MergerImplementation
-			);
+			Property idProperty = GeneralRulesHelper.GetIdProperty(this.MergerImplementation, Class<TType>.EnumerableParam);
+
+			if (idProperty == null)
+				return (IApplyPatchAlgorithm<TType>)Activator.CreateInstance(
+					typeof(ApplyUnorderedCollectionPatch<,>).MakeGenericType(
+						typeof(TType),
+						Class<TType>.EnumerableParam
+					),
+					this.MergerImplementation
+				);
+			else
+				return (IApplyPatchAlgorithm<TType>)Activator.CreateInstance(
+					typeof(ApplyUnorderedCollectionWithIdPatch<,,>).MakeGenericType(
+						typeof(TType),
+						idProperty.Type,
+						Class<TType>.EnumerableParam
+					),
+					this.MergerImplementation
+				);
 		}
 
 		#endregion

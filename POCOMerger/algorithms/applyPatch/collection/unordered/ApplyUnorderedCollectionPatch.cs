@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.definition.rules;
+using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
-using POCOMerger.fastReflection;
+using POCOMerger.diffResult.type;
 using POCOMerger.implementation;
-using POCOMerger.@internal;
 
 namespace POCOMerger.algorithms.applyPatch.collection.unordered
 {
 	internal class ApplyUnorderedCollectionPatch<TType, TItemType> : IApplyPatchAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
-		private readonly Property aIdProperty;
 		private IEqualityComparer<TItemType> aItemComparer;
+		private Func<HashSet<TItemType>, TType> aConvertor;
 
 		public ApplyUnorderedCollectionPatch(MergerImplementation mergerImplementation)
 		{
 			this.aMergerImplementation = mergerImplementation;
-
-			this.aIdProperty = GeneralRulesHelper<TItemType>.GetIdProperty(mergerImplementation);
 		}
 
 		#region Implementation of IApplyPatchAlgorithm<TType>
@@ -30,10 +27,8 @@ namespace POCOMerger.algorithms.applyPatch.collection.unordered
 		{
 			if (this.aItemComparer == null)
 			{
-				if (this.aIdProperty == null)
-					this.aItemComparer = EqualityComparer<TItemType>.Default;
-				else
-					this.aItemComparer = IdHelpers.CreateIdEqualityComparer<TItemType>(this.aIdProperty);
+				this.aItemComparer = EqualityComparer<TItemType>.Default;
+				this.aConvertor = this.CompileConvertor();
 			}
 
 			return this.ApplyInternal((IEnumerable<TItemType>)source, patch);
@@ -66,8 +61,24 @@ namespace POCOMerger.algorithms.applyPatch.collection.unordered
 
 		private TType ApplyInternal(IEnumerable<TItemType> source, IDiff<TType> patch)
 		{
-			HashSet<TItemType> sourceSet = new HashSet<TItemType>(source, this.aItemComparer);
-			return default(TType);
+			HashSet<TItemType> ret = new HashSet<TItemType>(source, this.aItemComparer);
+
+			foreach (IDiffUnorderedCollectionItem item in patch)
+			{
+				if (item is IDiffItemAdded<TItemType>)
+					ret.Add(((IDiffItemAdded<TItemType>) item).NewValue);
+				else if (item is IDiffItemRemoved<TItemType>)
+					ret.Remove(((IDiffItemRemoved<TItemType>)item).OldValue);
+				else if (item is IDiffItemReplaced<TItemType>)
+				{
+					ret.Remove(((IDiffItemReplaced<TItemType>)item).OldValue);
+					ret.Add(((IDiffItemReplaced<TItemType>) item).NewValue);
+				}
+				else
+					throw new InvalidOperationException();
+			}
+
+			return this.aConvertor(ret);
 		}
 	}
 }
