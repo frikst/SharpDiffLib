@@ -64,5 +64,29 @@ namespace POCOMerger.diffResult.implementation
 		public TIdType Id { get; private set; }
 
 		#endregion
+
+		#region Equality members
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+				return false;
+
+			if (ReferenceEquals(this, obj))
+				return true;
+
+			if (!(obj is IDiffUnorderedCollectionItemWithID<TIdType> && obj is IDiffItemChanged))
+				return false;
+
+			return object.Equals(this.ValueDiff, ((IDiffItemChanged)obj).ValueDiff)
+				&& object.Equals(this.Id, ((IDiffUnorderedCollectionItemWithID<TIdType>)obj).Id);
+		}
+
+		public override int GetHashCode()
+		{
+			throw new Exception("Cannot compute hash code for diff");
+		}
+
+		#endregion
 	}
 }

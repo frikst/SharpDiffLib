@@ -9,7 +9,7 @@ using POCOMerger.diffResult;
 namespace POCOMerger.Test.General
 {
 	[TestClass]
-	public class DiffResultFactory
+	public class DiffResultFactoryTest
 	{
 		private class SampleInner
 		{
@@ -36,7 +36,7 @@ namespace POCOMerger.Test.General
 		[TestMethod]
 		public void Class()
 		{
-			IDiff diff = DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.Class<Sample>.Create()
 				.Changed(x => x.Inner, DiffResultFactory<SampleInner>.Class.Create()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
@@ -57,7 +57,7 @@ namespace POCOMerger.Test.General
 		[TestMethod]
 		public void Array()
 		{
-			IDiff diff = DiffResultFactory<SampleInner[]>.Ordered<SampleInner>.Create()
+			var diff = DiffResultFactory.Ordered<SampleInner>.Create()
 				.Changed(0, DiffResultFactory<SampleInner>.Class.Create()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
@@ -82,7 +82,7 @@ namespace POCOMerger.Test.General
 		[TestMethod]
 		public void Dictionary()
 		{
-			IDiff diff = DiffResultFactory<Dictionary<string, SampleInner>>.KeyValue<string, SampleInner>.Create()
+			var diff = DiffResultFactory.KeyValue<string, SampleInner>.Create()
 				.Changed("a", DiffResultFactory<SampleInner>.Class.Create()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
@@ -107,7 +107,7 @@ namespace POCOMerger.Test.General
 		[TestMethod]
 		public void Set()
 		{
-			IDiff diff = DiffResultFactory<HashSet<SampleInner>>.Unordered<SampleInner>.Create()
+			var diff = DiffResultFactory.Unordered<SampleInner>.Create()
 				.Changed(1, DiffResultFactory<SampleInner>.Class.Create()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()

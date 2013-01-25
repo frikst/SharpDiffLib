@@ -45,5 +45,28 @@ namespace POCOMerger.diffResult.implementation
 		public TItemType OldValue { get; private set; }
 
 		#endregion
+
+		#region Equality members
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+				return false;
+
+			if (ReferenceEquals(this, obj))
+				return true;
+
+			if (!(obj is IDiffUnorderedCollectionItem && obj is IDiffItemRemoved<TItemType>))
+				return false;
+
+			return object.Equals(this.OldValue, ((IDiffItemRemoved<TItemType>)obj).OldValue);
+		}
+
+		public override int GetHashCode()
+		{
+			throw new Exception("Cannot compute hash code for diff");
+		}
+
+		#endregion
 	}
 }

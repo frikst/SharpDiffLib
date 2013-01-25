@@ -45,12 +45,12 @@ namespace POCOMerger.diffResult.implementation
 
 		object IDiffItemReplaced.OldValue
 		{
-			get { return OldValue; }
+			get { return this.OldValue; }
 		}
 
 		object IDiffItemReplaced.NewValue
 		{
-			get { return NewValue; }
+			get { return this.NewValue; }
 		}
 
 		#endregion
@@ -58,6 +58,7 @@ namespace POCOMerger.diffResult.implementation
 		#region Implementation of IDiffItemReplaced<TItemType>
 
 		public TItemType NewValue { get; private set; }
+
 		public TItemType OldValue { get; private set; }
 
 		#endregion
@@ -71,7 +72,7 @@ namespace POCOMerger.diffResult.implementation
 
 		object IDiffKeyValueCollectionItem.Key
 		{
-			get { return Key; }
+			get { return this.Key; }
 		}
 
 		#endregion
@@ -79,6 +80,31 @@ namespace POCOMerger.diffResult.implementation
 		#region Implementation of IDiffKeyValueCollectionItem<TKeyType>
 
 		public TKeyType Key { get; private set; }
+
+		#endregion
+
+		#region Equality members
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+				return false;
+
+			if (ReferenceEquals(this, obj))
+				return true;
+
+			if (!(obj is IDiffKeyValueCollectionItem<TKeyType> && obj is IDiffItemReplaced<TItemType>))
+				return false;
+
+			return object.Equals(this.OldValue, ((IDiffItemReplaced<TItemType>)obj).OldValue)
+				&& object.Equals(this.NewValue, ((IDiffItemReplaced<TItemType>)obj).NewValue)
+				&& object.Equals(this.Key, ((IDiffKeyValueCollectionItem<TKeyType>)obj).Key);
+		}
+
+		public override int GetHashCode()
+		{
+			throw new Exception("Cannot compute hash code for diff");
+		}
 
 		#endregion
 	}

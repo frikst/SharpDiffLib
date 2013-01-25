@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.type;
@@ -57,6 +58,7 @@ namespace POCOMerger.diffResult.implementation
 		#region Implementation of IDiffItemReplaced<TItemType>
 
 		public TItemType NewValue { get; private set; }
+
 		public TItemType OldValue { get; private set; }
 
 		#endregion
@@ -64,6 +66,31 @@ namespace POCOMerger.diffResult.implementation
 		#region Implementation of IDiffClassItem
 
 		public Property Property { get; private set; }
+
+		#endregion
+
+		#region Equality members
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+				return false;
+
+			if (ReferenceEquals(this, obj))
+				return true;
+
+			if (!(obj is IDiffClassItem && obj is IDiffItemReplaced<TItemType>))
+				return false;
+
+			return object.Equals(this.OldValue, ((IDiffItemReplaced<TItemType>)obj).OldValue)
+				&& object.Equals(this.NewValue, ((IDiffItemReplaced<TItemType>)obj).NewValue)
+				&& object.Equals(this.Property, ((IDiffClassItem)obj).Property);
+		}
+
+		public override int GetHashCode()
+		{
+			throw new Exception("Cannot compute hash code for diff");
+		}
 
 		#endregion
 	}
