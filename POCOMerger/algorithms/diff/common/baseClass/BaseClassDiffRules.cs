@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.definition.rules;
+using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.type;
 
 namespace POCOMerger.algorithms.diff.common.baseClass
 {
@@ -16,7 +18,9 @@ namespace POCOMerger.algorithms.diff.common.baseClass
 
 		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
 		{
-			throw new NotImplementedException("I dont know how to implement this for now, but I dont need it yet.");
+			yield return typeof(IDiffItemReplaced);
+			yield return typeof(IDiffItemChanged);
+			yield return typeof(IDiffValue);
 		}
 
 		#endregion

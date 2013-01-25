@@ -54,14 +54,6 @@ namespace POCOMerger.implementation
 		public TRules GetMergerRulesFor<TRules>(Type type)
 			where TRules : class, IAlgorithmRules
 		{
-			//foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
-			//{
-			//    TRules rules = definition.GetRules<TRules>();
-
-			//    if (rules != null && !rules.IsInheritable)
-			//        return rules;
-			//}
-
 			foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
 			{
 				TRules rules = definition.GetRules<TRules>();
@@ -120,63 +112,73 @@ namespace POCOMerger.implementation
 
 			if (ret == null)
 			{
-				// guess rules for the given type
+				var rules = this.GuessRules<TRules>(type, typeof(TRules));
 
-				bool implementsIEnumerable = false;
-				bool implementsIEnumerableKeyValue = false;
-				bool implementsISet = false;
-
-				foreach (Type @interface in type.GetInterfaces())
-				{
-					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-					{
-						implementsIEnumerable = true;
-
-						Type param = @interface.GetGenericArguments()[0];
-
-						if (param.IsGenericType && param.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-							implementsIEnumerableKeyValue = true;
-					}
-					else if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(ISet<>))
-						implementsISet = true;
-				}
-
-				if (typeof(IDiffAlgorithmRules).IsAssignableFrom(typeof(TRules)))
-				{
-					if (type.IsValueType || type == typeof(string))
-						ret = (TRules)Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
-					else if (implementsISet)
-						ret = (TRules)Activator.CreateInstance(typeof(UnorderedCollectionDiffRules<>).MakeGenericType(type));
-					else if (implementsIEnumerableKeyValue)
-						ret = (TRules)Activator.CreateInstance(typeof(KeyValueCollectionDiffRules<>).MakeGenericType(type));
-					else if (implementsIEnumerable)
-						ret = (TRules)Activator.CreateInstance(typeof(OrderedCollectionDiffRules<>).MakeGenericType(type));
-					else if (this.GetMergerAnyDefinition(type) != null)
-						ret = (TRules)Activator.CreateInstance(typeof(ClassDiffRules<>).MakeGenericType(type));
-					else
-						ret = (TRules)Activator.CreateInstance(typeof(ValueDiffRules<>).MakeGenericType(type));
-				}
-				else if (typeof(IApplyPatchAlgorithmRules).IsAssignableFrom(typeof(TRules)))
-				{
-					if (type.IsValueType || type == typeof(string))
-						ret = (TRules)Activator.CreateInstance(typeof(ApplyValuePatchRules<>).MakeGenericType(type));
-					else if (implementsISet)
-						ret = (TRules)Activator.CreateInstance(typeof(ApplyUnorderedCollectionPatchRules<>).MakeGenericType(type));
-					else if (implementsIEnumerableKeyValue)
-						ret = (TRules)Activator.CreateInstance(typeof(ApplyKeyValueCollectionPatchRules<>).MakeGenericType(type));
-					else if (implementsIEnumerable)
-						ret = (TRules)Activator.CreateInstance(typeof(ApplyOrderedCollectionPatchRules<>).MakeGenericType(type));
-					else if (this.GetMergerAnyDefinition(type) != null)
-						ret = (TRules)Activator.CreateInstance(typeof(ApplyClassPatchRules<>).MakeGenericType(type));
-					else
-						ret = (TRules)Activator.CreateInstance(typeof(ApplyValuePatchRules<>).MakeGenericType(type));
-				}
+				if (rules != null)
+					ret = (TRules) Activator.CreateInstance(rules.MakeGenericType(type));
 			}
 
 			if (ret != null)
 				ret.Initialize(this);
 
 			return ret;
+		}
+
+		private Type GuessRules<TRules>(Type type, Type rulesType) where TRules : class, IAlgorithmRules
+		{
+			bool implementsIEnumerable = false;
+			bool implementsIEnumerableKeyValue = false;
+			bool implementsISet = false;
+
+			foreach (Type @interface in type.GetInterfaces())
+			{
+				if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+				{
+					implementsIEnumerable = true;
+
+					Type param = @interface.GetGenericArguments()[0];
+
+					if (param.IsGenericType && param.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+						implementsIEnumerableKeyValue = true;
+				}
+				else if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(ISet<>))
+					implementsISet = true;
+			}
+
+			if (typeof(IDiffAlgorithmRules).IsAssignableFrom(rulesType))
+			{
+				if (type.IsValueType || type == typeof(string))
+					return typeof(ValueDiffRules<>);
+				else if (implementsISet)
+					return typeof(UnorderedCollectionDiffRules<>);
+				else if (implementsIEnumerableKeyValue)
+					return typeof(KeyValueCollectionDiffRules<>);
+				else if (implementsIEnumerable)
+					return typeof(OrderedCollectionDiffRules<>);
+				else if (this.GetMergerAnyDefinition(type) != null)
+					return typeof(ClassDiffRules<>);
+				else
+					return typeof(ValueDiffRules<>);
+			}
+			else if (typeof(IApplyPatchAlgorithmRules).IsAssignableFrom(rulesType))
+			{
+				if (type.IsValueType || type == typeof(string))
+					return typeof(ApplyValuePatchRules<>);
+				else if (implementsISet)
+					return typeof(ApplyUnorderedCollectionPatchRules<>);
+				else if (implementsIEnumerableKeyValue)
+					return typeof(ApplyKeyValueCollectionPatchRules<>);
+				else if (implementsIEnumerable)
+					return typeof(ApplyOrderedCollectionPatchRules<>);
+				else if (this.GetMergerAnyDefinition(type) != null)
+					return typeof(ApplyClassPatchRules<>);
+				else
+					return typeof(ApplyValuePatchRules<>);
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 }
