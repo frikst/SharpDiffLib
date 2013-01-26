@@ -101,7 +101,7 @@ namespace POCOMerger.algorithms.diff.common.value
 			if (!typeof(TType).IsValueType)
 			{
 				differ = Expression.IfThenElse(
-					Expression.Or(
+					Expression.OrElse(
 						Expression.ReferenceEqual(@base, Expression.Constant(null)),
 						Expression.ReferenceEqual(changed, Expression.Constant(null))
 					),

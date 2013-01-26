@@ -27,7 +27,7 @@ namespace POCOMerger.Test.ApplyPatch
 			Sample obj = new Sample { Value = "hello" };
 			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(ret.Value, "hello");
+			Assert.AreEqual("hello", ret.Value);
 		}
 
 		[TestMethod]
@@ -40,7 +40,7 @@ namespace POCOMerger.Test.ApplyPatch
 			Sample obj = new Sample { Value = "hello" };
 			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(ret.Value, "world");
+			Assert.AreEqual("world", ret.Value);
 		}
 	}
 }

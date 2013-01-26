@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -164,6 +165,24 @@ namespace POCOMerger.@internal
 			public static MethodInfo Remove(Type tType)
 			{
 				return typeof(HashSet<>).MakeGenericType(tType).GetMethod("Remove");
+			}
+		}
+
+		public static class Enumerable
+		{
+			public static MethodInfo GetEnumerator(Type tType)
+			{
+				return typeof(IEnumerable<>).MakeGenericType(tType).GetMethod("GetEnumerator");
+			}
+
+			public static MethodInfo MoveNext(Type tType)
+			{
+				return typeof(IEnumerator).GetMethod("MoveNext");
+			}
+
+			public static PropertyInfo Current(Type tType)
+			{
+				return typeof(IEnumerator<>).MakeGenericType(tType).GetProperty("Current");
 			}
 		}
 

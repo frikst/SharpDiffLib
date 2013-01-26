@@ -52,7 +52,7 @@ namespace POCOMerger.@internal
 				Expression<Func<TItemType, TItemType, bool>> isTheSameExpression =
 					Expression.Lambda<Func<TItemType, TItemType, bool>>(
 						Expression.Condition(
-							Expression.Or(
+							Expression.OrElse(
 								Expression.ReferenceEqual(baseParameter, Expression.Constant(null)),
 								Expression.ReferenceEqual(changedParameter, Expression.Constant(null))
 							),

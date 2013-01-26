@@ -135,7 +135,7 @@ namespace POCOMerger.algorithms.diff.common.@class
 			if (!property.ReflectionPropertyInfo.PropertyType.IsValueType)
 			{
 				finalize = Expression.IfThenElse(
-					Expression.Or(
+					Expression.OrElse(
 						Expression.ReferenceEqual(
 							baseProperty,
 							Expression.Constant(null)

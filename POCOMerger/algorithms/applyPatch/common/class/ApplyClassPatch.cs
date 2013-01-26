@@ -50,79 +50,38 @@ namespace POCOMerger.algorithms.applyPatch.common.@class
 
 		private Expression<Func<TType, IDiff, TType>> Compile()
 		{
-			ParameterExpression notChanged = Expression.Parameter(typeof(HashSet<Property>), "notChanged");
-			ParameterExpression itemNotChanged = Expression.Parameter(typeof(Property), "item");
-			ParameterExpression ret = Expression.Parameter(typeof(TType), "ret");
 			ParameterExpression orig = Expression.Parameter(typeof(TType), "orig");
 			ParameterExpression diff = Expression.Parameter(typeof(IDiff), "diff");
-			ParameterExpression item = Expression.Parameter(typeof(IDiffClassItem), "item");
+			ParameterExpression ret = Expression.Parameter(typeof(TType), "ret");
+			ParameterExpression enumerator = Expression.Parameter(typeof(IEnumerator<IDiffItem>), "enumerator");
+			ParameterExpression someLeft = Expression.Parameter(typeof(bool), "someLeft");
 
 			return Expression.Lambda<Func<TType, IDiff, TType>>(
 				Expression.Block(
-					new[] { ret, notChanged },
+					new[] { ret, enumerator, someLeft },
 					Expression.Assign(
 						ret,
 						Expression.New(typeof(TType))
 					),
 					Expression.Assign(
-						notChanged,
-						Expression.New(
-							Members.HashSet.NewHashSetFromEnumerable(typeof(Property)),
-							Expression.Constant(Class<TType>.Properties.ToArray())
-						)
+						enumerator,
+						Expression.Call(diff, Members.Enumerable.GetEnumerator(typeof(IDiffItem)))
 					),
-					ExpressionExtensions.ForEach(
-						item,
-						diff,
-						Expression.Block(
-							Expression.Switch(
-								Expression.Property(
-									Expression.Property(item, Members.DiffItems.ClassProperty()),
-									Members.FastProperty.UniqueID()
-								),
-								Expression.Throw(
-									Expression.New(
-										typeof(Exception) // TODO: Better exception
-									)
-								),
-								null,
-								Class<TType>
-									.Properties
-									.Select(x => this.CompileCase(x, ret, orig, item))
-									.Where(x => x != null)
-							),
-							Expression.Call(
-								notChanged,
-								Members.HashSet.Remove(typeof(Property)),
-								Expression.Property(item, Members.DiffItems.ClassProperty())
-							)
-						)
-					),
-					ExpressionExtensions.ForEach(
-						itemNotChanged,
-						notChanged,
-						Expression.Switch(
-							typeof(void),
-							Expression.Property(itemNotChanged, Members.FastProperty.UniqueID()),
-							null,
-							null,
-							Class<TType>
-									.Properties
-									.Select(x => this.CompileCaseDefaultValue(x, ret, orig, itemNotChanged))
-									.Where(x => x != null)
-						)
-					),
+					this.MoveEnumerator(enumerator, someLeft),
+					Expression.Block(Class<TType>.Properties.Select(x => this.EvaluateProperty(enumerator, ret, orig, someLeft, x))),
 					ret
 				),
 				orig, diff
 			);
 		}
 
-		private SwitchCase CompileCase(Property property, ParameterExpression ret, ParameterExpression orig, ParameterExpression item)
+		private Expression EvaluateProperty(ParameterExpression enumerator, ParameterExpression ret, ParameterExpression orig, ParameterExpression someLeft, Property property)
 		{
+			ParameterExpression item = Expression.Parameter(typeof(IDiffClassItem), "item");
+
 			IApplyPatchAlgorithm algorithm = this.aMergerImplementation.Partial.GetApplyPatchAlgorithm(property.Type);
 
-			Expression caseBody = Expression.IfThenElse(
+			Expression applicator = Expression.IfThenElse(
 				Expression.TypeIs(item, typeof(IDiffItemReplaced)),
 				Expression.Assign(
 					Expression.Property(ret, property.ReflectionPropertyInfo),
@@ -140,7 +99,7 @@ namespace POCOMerger.algorithms.applyPatch.common.@class
 
 			if (algorithm != null)
 			{
-				caseBody = Expression.IfThenElse(
+				applicator = Expression.IfThenElse(
 					Expression.TypeIs(item, typeof(IDiffItemChanged)),
 					Expression.Assign(
 						Expression.Property(ret, property.ReflectionPropertyInfo),
@@ -157,21 +116,54 @@ namespace POCOMerger.algorithms.applyPatch.common.@class
 							)
 						)
 					),
-					caseBody
+					applicator
 				);
 			}
 
-			return Expression.SwitchCase(caseBody, Expression.Constant(property.UniqueID));
+			return
+				Expression.Block(
+					new[] { item },
+					Expression.Assign(
+						item,
+						Expression.Convert(
+							Expression.Property(enumerator, Members.Enumerable.Current(typeof(IDiffItem))),
+							typeof(IDiffClassItem)
+						)
+					),
+					Expression.IfThenElse(
+						Expression.AndAlso(
+							someLeft,
+							Expression.Equal(
+								Expression.Property(
+									Expression.Property(
+										item,
+										Members.DiffItems.ClassProperty()
+									),
+									Members.FastProperty.UniqueID()
+								),
+								Expression.Constant(property.UniqueID)
+							)
+						),
+						Expression.Block(
+							applicator,
+							this.MoveEnumerator(enumerator, someLeft)
+						),
+						Expression.Assign(
+							Expression.Property(ret, property.ReflectionPropertyInfo),
+							Expression.Property(orig, property.ReflectionPropertyInfo)
+						)
+					)
+				);
 		}
 
-		private SwitchCase CompileCaseDefaultValue(Property property, ParameterExpression ret, ParameterExpression orig, ParameterExpression itemNotChanged)
+		private Expression MoveEnumerator(ParameterExpression enumerator, ParameterExpression someLeft)
 		{
-			return Expression.SwitchCase(
-				Expression.Assign(
-					Expression.Property(ret, property.ReflectionPropertyInfo),
-					Expression.Property(orig, property.ReflectionPropertyInfo)
-				),
-				Expression.Constant(property.UniqueID)
+			return Expression.Assign(
+				someLeft,
+				Expression.Call(
+					enumerator,
+					Members.Enumerable.MoveNext(typeof(IDiffItem))
+				)
 			);
 		}
 	}
