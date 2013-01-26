@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
+using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
@@ -44,6 +45,21 @@ namespace POCOMerger.@internal
 			public static MethodInfo Apply(Type tType)
 			{
 				return typeof(IApplyPatchAlgorithm<>).MakeGenericType(tType).GetMethod("Apply");
+			}
+		}
+
+		public class MergeDiffsAlgorithm
+		{
+			private static readonly MethodInfo aGetAlgorithm = GetMethod<IMergeDiffsAlgorithmRules, IMergeDiffsAlgorithm>(x => x.GetAlgorithm<object>());
+
+			public static MethodInfo GetAlgorithm(Type tType)
+			{
+				return aGetAlgorithm.MakeGenericMethod(tType);
+			}
+
+			public static MethodInfo Apply(Type tType)
+			{
+				return typeof(IApplyPatchAlgorithm<>).MakeGenericType(tType).GetMethod("MergeDiffs");
 			}
 		}
 

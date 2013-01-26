@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
+using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult.@base;
 using POCOMerger.@internal;
@@ -14,11 +15,13 @@ namespace POCOMerger.implementation
 		private readonly MergerImplementation aMergerImplementation;
 		private readonly Dictionary<Type, IDiffAlgorithm> aDiffAlgorithms;
 		private readonly Dictionary<Type, IApplyPatchAlgorithm> aApplyPatchAlgorithms;
+		private readonly Dictionary<Type, IMergeDiffsAlgorithm> aMergeDiffsAlgorithms;
 
 		public PartialMergerAlgorithms(MergerImplementation mergerImplementation)
 		{
 			this.aDiffAlgorithms = new Dictionary<Type, IDiffAlgorithm>();
 			this.aApplyPatchAlgorithms = new Dictionary<Type, IApplyPatchAlgorithm>();
+			this.aMergeDiffsAlgorithms = new Dictionary<Type, IMergeDiffsAlgorithm>();
 			this.aMergerImplementation = mergerImplementation;
 		}
 
@@ -36,6 +39,16 @@ namespace POCOMerger.implementation
 		{
 			IDiffAlgorithm<TType> algorithm = this.GetDiffAlgorithm<TType>();
 			return algorithm.Compute(@base, changed);
+		}
+
+		public IMergeDiffsAlgorithm<TType> GetMergeDiffsAlgorithm<TType>()
+		{
+			return (IMergeDiffsAlgorithm<TType>)this.GetMergeDiffsAlgorithm(typeof(TType));
+		}
+
+		public IMergeDiffsAlgorithm GetMergeDiffsAlgorithm(Type type)
+		{
+			return this.GetAlgorithmHelper<IMergeDiffsAlgorithm, IMergeDiffsAlgorithmRules>(type, this.aMergeDiffsAlgorithms, Members.MergeDiffsAlgorithm.GetAlgorithm(type));
 		}
 
 		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right)

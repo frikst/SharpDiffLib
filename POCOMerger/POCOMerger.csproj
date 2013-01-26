@@ -58,6 +58,8 @@
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatch.cs" />
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatchRules.cs" />
+    <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithm.cs" />
+    <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithmRules.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="definition\rules\GeneralRulesExtensions.cs" />
     <Compile Include="definition\rules\IAlgorithmRules.cs" />
