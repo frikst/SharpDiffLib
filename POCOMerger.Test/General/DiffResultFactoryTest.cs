@@ -128,5 +128,26 @@ namespace POCOMerger.Test.General
 
 			Assert.AreEqual(diffString, diff.ToString());
 		}
+
+		[TestMethod]
+		public void Conflicts()
+		{
+			var diff = DiffResultFactory.Class<SampleInner>.Create()
+				.Conflicted(conflicts => conflicts
+					.Replaced(x => x.Value, "a", "b")
+					.Replaced(x => x.Value, "a", "c")
+				)
+				.MakeDiff();
+
+			const string diffString =
+				"C<<<\r\n" +
+				"\t-Value:a\r\n" +
+				"\t+Value:b\r\n" +
+				"C>>>\r\n" +
+				"\t-Value:a\r\n" +
+				"\t+Value:c";
+
+			Assert.AreEqual(diffString, diff.ToString());
+		}
 	}
 }

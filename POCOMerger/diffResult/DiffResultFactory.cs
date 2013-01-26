@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
 using POCOMerger.fastReflection;
@@ -44,6 +45,23 @@ namespace POCOMerger.diffResult
 					throw new Exception("Property does not exist in the selected class");
 
 				this.aDiffItems.Add(new DiffClassReplaced<TValue>(p, oldValue, newValue));
+				return this;
+			}
+
+			public Class Conflicted(Action<Class> conflictsDefinition)
+			{
+				Class conflicts = new Class();
+
+				conflictsDefinition(conflicts);
+
+				if (conflicts.aDiffItems.Count != 2)
+					throw new Exception("Exactly two items should be given to result factory as a conflicts");
+
+				if (conflicts.aDiffItems.Any(x=>x is IDiffItemConflicted))
+					throw new Exception("Cannot use conflict as an item of another conflict");
+
+				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+
 				return this;
 			}
 
@@ -97,6 +115,23 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public KeyValue<TKey, TValue> Conflicted(Action<KeyValue<TKey, TValue>> conflictsDefinition)
+			{
+				KeyValue<TKey, TValue> conflicts = new KeyValue<TKey,TValue>();
+
+				conflictsDefinition(conflicts);
+
+				if (conflicts.aDiffItems.Count != 2)
+					throw new Exception("Exactly two items should be given to result factory as a conflicts");
+
+				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
+					throw new Exception("Cannot use conflict as an item of another conflict");
+
+				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+
+				return this;
+			}
+
 			public KeyValue<TKey, TValue> Custom(IDiffItem item)
 			{
 				this.aDiffItems.Add(item);
@@ -144,6 +179,23 @@ namespace POCOMerger.diffResult
 			public Ordered<TValue> Changed(int index, IDiff<TValue> diff)
 			{
 				this.aDiffItems.Add(new DiffOrderedCollectionChanged<TValue>(index, diff));
+				return this;
+			}
+
+			public Ordered<TValue> Conflicted(Action<Ordered<TValue>> conflictsDefinition)
+			{
+				Ordered<TValue> conflicts = new Ordered<TValue>();
+
+				conflictsDefinition(conflicts);
+
+				if (conflicts.aDiffItems.Count != 2)
+					throw new Exception("Exactly two items should be given to result factory as a conflicts");
+
+				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
+					throw new Exception("Cannot use conflict as an item of another conflict");
+
+				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+
 				return this;
 			}
 
@@ -197,6 +249,23 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public Unordered<TValue> Conflicted(Action<Unordered<TValue>> conflictsDefinition)
+			{
+				Unordered<TValue> conflicts = new Unordered<TValue>();
+
+				conflictsDefinition(conflicts);
+
+				if (conflicts.aDiffItems.Count != 2)
+					throw new Exception("Exactly two items should be given to result factory as a conflicts");
+
+				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
+					throw new Exception("Cannot use conflict as an item of another conflict");
+
+				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+
+				return this;
+			}
+
 			public Unordered<TValue> Custom(IDiffItem item)
 			{
 				this.aDiffItems.Add(item);
@@ -232,6 +301,23 @@ namespace POCOMerger.diffResult
 			public Value Changed(IDiff<TType> diff)
 			{
 				this.aDiffItems.Add(new DiffValueChanged<TType>(diff));
+				return this;
+			}
+
+			public Value Conflicted(Action<Value> conflictsDefinition)
+			{
+				Value conflicts = new Value();
+
+				conflictsDefinition(conflicts);
+
+				if (conflicts.aDiffItems.Count != 2)
+					throw new Exception("Exactly two items should be given to result factory as a conflicts");
+
+				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
+					throw new Exception("Cannot use conflict as an item of another conflict");
+
+				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+
 				return this;
 			}
 
