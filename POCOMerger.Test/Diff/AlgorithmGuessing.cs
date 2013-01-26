@@ -1,18 +1,64 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.Test._Entities.SimpleClass;
+using POCOMerger.algorithms.diff.@base;
 using POCOMerger.definition;
+using POCOMerger.definition.rules;
+using POCOMerger.diffResult;
+using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.Test.Diff
 {
 	[TestClass]
 	public class AlgorithmGuessing
 	{
+		private class CustomDiffAlgorithmRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
+		{
+			#region Implementation of IDiffAlgorithmRules
+
+			public IDiffAlgorithm<TType> GetAlgorithm<TType>()
+			{
+				return new CustomDiffAlgorithm<TType>();
+			}
+
+			#endregion
+		}
+
+		private class CustomDiffAlgorithm<TType> : IDiffAlgorithm<TType>
+		{
+			#region Implementation of IDiffAlgorithm
+
+			public IDiff<TType> Compute(TType @base, TType changed)
+			{
+				return DiffResultFactory.Class<TType>.Create()
+					// ignore differences
+				    .MakeDiff();
+			}
+
+			bool IDiffAlgorithm.IsDirect
+			{
+				get { return false; }
+			}
+			IDiff IDiffAlgorithm.Compute(object @base, object changed)
+			{
+				return this.Compute((TType) @base, (TType) changed);
+			}
+
+			#endregion
+		}
+
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()
 			{
 				Define<Sample>();
+			}
+
+			protected override TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>()
+			{
+				if (typeof(TAlgorithmRules) == typeof(IDiffAlgorithmRules) && typeof(TType) == typeof(AnotherSample))
+					return (TAlgorithmRules)(object)(new CustomDiffAlgorithmRules<TType>());
+				return null;
 			}
 		}
 
@@ -70,6 +116,20 @@ namespace POCOMerger.Test.Diff
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
 			Assert.AreEqual(1, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
+
+		[TestMethod]
+		public void TestCustomGuess()
+		{
+			const string diff = "";
+
+			var @base = new AnotherSample { AnotherValue = "one" };
+			var changed = new AnotherSample { AnotherValue = "two" };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(0, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
 	}

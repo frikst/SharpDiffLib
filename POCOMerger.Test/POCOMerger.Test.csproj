@@ -87,6 +87,7 @@
     <Compile Include="_Entities\InnerClassWithId\SampleInner.cs" />
     <Compile Include="_Entities\InnerClass\SampleInner.cs" />
     <Compile Include="_Entities\InnerStructure\SampleStruct.cs" />
+    <Compile Include="_Entities\SimpleClass\AnotherSample.cs" />
     <Compile Include="_Entities\SimpleWithId\Sample.cs" />
     <Compile Include="_Entities\InnerStructure\Sample.cs" />
     <Compile Include="_Entities\InnerClass\Sample.cs" />

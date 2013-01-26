@@ -43,7 +43,7 @@ namespace POCOMerger.implementation
 			return this.Partial.ApplyPatch(
 				@base,
 				this.Partial.ResolveConflicts(
-					this.Partial.Merge(
+					this.Partial.MergeDiffs(
 						this.Partial.Diff(@base, left),
 						this.Partial.Diff(@base, right)
 					)

@@ -38,7 +38,7 @@ namespace POCOMerger.implementation
 			return algorithm.Compute(@base, changed);
 		}
 
-		public IDiff<TType> Merge<TType>(IDiff<TType> left, IDiff<TType> right)
+		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right)
 		{
 			throw new NotImplementedException();
 		}
