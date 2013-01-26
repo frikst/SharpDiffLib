@@ -107,8 +107,7 @@ namespace POCOMerger.implementation
 			if (ret != null)
 				return ret;
 
-			if (this.aRulesNotFoundFallback != null)
-				ret = this.aRulesNotFoundFallback(typeof(TRules), type) as TRules;
+			ret = this.aRulesNotFoundFallback(typeof(TRules), type) as TRules;
 
 			if (ret == null)
 			{

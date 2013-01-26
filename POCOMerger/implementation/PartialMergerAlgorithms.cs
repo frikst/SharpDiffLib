@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
+using POCOMerger.definition.rules;
 using POCOMerger.diffResult.@base;
 using POCOMerger.@internal;
 
@@ -27,24 +29,7 @@ namespace POCOMerger.implementation
 
 		public IDiffAlgorithm GetDiffAlgorithm(Type type)
 		{
-			IDiffAlgorithm ret;
-
-			if (this.aDiffAlgorithms.TryGetValue(type, out ret))
-				return ret;
-
-			IDiffAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<IDiffAlgorithmRules>(type);
-
-			if (rules == null)
-			{
-				this.aDiffAlgorithms[type] = null;
-				return null;
-			}
-
-			ret = (IDiffAlgorithm) Members.DiffAlgorithm.GetAlgorithm(type).Invoke(rules, null);
-
-			aDiffAlgorithms[type] = ret;
-
-			return ret;
+			return this.GetAlgorithmHelper<IDiffAlgorithm, IDiffAlgorithmRules>(type, this.aDiffAlgorithms, Members.DiffAlgorithm.GetAlgorithm(type));
 		}
 
 		public IDiff<TType> Diff<TType>(TType @base, TType changed)
@@ -70,30 +55,35 @@ namespace POCOMerger.implementation
 
 		public IApplyPatchAlgorithm GetApplyPatchAlgorithm(Type type)
 		{
-			IApplyPatchAlgorithm ret;
-
-			if (this.aApplyPatchAlgorithms.TryGetValue(type, out ret))
-				return ret;
-
-			IApplyPatchAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<IApplyPatchAlgorithmRules>(type);
-
-			if (rules == null)
-			{
-				this.aDiffAlgorithms[type] = null;
-				return null;
-			}
-
-			ret = (IApplyPatchAlgorithm)Members.ApplyPatchAlgorithm.GetAlgorithm(type).Invoke(rules, null);
-
-			aApplyPatchAlgorithms[type] = ret;
-
-			return ret;
+			return this.GetAlgorithmHelper<IApplyPatchAlgorithm, IApplyPatchAlgorithmRules>(type, this.aApplyPatchAlgorithms, Members.ApplyPatchAlgorithm.GetAlgorithm(type));
 		}
 
 		public TType ApplyPatch<TType>(TType @object, IDiff<TType> patch)
 		{
 			IApplyPatchAlgorithm<TType> algorithm = this.GetApplyPatchAlgorithm<TType>();
 			return algorithm.Apply(@object, patch);
+		}
+
+		private TAlgorithm GetAlgorithmHelper<TAlgorithm, TAlgorithmRules>(Type type, Dictionary<Type, TAlgorithm> algorithms, MethodInfo method)
+			where TAlgorithmRules : class, IAlgorithmRules
+			where TAlgorithm : class
+		{
+			TAlgorithm ret;
+			if (algorithms.TryGetValue(type, out ret))
+				return ret;
+
+			TAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<TAlgorithmRules>(type);
+
+			if (rules == null)
+			{
+				algorithms[type] = null;
+				return ret;
+			}
+
+			ret = (TAlgorithm)method.Invoke(rules, null);
+
+			algorithms[type] = ret;
+			return ret;
 		}
 	}
 }

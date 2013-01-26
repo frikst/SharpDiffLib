@@ -36,9 +36,7 @@ namespace POCOMerger.definition
 					Func<Type, Type, IAlgorithmRules> rulesNotFoundFallback = null;
 
 					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod("RulesNotFoundFallback", BindingFlags.NonPublic | BindingFlags.Instance);
-
-					if (rulesNotFoundFallbackMethod != null && rulesNotFoundFallbackMethod.DeclaringType != typeof(MergerDefinition<TDefinition>))
-						rulesNotFoundFallback = (rules, type) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, null);
+					rulesNotFoundFallback = (rules, type) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, null);
 
 					aMerger = new MergerImplementation(
 						definitions, rulesNotFoundFallback
@@ -62,7 +60,7 @@ namespace POCOMerger.definition
 		protected virtual TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>()
 			where TAlgorithmRules : class, IAlgorithmRules
 		{
-			throw new InvalidOperationException("Method is supposed to be overriden if needed");
+			return null;
 		}
 	}
 }
