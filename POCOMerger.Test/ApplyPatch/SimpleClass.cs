@@ -1,25 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.algorithms.applyPatch;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
-using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.Test.ApplyPatch
 {
 	[TestClass]
 	public class SimpleClass
 	{
-		private class Sample
-		{
-			public string Value { get; set; }
-			public string Value2 { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

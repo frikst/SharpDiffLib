@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.definition;
 
 namespace POCOMerger.Test.Diff
@@ -7,16 +8,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class AlgorithmGuessing
 	{
-		private class Sample
-		{
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

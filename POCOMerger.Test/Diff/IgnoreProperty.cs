@@ -1,8 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.BaseWithoutId;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 
@@ -11,38 +8,16 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class IgnoreProperty
 	{
-		private class Sample
-		{
-			public string Value { get; set; }
-			public string Value2 { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
-		private class SampleDesc : Sample
-		{
-			public string Value3 { get; set; }
-			public string Value4 { get; set; }
-
-			public override string ToString()
-			{
-				return "<SampleDesc>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()
 			{
-				Define<Sample>()
+				Define<SampleBase>()
 					.Inheritable.ClassDiffRules(rules => rules
 						.Ignore(x => x.Value)
 					);
 
-				Define<SampleDesc>()
+				Define<SampleDescendant>()
 					.ClassDiffRules(rules => rules
 						.Ignore(x => x.Value3)
 					);
@@ -54,8 +29,8 @@ namespace POCOMerger.Test.Diff
 		{
 			const string diff = "";
 
-			var @base = new Sample { Value = "one", Value2 = "three" };
-			var changed = new Sample { Value = "two", Value2 = "three" };
+			var @base = new SampleBase { Value = "one", Value2 = "three" };
+			var changed = new SampleBase { Value = "two", Value2 = "three" };
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
@@ -70,8 +45,8 @@ namespace POCOMerger.Test.Diff
 				"-Value2:three\r\n" +
 				"+Value2:four";
 
-			var @base = new Sample { Value = "one", Value2 = "three" };
-			var changed = new Sample { Value = "one", Value2 = "four" };
+			var @base = new SampleBase { Value = "one", Value2 = "three" };
+			var changed = new SampleBase { Value = "one", Value2 = "four" };
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
@@ -84,8 +59,8 @@ namespace POCOMerger.Test.Diff
 		{
 			const string diff = "";
 
-			var @base = new SampleDesc { Value = "one", Value2 = "three", Value3 = "fife", Value4 = "seven" };
-			var changed = new SampleDesc { Value = "two", Value2 = "three", Value3 = "six", Value4 = "seven" };
+			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "fife", Value4 = "seven" };
+			var changed = new SampleDescendant { Value = "two", Value2 = "three", Value3 = "six", Value4 = "seven" };
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
@@ -102,8 +77,8 @@ namespace POCOMerger.Test.Diff
 				"-Value4:seven\r\n" +
 				"+Value4:eight";
 
-			var @base = new SampleDesc { Value = "one", Value2 = "three", Value3 = "fife", Value4 = "seven" };
-			var changed = new SampleDesc { Value = "one", Value2 = "four", Value3 = "fife", Value4 = "eight" };
+			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "fife", Value4 = "seven" };
+			var changed = new SampleDescendant { Value = "one", Value2 = "four", Value3 = "fife", Value4 = "eight" };
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 

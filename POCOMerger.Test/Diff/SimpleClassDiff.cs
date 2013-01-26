@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 
@@ -7,17 +8,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class SimpleClassDiff
 	{
-		private class Sample
-		{
-			public string Value { get; set; }
-			public string Value2 { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

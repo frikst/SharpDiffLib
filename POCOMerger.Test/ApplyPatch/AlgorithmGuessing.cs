@@ -1,26 +1,15 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
+using POCOMerger.Test._Entities.SimpleClass;
 
 namespace POCOMerger.Test.ApplyPatch
 {
 	[TestClass]
 	public class AlgorithmGuessing
 	{
-		private class Sample
-		{
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

@@ -1,34 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.InnerClass;
 using POCOMerger.algorithms.applyPatch;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
-using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.Test.ApplyPatch
 {
 	[TestClass]
 	public class StructuredClass
 	{
-		private class SampleInner
-		{
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<SampleInner>";
-			}
-		}
-
-		private class Sample
-		{
-			public SampleInner ValueInner { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

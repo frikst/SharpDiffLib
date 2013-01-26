@@ -3,47 +3,13 @@ using POCOMerger.algorithms.applyPatch;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult;
+using POCOMerger.Test._Entities.SimpleWithId;
 
 namespace POCOMerger.Test.ApplyPatch
 {
 	[TestClass]
 	public class ArrayOfObjects
 	{
-		private class Sample
-		{
-			public int Id { get; set; }
-
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample:" + this.Id + ">";
-			}
-
-			#region Equality members
-
-			public override bool Equals(object obj)
-			{
-				if (ReferenceEquals(null, obj))
-					return false;
-
-				if (ReferenceEquals(this, obj))
-					return true;
-
-				if (!(obj is Sample))
-					return false;
-
-				return this.Id == ((Sample) obj).Id && this.Value == ((Sample) obj).Value;
-			}
-
-			public override int GetHashCode()
-			{
-				return this.Id;
-			}
-
-			#endregion
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.BaseWithId;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
@@ -12,31 +9,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class BaseDefinition
 	{
-		private abstract class SampleBase
-		{
-			public int Id { get; set; }
-		}
-
-		private class Sample1 : SampleBase
-		{
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample1:" + Id + ">";
-			}
-		}
-
-		private class Sample2 : SampleBase
-		{
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample2:" + Id + ">";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()
@@ -60,12 +32,12 @@ namespace POCOMerger.Test.Diff
 				"+1:<Sample1:2>";
 			var @base = new SampleBase[]
 			{
-				new Sample1 { Id = 1, Value = "a" }
+				new SampleDescendant1 { Id = 1, Value = "a" }
 			};
 			var changed = new SampleBase[]
 			{
-				new Sample1 { Id = 1, Value = "a" },
-				new Sample1 { Id = 2, Value = "b" }
+				new SampleDescendant1 { Id = 1, Value = "a" },
+				new SampleDescendant1 { Id = 2, Value = "b" }
 			};
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -83,13 +55,13 @@ namespace POCOMerger.Test.Diff
 				"\t+<Sample2:2>";
 			var @base = new SampleBase[]
 			{
-				new Sample1 { Id = 1, Value = "a" },
-				new Sample1 { Id = 2, Value = "b" }
+				new SampleDescendant1 { Id = 1, Value = "a" },
+				new SampleDescendant1 { Id = 2, Value = "b" }
 			};
 			var changed = new SampleBase[]
 			{
-				new Sample1 { Id = 1, Value = "a" },
-				new Sample2 { Id = 2, Value = "b" }
+				new SampleDescendant1 { Id = 1, Value = "a" },
+				new SampleDescendant2 { Id = 2, Value = "b" }
 			};
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -108,13 +80,13 @@ namespace POCOMerger.Test.Diff
 				"\t\t+Value:c";
 			var @base = new SampleBase[]
 			{
-				new Sample1 { Id = 1, Value = "a" },
-				new Sample1 { Id = 2, Value = "b" }
+				new SampleDescendant1 { Id = 1, Value = "a" },
+				new SampleDescendant1 { Id = 2, Value = "b" }
 			};
 			var changed = new SampleBase[]
 			{
-				new Sample1 { Id = 1, Value = "a" },
-				new Sample1 { Id = 2, Value = "c" }
+				new SampleDescendant1 { Id = 1, Value = "a" },
+				new SampleDescendant1 { Id = 2, Value = "c" }
 			};
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

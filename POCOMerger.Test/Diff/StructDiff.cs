@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.InnerStructure;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 
@@ -8,21 +9,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class StructDiff
 	{
-		public struct SampleStruct
-		{
-			public int Value { get; set; }
-		}
-
-		private class Sample
-		{
-			public SampleStruct Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

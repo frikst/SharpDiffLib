@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.SimpleWithId;
 using POCOMerger.algorithms.applyPatch;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
@@ -13,41 +12,6 @@ namespace POCOMerger.Test.ApplyPatch
 	[TestClass]
 	public class SetOfObjects
 	{
-		private class Sample
-		{
-			public int Id { get; set; }
-
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample:" + this.Id + ">";
-			}
-
-			#region Equality members
-
-			public override bool Equals(object obj)
-			{
-				if (ReferenceEquals(null, obj))
-					return false;
-
-				if (ReferenceEquals(this, obj))
-					return true;
-
-				if (!(obj is Sample))
-					return false;
-
-				return this.Id == ((Sample)obj).Id && this.Value == ((Sample)obj).Value;
-			}
-
-			public override int GetHashCode()
-			{
-				return this.Id;
-			}
-
-			#endregion
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.InnerClassWithId;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
@@ -9,42 +10,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class ValueDiffWithId
 	{
-		private class SampleInner
-		{
-			public int Id { get; set; }
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<SampleInner:" + this.Id + ">";
-			}
-
-			public override bool Equals(object obj)
-			{
-				if (!(obj is SampleInner))
-					return false;
-				SampleInner s = (SampleInner) obj;
-
-				if (s.Id != this.Id)
-					return false;
-
-				if (s.Value != this.Value)
-					return false;
-
-				return true;
-			}
-		}
-
-		private class Sample
-		{
-			public SampleInner ValueInner { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

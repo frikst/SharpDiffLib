@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.InnerClassWithId;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
@@ -8,28 +9,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class StructuredClassDiff
 	{
-		private class SampleInner
-		{
-			public int Id { get; set; }
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<SampleInner:" + this.Id + ">";
-			}
-		}
-
-		private class Sample
-		{
-			public string Value { get; set; }
-			public SampleInner ValueInner { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

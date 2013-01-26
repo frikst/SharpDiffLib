@@ -79,6 +79,20 @@
     <Compile Include="Diff\StructuredClassDiff.cs" />
     <Compile Include="Diff\ValueNonObjectDiff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Entities\BaseWithId\SampleBase.cs" />
+    <Compile Include="_Entities\BaseWithId\SampleDescendant1.cs" />
+    <Compile Include="_Entities\BaseWithId\SampleDescendant2.cs" />
+    <Compile Include="_Entities\BaseWithoutId\SampleBase.cs" />
+    <Compile Include="_Entities\BaseWithoutId\SampleDescendant.cs" />
+    <Compile Include="_Entities\InnerClassWithId\SampleInner.cs" />
+    <Compile Include="_Entities\InnerClass\SampleInner.cs" />
+    <Compile Include="_Entities\InnerStructure\SampleStruct.cs" />
+    <Compile Include="_Entities\SimpleWithId\Sample.cs" />
+    <Compile Include="_Entities\InnerStructure\Sample.cs" />
+    <Compile Include="_Entities\InnerClass\Sample.cs" />
+    <Compile Include="_Entities\SimpleClass\Sample.cs" />
+    <Compile Include="_Entities\IntArrayProperty\Sample.cs" />
+    <Compile Include="_Entities\InnerClassWithId\Sample.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POCOMerger\POCOMerger.csproj">

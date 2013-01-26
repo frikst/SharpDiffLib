@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.SimpleWithId;
 using POCOMerger.algorithms.diff;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
@@ -8,18 +9,6 @@ namespace POCOMerger.Test.Diff
 	[TestClass]
 	public class ArrayOfObjects
 	{
-		private class Sample
-		{
-			public int Id { get; set; }
-
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample:" + Id + ">";
-			}
-		}
-
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()

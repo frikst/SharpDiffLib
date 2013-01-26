@@ -1,9 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.diffResult.@base;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.InnerClass;
 using POCOMerger.diffResult;
 
 namespace POCOMerger.Test.General
@@ -11,33 +7,11 @@ namespace POCOMerger.Test.General
 	[TestClass]
 	public class DiffResultFactoryTest
 	{
-		private class SampleInner
-		{
-			public string Value { get; set; }
-
-			public override string ToString()
-			{
-				return "<SampleInner>";
-			}
-		}
-
-		private class Sample
-		{
-			public string Value { get; set; }
-
-			public SampleInner Inner { get; set; }
-
-			public override string ToString()
-			{
-				return "<Sample>";
-			}
-		}
-
 		[TestMethod]
 		public void Class()
 		{
 			var diff = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x => x.Inner, DiffResultFactory<SampleInner>.Class.Create()
+				.Changed(x => x.ValueInner, DiffResultFactory<SampleInner>.Class.Create()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
 				)
@@ -45,7 +19,7 @@ namespace POCOMerger.Test.General
 				.MakeDiff();
 
 			const string diffString =
-				"=Inner:\r\n" +
+				"=ValueInner:\r\n" +
 				"\t-Value:Hello\r\n" +
 				"\t+Value:World\r\n" +
 				"-Value:Value\r\n" +
