@@ -51,9 +51,10 @@ namespace POCOMerger.implementation
 			return this.GetAlgorithmHelper<IMergeDiffsAlgorithm, IMergeDiffsAlgorithmRules>(type, this.aMergeDiffsAlgorithms, Members.MergeDiffsAlgorithm.GetAlgorithm(type));
 		}
 
-		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right)
+		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right, out bool hadConflicts)
 		{
-			throw new NotImplementedException();
+			IMergeDiffsAlgorithm<TType> algorithm = this.GetMergeDiffsAlgorithm<TType>();
+			return algorithm.MergeDiffs(left, right, out hadConflicts);
 		}
 
 		public IDiff<TType> ResolveConflicts<TType>(IDiff<TType> conflicted)

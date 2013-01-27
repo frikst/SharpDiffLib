@@ -15,6 +15,7 @@ using POCOMerger.algorithms.diff.common.@class;
 using POCOMerger.algorithms.diff.common.value;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
+using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.implementation
 {
@@ -40,15 +41,18 @@ namespace POCOMerger.implementation
 
 		public TType Merge<TType>(TType @base, TType left, TType right)
 		{
-			return this.Partial.ApplyPatch(
-				@base,
-				this.Partial.ResolveConflicts(
-					this.Partial.MergeDiffs(
-						this.Partial.Diff(@base, left),
-						this.Partial.Diff(@base, right)
-					)
-				)
+			bool hadConflicts;
+
+			IDiff<TType> patch = this.Partial.MergeDiffs(
+				this.Partial.Diff(@base, left),
+				this.Partial.Diff(@base, right),
+				out hadConflicts
 			);
+
+			if (hadConflicts)
+				patch = this.Partial.ResolveConflicts(patch);
+
+			return this.Partial.ApplyPatch(@base, patch);
 		}
 
 		public TRules GetMergerRulesFor<TRules>(Type type)

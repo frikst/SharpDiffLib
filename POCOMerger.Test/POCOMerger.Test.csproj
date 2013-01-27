@@ -78,6 +78,7 @@
     <Compile Include="Diff\SimpleClassDiff.cs" />
     <Compile Include="Diff\StructuredClassDiff.cs" />
     <Compile Include="Diff\ValueNonObjectDiff.cs" />
+    <Compile Include="MergeDiffs\SimpleClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Entities\BaseWithId\SampleBase.cs" />
     <Compile Include="_Entities\BaseWithId\SampleDescendant1.cs" />
