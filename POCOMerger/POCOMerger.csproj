@@ -60,6 +60,8 @@
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatchRules.cs" />
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithm.cs" />
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithmRules.cs" />
+    <Compile Include="algorithms\mergeDiffs\collection\ordered\MergeOrderedCollectionDiffs.cs" />
+    <Compile Include="algorithms\mergeDiffs\collection\ordered\MergeOrderedCollectionDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\common\class\MergeClassDiffs.cs" />
     <Compile Include="algorithms\mergeDiffs\common\class\MergeClassDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\MergeDiffsRulesExtensions.cs" />

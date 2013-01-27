@@ -1,2 +1,3 @@
 - Better support for value types [DONE]
 - Optional patch validation in applyPatch algorithms
+- optional comparation of the old values from the merged patches
