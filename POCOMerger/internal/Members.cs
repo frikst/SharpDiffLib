@@ -58,9 +58,9 @@ namespace POCOMerger.@internal
 				return aGetAlgorithm.MakeGenericMethod(tType);
 			}
 
-			public static MethodInfo Apply(Type tType)
+			public static MethodInfo MergeDiffs(Type tType)
 			{
-				return typeof(IApplyPatchAlgorithm<>).MakeGenericType(tType).GetMethod("MergeDiffs");
+				return typeof(IMergeDiffsAlgorithm<>).MakeGenericType(tType).GetMethod("MergeDiffs");
 			}
 		}
 
@@ -79,6 +79,11 @@ namespace POCOMerger.@internal
 			public static ConstructorInfo NewValueReplaced(Type tItemType)
 			{
 				return typeof(DiffValueReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { tItemType, tItemType });
+			}
+
+			public static ConstructorInfo NewConflict()
+			{
+				return typeof(DiffAnyConflicted).GetConstructor(new[] { typeof(IDiffItem), typeof(IDiffItem) });
 			}
 
 			public static PropertyInfo ClassProperty()
@@ -183,6 +188,14 @@ namespace POCOMerger.@internal
 			public static PropertyInfo Current(Type tType)
 			{
 				return typeof(IEnumerator<>).MakeGenericType(tType).GetProperty("Current");
+			}
+		}
+
+		public static class Object
+		{
+			public static MethodInfo Equals()
+			{
+				return typeof(object).GetMethod("Equals", BindingFlags.Static | BindingFlags.Public);
 			}
 		}
 

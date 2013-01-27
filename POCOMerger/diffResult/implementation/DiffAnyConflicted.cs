@@ -54,7 +54,7 @@ namespace POCOMerger.diffResult.implementation
 			if (ReferenceEquals(this, obj))
 				return true;
 
-			if (!(obj is IDiffClassItem && obj is IDiffItemConflicted))
+			if (!(obj is IDiffItemConflicted))
 				return false;
 
 			return object.Equals(this.Left, ((IDiffItemConflicted)obj).Left)

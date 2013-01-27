@@ -189,7 +189,7 @@ namespace POCOMerger.algorithms.diff.collection.ordered
 			return new Diff<TType>(ret);
 		}
 
-		private bool GetOne<TItemType>(IEnumerator<TItemType> enumerator, Queue<TItemType> queue, out TItemType result)
+		private bool GetOne(IEnumerator<TItemType> enumerator, Queue<TItemType> queue, out TItemType result)
 		{
 			if (queue.Count > 0)
 			{
