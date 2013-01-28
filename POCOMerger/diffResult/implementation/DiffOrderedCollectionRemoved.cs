@@ -56,6 +56,11 @@ namespace POCOMerger.diffResult.implementation
 
 		public int ItemIndex { get; private set; }
 
+		public IDiffOrderedCollectionItem CreateWithDelta(int delta)
+		{
+			return new DiffOrderedCollectionRemoved<TItemType>(this.ItemIndex + delta, this.OldValue);
+		}
+
 		#endregion
 
 		#region Equality members

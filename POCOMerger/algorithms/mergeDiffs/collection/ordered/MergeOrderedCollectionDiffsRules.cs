@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.definition.rules;
+using POCOMerger.fastReflection;
 
 namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 {
@@ -13,7 +14,17 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		public IMergeDiffsAlgorithm<TType> GetAlgorithm<TType>()
 		{
-			return new MergeOrderedCollectionDiffs<TType>(this.MergerImplementation);
+			if (Class<TType>.EnumerableParam == null)
+				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
+
+
+			return (IMergeDiffsAlgorithm<TType>)Activator.CreateInstance(
+				typeof(MergeOrderedCollectionDiffs<,>).MakeGenericType(
+					typeof(TType),
+					Class<TType>.EnumerableParam
+				),
+				this.MergerImplementation
+			);
 		}
 
 		#endregion
