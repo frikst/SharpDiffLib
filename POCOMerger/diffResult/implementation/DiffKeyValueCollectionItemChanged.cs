@@ -19,6 +19,14 @@ namespace POCOMerger.diffResult.implementation
 
 		#region Implementation of IDiffItem
 
+		public bool IsSame(IDiffItem other)
+		{
+			if (!(other is IDiffItemChanged<TItemType>))
+				return false;
+
+			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>) other).ValueDiff);
+		}
+
 		public Type ItemType
 		{
 			get { return typeof(TItemType); }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.type;
 using POCOMerger.@internal;
 
@@ -15,6 +16,14 @@ namespace POCOMerger.diffResult.implementation
 		}
 
 		#region Implementation of IDiffItem
+
+		public bool IsSame(IDiffItem other)
+		{
+			if (!(other is IDiffItemAdded<TItemType>))
+				return false;
+
+			return object.Equals(this.NewValue, ((IDiffItemAdded<TItemType>) other).NewValue);
+		}
 
 		public Type ItemType
 		{

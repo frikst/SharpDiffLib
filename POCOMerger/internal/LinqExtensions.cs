@@ -21,5 +21,28 @@ namespace POCOMerger.@internal
 			else
 				return new Queue<T>(collection);
 		}
+
+		public static bool SequenceEqual<T>(this IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool> comparer)
+		{
+			if (first is ICollection && second is ICollection)
+			{
+				if (((ICollection) first).Count != ((ICollection) second).Count)
+					return false;
+			}
+
+			IEnumerator<T> firstEnumerator = first.GetEnumerator();
+			IEnumerator<T> secondEnumerator = second.GetEnumerator();
+
+			while (firstEnumerator.MoveNext())
+			{
+				if (!secondEnumerator.MoveNext())
+					return false;
+
+				if (!comparer(firstEnumerator.Current, secondEnumerator.Current))
+					return false;
+			}
+
+			return !secondEnumerator.MoveNext();
+		}
 	}
 }

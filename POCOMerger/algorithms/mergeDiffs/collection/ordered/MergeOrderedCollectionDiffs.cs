@@ -8,6 +8,7 @@ using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
 using POCOMerger.diffResult.type;
 using POCOMerger.implementation;
+using POCOMerger.@internal;
 
 namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 {
@@ -39,52 +40,62 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 			int indexDeltaRet = 0;
 
 			IEnumerator<IDiffItem> rightEnumerator = right.GetEnumerator();
+			IEnumerator<IDiffItem> leftEnumerator = left.GetEnumerator();
 
-			IDiffOrderedCollectionItem rightItem = this.NextItem(rightEnumerator);
+			IDiffOrderedCollectionItem rightItem = this.NextItem(rightEnumerator, ref indexDeltaRight);
+			IDiffOrderedCollectionItem leftItem = this.NextItem(leftEnumerator, ref indexDeltaLeft);
 
-			if (rightItem is IDiffItemRemoved)
-				indexDeltaRight++;
-
-			foreach (IDiffOrderedCollectionItem leftItem in left)
+			while (leftItem != null)
 			{
-				if (leftItem is IDiffItemRemoved)
-					indexDeltaLeft++;
+				int leftIndex = leftItem.ItemIndex + indexDeltaLeft;
 
-				while (rightItem != null && rightItem.ItemIndex + indexDeltaRight < leftItem.ItemIndex + indexDeltaLeft)
+				while (rightItem != null && rightItem.ItemIndex + indexDeltaRight < leftIndex)
 				{
-					if (rightItem is IDiffItemRemoved)
-						indexDeltaRet--;
-					ret.Add(rightItem.CreateWithDelta(indexDeltaRight + indexDeltaRet));
+					this.AddItemToRet(rightItem, indexDeltaRight, ret, ref indexDeltaRet);
 
-					rightItem = this.NextItem(rightEnumerator);
-					if (rightItem is IDiffItemRemoved)
-						indexDeltaRight++;
+					rightItem = this.NextItem(rightEnumerator, ref indexDeltaRight);
 				}
 
-				if (rightItem != null && rightItem.ItemIndex + indexDeltaRight == leftItem.ItemIndex + indexDeltaLeft)
+				if (rightItem != null && rightItem.ItemIndex + indexDeltaRight == leftIndex)
 				{
-					if (this.ProcessConflict(leftItem, rightItem, indexDeltaLeft + indexDeltaRet, indexDeltaRight + indexDeltaRet, ret))
-						hadConflicts = true;
+					List<IDiffItem> leftBlock = new List<IDiffItem>();
 
-					rightItem = this.NextItem(rightEnumerator);
-					if (rightItem is IDiffItemRemoved)
-						indexDeltaRight++;
+					while (leftItem != null && leftItem.ItemIndex == leftIndex)
+					{
+						leftBlock.Add(leftItem.CreateWithDelta(indexDeltaLeft + indexDeltaRet));
+						leftItem = this.NextItem(leftEnumerator, ref indexDeltaLeft);
+					}
+
+					List<IDiffItem> rightBlock = new List<IDiffItem>();
+
+					while (rightItem != null && rightItem.ItemIndex == leftIndex)
+					{
+						rightBlock.Add(rightItem.CreateWithDelta(indexDeltaRight + indexDeltaRet));
+						rightItem = this.NextItem(rightEnumerator, ref indexDeltaRight);
+					}
+
+					if (leftBlock.Count == 1 && rightBlock.Count == 1)
+					{
+						if (this.ProcessConflict((IDiffOrderedCollectionItem) leftBlock[0], (IDiffOrderedCollectionItem) rightBlock[0], ret))
+							hadConflicts = true;
+					}
+					else
+					{
+						if (this.ProcessConflict(leftBlock, rightBlock, ret))
+							hadConflicts = true;
+					}
 				}
 				else
 				{
-					if (leftItem is IDiffItemRemoved)
-						indexDeltaRet--;
-					ret.Add(leftItem.CreateWithDelta(indexDeltaLeft + indexDeltaRet));
+					this.AddItemToRet(leftItem, indexDeltaLeft, ret, ref indexDeltaRet);
+					leftItem = this.NextItem(leftEnumerator, ref indexDeltaLeft);
 				}
 			}
 
-			if (rightItem is IDiffItemRemoved)
-				indexDeltaRet--;
-
 			while (rightItem != null)
 			{
-				ret.Add(rightItem.CreateWithDelta(indexDeltaRight + indexDeltaRet));
-				rightItem = this.NextItem(rightEnumerator);
+				this.AddItemToRet(rightItem, indexDeltaRight, ret, ref indexDeltaRet);
+				rightItem = this.NextItem(rightEnumerator, ref indexDeltaRight);
 			}
 
 			return new Diff<TType>(ret);
@@ -92,31 +103,58 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		#endregion
 
-		private bool ProcessConflict(IDiffOrderedCollectionItem leftItem, IDiffOrderedCollectionItem rightItem, int leftDelta, int rightDelta, List<IDiffItem> ret)
+		private bool ProcessConflict(List<IDiffItem> leftItem, List<IDiffItem> rightItem, List<IDiffItem> ret)
+		{
+			if (leftItem.All(x => x is IDiffItemAdded) && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
+			{
+				ret.AddRange(leftItem);
+				return false;
+			}
+			else if (leftItem.All(x => x is IDiffItemRemoved) && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
+			{
+				ret.AddRange(leftItem);
+				return false;
+			}
+			else
+			{
+				ret.Add(new DiffAnyConflicted(leftItem, rightItem));
+				return true;
+			}
+		}
+
+		private bool ProcessConflict(IDiffOrderedCollectionItem leftItem, IDiffOrderedCollectionItem rightItem, List<IDiffItem> ret)
 		{
 			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded)
 			{
-				ret.Add(new DiffAnyConflicted(leftItem.CreateWithDelta(leftDelta), rightItem.CreateWithDelta(rightDelta)));
-				return true;
+				if (aEqualityComparer.Equals(((IDiffItemAdded<TItemType>)leftItem).NewValue, ((IDiffItemAdded<TItemType>)rightItem).NewValue))
+				{
+					ret.Add(leftItem);
+					return false;
+				}
+				else
+				{
+					ret.Add(new DiffAnyConflicted(leftItem, rightItem));
+					return true;
+				}
 			}
 			else if (leftItem is IDiffItemAdded || rightItem is IDiffItemAdded)
 			{
 				if (leftItem is IDiffItemRemoved || !(rightItem is IDiffItemRemoved))
 				{
-					ret.Add(leftItem.CreateWithDelta(leftDelta));
-					ret.Add(rightItem.CreateWithDelta(leftDelta));
+					ret.Add(leftItem);
+					ret.Add(rightItem);
 					return false;
 				}
 				else
 				{
-					ret.Add(rightItem.CreateWithDelta(leftDelta));
-					ret.Add(leftItem.CreateWithDelta(leftDelta));
+					ret.Add(rightItem);
+					ret.Add(leftItem);
 					return false;
 				}
 			}
 			else if (leftItem is IDiffItemRemoved && rightItem is IDiffItemRemoved)
 			{
-				ret.Add(leftItem.CreateWithDelta(leftDelta));
+				ret.Add(leftItem);
 				return false;
 			}
 			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
@@ -129,7 +167,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 					out hadConflicts
 				);
 
-				ret.Add(new DiffOrderedCollectionChanged<TItemType>(leftItem.ItemIndex + leftDelta, diff));
+				ret.Add(new DiffOrderedCollectionChanged<TItemType>(leftItem.ItemIndex, diff));
 
 				return hadConflicts;
 			}
@@ -137,25 +175,37 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 			{
 				if (aEqualityComparer.Equals(((IDiffItemReplaced<TItemType>) leftItem).NewValue, ((IDiffItemReplaced<TItemType>) rightItem).NewValue))
 				{
-					ret.Add(leftItem.CreateWithDelta(leftDelta));
+					ret.Add(leftItem);
 					return false;
 				}
 				else
 				{
-					ret.Add(new DiffAnyConflicted(leftItem.CreateWithDelta(leftDelta), rightItem.CreateWithDelta(rightDelta)));
+					ret.Add(new DiffAnyConflicted(leftItem, rightItem));
 					return true;
 				}
 			}
 			else
 			{
-				ret.Add(new DiffAnyConflicted(leftItem.CreateWithDelta(leftDelta), rightItem.CreateWithDelta(rightDelta)));
+				ret.Add(new DiffAnyConflicted(leftItem, rightItem));
 				return true;
 			}
 		}
 
-		private IDiffOrderedCollectionItem NextItem(IEnumerator<IDiffItem> rightEnumerator)
+		private IDiffOrderedCollectionItem NextItem(IEnumerator<IDiffItem> rightEnumerator, ref int itemIndex)
 		{
-			return (IDiffOrderedCollectionItem)(rightEnumerator.MoveNext() ? rightEnumerator.Current : null);
+			IDiffOrderedCollectionItem ret = (IDiffOrderedCollectionItem) (rightEnumerator.MoveNext() ? rightEnumerator.Current : null);
+
+			if (ret is IDiffItemRemoved)
+				itemIndex++;
+
+			return ret;
+		}
+
+		private void AddItemToRet(IDiffOrderedCollectionItem item, int indexDelta, List<IDiffItem> ret, ref int indexDeltaRet)
+		{
+			if (item is IDiffItemRemoved)
+				indexDeltaRet--;
+			ret.Add(item.CreateWithDelta(indexDelta + indexDeltaRet));
 		}
 	}
 }

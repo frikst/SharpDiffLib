@@ -69,6 +69,15 @@ namespace POCOMerger.diffResult.implementation
 
 		#region Implementation of IDiffItem
 
+		public bool IsSame(IDiffItem other)
+		{
+			if (!(other is IDiffItemConflicted))
+				return false;
+
+			return this.Left.SequenceEqual(((IDiffItemConflicted) other).Left)
+				&& this.Right.SequenceEqual(((IDiffItemConflicted) other).Right);
+		}
+
 		public Type ItemType
 		{
 			get { return null; }

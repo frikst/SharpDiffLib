@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.type;
 using POCOMerger.@internal;
 
@@ -17,6 +18,14 @@ namespace POCOMerger.diffResult.implementation
 		}
 
 		#region Implementation of IDiffItem
+
+		public bool IsSame(IDiffItem other)
+		{
+			if (!(other is IDiffItemRemoved<TItemType>))
+				return false;
+
+			return object.Equals(this.OldValue, ((IDiffItemRemoved<TItemType>) other).OldValue);
+		}
 
 		public Type ItemType
 		{

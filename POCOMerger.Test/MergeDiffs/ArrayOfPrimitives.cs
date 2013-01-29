@@ -126,7 +126,7 @@ namespace POCOMerger.Test.MergeDiffs
 				.Added(3, 3)
 				.MakeDiff();
 			var right = DiffResultFactory.Ordered<int>.Create()
-				.Added(3, 3)
+				.Added(3, 4)
 				.MakeDiff();
 
 			bool hadConflicts;
@@ -135,7 +135,7 @@ namespace POCOMerger.Test.MergeDiffs
 			var merged = DiffResultFactory.Ordered<int>.Create()
 				.Conflicted(
 					c => c.Added(3, 3),
-					c => c.Added(3, 3)
+					c => c.Added(3, 4)
 				)
 				.MakeDiff();
 
@@ -151,8 +151,8 @@ namespace POCOMerger.Test.MergeDiffs
 				.Added(3, 4)
 				.MakeDiff();
 			var right = DiffResultFactory.Ordered<int>.Create()
-				.Added(3, 3)
-				.Added(3, 4)
+				.Added(3, 5)
+				.Added(3, 6)
 				.MakeDiff();
 
 			bool hadConflicts;
@@ -164,8 +164,8 @@ namespace POCOMerger.Test.MergeDiffs
 						.Added(3, 3)
 						.Added(3, 4),
 					c => c
-						.Added(3, 3)
-						.Added(3, 4)
+						.Added(3, 5)
+						.Added(3, 6)
 				)
 				.MakeDiff();
 
