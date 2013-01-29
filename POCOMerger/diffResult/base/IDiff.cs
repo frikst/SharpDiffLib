@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
+using POCOMerger.@base;
 
 namespace POCOMerger.diffResult.@base
 {
-	public interface IDiff : IEnumerable<IDiffItem>
+	public interface IDiff : ICountableEnumerable<IDiffItem>
 	{
 		string ToString(int indentLevel);
 		string ToString();
-
-		int Count { get; }
 	}
 
 	public interface IDiff<out TType> : IDiff

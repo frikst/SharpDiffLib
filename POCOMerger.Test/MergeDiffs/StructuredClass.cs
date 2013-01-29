@@ -93,9 +93,9 @@ namespace POCOMerger.Test.MergeDiffs
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
-					.Conflicted(conflict => conflict
-						.Replaced(x => x.Value, "a", "b")
-						.Replaced(x => x.Value, "a", "c")
+					.Conflicted(
+						c => c.Replaced(x => x.Value, "a", "b"),
+						c => c.Replaced(x => x.Value, "a", "c")
 					)
 					.MakeDiff()
 				)

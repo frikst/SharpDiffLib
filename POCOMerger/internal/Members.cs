@@ -8,6 +8,7 @@ using System.Text;
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.mergeDiffs.@base;
+using POCOMerger.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
@@ -106,7 +107,7 @@ namespace POCOMerger.@internal
 		{
 			public static PropertyInfo Count()
 			{
-				return typeof(IDiff).GetProperty("Count");
+				return typeof(ICountableEnumerable<IDiffItem>).GetProperty("Count");
 			}
 		}
 

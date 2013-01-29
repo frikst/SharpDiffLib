@@ -48,19 +48,15 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
-			public Class Conflicted(Action<Class> conflictsDefinition)
+			public Class Conflicted(Action<Class> left, Action<Class> right)
 			{
-				Class conflicts = new Class();
+				Class conflictsLeft = new Class();
+				left(conflictsLeft);
 
-				conflictsDefinition(conflicts);
+				Class conflictsRight = new Class();
+				right(conflictsRight);
 
-				if (conflicts.aDiffItems.Count != 2)
-					throw new Exception("Exactly two items should be given to result factory as a conflicts");
-
-				if (conflicts.aDiffItems.Any(x=>x is IDiffItemConflicted))
-					throw new Exception("Cannot use conflict as an item of another conflict");
-
-				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 				return this;
 			}
@@ -115,19 +111,15 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
-			public KeyValue<TKey, TValue> Conflicted(Action<KeyValue<TKey, TValue>> conflictsDefinition)
+			public KeyValue<TKey, TValue> Conflicted(Action<KeyValue<TKey, TValue>> left, Action<KeyValue<TKey, TValue>> right)
 			{
-				KeyValue<TKey, TValue> conflicts = new KeyValue<TKey,TValue>();
+				KeyValue<TKey, TValue> conflictsLeft = new KeyValue<TKey, TValue>();
+				left(conflictsLeft);
 
-				conflictsDefinition(conflicts);
+				KeyValue<TKey, TValue> conflictsRight = new KeyValue<TKey, TValue>();
+				right(conflictsRight);
 
-				if (conflicts.aDiffItems.Count != 2)
-					throw new Exception("Exactly two items should be given to result factory as a conflicts");
-
-				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
-					throw new Exception("Cannot use conflict as an item of another conflict");
-
-				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 				return this;
 			}
@@ -182,19 +174,15 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
-			public Ordered<TValue> Conflicted(Action<Ordered<TValue>> conflictsDefinition)
+			public Ordered<TValue> Conflicted(Action<Ordered<TValue>> left, Action<Ordered<TValue>> right)
 			{
-				Ordered<TValue> conflicts = new Ordered<TValue>();
+				Ordered<TValue> conflictsLeft = new Ordered<TValue>();
+				left(conflictsLeft);
 
-				conflictsDefinition(conflicts);
+				Ordered<TValue> conflictsRight = new Ordered<TValue>();
+				right(conflictsRight);
 
-				if (conflicts.aDiffItems.Count != 2)
-					throw new Exception("Exactly two items should be given to result factory as a conflicts");
-
-				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
-					throw new Exception("Cannot use conflict as an item of another conflict");
-
-				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 				return this;
 			}
@@ -249,19 +237,15 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
-			public Unordered<TValue> Conflicted(Action<Unordered<TValue>> conflictsDefinition)
+			public Unordered<TValue> Conflicted(Action<Unordered<TValue>> left, Action<Unordered<TValue>> right)
 			{
-				Unordered<TValue> conflicts = new Unordered<TValue>();
+				Unordered<TValue> conflictsLeft = new Unordered<TValue>();
+				left(conflictsLeft);
 
-				conflictsDefinition(conflicts);
+				Unordered<TValue> conflictsRight = new Unordered<TValue>();
+				right(conflictsRight);
 
-				if (conflicts.aDiffItems.Count != 2)
-					throw new Exception("Exactly two items should be given to result factory as a conflicts");
-
-				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
-					throw new Exception("Cannot use conflict as an item of another conflict");
-
-				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 				return this;
 			}
@@ -304,19 +288,15 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
-			public Value Conflicted(Action<Value> conflictsDefinition)
+			public Value Conflicted(Action<Value> left, Action<Value> right)
 			{
-				Value conflicts = new Value();
+				Value conflictsLeft = new Value();
+				left(conflictsLeft);
 
-				conflictsDefinition(conflicts);
+				Value conflictsRight = new Value();
+				right(conflictsRight);
 
-				if (conflicts.aDiffItems.Count != 2)
-					throw new Exception("Exactly two items should be given to result factory as a conflicts");
-
-				if (conflicts.aDiffItems.Any(x => x is IDiffItemConflicted))
-					throw new Exception("Cannot use conflict as an item of another conflict");
-
-				this.aDiffItems.Add(new DiffAnyConflicted(conflicts.aDiffItems[0], conflicts.aDiffItems[1]));
+				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 				return this;
 			}

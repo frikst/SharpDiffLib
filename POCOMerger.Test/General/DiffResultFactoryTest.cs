@@ -107,9 +107,9 @@ namespace POCOMerger.Test.General
 		public void Conflicts()
 		{
 			var diff = DiffResultFactory.Class<SampleInner>.Create()
-				.Conflicted(conflicts => conflicts
-					.Replaced(x => x.Value, "a", "b")
-					.Replaced(x => x.Value, "a", "c")
+				.Conflicted(
+					c => c.Replaced(x => x.Value, "a", "b"),
+					c => c.Replaced(x => x.Value, "a", "c")
 				)
 				.MakeDiff();
 

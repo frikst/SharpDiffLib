@@ -114,7 +114,7 @@
     <Compile Include="algorithms\diff\common\value\ValueDiff.cs" />
     <Compile Include="algorithms\diff\common\value\ValueDiffRules.cs" />
     <Compile Include="algorithms\diff\DiffRulesExtensions.cs" />
-    <Compile Include="fastReflection\ICountableEnumerable.cs" />
+    <Compile Include="base\ICountableEnumerable.cs" />
     <Compile Include="fastReflection\Property.cs" />
     <Compile Include="diffResult\type\IDiffOrderedCollectionItem.cs" />
     <Compile Include="algorithms\diff\base\IDiffAlgorithm.cs" />

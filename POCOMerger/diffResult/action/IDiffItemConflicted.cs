@@ -1,11 +1,12 @@
-﻿using POCOMerger.diffResult.@base;
+﻿using POCOMerger.@base;
+using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.diffResult.action
 {
 	public interface IDiffItemConflicted : IDiffItem
 	{
-		IDiffItem Left { get; }
+		ICountableEnumerable<IDiffItem> Left { get; }
 
-		IDiffItem Right { get; }
+		ICountableEnumerable<IDiffItem> Right { get; }
 	}
 }

@@ -133,9 +133,9 @@ namespace POCOMerger.Test.MergeDiffs
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
 
 			var merged = DiffResultFactory.Ordered<int>.Create()
-				.Conflicted(c => c
-					.Added(3, 3)
-					.Added(3, 3)
+				.Conflicted(
+					c => c.Added(3, 3),
+					c => c.Added(3, 3)
 				)
 				.MakeDiff();
 
@@ -159,13 +159,13 @@ namespace POCOMerger.Test.MergeDiffs
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
 
 			var merged = DiffResultFactory.Ordered<int>.Create()
-				.Conflicted(c => c
-					.Added(3, 3)
-					.Added(3, 3)
-				)
-				.Conflicted(c => c
-					.Added(3, 4)
-					.Added(3, 4)
+				.Conflicted(
+					c => c
+						.Added(3, 3)
+						.Added(3, 4),
+					c => c
+						.Added(3, 3)
+						.Added(3, 4)
 				)
 				.MakeDiff();
 
