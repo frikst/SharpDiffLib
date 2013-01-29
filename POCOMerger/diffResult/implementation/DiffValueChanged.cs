@@ -7,9 +7,9 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffValueChanged<TItemType> : IDiffItemChanged, IDiffValue
+	internal class DiffValueChanged<TItemType> : IDiffItemChanged<TItemType>, IDiffValue
 	{
-		public DiffValueChanged(IDiff valueDiff)
+		public DiffValueChanged(IDiff<TItemType> valueDiff)
 		{
 			this.ValueDiff = valueDiff;
 		}
@@ -40,7 +40,16 @@ namespace POCOMerger.diffResult.implementation
 
 		#region Implementation of IDiffItemChanged
 
-		public IDiff ValueDiff { get; private set; }
+		IDiff IDiffItemChanged.ValueDiff
+		{
+			get { return this.ValueDiff; }
+		}
+
+		#endregion
+
+		#region Implementation of IDiffItemChanged<TItemType>
+
+		public IDiff<TItemType> ValueDiff { get; private set; }
 
 		#endregion
 
@@ -54,10 +63,10 @@ namespace POCOMerger.diffResult.implementation
 			if (ReferenceEquals(this, obj))
 				return true;
 
-			if (!(obj is IDiffValue && obj is IDiffItemChanged))
+			if (!(obj is IDiffValue && obj is IDiffItemChanged<TItemType>))
 				return false;
 
-			return object.Equals(this.ValueDiff, ((IDiffItemChanged)obj).ValueDiff);
+			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>)obj).ValueDiff);
 		}
 
 		public override int GetHashCode()

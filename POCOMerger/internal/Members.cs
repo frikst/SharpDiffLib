@@ -68,7 +68,7 @@ namespace POCOMerger.@internal
 		{
 			public static ConstructorInfo NewClassChanged(Type tItemType)
 			{
-				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), typeof(IDiff) });
+				return typeof(DiffClassChanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), typeof(IDiff<>).MakeGenericType(tItemType) });
 			}
 
 			public static ConstructorInfo NewClassReplaced(Type tItemType)
@@ -96,9 +96,9 @@ namespace POCOMerger.@internal
 				return typeof(IDiffItemReplaced<>).MakeGenericType(tType).GetProperty("NewValue");
 			}
 
-			public static PropertyInfo ChangedDiff()
+			public static PropertyInfo ChangedDiff(Type tType)
 			{
-				return typeof(IDiffItemChanged).GetProperty("ValueDiff");
+				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetProperty("ValueDiff");
 			}
 		}
 

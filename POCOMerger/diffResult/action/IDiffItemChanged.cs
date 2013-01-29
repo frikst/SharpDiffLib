@@ -7,4 +7,9 @@ namespace POCOMerger.diffResult.action
 	{
 		IDiff ValueDiff { get; }
 	}
+
+	public interface IDiffItemChanged<TItemType> : IDiffItemChanged
+	{
+		new IDiff<TItemType> ValueDiff { get; }
+	}
 }

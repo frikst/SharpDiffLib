@@ -94,7 +94,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.order
 					ret.Add(
 						this.aApplyItemDiff.Apply(
 							enumerator.Current,
-							(IDiff<TItemType>)((IDiffItemChanged)item).ValueDiff
+							((IDiffItemChanged<TItemType>)item).ValueDiff
 						)
 					);
 					lastMoveNext = enumerator.MoveNext();

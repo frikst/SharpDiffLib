@@ -258,19 +258,13 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 								Expression.Call(
 									Expression.Constant(algorithm, typeof(IMergeDiffsAlgorithm<>).MakeGenericType(property.Type)),
 									Members.MergeDiffsAlgorithm.MergeDiffs(property.Type),
-									Expression.Convert(
-										Expression.Property(
-											Expression.Convert(leftCurrent, typeof(IDiffItemChanged)),
-											Members.DiffItems.ChangedDiff()
-										),
-										typeof(IDiff<>).MakeGenericType(property.Type)
+									Expression.Property(
+										Expression.Convert(leftCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+										Members.DiffItems.ChangedDiff(property.Type)
 									),
-									Expression.Convert(
-										Expression.Property(
-											Expression.Convert(rightCurrent, typeof(IDiffItemChanged)),
-											Members.DiffItems.ChangedDiff()
-										),
-										typeof(IDiff<>).MakeGenericType(property.Type)
+									Expression.Property(
+										Expression.Convert(rightCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+										Members.DiffItems.ChangedDiff(property.Type)
 									),
 									hadConflictsInternal
 								)

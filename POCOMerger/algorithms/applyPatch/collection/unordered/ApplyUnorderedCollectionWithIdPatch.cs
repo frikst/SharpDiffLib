@@ -120,7 +120,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.unordered
 
 					ret[id] = this.aApplyItemDiff.Apply(
 						ret[id],
-						(IDiff<TItemType>)((IDiffItemChanged)item).ValueDiff
+						((IDiffItemChanged<TItemType>)item).ValueDiff
 					);
 				}
 				else

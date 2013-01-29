@@ -100,7 +100,7 @@ namespace POCOMerger.algorithms.diff.collection.ordered
 							}
 							else
 							{
-								IDiff itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
+								IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
 
 								if (itemDiff.Count > 0)
 									ret.Add(new DiffOrderedCollectionChanged<TItemType>(index, itemDiff));

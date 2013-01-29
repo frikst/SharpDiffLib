@@ -186,7 +186,7 @@ namespace POCOMerger.algorithms.diff.common.@class
 			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
 			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
 
-			ParameterExpression tmp = Expression.Parameter(typeof(IDiff), "tmp");
+			ParameterExpression tmp = Expression.Parameter(typeof(IDiff<>).MakeGenericType(property.Type), "tmp");
 
 			return Expression.Block(
 				new[] { tmp },

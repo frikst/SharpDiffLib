@@ -107,12 +107,9 @@ namespace POCOMerger.algorithms.applyPatch.common.@class
 							Expression.Constant(algorithm),
 							Members.ApplyPatchAlgorithm.Apply(property.Type),
 							Expression.Property(orig, property.ReflectionPropertyInfo),
-							Expression.Convert(
-								Expression.Property(
-									Expression.Convert(item, typeof(IDiffItemChanged)),
-									Members.DiffItems.ChangedDiff()
-								),
-								typeof(IDiff<>).MakeGenericType(property.Type)
+							Expression.Property(
+								Expression.Convert(item, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+								Members.DiffItems.ChangedDiff(property.Type)
 							)
 						)
 					),

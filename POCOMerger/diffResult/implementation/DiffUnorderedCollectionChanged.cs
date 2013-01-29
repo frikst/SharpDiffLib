@@ -7,9 +7,9 @@ using POCOMerger.@internal;
 
 namespace POCOMerger.diffResult.implementation
 {
-	internal class DiffUnorderedCollectionChanged<TIdType, TItemType> : IDiffItemChanged, IDiffUnorderedCollectionItemWithID<TIdType>
+	internal class DiffUnorderedCollectionChanged<TIdType, TItemType> : IDiffItemChanged<TItemType>, IDiffUnorderedCollectionItemWithID<TIdType>
 	{
-		public DiffUnorderedCollectionChanged(TIdType id, IDiff valueDiff)
+		public DiffUnorderedCollectionChanged(TIdType id, IDiff<TItemType> valueDiff)
 		{
 			this.Id = id;
 			this.ValueDiff = valueDiff;
@@ -41,7 +41,16 @@ namespace POCOMerger.diffResult.implementation
 
 		#region Implementation of IDiffItemChanged
 
-		public IDiff ValueDiff { get; private set; }
+		IDiff IDiffItemChanged.ValueDiff
+		{
+			get { return this.ValueDiff; }
+		}
+
+		#endregion
+
+		#region Implementation of IDiffItemChanged<TItemType>
+
+		public IDiff<TItemType> ValueDiff { get; private set; }
 
 		#endregion
 
@@ -75,10 +84,10 @@ namespace POCOMerger.diffResult.implementation
 			if (ReferenceEquals(this, obj))
 				return true;
 
-			if (!(obj is IDiffUnorderedCollectionItemWithID<TIdType> && obj is IDiffItemChanged))
+			if (!(obj is IDiffUnorderedCollectionItemWithID<TIdType> && obj is IDiffItemChanged<TItemType>))
 				return false;
 
-			return object.Equals(this.ValueDiff, ((IDiffItemChanged)obj).ValueDiff)
+			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>)obj).ValueDiff)
 				&& object.Equals(this.Id, ((IDiffUnorderedCollectionItemWithID<TIdType>)obj).Id);
 		}
 

@@ -81,7 +81,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.keyValue
 				else if (item is IDiffItemChanged)
 					ret[item.Key] = this.aApplyItemDiff.Apply(
 						ret[item.Key],
-						(IDiff<TItemType>)((IDiffItemChanged)item).ValueDiff
+						((IDiffItemChanged<TItemType>)item).ValueDiff
 					);
 				else if (item is IDiffItemRemoved<TItemType>)
 					ret.Remove(item.Key);

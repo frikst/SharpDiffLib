@@ -88,7 +88,7 @@ namespace POCOMerger.algorithms.diff.collection.keyValue
 							}
 							else
 							{
-								IDiff itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
+								IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
 
 								if (itemDiff.Count > 0)
 									ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
@@ -101,7 +101,7 @@ namespace POCOMerger.algorithms.diff.collection.keyValue
 							ret.Add(new DiffKeyValueCollectionItemReplaced<TKeyType, TItemType>(baseKeyValue.Key, baseKeyValue.Value, changedItem));
 						else
 						{
-							IDiff itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
+							IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
 
 							if (itemDiff.Count > 0)
 								ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));

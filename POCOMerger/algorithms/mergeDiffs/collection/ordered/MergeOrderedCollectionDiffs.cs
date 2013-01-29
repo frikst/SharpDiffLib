@@ -14,16 +14,22 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 	internal class MergeOrderedCollectionDiffs<TType, TItemType> : IMergeDiffsAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
+		private readonly IEqualityComparer<TItemType> aEqualityComparer;
+		private IMergeDiffsAlgorithm<TItemType> aMergeItemsDiffs;
 
 		public MergeOrderedCollectionDiffs(MergerImplementation mergerImplementation)
 		{
 			this.aMergerImplementation = mergerImplementation;
+			this.aEqualityComparer = EqualityComparer<TItemType>.Default;
+			this.aMergeItemsDiffs = null;
 		}
 
 		#region Implementation of IMergeDiffsAlgorithm<TType>
 
 		public IDiff<TType> MergeDiffs(IDiff<TType> left, IDiff<TType> right, out bool hadConflicts)
 		{
+			if (this.aMergeItemsDiffs == null)
+				this.aMergeItemsDiffs = this.aMergerImplementation.Partial.GetMergeDiffsAlgorithm<TItemType>();
 			hadConflicts = false;
 
 			List<IDiffItem> ret = new List<IDiffItem>();
@@ -57,7 +63,12 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 				if (rightItem != null && rightItem.ItemIndex + indexDeltaRight == leftItem.ItemIndex + indexDeltaLeft)
 				{
-					ret.Add(this.ProcessConflict(leftItem, rightItem, indexDeltaLeft + indexDeltaRet));
+					if (this.ProcessConflict(leftItem, rightItem, indexDeltaLeft + indexDeltaRet, indexDeltaRight + indexDeltaRet, ret))
+						hadConflicts = true;
+
+					rightItem = this.NextItem(rightEnumerator);
+					if (rightItem is IDiffItemRemoved)
+						indexDeltaRight++;
 				}
 				else
 				{
@@ -81,9 +92,65 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		#endregion
 
-		private IDiffItem ProcessConflict(IDiffOrderedCollectionItem leftitem, IDiffOrderedCollectionItem rightItem, int leftDelta)
+		private bool ProcessConflict(IDiffOrderedCollectionItem leftItem, IDiffOrderedCollectionItem rightItem, int leftDelta, int rightDelta, List<IDiffItem> ret)
 		{
-			throw new NotImplementedException();
+			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded)
+			{
+				ret.Add(new DiffAnyConflicted(leftItem.CreateWithDelta(leftDelta), rightItem.CreateWithDelta(rightDelta)));
+				return true;
+			}
+			else if (leftItem is IDiffItemAdded || rightItem is IDiffItemAdded)
+			{
+				if (leftItem is IDiffItemRemoved || !(rightItem is IDiffItemRemoved))
+				{
+					ret.Add(leftItem.CreateWithDelta(leftDelta));
+					ret.Add(rightItem.CreateWithDelta(leftDelta));
+					return false;
+				}
+				else
+				{
+					ret.Add(rightItem.CreateWithDelta(leftDelta));
+					ret.Add(leftItem.CreateWithDelta(leftDelta));
+					return false;
+				}
+			}
+			else if (leftItem is IDiffItemRemoved && rightItem is IDiffItemRemoved)
+			{
+				ret.Add(leftItem.CreateWithDelta(leftDelta));
+				return false;
+			}
+			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
+			{
+				bool hadConflicts;
+
+				IDiff<TItemType> diff = this.aMergeItemsDiffs.MergeDiffs(
+					((IDiffItemChanged<TItemType>)leftItem).ValueDiff,
+					((IDiffItemChanged<TItemType>)rightItem).ValueDiff,
+					out hadConflicts
+				);
+
+				ret.Add(new DiffOrderedCollectionChanged<TItemType>(leftItem.ItemIndex + leftDelta, diff));
+
+				return hadConflicts;
+			}
+			else if (leftItem is IDiffItemReplaced && rightItem is IDiffItemReplaced)
+			{
+				if (aEqualityComparer.Equals(((IDiffItemReplaced<TItemType>) leftItem).NewValue, ((IDiffItemReplaced<TItemType>) rightItem).NewValue))
+				{
+					ret.Add(leftItem.CreateWithDelta(leftDelta));
+					return false;
+				}
+				else
+				{
+					ret.Add(new DiffAnyConflicted(leftItem.CreateWithDelta(leftDelta), rightItem.CreateWithDelta(rightDelta)));
+					return true;
+				}
+			}
+			else
+			{
+				ret.Add(new DiffAnyConflicted(leftItem.CreateWithDelta(leftDelta), rightItem.CreateWithDelta(rightDelta)));
+				return true;
+			}
 		}
 
 		private IDiffOrderedCollectionItem NextItem(IEnumerator<IDiffItem> rightEnumerator)

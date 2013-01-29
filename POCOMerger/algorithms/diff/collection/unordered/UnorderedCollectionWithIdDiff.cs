@@ -82,7 +82,7 @@ namespace POCOMerger.algorithms.diff.collection.unordered
 					}
 					else
 					{
-						IDiff itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
+						IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
 
 						if (itemDiff.Count > 0)
 							ret.Add(new DiffUnorderedCollectionChanged<TIdType, TItemType>(id, itemDiff));

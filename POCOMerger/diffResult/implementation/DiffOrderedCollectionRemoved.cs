@@ -58,6 +58,8 @@ namespace POCOMerger.diffResult.implementation
 
 		public IDiffOrderedCollectionItem CreateWithDelta(int delta)
 		{
+			if (delta == 0)
+				return this;
 			return new DiffOrderedCollectionRemoved<TItemType>(this.ItemIndex + delta, this.OldValue);
 		}
 
