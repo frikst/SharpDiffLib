@@ -12,7 +12,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 	{
 		#region Implementation of IMergeDiffsAlgorithmRules
 
-		public IMergeDiffsAlgorithm<TType> GetAlgorithm<TType>()
+		IMergeDiffsAlgorithm<TType> IMergeDiffsAlgorithmRules.GetAlgorithm<TType>()
 		{
 			if (Class<TType>.EnumerableParam == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");

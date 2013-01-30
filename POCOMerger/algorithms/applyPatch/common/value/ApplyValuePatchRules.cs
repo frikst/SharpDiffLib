@@ -7,7 +7,7 @@ namespace POCOMerger.algorithms.applyPatch.common.value
 	{
 		#region Implementation of IApplyPatchAlgorithmRules
 
-		public IApplyPatchAlgorithm<TType> GetAlgorithm<TType>()
+		IApplyPatchAlgorithm<TType> IApplyPatchAlgorithmRules.GetAlgorithm<TType>()
 		{
 			return new ApplyValuePatch<TType>(this.MergerImplementation);
 		}

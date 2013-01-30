@@ -9,7 +9,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.order
 	{
 		#region Implementation of IApplyPatchAlgorithmRules
 
-		public IApplyPatchAlgorithm<TType> GetAlgorithm<TType>()
+		IApplyPatchAlgorithm<TType> IApplyPatchAlgorithmRules.GetAlgorithm<TType>()
 		{
 			if (Class<TType>.EnumerableParam == null)
 				throw new Exception("Cannot apply patch to non-collection type using ApplyOrderedCollectionPatch");

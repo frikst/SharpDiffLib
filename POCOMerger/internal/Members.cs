@@ -101,6 +101,11 @@ namespace POCOMerger.@internal
 			{
 				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetProperty("ValueDiff");
 			}
+
+			public static MethodInfo IsSame()
+			{
+				return typeof(IDiffItem).GetMethod("IsSame");
+			}
 		}
 
 		public static class Diff

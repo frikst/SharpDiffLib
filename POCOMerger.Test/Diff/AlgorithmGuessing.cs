@@ -16,7 +16,7 @@ namespace POCOMerger.Test.Diff
 		{
 			#region Implementation of IDiffAlgorithmRules
 
-			public IDiffAlgorithm<TType> GetAlgorithm<TType>()
+			IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 			{
 				return new CustomDiffAlgorithm<TType>();
 			}

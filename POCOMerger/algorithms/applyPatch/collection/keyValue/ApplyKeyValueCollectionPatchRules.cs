@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.definition.rules;
 using POCOMerger.fastReflection;
@@ -12,7 +9,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.keyValue
 	{
 		#region Implementation of IApplyPatchAlgorithmRules
 
-		public IApplyPatchAlgorithm<TType> GetAlgorithm<TType>()
+		IApplyPatchAlgorithm<TType> IApplyPatchAlgorithmRules.GetAlgorithm<TType>()
 		{
 			if (Class<TType>.KeyValueParams == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");

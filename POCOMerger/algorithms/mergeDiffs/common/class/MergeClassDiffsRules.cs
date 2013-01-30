@@ -11,7 +11,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 	{
 		#region Implementation of IMergeDiffsAlgorithmRules
 
-		public IMergeDiffsAlgorithm<TType> GetAlgorithm<TType>()
+		IMergeDiffsAlgorithm<TType> IMergeDiffsAlgorithmRules.GetAlgorithm<TType>()
 		{
 			return new MergeClassDiffs<TType>(this.MergerImplementation);
 		}
