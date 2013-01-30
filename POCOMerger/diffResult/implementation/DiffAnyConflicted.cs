@@ -99,7 +99,7 @@ namespace POCOMerger.diffResult.implementation
 				ret.Append(diffItem.ToString(indentLevel + 1)).AppendLine();
 			}
 
-			return ret.ToString();
+			return ret.ToString().TrimEnd('\r', '\n');
 		}
 
 		#endregion

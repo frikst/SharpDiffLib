@@ -108,7 +108,6 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 			Lazy<bool> allLeftAdded = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemAdded));
 			Lazy<bool> allLeftRemoved = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemRemoved));
 			Lazy<bool> allRightAdded = new Lazy<bool>(() => rightItem.All(x => x is IDiffItemAdded));
-			Lazy<bool> allRightRemoved = new Lazy<bool>(() => rightItem.All(x => x is IDiffItemRemoved));
 
 			if (allLeftAdded.Value && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
 			{
@@ -122,14 +121,14 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
 				return false;
 			}
-			else if (leftItem.Count == 1 && (leftItem[0] is IDiffItemReplaced || leftItem[0] is IDiffItemChanged) && (allRightAdded.Value || allRightRemoved.Value))
+			else if (leftItem.Count == 1 && (leftItem[0] is IDiffItemReplaced || leftItem[0] is IDiffItemChanged) && allRightAdded.Value)
 			{
 				foreach (IDiffOrderedCollectionItem item in rightItem)
 					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
 				this.AddItemToRet((IDiffOrderedCollectionItem)leftItem[0], 0, ret, ref indexDeltaRet);
 				return false;
 			}
-			else if (rightItem.Count == 1 && (rightItem[0] is IDiffItemReplaced || rightItem[0] is IDiffItemChanged) && (allLeftAdded.Value || allLeftRemoved.Value))
+			else if (rightItem.Count == 1 && (rightItem[0] is IDiffItemReplaced || rightItem[0] is IDiffItemChanged) && allLeftAdded.Value)
 			{
 				foreach (IDiffOrderedCollectionItem item in leftItem)
 					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
