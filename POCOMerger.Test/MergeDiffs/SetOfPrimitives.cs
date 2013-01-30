@@ -146,5 +146,50 @@ namespace POCOMerger.Test.MergeDiffs
 			Assert.AreEqual(merged, result);
 			Assert.IsFalse(hadConflicts);
 		}
+
+		[TestMethod]
+		public void EmptyReplacedReplaced()
+		{
+			var left = DiffResultFactory.Unordered<int>.Create()
+				.Replaced(3, 4)
+				.MakeDiff();
+			var right = DiffResultFactory.Unordered<int>.Create()
+				.Replaced(3, 5)
+				.MakeDiff();
+
+			bool hadConflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+
+			var merged = DiffResultFactory.Unordered<int>.Create()
+				.Conflicted(
+					c => c.Replaced(3, 4),
+					c => c.Replaced(3, 5)
+				)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsTrue(hadConflicts);
+		}
+
+		[TestMethod]
+		public void EmptyReplacedReplacedBothSame()
+		{
+			var left = DiffResultFactory.Unordered<int>.Create()
+				.Replaced(3, 5)
+				.MakeDiff();
+			var right = DiffResultFactory.Unordered<int>.Create()
+				.Replaced(3, 5)
+				.MakeDiff();
+
+			bool hadConflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+
+			var merged = DiffResultFactory.Unordered<int>.Create()
+				.Replaced(3, 5)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(hadConflicts);
+		}
 	}
 }
