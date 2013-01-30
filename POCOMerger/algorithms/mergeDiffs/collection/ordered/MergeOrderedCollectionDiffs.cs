@@ -76,12 +76,12 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 					if (leftBlock.Count == 1 && rightBlock.Count == 1)
 					{
-						if (this.ProcessConflict((IDiffOrderedCollectionItem) leftBlock[0], (IDiffOrderedCollectionItem) rightBlock[0], ret))
+						if (this.ProcessConflict((IDiffOrderedCollectionItem) leftBlock[0], (IDiffOrderedCollectionItem) rightBlock[0], ret, ref indexDeltaRet))
 							hadConflicts = true;
 					}
 					else
 					{
-						if (this.ProcessConflict(leftBlock, rightBlock, ret))
+						if (this.ProcessConflict(leftBlock, rightBlock, ret, ref indexDeltaRet))
 							hadConflicts = true;
 					}
 				}
@@ -103,16 +103,37 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		#endregion
 
-		private bool ProcessConflict(List<IDiffItem> leftItem, List<IDiffItem> rightItem, List<IDiffItem> ret)
+		private bool ProcessConflict(List<IDiffItem> leftItem, List<IDiffItem> rightItem, List<IDiffItem> ret, ref int indexDeltaRet)
 		{
-			if (leftItem.All(x => x is IDiffItemAdded) && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
+			Lazy<bool> allLeftAdded = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemAdded));
+			Lazy<bool> allLeftRemoved = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemRemoved));
+			Lazy<bool> allRightAdded = new Lazy<bool>(() => rightItem.All(x => x is IDiffItemAdded));
+			Lazy<bool> allRightRemoved = new Lazy<bool>(() => rightItem.All(x => x is IDiffItemRemoved));
+
+			if (allLeftAdded.Value && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
 			{
-				ret.AddRange(leftItem);
+				foreach (IDiffOrderedCollectionItem item in leftItem)
+					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
 				return false;
 			}
-			else if (leftItem.All(x => x is IDiffItemRemoved) && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
+			else if (allLeftRemoved.Value && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
 			{
-				ret.AddRange(leftItem);
+				foreach (IDiffOrderedCollectionItem item in leftItem)
+					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
+				return false;
+			}
+			else if (leftItem.Count == 1 && (leftItem[0] is IDiffItemReplaced || leftItem[0] is IDiffItemChanged) && (allRightAdded.Value || allRightRemoved.Value))
+			{
+				foreach (IDiffOrderedCollectionItem item in rightItem)
+					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
+				this.AddItemToRet((IDiffOrderedCollectionItem)leftItem[0], 0, ret, ref indexDeltaRet);
+				return false;
+			}
+			else if (rightItem.Count == 1 && (rightItem[0] is IDiffItemReplaced || rightItem[0] is IDiffItemChanged) && (allLeftAdded.Value || allLeftRemoved.Value))
+			{
+				foreach (IDiffOrderedCollectionItem item in leftItem)
+					this.AddItemToRet(item, 0, ret, ref indexDeltaRet);
+				this.AddItemToRet((IDiffOrderedCollectionItem)rightItem[0], 0, ret, ref indexDeltaRet);
 				return false;
 			}
 			else
@@ -122,7 +143,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 			}
 		}
 
-		private bool ProcessConflict(IDiffOrderedCollectionItem leftItem, IDiffOrderedCollectionItem rightItem, List<IDiffItem> ret)
+		private bool ProcessConflict(IDiffOrderedCollectionItem leftItem, IDiffOrderedCollectionItem rightItem, List<IDiffItem> ret, ref int indexDeltaRet)
 		{
 			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded)
 			{
