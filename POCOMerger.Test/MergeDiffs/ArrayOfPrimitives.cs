@@ -174,6 +174,51 @@ namespace POCOMerger.Test.MergeDiffs
 		}
 
 		[TestMethod]
+		public void BothSidesRemovedOne()
+		{
+			var left = DiffResultFactory.Ordered<int>.Create()
+				.Removed(3, 3)
+				.MakeDiff();
+			var right = DiffResultFactory.Ordered<int>.Create()
+				.Removed(3, 3)
+				.MakeDiff();
+
+			bool hadConflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+
+			var merged = DiffResultFactory.Ordered<int>.Create()
+				.Removed(3, 3)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(hadConflicts);
+		}
+
+		[TestMethod]
+		public void BothSidesRemovedTwo()
+		{
+			var left = DiffResultFactory.Ordered<int>.Create()
+				.Removed(3, 3)
+				.Removed(3, 4)
+				.MakeDiff();
+			var right = DiffResultFactory.Ordered<int>.Create()
+				.Removed(3, 3)
+				.Removed(3, 4)
+				.MakeDiff();
+
+			bool hadConflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+
+			var merged = DiffResultFactory.Ordered<int>.Create()
+				.Removed(3, 3)
+				.Removed(3, 4)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(hadConflicts);
+		}
+
+		[TestMethod]
 		public void AddedAndReplaced()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -249,7 +294,7 @@ namespace POCOMerger.Test.MergeDiffs
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
-			Assert.IsFalse(hadConflicts);
+			Assert.IsTrue(hadConflicts);
 		}
 	}
 }

@@ -17,9 +17,9 @@ namespace POCOMerger.diffResult.implementation
 		{
 			private readonly List<IDiffItem> aItems;
 
-			public DiffItemList(List<IDiffItem> items)
+			public DiffItemList(IEnumerable<IDiffItem> items)
 			{
-				this.aItems = items;
+				this.aItems = items.ToList();
 			}
 
 			public DiffItemList(IDiffItem item)
@@ -55,7 +55,7 @@ namespace POCOMerger.diffResult.implementation
 			#endregion
 		}
 
-		public DiffAnyConflicted(List<IDiffItem> left, List<IDiffItem> right)
+		public DiffAnyConflicted(IEnumerable<IDiffItem> left, IEnumerable<IDiffItem> right)
 		{
 			this.Left = new DiffItemList(left);
 			this.Right = new DiffItemList(right);
