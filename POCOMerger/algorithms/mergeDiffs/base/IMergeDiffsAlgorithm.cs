@@ -4,7 +4,7 @@ namespace POCOMerger.algorithms.mergeDiffs.@base
 {
 	public interface IMergeDiffsAlgorithm
 	{
-
+		IDiff MergeDiffs(IDiff left, IDiff right, out bool hadConflicts);
 	}
 
 	public interface IMergeDiffsAlgorithm<TType> : IMergeDiffsAlgorithm

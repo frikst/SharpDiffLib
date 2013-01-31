@@ -48,7 +48,7 @@ namespace POCOMerger.algorithms.diff.common.baseClass
 					return new Diff<TType>(
 						new List<IDiffItem>(1)
 						{
-							new DiffValueChanged<TType>(diff)
+							new DiffValueChanged<TType>(baseType, diff)
 						}
 					);
 				}

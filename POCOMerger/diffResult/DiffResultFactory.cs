@@ -282,9 +282,18 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public Value Changed(Type type, IDiff<TType> diff)
+			{
+				if (!typeof(TType).IsAssignableFrom(type))
+					throw new Exception("Incorrect type");
+
+				this.aDiffItems.Add(new DiffValueChanged<TType>(type, diff));
+				return this;
+			}
+
 			public Value Changed(IDiff<TType> diff)
 			{
-				this.aDiffItems.Add(new DiffValueChanged<TType>(diff));
+				this.aDiffItems.Add(new DiffValueChanged<TType>(typeof(TType), diff));
 				return this;
 			}
 

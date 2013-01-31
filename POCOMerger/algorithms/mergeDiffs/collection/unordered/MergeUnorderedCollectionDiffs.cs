@@ -107,6 +107,15 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 
 		#endregion
 
+		#region Implementation of IMergeDiffsAlgorithm
+
+		IDiff IMergeDiffsAlgorithm.MergeDiffs(IDiff left, IDiff right, out bool hadConflicts)
+		{
+			return this.MergeDiffs((IDiff<TType>)left, (IDiff<TType>)right, out hadConflicts);
+		}
+
+		#endregion
+
 		private bool ProcessConflict(TIdType id, IDiffUnorderedCollectionItem leftItem, IDiffUnorderedCollectionItem rightItem, List<IDiffItem> ret)
 		{
 			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded && leftItem.IsSame(rightItem))

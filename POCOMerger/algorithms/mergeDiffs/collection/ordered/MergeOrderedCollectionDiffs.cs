@@ -77,6 +77,15 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		#endregion
 
+		#region Implementation of IMergeDiffsAlgorithm
+
+		IDiff IMergeDiffsAlgorithm.MergeDiffs(IDiff left, IDiff right, out bool hadConflicts)
+		{
+			return this.MergeDiffs((IDiff<TType>)left, (IDiff<TType>)right, out hadConflicts);
+		}
+
+		#endregion
+
 		private bool ProcessConflict(List<IDiffOrderedCollectionItem> leftItem, List<IDiffOrderedCollectionItem> rightItem, AutoindexedResult ret)
 		{
 			Lazy<bool> allLeftAdded = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemAdded));

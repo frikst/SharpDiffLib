@@ -9,8 +9,9 @@ namespace POCOMerger.diffResult.implementation
 {
 	internal class DiffValueChanged<TItemType> : IDiffItemChanged<TItemType>, IDiffValue
 	{
-		public DiffValueChanged(IDiff<TItemType> valueDiff)
+		public DiffValueChanged(Type type, IDiff<TItemType> valueDiff)
 		{
+			this.ItemType = type;
 			this.ValueDiff = valueDiff;
 		}
 
@@ -24,10 +25,7 @@ namespace POCOMerger.diffResult.implementation
 			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>) other).ValueDiff);
 		}
 
-		public Type ItemType
-		{
-			get { return typeof(TItemType); }
-		}
+		public Type ItemType { get; private set; }
 
 		public string ToString(int indentLevel)
 		{

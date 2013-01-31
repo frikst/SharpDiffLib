@@ -2,6 +2,7 @@
 using POCOMerger.algorithms.mergeDiffs.collection.ordered;
 using POCOMerger.algorithms.mergeDiffs.collection.unordered;
 using POCOMerger.algorithms.mergeDiffs.common.@class;
+using POCOMerger.algorithms.mergeDiffs.common.value;
 using POCOMerger.definition;
 
 namespace POCOMerger.algorithms.mergeDiffs
@@ -36,6 +37,16 @@ namespace POCOMerger.algorithms.mergeDiffs
 		public static ClassMergerDefinition<TClass> MergeClassDiffsRules<TClass>(this ClassMergerDefinition<TClass> definition)
 		{
 			return definition.Rules<MergeClassDiffsRules<TClass>>();
+		}
+
+		public static ClassMergerDefinition<TClass> MergeValueDiffsRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<MergeValueDiffsRules<TClass>> func)
+		{
+			return definition.Rules(func);
+		}
+
+		public static ClassMergerDefinition<TClass> MergeValueDiffsRules<TClass>(this ClassMergerDefinition<TClass> definition)
+		{
+			return definition.Rules<MergeValueDiffsRules<TClass>>();
 		}
 	}
 }

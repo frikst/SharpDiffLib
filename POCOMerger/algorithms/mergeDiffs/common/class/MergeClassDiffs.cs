@@ -51,6 +51,15 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 
 		#endregion
 
+		#region Implementation of IMergeDiffsAlgorithm
+
+		IDiff IMergeDiffsAlgorithm.MergeDiffs(IDiff left, IDiff right, out bool hadConflicts)
+		{
+			return this.MergeDiffs((IDiff<TType>)left, (IDiff<TType>)right, out hadConflicts);
+		}
+
+		#endregion
+
 		private Expression<Func<IDiff<TType>, IDiff<TType>, CompiledReturn>> Compile()
 		{
 			ParameterExpression left = Expression.Parameter(typeof(IDiff<TType>), "left");

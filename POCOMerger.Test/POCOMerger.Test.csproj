@@ -84,6 +84,7 @@
     <Compile Include="MergeDiffs\SetOfPrimitives.cs" />
     <Compile Include="MergeDiffs\SimpleClass.cs" />
     <Compile Include="MergeDiffs\StructuredClass.cs" />
+    <Compile Include="MergeDiffs\Value.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Entities\BaseWithId\SampleBase.cs" />
     <Compile Include="_Entities\BaseWithId\SampleDescendant1.cs" />
