@@ -1,11 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test.Diff;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCOMerger.Test._Entities.BaseWithId;
 using POCOMerger.Test._Entities.SimpleWithId;
-using POCOMerger.algorithms.diff;
 using POCOMerger.algorithms.mergeDiffs;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
@@ -20,11 +15,13 @@ namespace POCOMerger.Test.MergeDiffs
 		{
 			private Merger()
 			{
-				Define<Sample>()
+				Define<SampleBase>()
 					.GeneralRules(rules => rules
 						.Id(x => x.Id)
 					)
 					.MergeValueDiffsRules();
+				Define<SampleDescendant1>()
+					.MergeClassDiffsRules();
 				Define<int>()
 					.MergeValueDiffsRules();
 			}
@@ -136,14 +133,14 @@ namespace POCOMerger.Test.MergeDiffs
 		[TestMethod]
 		public void MergeObject()
 		{
-			var left = DiffResultFactory.Value<Sample>.Create()
-				.Changed(DiffResultFactory.Class<Sample>.Create()
-					.Replaced(x => x.Value, "a", "b")
+			var left = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleBase>.Create()
+					.Replaced(x => x.ValueBase, "a", "b")
 					.MakeDiff()
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Value<Sample>.Create()
-				.Changed(DiffResultFactory.Class<Sample>.Create()
+			var right = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleBase>.Create()
 					.MakeDiff()
 				)
 				.MakeDiff();
@@ -151,9 +148,9 @@ namespace POCOMerger.Test.MergeDiffs
 			bool hadConflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
 
-			var merged = DiffResultFactory.Value<Sample>.Create()
-				.Changed(DiffResultFactory.Class<Sample>.Create()
-					.Replaced(x => x.Value, "a", "b")
+			var merged = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleBase>.Create()
+					.Replaced(x => x.ValueBase, "a", "b")
 					.MakeDiff()
 				)
 				.MakeDiff();
@@ -165,15 +162,15 @@ namespace POCOMerger.Test.MergeDiffs
 		[TestMethod]
 		public void MergeObjectConflict()
 		{
-			var left = DiffResultFactory.Value<Sample>.Create()
-				.Changed(DiffResultFactory.Class<Sample>.Create()
-					.Replaced(x => x.Value, "a", "b")
+			var left = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleBase>.Create()
+					.Replaced(x => x.ValueBase, "a", "b")
 					.MakeDiff()
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Value<Sample>.Create()
-				.Changed(DiffResultFactory.Class<Sample>.Create()
-					.Replaced(x => x.Value, "a", "c")
+			var right = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleBase>.Create()
+					.Replaced(x => x.ValueBase, "a", "c")
 					.MakeDiff()
 				)
 				.MakeDiff();
@@ -181,11 +178,44 @@ namespace POCOMerger.Test.MergeDiffs
 			bool hadConflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
 
-			var merged = DiffResultFactory.Value<Sample>.Create()
-				.Changed(DiffResultFactory.Class<Sample>.Create()
+			var merged = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleBase>.Create()
 					.Conflicted(
-						c => c.Replaced(x => x.Value, "a", "b"),
-						c => c.Replaced(x => x.Value, "a", "c")
+						c => c.Replaced(x => x.ValueBase, "a", "b"),
+						c => c.Replaced(x => x.ValueBase, "a", "c")
+					)
+					.MakeDiff()
+				)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsTrue(hadConflicts);
+		}
+
+		[TestMethod]
+		public void MergeObjectConflictDescendants()
+		{
+			var left = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleDescendant1>.Create()
+					.Replaced(x => x.ValueBase, "a", "b")
+					.MakeDiff()
+				)
+				.MakeDiff();
+			var right = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleDescendant1>.Create()
+					.Replaced(x => x.ValueBase, "a", "c")
+					.MakeDiff()
+				)
+				.MakeDiff();
+
+			bool hadConflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+
+			var merged = DiffResultFactory.Value<SampleBase>.Create()
+				.Changed(DiffResultFactory.Class<SampleDescendant1>.Create()
+					.Conflicted(
+						c => c.Replaced(x => x.ValueBase, "a", "b"),
+						c => c.Replaced(x => x.ValueBase, "a", "c")
 					)
 					.MakeDiff()
 				)

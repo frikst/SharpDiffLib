@@ -4,6 +4,8 @@
 	{
 		public int Id { get; set; }
 
+		public string ValueBase { get; set; }
+
 		public override string ToString()
 		{
 			return "<SampleBase:" + this.Id + ">";
