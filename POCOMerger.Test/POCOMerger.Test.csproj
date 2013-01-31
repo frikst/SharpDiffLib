@@ -80,6 +80,7 @@
     <Compile Include="Diff\ValueNonObjectDiff.cs" />
     <Compile Include="MergeDiffs\ArrayOfObjects.cs" />
     <Compile Include="MergeDiffs\ArrayOfPrimitives.cs" />
+    <Compile Include="MergeDiffs\DictionaryOfObjects.cs" />
     <Compile Include="MergeDiffs\SetOfObjects.cs" />
     <Compile Include="MergeDiffs\SetOfPrimitives.cs" />
     <Compile Include="MergeDiffs\SimpleClass.cs" />

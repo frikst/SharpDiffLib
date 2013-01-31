@@ -98,7 +98,7 @@ namespace POCOMerger.diffResult.implementation
 				return false;
 
 			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>)obj).ValueDiff)
-				&& object.Equals(this.Key, ((IDiffKeyValueCollectionItem<TItemType>)obj).Key);
+				&& object.Equals(this.Key, ((IDiffKeyValueCollectionItem<TKeyType>)obj).Key);
 		}
 
 		public override int GetHashCode()

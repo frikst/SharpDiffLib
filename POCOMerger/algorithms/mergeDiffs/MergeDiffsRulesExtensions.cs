@@ -1,4 +1,5 @@
 ﻿using System;
+using POCOMerger.algorithms.mergeDiffs.collection.keyValue;
 using POCOMerger.algorithms.mergeDiffs.collection.ordered;
 using POCOMerger.algorithms.mergeDiffs.collection.unordered;
 using POCOMerger.algorithms.mergeDiffs.common.@class;
@@ -9,6 +10,16 @@ namespace POCOMerger.algorithms.mergeDiffs
 {
 	public static class MergeDiffsRulesExtensions
 	{
+		public static ClassMergerDefinition<TClass> MergeKeyValueCollectionDiffsRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<MergeKeyValueCollectionDiffsRules<TClass>> func)
+		{
+			return definition.Rules(func);
+		}
+
+		public static ClassMergerDefinition<TClass> MergeKeyValueCollectionDiffsRules<TClass>(this ClassMergerDefinition<TClass> definition)
+		{
+			return definition.Rules<MergeKeyValueCollectionDiffsRules<TClass>>();
+		}
+
 		public static ClassMergerDefinition<TClass> MergeOrderedCollectionDiffsRules<TClass>(this ClassMergerDefinition<TClass> definition, Action<MergeOrderedCollectionDiffsRules<TClass>> func)
 		{
 			return definition.Rules(func);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using POCOMerger.algorithms.mergeDiffs.@base;
+﻿using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.definition.rules;
 
 namespace POCOMerger.algorithms.mergeDiffs.common.value
