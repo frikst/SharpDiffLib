@@ -5,7 +5,6 @@ using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.definition.rules;
-using POCOMerger.diffResult.@base;
 using POCOMerger.@internal;
 
 namespace POCOMerger.implementation
@@ -18,7 +17,7 @@ namespace POCOMerger.implementation
 		private readonly Dictionary<Type, IApplyPatchAlgorithm> aApplyPatchAlgorithms;
 		private readonly Dictionary<Type, IMergeDiffsAlgorithm> aMergeDiffsAlgorithms;
 
-		public PartialMergerAlgorithmsContainer(MergerImplementation mergerImplementation)
+		internal PartialMergerAlgorithmsContainer(MergerImplementation mergerImplementation)
 		{
 			this.aDiffAlgorithms = new Dictionary<Type, IDiffAlgorithm>();
 			this.aApplyPatchAlgorithms = new Dictionary<Type, IApplyPatchAlgorithm>();

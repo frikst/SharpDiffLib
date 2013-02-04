@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.definition.rules;
 using POCOMerger.diffResult.@base;
-using POCOMerger.@internal;
 
 namespace POCOMerger.implementation
 {
@@ -14,7 +10,7 @@ namespace POCOMerger.implementation
 	{
 		private readonly MergerImplementation aMergerImplementation;
 
-		public PartialMergerAlgorithms(MergerImplementation mergerImplementation)
+		internal PartialMergerAlgorithms(MergerImplementation mergerImplementation)
 		{
 			this.aMergerImplementation = mergerImplementation;
 			this.Algorithms = new PartialMergerAlgorithmsContainer(this.aMergerImplementation);
