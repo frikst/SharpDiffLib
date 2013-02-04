@@ -38,7 +38,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.order
 			if (this.aConvertor == null)
 			{
 				this.aConvertor = this.CompileConvertor();
-				this.aApplyItemDiff = this.aMergerImplementation.Partial.GetApplyPatchAlgorithm<TItemType>();
+				this.aApplyItemDiff = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm<TItemType>();
 			}
 
 			return this.ApplyInternal((IEnumerable<TItemType>)source, patch);

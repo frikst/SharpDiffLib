@@ -213,7 +213,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 			 *     throw
 			 */
 
-			IMergeDiffsAlgorithm algorithm = this.aMergerImplementation.Partial.GetMergeDiffsAlgorithm(property.Type);
+			IMergeDiffsAlgorithm algorithm = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm(property.Type);
 			Type itemReplacedType = typeof(IDiffItemReplaced<>).MakeGenericType(property.Type);
 
 			ParameterExpression hadConflictsInternal = Expression.Parameter(typeof(bool), "hadConflictsInternal");

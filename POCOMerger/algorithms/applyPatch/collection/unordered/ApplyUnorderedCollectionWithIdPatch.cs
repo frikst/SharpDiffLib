@@ -46,7 +46,7 @@ namespace POCOMerger.algorithms.applyPatch.collection.unordered
 			if (this.aIdAccessor == null)
 			{
 				this.aIdAccessor = IdHelpers.CreateIdAccessor<TItemType, TIdType>(this.aIdProperty);
-				this.aApplyItemDiff = this.aMergerImplementation.Partial.GetApplyPatchAlgorithm<TItemType>();
+				this.aApplyItemDiff = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm<TItemType>();
 				this.aConvertor = this.CompileConvertor();
 			}
 

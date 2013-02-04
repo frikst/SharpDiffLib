@@ -39,7 +39,7 @@ namespace POCOMerger.algorithms.diff.common.baseClass
 				IDiffAlgorithm algorithm;
 
 				if (!this.aTypes.TryGetValue(baseType, out algorithm))
-					algorithm = this.aMergerImplementation.Partial.GetDiffAlgorithm(baseType);
+					algorithm = this.aMergerImplementation.Partial.Algorithms.GetDiffAlgorithm(baseType);
 
 				IDiff<TType> diff = (IDiff<TType>) algorithm.Compute(@base, changed);
 

@@ -79,7 +79,7 @@ namespace POCOMerger.algorithms.applyPatch.common.@class
 		{
 			ParameterExpression item = Expression.Parameter(typeof(IDiffClassItem), "item");
 
-			IApplyPatchAlgorithm algorithm = this.aMergerImplementation.Partial.GetApplyPatchAlgorithm(property.Type);
+			IApplyPatchAlgorithm algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(property.Type);
 
 			Expression applicator = Expression.IfThenElse(
 				Expression.TypeIs(item, typeof(IDiffItemReplaced)),

@@ -25,7 +25,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.keyValue
 		public IDiff<TType> MergeDiffs(IDiff<TType> left, IDiff<TType> right, out bool hadConflicts)
 		{
 			if (this.aMergeItemsDiffs == null)
-				this.aMergeItemsDiffs = this.aMergerImplementation.Partial.GetMergeDiffsAlgorithm<TItemType>();
+				this.aMergeItemsDiffs = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm<TItemType>();
 
 
 			hadConflicts = false;

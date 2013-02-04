@@ -79,7 +79,7 @@ namespace POCOMerger.algorithms.diff.common.@class
 				if (this.aIgnoreProperties.Contains(property))
 					continue;
 
-				IDiffAlgorithm diff = this.aMergerImplementation.Partial.GetDiffAlgorithm(property.Type);
+				IDiffAlgorithm diff = this.aMergerImplementation.Partial.Algorithms.GetDiffAlgorithm(property.Type);
 
 				if (diff.IsDirect)
 					body.Add(this.MightBeReplaced(ret, property, @base, changed));
@@ -178,7 +178,7 @@ namespace POCOMerger.algorithms.diff.common.@class
 
 		private Expression NewDiffChanged(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
 		{
-			IDiffAlgorithm diff = this.aMergerImplementation.Partial.GetDiffAlgorithm(property.Type);
+			IDiffAlgorithm diff = this.aMergerImplementation.Partial.Algorithms.GetDiffAlgorithm(property.Type);
 
 			if (diff.IsDirect)
 				return this.NewDiffReplaced(ret, property, @base, changed);

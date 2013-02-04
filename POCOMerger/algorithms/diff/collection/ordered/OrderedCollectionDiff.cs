@@ -37,7 +37,7 @@ namespace POCOMerger.algorithms.diff.collection.ordered
 			if (this.aIsTheSame == null)
 			{
 				this.aIsTheSame = IdHelpers.CompileIsTheSame<TItemType>(this.aIDProperty);
-				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
+				this.aItemDiff = this.aMergerImplementation.Partial.Algorithms.GetDiffAlgorithm<TItemType>();
 				this.aItemComparer = EqualityComparer<TItemType>.Default;
 			}
 

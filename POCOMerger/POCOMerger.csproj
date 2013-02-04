@@ -130,6 +130,7 @@
     <Compile Include="definition\IClassMergerDefinition.cs" />
     <Compile Include="definition\MergerDefinition.cs" />
     <Compile Include="fastReflection\Class.cs" />
+    <Compile Include="implementation\PartialMergerAlgorithmsContainer.cs" />
     <Compile Include="implementation\MergerImplementation.cs" />
     <Compile Include="implementation\PartialMergerAlgorithms.cs" />
     <Compile Include="internal\ExpressionExtensions.cs" />

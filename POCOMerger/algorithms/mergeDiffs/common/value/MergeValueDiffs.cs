@@ -62,7 +62,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.value
 			{
 				Type itemType = leftItem.ItemType;
 
-				IMergeDiffsAlgorithm mergeItemsDiffs = this.aMergerImplementation.Partial.GetMergeDiffsAlgorithm(itemType);
+				IMergeDiffsAlgorithm mergeItemsDiffs = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm(itemType);
 
 				IDiff diffLeft = ((IDiffItemChanged)leftItem).ValueDiff;
 				IDiff diffRight = ((IDiffItemChanged)rightItem).ValueDiff;

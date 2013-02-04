@@ -49,7 +49,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 				else
 					this.aIdAccessor = IdHelpers.CreateIdAccessor<TItemType, TIdType>(this.aIdProperty);
 
-				this.aMergeItemsDiffs = this.aMergerImplementation.Partial.GetMergeDiffsAlgorithm<TItemType>();
+				this.aMergeItemsDiffs = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm<TItemType>();
 			}
 
 			hadConflicts = false;

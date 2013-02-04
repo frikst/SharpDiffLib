@@ -43,7 +43,7 @@ namespace POCOMerger.algorithms.applyPatch.common.value
 					IApplyPatchAlgorithm algorithm;
 
 					if (!this.aTypes.TryGetValue(sourceType, out algorithm))
-						algorithm = this.aMergerImplementation.Partial.GetApplyPatchAlgorithm(sourceType);
+						algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(sourceType);
 
 					return (TType) algorithm.Apply(source, diff);
 

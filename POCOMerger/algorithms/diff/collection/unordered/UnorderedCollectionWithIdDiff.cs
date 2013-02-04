@@ -33,7 +33,7 @@ namespace POCOMerger.algorithms.diff.collection.unordered
 			if (this.aIdAccessor == null)
 			{
 				this.aIdAccessor = IdHelpers.CreateIdAccessor<TItemType, TIdType>(this.aIdProperty);
-				this.aItemDiff = this.aMergerImplementation.Partial.GetDiffAlgorithm<TItemType>();
+				this.aItemDiff = this.aMergerImplementation.Partial.Algorithms.GetDiffAlgorithm<TItemType>();
 				this.aItemComparer = EqualityComparer<TItemType>.Default;
 			}
 
