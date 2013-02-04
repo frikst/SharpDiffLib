@@ -21,10 +21,42 @@ namespace POCOMerger.implementation
 {
 	public class MergerImplementation
 	{
-		private readonly IEnumerable<IClassMergerDefinition> aDefinitions;
-		private readonly Func<Type, Type, IAlgorithmRules> aRulesNotFoundFallback;
+		private class MergerRulesLocator : IMergerRulesLocator
+		{
+			private readonly MergerImplementation aMergerImplementation;
 
-		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IAlgorithmRules> rulesNotFoundFallback)
+			public MergerRulesLocator(MergerImplementation mergerImplementation)
+			{
+				this.aMergerImplementation = mergerImplementation;
+			}
+
+			#region Implementation of IMergerRulesLocator
+
+			public TRules GetMergerRulesFor<TRules>(Type type)
+				where TRules : class, IAlgorithmRules
+			{
+				return this.aMergerImplementation.GetMergerRulesFor<TRules>(type);
+			}
+
+			public TRules GetMergerRulesForWithDefault<TRules>(Type type)
+				where TRules : class, IAlgorithmRules
+			{
+				return this.aMergerImplementation.GetMergerRulesForWithDefault<TRules>(type);
+			}
+
+			public TRules GuessRules<TRules>(Type type)
+				where TRules : class, IAlgorithmRules
+			{
+				return this.aMergerImplementation.GuessRules<TRules>(type);
+			}
+
+			#endregion
+		}
+
+		private readonly IEnumerable<IClassMergerDefinition> aDefinitions;
+		private readonly Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> aRulesNotFoundFallback;
+
+		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback)
 		{
 			this.aRulesNotFoundFallback = rulesNotFoundFallback;
 			this.aDefinitions = definitions.ToList();
@@ -55,7 +87,7 @@ namespace POCOMerger.implementation
 			return this.Partial.ApplyPatch(@base, patch);
 		}
 
-		public TRules GetMergerRulesFor<TRules>(Type type)
+		internal TRules GetMergerRulesFor<TRules>(Type type)
 			where TRules : class, IAlgorithmRules
 		{
 			foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
@@ -111,15 +143,10 @@ namespace POCOMerger.implementation
 			if (ret != null)
 				return ret;
 
-			ret = this.aRulesNotFoundFallback(typeof(TRules), type) as TRules;
+			ret = this.aRulesNotFoundFallback(typeof(TRules), type, new MergerRulesLocator(this)) as TRules;
 
 			if (ret == null)
-			{
-				var rules = this.GuessRules<TRules>(type, typeof(TRules));
-
-				if (rules != null)
-					ret = (TRules) Activator.CreateInstance(rules.MakeGenericType(type));
-			}
+				ret = this.GuessRules<TRules>(type);
 
 			if (ret != null)
 				ret.Initialize(this);
@@ -127,11 +154,14 @@ namespace POCOMerger.implementation
 			return ret;
 		}
 
-		private Type GuessRules<TRules>(Type type, Type rulesType) where TRules : class, IAlgorithmRules
+		private TRules GuessRules<TRules>(Type type)
+			where TRules : class, IAlgorithmRules
 		{
 			bool implementsIEnumerable = false;
 			bool implementsIEnumerableKeyValue = false;
 			bool implementsISet = false;
+
+			Type ret = null;
 
 			foreach (Type @interface in type.GetInterfaces())
 			{
@@ -148,40 +178,41 @@ namespace POCOMerger.implementation
 					implementsISet = true;
 			}
 
-			if (typeof(IDiffAlgorithmRules).IsAssignableFrom(rulesType))
+			if (typeof(IDiffAlgorithmRules).IsAssignableFrom(typeof(TRules)))
 			{
 				if (type.IsValueType || type == typeof(string))
-					return typeof(ValueDiffRules<>);
+					ret = typeof(ValueDiffRules<>);
 				else if (implementsISet)
-					return typeof(UnorderedCollectionDiffRules<>);
+					ret = typeof(UnorderedCollectionDiffRules<>);
 				else if (implementsIEnumerableKeyValue)
-					return typeof(KeyValueCollectionDiffRules<>);
+					ret = typeof(KeyValueCollectionDiffRules<>);
 				else if (implementsIEnumerable)
-					return typeof(OrderedCollectionDiffRules<>);
+					ret = typeof(OrderedCollectionDiffRules<>);
 				else if (this.GetMergerAnyDefinition(type) != null)
-					return typeof(ClassDiffRules<>);
+					ret = typeof(ClassDiffRules<>);
 				else
-					return typeof(ValueDiffRules<>);
+					ret = typeof(ValueDiffRules<>);
 			}
-			else if (typeof(IApplyPatchAlgorithmRules).IsAssignableFrom(rulesType))
+			else if (typeof(IApplyPatchAlgorithmRules).IsAssignableFrom(typeof(TRules)))
 			{
 				if (type.IsValueType || type == typeof(string))
-					return typeof(ApplyValuePatchRules<>);
+					ret = typeof(ApplyValuePatchRules<>);
 				else if (implementsISet)
-					return typeof(ApplyUnorderedCollectionPatchRules<>);
+					ret = typeof(ApplyUnorderedCollectionPatchRules<>);
 				else if (implementsIEnumerableKeyValue)
-					return typeof(ApplyKeyValueCollectionPatchRules<>);
+					ret = typeof(ApplyKeyValueCollectionPatchRules<>);
 				else if (implementsIEnumerable)
-					return typeof(ApplyOrderedCollectionPatchRules<>);
+					ret = typeof(ApplyOrderedCollectionPatchRules<>);
 				else if (this.GetMergerAnyDefinition(type) != null)
-					return typeof(ApplyClassPatchRules<>);
+					ret = typeof(ApplyClassPatchRules<>);
 				else
-					return typeof(ApplyValuePatchRules<>);
+					ret = typeof(ApplyValuePatchRules<>);
 			}
+
+			if (ret != null)
+				return (TRules) Activator.CreateInstance(ret.MakeGenericType(type));
 			else
-			{
 				return null;
-			}
 		}
 	}
 }

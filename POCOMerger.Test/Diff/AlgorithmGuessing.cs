@@ -54,7 +54,7 @@ namespace POCOMerger.Test.Diff
 				Define<Sample>();
 			}
 
-			protected override TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>()
+			protected override TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>(IMergerRulesLocator rulesLocator)
 			{
 				if (typeof(TAlgorithmRules) == typeof(IDiffAlgorithmRules) && typeof(TType) == typeof(AnotherSample))
 					return (TAlgorithmRules)(object)(new CustomDiffAlgorithmRules<TType>());

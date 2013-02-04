@@ -33,10 +33,10 @@ namespace POCOMerger.definition
 
 					List<IClassMergerDefinition> definitions = definition.aDefinitions;
 
-					Func<Type, Type, IAlgorithmRules> rulesNotFoundFallback = null;
+					Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback = null;
 
 					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod("RulesNotFoundFallback", BindingFlags.NonPublic | BindingFlags.Instance);
-					rulesNotFoundFallback = (rules, type) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, null);
+					rulesNotFoundFallback = (rules, type, rulesLocator) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, new object[] { rulesLocator });
 
 					aMerger = new MergerImplementation(
 						definitions, rulesNotFoundFallback
@@ -57,7 +57,7 @@ namespace POCOMerger.definition
 			return ret;
 		}
 
-		protected virtual TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>()
+		protected virtual TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>(IMergerRulesLocator rulesLocator)
 			where TAlgorithmRules : class, IAlgorithmRules
 		{
 			return null;
