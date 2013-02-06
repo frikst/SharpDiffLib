@@ -2,6 +2,7 @@
 using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.algorithms.mergeDiffs;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
 

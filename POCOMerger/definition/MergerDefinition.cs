@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.definition.rules;
 using POCOMerger.implementation;
 
@@ -34,13 +35,14 @@ namespace POCOMerger.definition
 
 					List<IClassMergerDefinition> definitions = definition.aDefinitions;
 
-					Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback = null;
-
 					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod("RulesNotFoundFallback", BindingFlags.NonPublic | BindingFlags.Instance);
-					rulesNotFoundFallback = (rules, type, rulesLocator) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, new object[] { rulesLocator });
+					Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback = (rules, type, rulesLocator) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, new object[] { rulesLocator });
+
+					MethodInfo resolveConflictsMethod = definition.GetType().GetMethod("ResolveConflicts", BindingFlags.NonPublic | BindingFlags.Instance);
+					Action<Type, IConflictResolver> resolveConflicts = (type, conflictResolver) => resolveConflictsMethod.MakeGenericMethod(type).Invoke(definition, new object[] { conflictResolver });
 
 					aMerger = new MergerImplementation(
-						definitions, rulesNotFoundFallback
+						definitions, rulesNotFoundFallback, resolveConflicts
 					);
 				}
 

@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.Test._Entities.SimpleWithId;
 using POCOMerger.algorithms.mergeDiffs;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult;

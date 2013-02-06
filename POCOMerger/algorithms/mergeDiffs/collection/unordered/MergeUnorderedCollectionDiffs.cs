@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;

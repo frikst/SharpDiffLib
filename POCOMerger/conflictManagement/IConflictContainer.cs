@@ -1,6 +1,6 @@
 ﻿using POCOMerger.diffResult.action;
 
-namespace POCOMerger.@base
+namespace POCOMerger.conflictManagement
 {
 	public interface IConflictContainer
 	{

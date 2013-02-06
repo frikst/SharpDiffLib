@@ -9,6 +9,7 @@ using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;

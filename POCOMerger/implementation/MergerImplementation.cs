@@ -14,6 +14,7 @@ using POCOMerger.algorithms.diff.collection.unordered;
 using POCOMerger.algorithms.diff.common.@class;
 using POCOMerger.algorithms.diff.common.value;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult.@base;
@@ -56,10 +57,12 @@ namespace POCOMerger.implementation
 
 		private readonly IEnumerable<IClassMergerDefinition> aDefinitions;
 		private readonly Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> aRulesNotFoundFallback;
+		private readonly Action<Type, IConflictResolver> aResolveConflicts;
 
-		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback)
+		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback, Action<Type, IConflictResolver> resolveConflicts)
 		{
 			this.aRulesNotFoundFallback = rulesNotFoundFallback;
+			this.aResolveConflicts = resolveConflicts;
 			this.aDefinitions = definitions.ToList();
 
 			foreach (IClassMergerDefinition definition in this.aDefinitions)
@@ -74,7 +77,7 @@ namespace POCOMerger.implementation
 
 		public TType Merge<TType>(TType @base, TType left, TType right)
 		{
-			IConflictContainer conflicts = null; // for now
+			IConflictContainer conflicts = new ConflictContainer();
 
 			IDiff<TType> patch = this.Partial.MergeDiffs(
 				this.Partial.Diff(@base, left),
@@ -83,7 +86,17 @@ namespace POCOMerger.implementation
 			);
 
 			if (conflicts.HasConflicts)
-				patch = this.Partial.ResolveConflicts(patch, (IConflictResolver)conflicts);
+			{
+				IConflictResolver<TType> resolver = new ConflictResolver<TType>(conflicts);
+
+				patch = this.Partial.ResolveConflicts(patch, resolver);
+
+				if (resolver.HasConflicts)
+					this.aResolveConflicts(typeof(TType), resolver);
+
+				if (resolver.HasConflicts)
+					throw new Exception("There are still some conficts left");
+			}
 
 			return this.Partial.ApplyPatch(@base, patch);
 		}

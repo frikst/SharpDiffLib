@@ -1,4 +1,5 @@
 ﻿using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.algorithms.mergeDiffs.@base

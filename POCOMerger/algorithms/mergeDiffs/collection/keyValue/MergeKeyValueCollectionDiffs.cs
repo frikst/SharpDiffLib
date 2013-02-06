@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using POCOMerger.algorithms.mergeDiffs.@base;
 using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
