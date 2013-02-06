@@ -2,6 +2,8 @@
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.mergeDiffs.@base;
+using POCOMerger.@base;
+using POCOMerger.conflictManagement;
 using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.implementation
@@ -24,13 +26,20 @@ namespace POCOMerger.implementation
 			return algorithm.Compute(@base, changed);
 		}
 
-		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right, out bool hadConflicts)
+		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right, IConflictContainer conflicts)
 		{
 			IMergeDiffsAlgorithm<TType> algorithm = this.Algorithms.GetMergeDiffsAlgorithm<TType>();
-			return algorithm.MergeDiffs(left, right, out hadConflicts);
+			return algorithm.MergeDiffs(left, right, conflicts);
 		}
 
-		public IDiff<TType> ResolveConflicts<TType>(IDiff<TType> conflicted)
+		public IDiff<TType> MergeDiffs<TType>(IDiff<TType> left, IDiff<TType> right, out IConflictContainer conflicts)
+		{
+			conflicts = new ConflictContainer();
+
+			return this.MergeDiffs(left, right, conflicts);
+		}
+
+		public IDiff<TType> ResolveConflicts<TType>(IDiff<TType> conflicted, IConflictResolver resolver)
 		{
 			throw new NotImplementedException();
 		}

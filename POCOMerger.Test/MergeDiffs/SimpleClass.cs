@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.algorithms.mergeDiffs;
+using POCOMerger.@base;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
 
@@ -26,14 +27,14 @@ namespace POCOMerger.Test.MergeDiffs
 			var right = DiffResultFactory.Class<Sample>.Create()
 				.MakeDiff();
 
-			bool hadConflicts;
-			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
-			Assert.IsFalse(hadConflicts);
+			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
 		[TestMethod]
@@ -46,8 +47,8 @@ namespace POCOMerger.Test.MergeDiffs
 				.Replaced(x => x.Value2, "a", "b")
 				.MakeDiff();
 
-			bool hadConflicts;
-			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.Replaced(x => x.Value, "a", "b")
@@ -55,7 +56,7 @@ namespace POCOMerger.Test.MergeDiffs
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
-			Assert.IsFalse(hadConflicts);
+			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
 		[TestMethod]
@@ -68,8 +69,8 @@ namespace POCOMerger.Test.MergeDiffs
 				.Replaced(x => x.Value, "a", "b")
 				.MakeDiff();
 
-			bool hadConflicts;
-			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.Replaced(x => x.Value, "a", "b")
@@ -77,7 +78,7 @@ namespace POCOMerger.Test.MergeDiffs
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
-			Assert.IsFalse(hadConflicts);
+			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
 		[TestMethod]
@@ -90,8 +91,8 @@ namespace POCOMerger.Test.MergeDiffs
 				.Replaced(x => x.Value, "a", "c")
 				.MakeDiff();
 
-			bool hadConflicts;
-			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.Conflicted(
@@ -101,7 +102,7 @@ namespace POCOMerger.Test.MergeDiffs
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
-			Assert.IsTrue(hadConflicts);
+			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
 		[TestMethod]
@@ -114,15 +115,15 @@ namespace POCOMerger.Test.MergeDiffs
 				.Replaced(x => x.Value, "a", "b")
 				.MakeDiff();
 
-			bool hadConflicts;
-			var result = Merger.Instance.Partial.MergeDiffs(left, right, out hadConflicts);
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.Replaced(x => x.Value, "a", "b")
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
-			Assert.IsFalse(hadConflicts);
+			Assert.IsFalse(conflicts.HasConflicts);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using POCOMerger.@base;
 using POCOMerger.definition.rules;
 using POCOMerger.implementation;
 
@@ -61,6 +62,11 @@ namespace POCOMerger.definition
 			where TAlgorithmRules : class, IAlgorithmRules
 		{
 			return null;
+		}
+
+		protected virtual void ResolveConflicts<TType>(IConflictResolver<TType> conflictResolver)
+		{
+
 		}
 	}
 }

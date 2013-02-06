@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using POCOMerger.algorithms.mergeDiffs.@base;
+using POCOMerger.@base;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
@@ -15,16 +16,8 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 {
 	internal class MergeClassDiffs<TType> : IMergeDiffsAlgorithm<TType>
 	{
-		private struct CompiledReturn
-		{
-#pragma warning disable 649
-			public List<IDiffItem> aDiff;
-			public bool aHadConflicts;
-#pragma warning restore 649
-		}
-
 		private readonly MergerImplementation aMergerImplementation;
-		private Func<IDiff<TType>, IDiff<TType>, CompiledReturn> aCompiled;
+		private Func<IDiff<TType>, IDiff<TType>, IConflictContainer, List<IDiffItem>> aCompiled;
 
 		public MergeClassDiffs(MergerImplementation mergerImplementation)
 		{
@@ -33,7 +26,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 
 		#region Implementation of IMergeDiffsAlgorithm<TType>
 
-		public IDiff<TType> MergeDiffs(IDiff<TType> left, IDiff<TType> right, out bool hadConflicts)
+		public IDiff<TType> MergeDiffs(IDiff<TType> left, IDiff<TType> right, IConflictContainer conflicts)
 		{
 			if (this.aCompiled == null)
 			{
@@ -42,10 +35,9 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 				this.aCompiled = compiled.Compile();
 			}
 
-			var ret = this.aCompiled(left, right);
+			var ret = this.aCompiled(left, right, conflicts);
 
-			hadConflicts = ret.aHadConflicts;
-			return new Diff<TType>(ret.aDiff);
+			return new Diff<TType>(ret);
 
 		}
 
@@ -53,30 +45,29 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 
 		#region Implementation of IMergeDiffsAlgorithm
 
-		IDiff IMergeDiffsAlgorithm.MergeDiffs(IDiff left, IDiff right, out bool hadConflicts)
+		IDiff IMergeDiffsAlgorithm.MergeDiffs(IDiff left, IDiff right, IConflictContainer conflicts)
 		{
-			return this.MergeDiffs((IDiff<TType>)left, (IDiff<TType>)right, out hadConflicts);
+			return this.MergeDiffs((IDiff<TType>)left, (IDiff<TType>)right, conflicts);
 		}
 
 		#endregion
 
-		private Expression<Func<IDiff<TType>, IDiff<TType>, CompiledReturn>> Compile()
+		private Expression<Func<IDiff<TType>, IDiff<TType>, IConflictContainer, List<IDiffItem>>> Compile()
 		{
 			ParameterExpression left = Expression.Parameter(typeof(IDiff<TType>), "left");
 			ParameterExpression right = Expression.Parameter(typeof(IDiff<TType>), "right");
-			ParameterExpression ret = Expression.Parameter(typeof(CompiledReturn), "ret");
-			Expression diff = Expression.Field(ret, "aDiff");
-			Expression hadConflicts = Expression.Field(ret, "aHadConflicts");
+			ParameterExpression conflicts = Expression.Parameter(typeof(IConflictContainer), "ret");
+			ParameterExpression ret = Expression.Parameter(typeof(List<IDiffItem>), "ret");
 			ParameterExpression leftEnumerator = Expression.Parameter(typeof(IEnumerator<IDiffItem>), "leftEnumerator");
 			ParameterExpression leftSomeLeft = Expression.Parameter(typeof(bool), "leftSomeLeft");
 			ParameterExpression rightEnumerator = Expression.Parameter(typeof(IEnumerator<IDiffItem>), "rightEnumerator");
 			ParameterExpression rightSomeLeft = Expression.Parameter(typeof(bool), "rightSomeLeft");
 
-			return Expression.Lambda<Func<IDiff<TType>, IDiff<TType>, CompiledReturn>>(
+			return Expression.Lambda<Func<IDiff<TType>, IDiff<TType>, IConflictContainer, List<IDiffItem>>>(
 				Expression.Block(
 					new[] { ret, leftEnumerator, leftSomeLeft, rightEnumerator, rightSomeLeft },
 					Expression.Assign(
-						diff,
+						ret,
 						Expression.New(
 							Members.List.NewWithCount(typeof(IDiffItem)),
 							Expression.Add(
@@ -85,7 +76,6 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 							)
 						)
 					),
-					Expression.Assign(hadConflicts, Expression.Constant(false)),
 					Expression.Assign(
 						leftEnumerator,
 						Expression.Call(left, Members.Enumerable.GetEnumerator(typeof(IDiffItem)))
@@ -96,14 +86,14 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 					),
 					this.MoveEnumerator(leftEnumerator, leftSomeLeft),
 					this.MoveEnumerator(rightEnumerator, rightSomeLeft),
-					Expression.Block(Class<TType>.Properties.Select(x => this.EvaluateProperty(leftEnumerator, leftSomeLeft, rightEnumerator, rightSomeLeft, hadConflicts, diff, x))),
+					Expression.Block(Class<TType>.Properties.Select(x => this.EvaluateProperty(leftEnumerator, leftSomeLeft, rightEnumerator, rightSomeLeft, conflicts, ret, x))),
 					ret
 				),
-				left, right
+				left, right, conflicts
 			);
 		}
 
-		private Expression EvaluateProperty(ParameterExpression leftEnumerator, ParameterExpression leftSomeLeft, ParameterExpression rightEnumerator, ParameterExpression rightSomeLeft, Expression hadConflicts, Expression diff, Property property)
+		private Expression EvaluateProperty(ParameterExpression leftEnumerator, ParameterExpression leftSomeLeft, ParameterExpression rightEnumerator, ParameterExpression rightSomeLeft, Expression conflicts, Expression ret, Property property)
 		{
 			Expression leftCurrent = Expression.Property(leftEnumerator, Members.Enumerable.Current(typeof(IDiffItem)));
 			Expression rightCurrent = Expression.Property(rightEnumerator, Members.Enumerable.Current(typeof(IDiffItem)));
@@ -167,11 +157,11 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 					Expression.IfThenElse(
 						rightShouldBeProcessed,
 						Expression.Block(
-							this.CompileCheckConflicts(property, leftCurrent, rightCurrent, hadConflicts, diff),
+							this.CompileCheckConflicts(property, leftCurrent, rightCurrent, conflicts, ret),
 							this.MoveEnumerator(rightEnumerator, rightSomeLeft)
 						),
 						Expression.Call(
-							diff,
+							ret,
 							Members.List.Add(typeof(IDiffItem)),
 							leftCurrent
 						)
@@ -182,7 +172,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 					rightShouldBeProcessed,
 					Expression.Block(
 						Expression.Call(
-							diff,
+							ret,
 							Members.List.Add(typeof(IDiffItem)),
 							rightCurrent
 						)
@@ -191,7 +181,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 			);
 		}
 
-		private Expression CompileCheckConflicts(Property property, Expression leftCurrent, Expression rightCurrent, Expression hadConflicts, Expression diff)
+		private Expression CompileCheckConflicts(Property property, Expression leftCurrent, Expression rightCurrent, Expression conflicts, Expression ret)
 		{
 			/* PSEUDO CODE FOR THIS:
 			 * if (leftCurrent is Replace || rightCurrent is Replace)
@@ -200,14 +190,14 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 			 *          add(leftCurrent)
 			 *     else
 			 *     {
-			 *          add(Conflict(leftCurrent, rightCurrent))
-			 *          hadConflicts = true
+			 *          conflict = Conflict(leftCurrent, rightCurrent)
+			 *          add(conflict)
+			 *          conflicts.register(conflict)
 			 *     }
 			 * }
 			 * else if (leftCurrent is Changed && rightCurrent is Changed)
 			 * {
-			 *     add(algorithm.Merge(leftCurrent.ValueDiff, rightCurrent.ValueDiff, out hC))
-			 *     if (hC) hasConflicts = true
+			 *     add(algorithm.Merge(leftCurrent.ValueDiff, rightCurrent.ValueDiff, conflicts))
 			 * }
 			 * else
 			 *     throw
@@ -216,7 +206,7 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 			IMergeDiffsAlgorithm algorithm = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm(property.Type);
 			Type itemReplacedType = typeof(IDiffItemReplaced<>).MakeGenericType(property.Type);
 
-			ParameterExpression hadConflictsInternal = Expression.Parameter(typeof(bool), "hadConflictsInternal");
+			ParameterExpression conflict = Expression.Parameter(typeof(IDiffItemConflicted), "conflict");
 
 			return Expression.IfThenElse(
 				Expression.OrElse(
@@ -231,23 +221,29 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 						rightCurrent
 					),
 					Expression.Call(
-						diff,
+						ret,
 						Members.List.Add(typeof(IDiffItem)),
 						leftCurrent
 					),
 					Expression.Block(
-						Expression.Call(
-							diff,
-							Members.List.Add(typeof(IDiffItem)),
+						new[] { conflict },
+						Expression.Assign(
+							conflict,
 							Expression.New(
 								Members.DiffItems.NewConflict(),
 								leftCurrent,
 								rightCurrent
 							)
 						),
-						Expression.Assign(
-							hadConflicts,
-							Expression.Constant(true)
+						Expression.Call(
+							ret,
+							Members.List.Add(typeof(IDiffItem)),
+							conflict
+						),
+						Expression.Call(
+							conflicts,
+							Members.ConflictContainer.RegisterConflict(),
+							conflict
 						)
 					)
 				),
@@ -256,34 +252,24 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 						Expression.TypeIs(leftCurrent, typeof(IDiffItemChanged)),
 						Expression.TypeIs(rightCurrent, typeof(IDiffItemChanged))
 					),
-					Expression.Block(
-						new[] { hadConflictsInternal },
-						Expression.Call(
-							diff,
-							Members.List.Add(typeof(IDiffItem)),
-							Expression.New(
-								Members.DiffItems.NewClassChanged(property.Type),
-								Expression.Constant(property),
-								Expression.Call(
-									Expression.Constant(algorithm, typeof(IMergeDiffsAlgorithm<>).MakeGenericType(property.Type)),
-									Members.MergeDiffsAlgorithm.MergeDiffs(property.Type),
-									Expression.Property(
-										Expression.Convert(leftCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-										Members.DiffItems.ChangedDiff(property.Type)
-									),
-									Expression.Property(
-										Expression.Convert(rightCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-										Members.DiffItems.ChangedDiff(property.Type)
-									),
-									hadConflictsInternal
-								)
-							)
-						),
-						Expression.IfThen(
-							hadConflictsInternal,
-							Expression.Assign(
-								hadConflicts,
-								Expression.Constant(true)
+					Expression.Call(
+						ret,
+						Members.List.Add(typeof(IDiffItem)),
+						Expression.New(
+							Members.DiffItems.NewClassChanged(property.Type),
+							Expression.Constant(property),
+							Expression.Call(
+								Expression.Constant(algorithm, typeof(IMergeDiffsAlgorithm<>).MakeGenericType(property.Type)),
+								Members.MergeDiffsAlgorithm.MergeDiffs(property.Type),
+								Expression.Property(
+									Expression.Convert(leftCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+									Members.DiffItems.ChangedDiff(property.Type)
+								),
+								Expression.Property(
+									Expression.Convert(rightCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+									Members.DiffItems.ChangedDiff(property.Type)
+								),
+								conflicts
 							)
 						)
 					),

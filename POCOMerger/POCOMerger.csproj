@@ -73,8 +73,11 @@
     <Compile Include="algorithms\mergeDiffs\common\value\MergeValueDiffs.cs" />
     <Compile Include="algorithms\mergeDiffs\common\value\MergeValueDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\MergeDiffsRulesExtensions.cs" />
+    <Compile Include="base\IConflictContainer.cs" />
+    <Compile Include="conflictManagement\ConflictContainer.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
-    <Compile Include="definition\IMergerRulesLocator.cs" />
+    <Compile Include="base\IConflictResolver.cs" />
+    <Compile Include="base\IMergerRulesLocator.cs" />
     <Compile Include="definition\rules\GeneralRulesExtensions.cs" />
     <Compile Include="definition\rules\IAlgorithmRules.cs" />
     <Compile Include="definition\rules\BaseRules.cs" />

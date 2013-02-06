@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.algorithms.diff.@base;
+using POCOMerger.@base;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult;

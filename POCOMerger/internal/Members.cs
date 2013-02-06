@@ -137,6 +137,14 @@ namespace POCOMerger.@internal
 			}
 		}
 
+		public class ConflictContainer
+		{
+			public static MethodInfo RegisterConflict()
+			{
+				return typeof(IConflictContainer).GetMethod("RegisterConflict");
+			}
+		}
+
 		public static class FastClass
 		{
 			public static PropertyInfo Properties(Type tType)

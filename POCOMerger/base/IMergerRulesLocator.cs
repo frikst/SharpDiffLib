@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using POCOMerger.definition.rules;
 
-namespace POCOMerger.definition
+namespace POCOMerger.@base
 {
 	public interface IMergerRulesLocator
 	{

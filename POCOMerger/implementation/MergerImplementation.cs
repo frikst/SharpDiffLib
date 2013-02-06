@@ -13,6 +13,7 @@ using POCOMerger.algorithms.diff.collection.ordered;
 using POCOMerger.algorithms.diff.collection.unordered;
 using POCOMerger.algorithms.diff.common.@class;
 using POCOMerger.algorithms.diff.common.value;
+using POCOMerger.@base;
 using POCOMerger.definition;
 using POCOMerger.definition.rules;
 using POCOMerger.diffResult.@base;
@@ -73,16 +74,16 @@ namespace POCOMerger.implementation
 
 		public TType Merge<TType>(TType @base, TType left, TType right)
 		{
-			bool hadConflicts;
+			IConflictContainer conflicts = null; // for now
 
 			IDiff<TType> patch = this.Partial.MergeDiffs(
 				this.Partial.Diff(@base, left),
 				this.Partial.Diff(@base, right),
-				out hadConflicts
+				conflicts
 			);
 
-			if (hadConflicts)
-				patch = this.Partial.ResolveConflicts(patch);
+			if (conflicts.HasConflicts)
+				patch = this.Partial.ResolveConflicts(patch, (IConflictResolver)conflicts);
 
 			return this.Partial.ApplyPatch(@base, patch);
 		}
