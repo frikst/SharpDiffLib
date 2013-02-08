@@ -61,6 +61,11 @@ namespace POCOMerger.diffResult.implementation
 
 		public IDiff<TItemType> ValueDiff { get; private set; }
 
+		public IDiffItemChanged<TItemType> ReplaceWith(IDiff<TItemType> diff)
+		{
+			return new DiffClassChanged<TItemType>(this.Property, diff);
+		}
+
 		#endregion
 
 		#region Implementation of IDiffClassItem

@@ -107,6 +107,11 @@ namespace POCOMerger.@internal
 			{
 				return typeof(IDiffItem).GetMethod("IsSame");
 			}
+
+			public static MethodInfo ReplaceDiffWith(Type tType)
+			{
+				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetMethod("ReplaceWith");
+			}
 		}
 
 		public static class Diff
@@ -211,6 +216,19 @@ namespace POCOMerger.@internal
 			public static MethodInfo Equals()
 			{
 				return typeof(object).GetMethod("Equals", BindingFlags.Static | BindingFlags.Public);
+			}
+		}
+
+		public static class DynamicDiffMembers
+		{
+			public static ConstructorInfo New(Type tType)
+			{
+				return typeof(DynamicDiff<>).MakeGenericType(tType).GetConstructor(new[] { typeof(IDiff<>).MakeGenericType(tType), typeof(Dictionary<IDiffItemConflicted, ResolveAction>) });
+			}
+
+			public static MethodInfo Finish(Type tType)
+			{
+				return typeof(DynamicDiff<>).MakeGenericType(tType).GetMethod("Finish");
 			}
 		}
 

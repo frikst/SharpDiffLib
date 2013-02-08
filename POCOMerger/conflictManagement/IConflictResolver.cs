@@ -1,9 +1,10 @@
-﻿using POCOMerger.diffResult.action;
+﻿using System.Collections.Generic;
+using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.conflictManagement
 {
-	public interface IConflictResolver
+	public interface IConflictResolver : IEnumerable<IDiffItemConflicted>
 	{
 		void ResolveConflict(IDiffItemConflicted conflict, ResolveAction resolve);
 
@@ -15,13 +16,7 @@ namespace POCOMerger.conflictManagement
 		IDiff<TType> Original { get; }
 
 		IDiff<TType> Resolved { get; }
-	}
 
-	public enum ResolveAction
-	{
-		UseLeft,
-		UseRight,
-		LeftThenRight,
-		RightThenLeft
+		IDiff<TType> Finish();
 	}
 }

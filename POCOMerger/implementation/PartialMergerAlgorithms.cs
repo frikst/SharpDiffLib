@@ -2,7 +2,6 @@
 using POCOMerger.algorithms.applyPatch.@base;
 using POCOMerger.algorithms.diff.@base;
 using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.@base;
 using POCOMerger.conflictManagement;
 using POCOMerger.diffResult.@base;
 
@@ -39,7 +38,15 @@ namespace POCOMerger.implementation
 			return this.MergeDiffs(left, right, conflicts);
 		}
 
-		public IDiff<TType> ResolveConflicts<TType>(IDiff<TType> conflicted, IConflictResolver resolver)
+		public IConflictResolver<TType> GetConflictResolver<TType>(IDiff<TType> conflicted)
+		{
+			var conflicts = new ConflictContainer();
+			conflicts.RegisterAll(conflicted);
+
+			return new ConflictResolver<TType>(conflicted, conflicts);
+		}
+
+		public void ResolveConflicts<TType>(IDiff<TType> conflicted, IConflictResolver resolver)
 		{
 			throw new NotImplementedException();
 		}

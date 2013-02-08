@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using POCOMerger.@base;
 using POCOMerger.diffResult.action;
+using POCOMerger.diffResult.@base;
 
 namespace POCOMerger.conflictManagement
 {
@@ -26,5 +26,21 @@ namespace POCOMerger.conflictManagement
 		}
 
 		#endregion
+
+		public IEnumerable<IDiffItemConflicted> GetConflicts()
+		{
+			return this.aConflicts;
+		}
+
+		public void RegisterAll(IDiff diff)
+		{
+			foreach (IDiffItem item in diff)
+			{
+				if (item is IDiffItemConflicted)
+					this.RegisterConflict((IDiffItemConflicted) item);
+				else if (item is IDiffItemChanged)
+					this.RegisterAll(((IDiffItemChanged) item).ValueDiff);
+			}
+		}
 	}
 }

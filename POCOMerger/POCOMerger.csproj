@@ -74,8 +74,11 @@
     <Compile Include="algorithms\mergeDiffs\common\value\MergeValueDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\MergeDiffsRulesExtensions.cs" />
     <Compile Include="conflictManagement\ConflictResolver.cs" />
+    <Compile Include="conflictManagement\DynamicDiff.cs" />
+    <Compile Include="conflictManagement\DynamicDiffItemChangedFactory.cs" />
     <Compile Include="conflictManagement\IConflictContainer.cs" />
     <Compile Include="conflictManagement\ConflictContainer.cs" />
+    <Compile Include="conflictManagement\ResolveAction.cs" />
     <Compile Include="definition\ClassMergerDefinition.cs" />
     <Compile Include="conflictManagement\IConflictResolver.cs" />
     <Compile Include="base\IMergerRulesLocator.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="implementation\MergerImplementation.cs" />
     <Compile Include="implementation\PartialMergerAlgorithms.cs" />
     <Compile Include="internal\ExpressionExtensions.cs" />
+    <Compile Include="internal\IdentityComparer.cs" />
     <Compile Include="internal\IdHelpers.cs" />
     <Compile Include="internal\LinqExtensions.cs" />
     <Compile Include="internal\Members.cs" />

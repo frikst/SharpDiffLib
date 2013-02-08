@@ -77,7 +77,7 @@ namespace POCOMerger.implementation
 
 		public TType Merge<TType>(TType @base, TType left, TType right)
 		{
-			IConflictContainer conflicts = new ConflictContainer();
+			ConflictContainer conflicts = new ConflictContainer();
 
 			IDiff<TType> patch = this.Partial.MergeDiffs(
 				this.Partial.Diff(@base, left),
@@ -87,15 +87,14 @@ namespace POCOMerger.implementation
 
 			if (conflicts.HasConflicts)
 			{
-				IConflictResolver<TType> resolver = new ConflictResolver<TType>(conflicts);
+				ConflictResolver<TType> resolver = new ConflictResolver<TType>(patch, conflicts);
 
-				patch = this.Partial.ResolveConflicts(patch, resolver);
+				this.Partial.ResolveConflicts(patch, resolver);
 
 				if (resolver.HasConflicts)
 					this.aResolveConflicts(typeof(TType), resolver);
 
-				if (resolver.HasConflicts)
-					throw new Exception("There are still some conficts left");
+				patch = resolver.Finish();
 			}
 
 			return this.Partial.ApplyPatch(@base, patch);

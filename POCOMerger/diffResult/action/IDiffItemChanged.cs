@@ -11,5 +11,7 @@ namespace POCOMerger.diffResult.action
 	public interface IDiffItemChanged<TItemType> : IDiffItemChanged
 	{
 		new IDiff<TItemType> ValueDiff { get; }
+
+		IDiffItemChanged<TItemType> ReplaceWith(IDiff<TItemType> diff);
 	}
 }
