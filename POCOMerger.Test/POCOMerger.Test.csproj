@@ -61,6 +61,7 @@
     <Compile Include="ApplyPatch\SimpleValue.cs" />
     <Compile Include="ApplyPatch\StructuredClass.cs" />
     <Compile Include="ConflictResolver\SimpleClass.cs" />
+    <Compile Include="ConflictResolver\StructuredClass.cs" />
     <Compile Include="General\DiffResultFactoryTest.cs" />
     <Compile Include="Diff\AlgorithmGuessing.cs" />
     <Compile Include="Diff\ArrayOfObjects.cs" />

@@ -38,8 +38,8 @@ namespace POCOMerger.conflictManagement
 
 		private Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged> CompileCreateItemChangedEnvelope(Type type)
 		{
-			ParameterExpression originalItem = Expression.Parameter(typeof(IDiffItemChanged), "originalItem");
-			ParameterExpression resolveActions = Expression.Parameter(typeof(IDiffItemChanged), "resolveActions");
+			ParameterExpression originalItem = Expression.Parameter(typeof(IDiffItem), "originalItem");
+			ParameterExpression resolveActions = Expression.Parameter(typeof(Dictionary<IDiffItemConflicted, ResolveAction>), "resolveActions");
 
 			Expression newDiff = Expression.New(
 				Members.DynamicDiffMembers.New(type),
