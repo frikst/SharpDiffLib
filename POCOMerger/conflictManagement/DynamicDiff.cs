@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using POCOMerger.diffResult.action;
 using POCOMerger.diffResult.@base;
 using POCOMerger.diffResult.implementation;
-using POCOMerger.@internal;
 
 namespace POCOMerger.conflictManagement
 {
@@ -31,7 +29,7 @@ namespace POCOMerger.conflictManagement
 
 		public IEnumerator<IDiffItem> GetEnumerator()
 		{
-			return this.GetItems(this.aDynamicDiffItemChangedFactory).GetEnumerator();
+			return new DynamicDiffIterator(this.aOriginal, this.aDynamicDiffItemChangedFactory, this.aResolveActions).GetEnumerator();
 		}
 
 		#endregion
@@ -86,11 +84,6 @@ namespace POCOMerger.conflictManagement
 			}
 		}
 
-		public DynamicDiffItemChangedFactory DynamicDiffItemChangedFactory
-		{
-			get { return this.aDynamicDiffItemChangedFactory; }
-		}
-
 		#endregion
 
 		#region Implementation of IDiff
@@ -132,52 +125,7 @@ namespace POCOMerger.conflictManagement
 
 		public IDiff<TType> Finish()
 		{
-			return new Diff<TType>(this.GetItems(this.aDynamicDiffItemChangedFactory).ToList());
-		}
-
-		private IEnumerable<IDiffItem> GetItems(DynamicDiffItemChangedFactory dynamicDiffItemChangedFactory)
-		{
-			foreach (IDiffItem item in this.aOriginal)
-			{
-				if (item is IDiffItemConflicted)
-				{
-					IDiffItemConflicted conflict = (IDiffItemConflicted)item;
-
-					ResolveAction action;
-					if (this.aResolveActions.TryGetValue(conflict, out action))
-					{
-						switch (action)
-						{
-							case ResolveAction.UseLeft:
-								foreach (var left in conflict.Left)
-									yield return left;
-								break;
-							case ResolveAction.UseRight:
-								foreach (var right in conflict.Right)
-									yield return right;
-								break;
-							case ResolveAction.LeftThenRight:
-								foreach (var left in conflict.Left)
-									yield return left;
-								foreach (var right in conflict.Right)
-									yield return right;
-								break;
-							case ResolveAction.RightThenLeft:
-								foreach (var right in conflict.Right)
-									yield return right;
-								foreach (var left in conflict.Left)
-									yield return left;
-								break;
-						}
-					}
-					else
-						yield return item;
-				}
-				else if (item is IDiffItemChanged)
-					yield return dynamicDiffItemChangedFactory.Create((IDiffItemChanged)item);
-				else
-					yield return item;
-			}
+			return new Diff<TType>(new DynamicDiffIterator(this.aOriginal, this.aFinishDiffItemChangedFactory, this.aResolveActions).ToList());
 		}
 	}
 }

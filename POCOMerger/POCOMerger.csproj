@@ -76,6 +76,7 @@
     <Compile Include="conflictManagement\ConflictResolver.cs" />
     <Compile Include="conflictManagement\DynamicDiff.cs" />
     <Compile Include="conflictManagement\DynamicDiffItemChangedFactory.cs" />
+    <Compile Include="conflictManagement\DynamicDiffIterator.cs" />
     <Compile Include="conflictManagement\IConflictContainer.cs" />
     <Compile Include="conflictManagement\ConflictContainer.cs" />
     <Compile Include="conflictManagement\ResolveAction.cs" />

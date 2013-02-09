@@ -1,10 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCOMerger.Test._Entities.InnerClass;
-using POCOMerger.algorithms.applyPatch;
 using POCOMerger.conflictManagement;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
@@ -19,10 +15,7 @@ namespace POCOMerger.Test.ConflictResolver
 		{
 			private Merger()
 			{
-				Define<SampleInner>()
-					.ApplyClassPatchRules();
-				Define<Sample>()
-					.ApplyClassPatchRules();
+				
 			}
 		}
 

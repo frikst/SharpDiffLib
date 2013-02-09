@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.SimpleClass;
 using POCOMerger.conflictManagement;
 using POCOMerger.definition;
 using POCOMerger.diffResult;
@@ -9,28 +11,30 @@ using POCOMerger.diffResult.action;
 namespace POCOMerger.Test.ConflictResolver
 {
 	[TestClass]
-	public class SimpleClass
+	public class ArrayOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
 		{
 			private Merger()
 			{
-				
+
 			}
 		}
 
 		[TestMethod]
-		public void OneConflictUseLeft()
+		public void ConflictRemovedThenReplacedUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Class<Sample>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
 				.Conflicted(
-					c => c.Replaced(x => x.Value, "a", "b"),
-					c => c.Replaced(x => x.Value, "a", "c")
+					c => c.Removed(0, 0),
+					c => c.Replaced(0, 0, 5)
 				)
+				.Added(0, 3)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Class<Sample>.Create()
-				.Replaced(x => x.Value, "a", "b")
+			var diffResolved = DiffResultFactory.Ordered<int>.Create()
+				.Removed(0, 0)
+				.Added(0, 3)
 				.MakeDiff();
 
 			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);
@@ -47,17 +51,19 @@ namespace POCOMerger.Test.ConflictResolver
 		}
 
 		[TestMethod]
-		public void OneConflictUseRight()
+		public void ConflictRemovedThenReplacedUseRight()
 		{
-			var diffConflicted = DiffResultFactory.Class<Sample>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
 				.Conflicted(
-					c => c.Replaced(x => x.Value, "a", "b"),
-					c => c.Replaced(x => x.Value, "a", "c")
+					c => c.Removed(0, 0),
+					c => c.Replaced(0, 0, 5)
 				)
+				.Added(0, 3)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Class<Sample>.Create()
-				.Replaced(x => x.Value, "a", "c")
+			var diffResolved = DiffResultFactory.Ordered<int>.Create()
+				.Replaced(0, 0, 5)
+				.Added(1, 3)
 				.MakeDiff();
 
 			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);
