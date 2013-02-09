@@ -29,12 +29,12 @@ namespace POCOMerger.Test.ConflictResolver
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
 				)
-				.Added(0, 3)
+				.Replaced(0, 3, 5)
 				.MakeDiff();
 
 			var diffResolved = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 0)
-				.Added(0, 3)
+				.Replaced(0, 3, 5)
 				.MakeDiff();
 
 			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);
@@ -58,12 +58,12 @@ namespace POCOMerger.Test.ConflictResolver
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
 				)
-				.Added(0, 3)
+				.Replaced(0, 3, 5)
 				.MakeDiff();
 
 			var diffResolved = DiffResultFactory.Ordered<int>.Create()
 				.Replaced(0, 0, 5)
-				.Added(1, 3)
+				.Replaced(1, 3, 5)
 				.MakeDiff();
 
 			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);
@@ -74,6 +74,38 @@ namespace POCOMerger.Test.ConflictResolver
 			Assert.AreEqual(1, conflicts.Length);
 
 			conflictResolver.ResolveConflict(conflicts[0], ResolveAction.UseRight);
+
+			Assert.IsFalse(conflictResolver.HasConflicts);
+			Assert.AreEqual(diffResolved, conflictResolver.Finish());
+		}
+
+		[TestMethod]
+		public void ConflictRemovedRemovedThenReplacedUseLeft()
+		{
+			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
+				.Conflicted(
+					c => c
+						.Removed(0, 0)
+						.Removed(0, 1),
+					c => c.Replaced(0, 0, 5)
+				)
+				.Replaced(0, 3, 5)
+				.MakeDiff();
+
+			var diffResolved = DiffResultFactory.Ordered<int>.Create()
+				.Removed(0, 0)
+				.Removed(0, 1)
+				.Replaced(0, 3, 5)
+				.MakeDiff();
+
+			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);
+
+			Assert.IsTrue(conflictResolver.HasConflicts);
+
+			IDiffItemConflicted[] conflicts = conflictResolver.ToArray();
+			Assert.AreEqual(1, conflicts.Length);
+
+			conflictResolver.ResolveConflict(conflicts[0], ResolveAction.UseLeft);
 
 			Assert.IsFalse(conflictResolver.HasConflicts);
 			Assert.AreEqual(diffResolved, conflictResolver.Finish());
