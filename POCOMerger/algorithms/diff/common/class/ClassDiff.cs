@@ -102,12 +102,13 @@ namespace POCOMerger.algorithms.diff.common.@class
 			MemberExpression baseProperty = Expression.Property(@base, property.ReflectionPropertyInfo);
 			MemberExpression changedProperty = Expression.Property(changed, property.ReflectionPropertyInfo);
 
-			return Expression.IfThen(
+			return Expression.IfThenElse(
 				ExpressionExtensions.NotEqual(
 					baseProperty,
 					changedProperty
 				),
-				this.NewDiffReplaced(ret, property, @base, changed)
+				this.NewDiffReplaced(ret, property, @base, changed),
+				this.NewDiffUnchanged(ret, property, @base)
 			);
 		}
 

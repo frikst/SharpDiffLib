@@ -75,7 +75,7 @@ namespace POCOMerger.Test.Diff
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
+			Assert.AreEqual(2, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
@@ -95,7 +95,7 @@ namespace POCOMerger.Test.Diff
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
+			Assert.AreEqual(4, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
 	}
