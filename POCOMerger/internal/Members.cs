@@ -78,6 +78,11 @@ namespace POCOMerger.@internal
 				return typeof(DiffClassReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), tItemType, tItemType });
 			}
 
+			public static ConstructorInfo NewClassUnchanged(Type tItemType)
+			{
+				return typeof(DiffClassUnchanged<>).MakeGenericType(tItemType).GetConstructor(new[] { typeof(Property), tItemType });
+			}
+
 			public static ConstructorInfo NewValueReplaced(Type tItemType)
 			{
 				return typeof(DiffValueReplaced<>).MakeGenericType(tItemType).GetConstructor(new[] { tItemType, tItemType });

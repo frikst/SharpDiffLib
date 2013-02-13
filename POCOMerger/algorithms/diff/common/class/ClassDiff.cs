@@ -14,13 +14,15 @@ namespace POCOMerger.algorithms.diff.common.@class
 	internal class ClassDiff<TType> : IDiffAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
+		private readonly ISet<Property> aAlwaysIncludedProperties;
 		private readonly ISet<Property> aIgnoreProperties;
 		private Func<TType, TType, List<IDiffItem>> aCompiled;
 
-		public ClassDiff(MergerImplementation mergerImplementation, IEnumerable<Property> ignoreProperties)
+		public ClassDiff(MergerImplementation mergerImplementation, IEnumerable<Property> ignoreProperties, IEnumerable<Property> alwaysIncludedProperties)
 		{
 			this.aMergerImplementation = mergerImplementation;
 			this.aIgnoreProperties = new HashSet<Property>(ignoreProperties);
+			this.aAlwaysIncludedProperties = new HashSet<Property>(alwaysIncludedProperties);
 			this.aCompiled = null;
 		}
 
@@ -139,24 +141,43 @@ namespace POCOMerger.algorithms.diff.common.@class
 						Expression.ReferenceEqual(
 							baseProperty,
 							Expression.Constant(null)
-						),
+							),
 						Expression.ReferenceEqual(
 							changedProperty,
 							Expression.Constant(null)
-						)
-					),
-					Expression.IfThen(
+							)
+						),
+					Expression.IfThenElse(
 						Expression.ReferenceNotEqual(
 							baseProperty,
 							changedProperty
 						),
-						this.NewDiffReplaced(ret, property, @base, changed)
+						this.NewDiffReplaced(ret, property, @base, changed),
+						this.NewDiffUnchanged(ret, property, @base)
 					),
 					finalize
 				);
 			}
 
 			return finalize;
+		}
+
+		private Expression NewDiffUnchanged(ParameterExpression ret, Property property, ParameterExpression value)
+		{
+			if (!this.aAlwaysIncludedProperties.Contains(property))
+				return Expression.Empty();
+
+			MemberExpression valueProperty = Expression.Property(value, property.ReflectionPropertyInfo);
+
+			return Expression.Call(
+				ret,
+				Members.List.Add(typeof(IDiffItem)),
+				Expression.New(
+					Members.DiffItems.NewClassUnchanged(property.Type),
+					Expression.Constant(property),
+					valueProperty
+				)
+			);
 		}
 
 		private MethodCallExpression NewDiffReplaced(ParameterExpression ret, Property property, ParameterExpression @base, ParameterExpression changed)
@@ -199,7 +220,7 @@ namespace POCOMerger.algorithms.diff.common.@class
 						changedProperty
 					)
 				),
-				Expression.IfThen(
+				Expression.IfThenElse(
 					Expression.NotEqual(
 						Expression.Property(tmp, Members.Diff.Count()),
 						Expression.Constant(0)
@@ -212,7 +233,8 @@ namespace POCOMerger.algorithms.diff.common.@class
 							Expression.Constant(property),
 							tmp
 						)
-					)
+					),
+					this.NewDiffUnchanged(ret, property, @base)
 				)
 			);
 		}

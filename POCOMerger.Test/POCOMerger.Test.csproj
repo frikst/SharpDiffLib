@@ -63,6 +63,7 @@
     <Compile Include="ConflictResolver\ArrayOfPrimitives.cs" />
     <Compile Include="ConflictResolver\SimpleClass.cs" />
     <Compile Include="ConflictResolver\StructuredClass.cs" />
+    <Compile Include="Diff\IncludeAlways.cs" />
     <Compile Include="General\DiffResultFactoryTest.cs" />
     <Compile Include="Diff\AlgorithmGuessing.cs" />
     <Compile Include="Diff\ArrayOfObjects.cs" />
