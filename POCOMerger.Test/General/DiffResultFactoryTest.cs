@@ -16,6 +16,7 @@ namespace POCOMerger.Test.General
 					.MakeDiff()
 				)
 				.Replaced(x => x.Value, "Value", "Value2")
+				.Unchanged(x => x.Value2, "xxx")
 				.MakeDiff();
 
 			const string diffString =
@@ -23,7 +24,8 @@ namespace POCOMerger.Test.General
 				"\t-Value:Hello\r\n" +
 				"\t+Value:World\r\n" +
 				"-Value:Value\r\n" +
-				"+Value:Value2";
+				"+Value:Value2\r\n" +
+				" Value2:xxx";
 
 			Assert.AreEqual(diffString, diff.ToString());
 		}
@@ -39,6 +41,7 @@ namespace POCOMerger.Test.General
 				.Replaced(1, new SampleInner(), new SampleInner())
 				.Removed(2, new SampleInner())
 				.Added(2, new SampleInner())
+				.Unchanged(3, new SampleInner())
 				.MakeDiff();
 
 			const string diffString =
@@ -48,7 +51,8 @@ namespace POCOMerger.Test.General
 				"-1:<SampleInner>\r\n" +
 				"+1:<SampleInner>\r\n" +
 				"-2:<SampleInner>\r\n" +
-				"+2:<SampleInner>";
+				"+2:<SampleInner>\r\n" +
+				" 3:<SampleInner>";
 
 			Assert.AreEqual(diffString, diff.ToString());
 		}
@@ -64,6 +68,7 @@ namespace POCOMerger.Test.General
 				.Replaced("b", new SampleInner(), new SampleInner())
 				.Removed("c", new SampleInner())
 				.Added("d", new SampleInner())
+				.Unchanged("e", new SampleInner())
 				.MakeDiff();
 
 			const string diffString =
@@ -73,7 +78,8 @@ namespace POCOMerger.Test.General
 				"-b:<SampleInner>\r\n" +
 				"+b:<SampleInner>\r\n" +
 				"-c:<SampleInner>\r\n" +
-				"+d:<SampleInner>";
+				"+d:<SampleInner>\r\n" +
+				" e:<SampleInner>";
 
 			Assert.AreEqual(diffString, diff.ToString());
 		}
@@ -89,6 +95,7 @@ namespace POCOMerger.Test.General
 				.Replaced(new SampleInner(), new SampleInner())
 				.Removed(new SampleInner())
 				.Added(new SampleInner())
+				.Unchanged(new SampleInner())
 				.MakeDiff();
 
 			const string diffString =
@@ -98,7 +105,8 @@ namespace POCOMerger.Test.General
 				"-<SampleInner>\r\n" +
 				"+<SampleInner>\r\n" +
 				"-<SampleInner>\r\n" +
-				"+<SampleInner>";
+				"+<SampleInner>\r\n" +
+				" <SampleInner>";
 
 			Assert.AreEqual(diffString, diff.ToString());
 		}

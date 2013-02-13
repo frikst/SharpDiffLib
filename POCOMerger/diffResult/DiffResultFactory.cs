@@ -61,6 +61,17 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public Class Unchanged<TValue>(Expression<Func<TType, TValue>> property, TValue value)
+			{
+				var p = Class<TType>.GetProperty(((MemberExpression)property.Body).Member);
+
+				if (p == null)
+					throw new Exception("Property does not exist in the selected class");
+
+				this.aDiffItems.Add(new DiffClassUnchanged<TValue>(p, value));
+				return this;
+			}
+
 			public Class Custom(IDiffItem item)
 			{
 				this.aDiffItems.Add(item);
@@ -121,6 +132,12 @@ namespace POCOMerger.diffResult
 
 				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
+				return this;
+			}
+
+			public KeyValue<TKey, TValue> Unchanged(TKey key, TValue value)
+			{
+				this.aDiffItems.Add(new DiffKeyValueCollectionItemUnchanged<TKey, TValue>(key, value));
 				return this;
 			}
 
@@ -187,6 +204,12 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public Ordered<TValue> Unchanged(int index, TValue value)
+			{
+				this.aDiffItems.Add(new DiffOrderedCollectionUnchanged<TValue>(index, value));
+				return this;
+			}
+
 			public Ordered<TValue> Custom(IDiffItem item)
 			{
 				this.aDiffItems.Add(item);
@@ -250,6 +273,12 @@ namespace POCOMerger.diffResult
 				return this;
 			}
 
+			public Unordered<TValue> Unchanged(TValue value)
+			{
+				this.aDiffItems.Add(new DiffUnorderedCollectionUnchanged<TValue>(value));
+				return this;
+			}
+
 			public Unordered<TValue> Custom(IDiffItem item)
 			{
 				this.aDiffItems.Add(item);
@@ -305,6 +334,12 @@ namespace POCOMerger.diffResult
 
 				this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
+				return this;
+			}
+
+			public Value Unchanged(TType value)
+			{
+				this.aDiffItems.Add(new DiffValueUnchanged<TType>(value));
 				return this;
 			}
 
