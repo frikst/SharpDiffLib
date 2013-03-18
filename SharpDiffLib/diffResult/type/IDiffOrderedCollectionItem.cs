@@ -1,6 +1,6 @@
-﻿using POCOMerger.diffResult.@base;
+﻿using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.diffResult.type
+namespace SharpDiffLib.diffResult.type
 {
 	public interface IDiffOrderedCollectionItem : IDiffItem
 	{

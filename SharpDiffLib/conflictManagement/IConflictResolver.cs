@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.conflictManagement
+namespace SharpDiffLib.conflictManagement
 {
 	public interface IConflictResolver : IEnumerable<IDiffItemConflicted>
 	{

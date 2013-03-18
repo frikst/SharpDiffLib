@@ -1,9 +1,9 @@
 ﻿using System;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.fastReflection;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.algorithms.applyPatch.collection.keyValue
+namespace SharpDiffLib.algorithms.applyPatch.collection.keyValue
 {
 	public class ApplyKeyValueCollectionPatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{

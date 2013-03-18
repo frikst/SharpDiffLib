@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.type;
-using POCOMerger.fastReflection;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.algorithms.diff.collection.unordered
+namespace SharpDiffLib.algorithms.diff.collection.unordered
 {
 	public class UnorderedCollectionDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{

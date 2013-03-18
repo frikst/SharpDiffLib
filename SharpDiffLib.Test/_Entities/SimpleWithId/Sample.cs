@@ -1,4 +1,4 @@
-﻿namespace POCOMerger.Test._Entities.SimpleWithId
+﻿namespace SharpDiffLib.Test._Entities.SimpleWithId
 {
 	public class Sample
 	{

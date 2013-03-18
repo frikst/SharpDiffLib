@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.definition.rules;
-using POCOMerger.implementation;
+using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.definition
+namespace SharpDiffLib.definition
 {
 	public class MergerDefinition<TDefinition>
 		where TDefinition : MergerDefinition<TDefinition>

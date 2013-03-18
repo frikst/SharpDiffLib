@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.InnerClassWithId;
-using POCOMerger.algorithms.diff;
-using POCOMerger.definition;
-using POCOMerger.definition.rules;
+using SharpDiffLib.Test._Entities.InnerClassWithId;
+using SharpDiffLib.algorithms.diff;
+using SharpDiffLib.definition;
+using SharpDiffLib.definition.rules;
 
-namespace POCOMerger.Test.Diff
+namespace SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class StructuredClassDiff

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using POCOMerger.fastReflection;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.@internal
+namespace SharpDiffLib.@internal
 {
 	internal static class IdHelpers
 	{

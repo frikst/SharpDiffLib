@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.InnerClass;
-using POCOMerger.algorithms.applyPatch;
-using POCOMerger.definition;
-using POCOMerger.diffResult;
+using SharpDiffLib.Test._Entities.InnerClass;
+using SharpDiffLib.algorithms.applyPatch;
+using SharpDiffLib.definition;
+using SharpDiffLib.diffResult;
 
-namespace POCOMerger.Test.ApplyPatch
+namespace SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class StructuredClass

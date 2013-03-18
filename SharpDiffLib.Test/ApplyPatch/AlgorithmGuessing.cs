@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.definition;
-using POCOMerger.diffResult;
-using POCOMerger.Test._Entities.SimpleClass;
+using SharpDiffLib.definition;
+using SharpDiffLib.diffResult;
+using SharpDiffLib.Test._Entities.SimpleClass;
 
-namespace POCOMerger.Test.ApplyPatch
+namespace SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class AlgorithmGuessing

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using POCOMerger.@base;
+using SharpDiffLib.@base;
 
-namespace POCOMerger.diffResult.@base
+namespace SharpDiffLib.diffResult.@base
 {
 	public interface IDiff : ICountableEnumerable<IDiffItem>
 	{

@@ -1,8 +1,8 @@
 ﻿using System;
-using POCOMerger.fastReflection;
-using POCOMerger.implementation;
+using SharpDiffLib.fastReflection;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.definition.rules
+namespace SharpDiffLib.definition.rules
 {
 	public static class GeneralRulesHelper<TType>
 	{

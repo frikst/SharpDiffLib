@@ -1,7 +1,7 @@
-using POCOMerger.diffResult.@base;
-using POCOMerger.fastReflection;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.diffResult.type
+namespace SharpDiffLib.diffResult.type
 {
 	public interface IDiffClassItem : IDiffItem
 	{

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.type;
-using POCOMerger.fastReflection;
-using POCOMerger.@internal;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.fastReflection;
+using SharpDiffLib.@internal;
 
-namespace POCOMerger.diffResult.implementation
+namespace SharpDiffLib.diffResult.implementation
 {
 	internal class DiffClassReplaced<TItemType> : IDiffItemReplaced<TItemType>, IDiffClassItem
 	{

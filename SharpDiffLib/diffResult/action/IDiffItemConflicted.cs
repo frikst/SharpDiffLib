@@ -1,7 +1,7 @@
-﻿using POCOMerger.@base;
-using POCOMerger.diffResult.@base;
+﻿using SharpDiffLib.@base;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.diffResult.action
+namespace SharpDiffLib.diffResult.action
 {
 	public interface IDiffItemConflicted : IDiffItem
 	{

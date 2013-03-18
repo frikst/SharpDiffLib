@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.algorithms.applyPatch;
-using POCOMerger.definition;
-using POCOMerger.diffResult;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.algorithms.applyPatch;
+using SharpDiffLib.definition;
+using SharpDiffLib.diffResult;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.Test.ApplyPatch
+namespace SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class ArrayOfPrimitives

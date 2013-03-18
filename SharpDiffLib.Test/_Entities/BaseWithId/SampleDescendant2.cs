@@ -1,4 +1,4 @@
-namespace POCOMerger.Test._Entities.BaseWithId
+namespace SharpDiffLib.Test._Entities.BaseWithId
 {
 	public class SampleDescendant2 : SampleBase
 	{

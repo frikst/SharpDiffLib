@@ -1,4 +1,4 @@
-﻿namespace POCOMerger.Test._Entities.BaseWithoutId
+﻿namespace SharpDiffLib.Test._Entities.BaseWithoutId
 {
 	public class SampleBase
 	{

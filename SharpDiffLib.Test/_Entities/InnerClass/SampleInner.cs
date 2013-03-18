@@ -1,4 +1,4 @@
-namespace POCOMerger.Test._Entities.InnerClass
+namespace SharpDiffLib.Test._Entities.InnerClass
 {
 	public class SampleInner
 	{

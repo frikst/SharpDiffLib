@@ -8,8 +8,8 @@
     <ProjectGuid>{459A6DF9-E02C-4094-A1F4-BE39D51E59E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>POCOMerger</RootNamespace>
-    <AssemblyName>POCOMerger</AssemblyName>
+    <RootNamespace>SharpDiffLib</RootNamespace>
+    <AssemblyName>SharpDiffLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>Svn</SccProjectName>

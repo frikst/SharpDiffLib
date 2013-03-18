@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.type;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
 
-namespace POCOMerger.conflictManagement
+namespace SharpDiffLib.conflictManagement
 {
 	internal class DynamicDiffIterator : IEnumerable<IDiffItem>
 	{

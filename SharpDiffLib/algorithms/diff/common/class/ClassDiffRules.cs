@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.type;
-using POCOMerger.fastReflection;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.algorithms.diff.common.@class
+namespace SharpDiffLib.algorithms.diff.common.@class
 {
 	internal interface IClassDiffRules
 	{

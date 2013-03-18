@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace POCOMerger.definition.rules
+namespace SharpDiffLib.definition.rules
 {
 	public static class GeneralRulesExtensions
 	{

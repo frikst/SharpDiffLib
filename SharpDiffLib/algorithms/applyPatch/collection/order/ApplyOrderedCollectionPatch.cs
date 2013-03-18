@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.type;
-using POCOMerger.implementation;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.algorithms.applyPatch.collection.order
+namespace SharpDiffLib.algorithms.applyPatch.collection.order
 {
 	internal class ApplyOrderedCollectionPatch<TType, TItemType> : IApplyPatchAlgorithm<TType>
 	{

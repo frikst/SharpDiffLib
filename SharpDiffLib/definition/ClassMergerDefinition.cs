@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using POCOMerger.definition.rules;
-using POCOMerger.implementation;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.definition
+namespace SharpDiffLib.definition
 {
 	public class ClassMergerDefinition<TClass> : IClassMergerDefinition
 	{

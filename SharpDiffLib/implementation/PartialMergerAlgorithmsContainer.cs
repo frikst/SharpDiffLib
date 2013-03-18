@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.@internal;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.@internal;
 
-namespace POCOMerger.implementation
+namespace SharpDiffLib.implementation
 {
 	public class PartialMergerAlgorithmsContainer
 	{

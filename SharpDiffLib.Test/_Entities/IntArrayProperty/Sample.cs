@@ -1,4 +1,4 @@
-﻿namespace POCOMerger.Test._Entities.IntArrayProperty
+﻿namespace SharpDiffLib.Test._Entities.IntArrayProperty
 {
 	public class Sample
 	{

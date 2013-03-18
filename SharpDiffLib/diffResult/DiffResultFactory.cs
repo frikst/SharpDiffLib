@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.implementation;
-using POCOMerger.fastReflection;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.implementation;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.diffResult
+namespace SharpDiffLib.diffResult
 {
 	public static class DiffResultFactory<TType>
 	{

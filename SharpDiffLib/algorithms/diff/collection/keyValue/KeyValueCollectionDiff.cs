@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.implementation;
-using POCOMerger.fastReflection;
-using POCOMerger.implementation;
-using POCOMerger.@internal;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.implementation;
+using SharpDiffLib.fastReflection;
+using SharpDiffLib.implementation;
+using SharpDiffLib.@internal;
 
-namespace POCOMerger.algorithms.diff.collection.keyValue
+namespace SharpDiffLib.algorithms.diff.collection.keyValue
 {
 	internal class KeyValueCollectionDiff<TType, TKeyType, TItemType> : IDiffAlgorithm<TType>
 	{

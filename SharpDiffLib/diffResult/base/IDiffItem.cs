@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace POCOMerger.diffResult.@base
+namespace SharpDiffLib.diffResult.@base
 {
 	public interface IDiffItem
 	{

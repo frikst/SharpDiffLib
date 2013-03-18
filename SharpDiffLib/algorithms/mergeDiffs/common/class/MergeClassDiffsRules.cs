@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.definition.rules;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.definition.rules;
 
-namespace POCOMerger.algorithms.mergeDiffs.common.@class
+namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
 {
 	public class MergeClassDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.algorithms.diff;
-using POCOMerger.definition;
+using SharpDiffLib.algorithms.diff;
+using SharpDiffLib.definition;
 
-namespace POCOMerger.Test.Diff
+namespace SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class DictionaryOfPrimitives

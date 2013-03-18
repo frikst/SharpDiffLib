@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.@internal;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.@internal;
 
-namespace POCOMerger.conflictManagement
+namespace SharpDiffLib.conflictManagement
 {
 	internal class ConflictResolver<TType> : IConflictResolver<TType>
 	{

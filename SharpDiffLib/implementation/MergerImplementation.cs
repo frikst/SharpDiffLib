@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.algorithms.applyPatch.collection.keyValue;
-using POCOMerger.algorithms.applyPatch.collection.order;
-using POCOMerger.algorithms.applyPatch.collection.unordered;
-using POCOMerger.algorithms.applyPatch.common.@class;
-using POCOMerger.algorithms.applyPatch.common.value;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.algorithms.diff.collection.keyValue;
-using POCOMerger.algorithms.diff.collection.ordered;
-using POCOMerger.algorithms.diff.collection.unordered;
-using POCOMerger.algorithms.diff.common.@class;
-using POCOMerger.algorithms.diff.common.value;
-using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.definition;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.algorithms.applyPatch.collection.keyValue;
+using SharpDiffLib.algorithms.applyPatch.collection.order;
+using SharpDiffLib.algorithms.applyPatch.collection.unordered;
+using SharpDiffLib.algorithms.applyPatch.common.@class;
+using SharpDiffLib.algorithms.applyPatch.common.value;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.algorithms.diff.collection.keyValue;
+using SharpDiffLib.algorithms.diff.collection.ordered;
+using SharpDiffLib.algorithms.diff.collection.unordered;
+using SharpDiffLib.algorithms.diff.common.@class;
+using SharpDiffLib.algorithms.diff.common.value;
+using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.definition;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.implementation
+namespace SharpDiffLib.implementation
 {
 	public class MergerImplementation
 	{

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.SimpleWithId;
-using POCOMerger.algorithms.applyPatch;
-using POCOMerger.definition;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult;
+using SharpDiffLib.Test._Entities.SimpleWithId;
+using SharpDiffLib.algorithms.applyPatch;
+using SharpDiffLib.definition;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult;
 
-namespace POCOMerger.Test.ApplyPatch
+namespace SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class SetOfObjects

@@ -1,9 +1,9 @@
 ﻿using System;
-using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.fastReflection;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
+namespace SharpDiffLib.algorithms.mergeDiffs.collection.unordered
 {
 	public class MergeUnorderedCollectionDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.implementation;
-using POCOMerger.implementation;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.implementation;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.algorithms.mergeDiffs.common.value
+namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 {
 	internal class MergeValueDiffs<TType> : IMergeDiffsAlgorithm<TType>
 	{

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using POCOMerger.fastReflection;
-using POCOMerger.implementation;
+using SharpDiffLib.fastReflection;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.definition.rules
+namespace SharpDiffLib.definition.rules
 {
 	internal interface IGeneralRules : IAlgorithmRules
 	{

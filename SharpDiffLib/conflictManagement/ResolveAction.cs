@@ -1,4 +1,4 @@
-namespace POCOMerger.conflictManagement
+namespace SharpDiffLib.conflictManagement
 {
 	public enum ResolveAction
 	{

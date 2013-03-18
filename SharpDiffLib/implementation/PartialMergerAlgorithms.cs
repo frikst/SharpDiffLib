@@ -1,11 +1,11 @@
 ﻿using System;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.implementation
+namespace SharpDiffLib.implementation
 {
 	public class PartialMergerAlgorithms
 	{

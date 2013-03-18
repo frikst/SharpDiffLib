@@ -1,7 +1,7 @@
-﻿using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.definition.rules;
+﻿using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.definition.rules;
 
-namespace POCOMerger.algorithms.applyPatch.common.@class
+namespace SharpDiffLib.algorithms.applyPatch.common.@class
 {
 	public class ApplyClassPatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{

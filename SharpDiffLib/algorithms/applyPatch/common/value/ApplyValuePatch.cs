@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.type;
-using POCOMerger.implementation;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.algorithms.applyPatch.common.value
+namespace SharpDiffLib.algorithms.applyPatch.common.value
 {
 	internal class ApplyValuePatch<TType> : IApplyPatchAlgorithm<TType>
 	{

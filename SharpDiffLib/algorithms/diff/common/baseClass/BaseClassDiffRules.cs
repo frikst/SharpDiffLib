@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.type;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.type;
 
-namespace POCOMerger.algorithms.diff.common.baseClass
+namespace SharpDiffLib.algorithms.diff.common.baseClass
 {
 	public class BaseClassDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{

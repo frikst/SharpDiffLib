@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.BaseWithId;
-using POCOMerger.Test._Entities.SimpleWithId;
-using POCOMerger.algorithms.mergeDiffs;
-using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.definition;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult;
+using SharpDiffLib.Test._Entities.BaseWithId;
+using SharpDiffLib.Test._Entities.SimpleWithId;
+using SharpDiffLib.algorithms.mergeDiffs;
+using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.definition;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult;
 
-namespace POCOMerger.Test.MergeDiffs
+namespace SharpDiffLib.Test.MergeDiffs
 {
 	[TestClass]
 	public class Value

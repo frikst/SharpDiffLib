@@ -3,13 +3,13 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.algorithms.mergeDiffs;
-using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.definition;
-using POCOMerger.diffResult;
+using SharpDiffLib.algorithms.mergeDiffs;
+using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.definition;
+using SharpDiffLib.diffResult;
 
-namespace POCOMerger.Test.MergeDiffs
+namespace SharpDiffLib.Test.MergeDiffs
 {
 	[TestClass]
 	public class SetOfPrimitives

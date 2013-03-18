@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.SimpleClass;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.@base;
-using POCOMerger.definition;
-using POCOMerger.definition.rules;
-using POCOMerger.diffResult;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.Test._Entities.SimpleClass;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.@base;
+using SharpDiffLib.definition;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.Test.Diff
+namespace SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class AlgorithmGuessing

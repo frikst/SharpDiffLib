@@ -1,6 +1,6 @@
-﻿using POCOMerger.definition.rules;
+﻿using SharpDiffLib.definition.rules;
 
-namespace POCOMerger.algorithms.mergeDiffs.@base
+namespace SharpDiffLib.algorithms.mergeDiffs.@base
 {
 	public interface IMergeDiffsAlgorithmRules : IAlgorithmRules
 	{

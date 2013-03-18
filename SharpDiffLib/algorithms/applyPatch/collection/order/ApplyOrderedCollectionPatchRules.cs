@@ -1,9 +1,9 @@
 ﻿using System;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.definition.rules;
-using POCOMerger.fastReflection;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.definition.rules;
+using SharpDiffLib.fastReflection;
 
-namespace POCOMerger.algorithms.applyPatch.collection.order
+namespace SharpDiffLib.algorithms.applyPatch.collection.order
 {
 	public class ApplyOrderedCollectionPatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{

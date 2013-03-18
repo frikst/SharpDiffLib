@@ -1,6 +1,6 @@
-﻿using POCOMerger.diffResult.@base;
+﻿using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.algorithms.diff.@base
+namespace SharpDiffLib.algorithms.diff.@base
 {
 	public interface IDiffAlgorithm
 	{

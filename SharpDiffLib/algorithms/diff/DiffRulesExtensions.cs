@@ -1,13 +1,13 @@
 ﻿using System;
-using POCOMerger.algorithms.diff.collection.keyValue;
-using POCOMerger.algorithms.diff.collection.ordered;
-using POCOMerger.algorithms.diff.collection.unordered;
-using POCOMerger.algorithms.diff.common.baseClass;
-using POCOMerger.algorithms.diff.common.@class;
-using POCOMerger.algorithms.diff.common.value;
-using POCOMerger.definition;
+using SharpDiffLib.algorithms.diff.collection.keyValue;
+using SharpDiffLib.algorithms.diff.collection.ordered;
+using SharpDiffLib.algorithms.diff.collection.unordered;
+using SharpDiffLib.algorithms.diff.common.baseClass;
+using SharpDiffLib.algorithms.diff.common.@class;
+using SharpDiffLib.algorithms.diff.common.value;
+using SharpDiffLib.definition;
 
-namespace POCOMerger.algorithms.diff
+namespace SharpDiffLib.algorithms.diff
 {
 	public static class DiffRulesExtensions
 	{

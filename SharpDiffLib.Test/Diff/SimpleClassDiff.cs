@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.SimpleClass;
-using POCOMerger.algorithms.diff;
-using POCOMerger.definition;
+using SharpDiffLib.Test._Entities.SimpleClass;
+using SharpDiffLib.algorithms.diff;
+using SharpDiffLib.definition;
 
-namespace POCOMerger.Test.Diff
+namespace SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class SimpleClassDiff

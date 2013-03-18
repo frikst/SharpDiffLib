@@ -1,12 +1,12 @@
 ﻿using System;
-using POCOMerger.algorithms.applyPatch.collection.keyValue;
-using POCOMerger.algorithms.applyPatch.collection.order;
-using POCOMerger.algorithms.applyPatch.collection.unordered;
-using POCOMerger.algorithms.applyPatch.common.@class;
-using POCOMerger.algorithms.applyPatch.common.value;
-using POCOMerger.definition;
+using SharpDiffLib.algorithms.applyPatch.collection.keyValue;
+using SharpDiffLib.algorithms.applyPatch.collection.order;
+using SharpDiffLib.algorithms.applyPatch.collection.unordered;
+using SharpDiffLib.algorithms.applyPatch.common.@class;
+using SharpDiffLib.algorithms.applyPatch.common.value;
+using SharpDiffLib.definition;
 
-namespace POCOMerger.algorithms.applyPatch
+namespace SharpDiffLib.algorithms.applyPatch
 {
 	public static class ApplyPatchRulesExtensions
 	{

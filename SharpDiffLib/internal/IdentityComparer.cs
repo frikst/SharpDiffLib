@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace POCOMerger.@internal
+namespace SharpDiffLib.@internal
 {
 	public class IdentityComparer<T> : IEqualityComparer<T>
 		where T : class

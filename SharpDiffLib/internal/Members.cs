@@ -5,19 +5,19 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using POCOMerger.algorithms.applyPatch.@base;
-using POCOMerger.algorithms.diff.@base;
-using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.implementation;
-using POCOMerger.diffResult.type;
-using POCOMerger.fastReflection;
-using POCOMerger.implementation;
+using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.algorithms.diff.@base;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.implementation;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.fastReflection;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.@internal
+namespace SharpDiffLib.@internal
 {
 	internal static class Members
 	{

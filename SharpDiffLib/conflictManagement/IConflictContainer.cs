@@ -1,6 +1,6 @@
-﻿using POCOMerger.diffResult.action;
+﻿using SharpDiffLib.diffResult.action;
 
-namespace POCOMerger.conflictManagement
+namespace SharpDiffLib.conflictManagement
 {
 	public interface IConflictContainer
 	{

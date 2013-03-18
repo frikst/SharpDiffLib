@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.Test._Entities.InnerClass;
-using POCOMerger.diffResult;
+using SharpDiffLib.Test._Entities.InnerClass;
+using SharpDiffLib.diffResult;
 
-namespace POCOMerger.Test.General
+namespace SharpDiffLib.Test.General
 {
 	[TestClass]
 	public class DiffResultFactoryTest

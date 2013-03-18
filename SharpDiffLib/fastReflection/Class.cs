@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using POCOMerger.@base;
-using POCOMerger.@internal;
+using SharpDiffLib.@base;
+using SharpDiffLib.@internal;
 
-namespace POCOMerger.fastReflection
+namespace SharpDiffLib.fastReflection
 {
 	public static class Class<TClass>
 	{

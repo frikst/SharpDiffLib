@@ -1,7 +1,7 @@
-﻿using POCOMerger.algorithms.mergeDiffs.@base;
-using POCOMerger.definition.rules;
+﻿using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.definition.rules;
 
-namespace POCOMerger.algorithms.mergeDiffs.common.value
+namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 {
 	public class MergeValueDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

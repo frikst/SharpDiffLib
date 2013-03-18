@@ -1,8 +1,8 @@
-﻿using POCOMerger.@base;
-using POCOMerger.conflictManagement;
-using POCOMerger.diffResult.@base;
+﻿using SharpDiffLib.@base;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.algorithms.mergeDiffs.@base
+namespace SharpDiffLib.algorithms.mergeDiffs.@base
 {
 	public interface IMergeDiffsAlgorithm
 	{

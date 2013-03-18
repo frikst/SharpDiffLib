@@ -1,12 +1,12 @@
 ﻿using System;
-using POCOMerger.algorithms.mergeDiffs.collection.keyValue;
-using POCOMerger.algorithms.mergeDiffs.collection.ordered;
-using POCOMerger.algorithms.mergeDiffs.collection.unordered;
-using POCOMerger.algorithms.mergeDiffs.common.@class;
-using POCOMerger.algorithms.mergeDiffs.common.value;
-using POCOMerger.definition;
+using SharpDiffLib.algorithms.mergeDiffs.collection.keyValue;
+using SharpDiffLib.algorithms.mergeDiffs.collection.ordered;
+using SharpDiffLib.algorithms.mergeDiffs.collection.unordered;
+using SharpDiffLib.algorithms.mergeDiffs.common.@class;
+using SharpDiffLib.algorithms.mergeDiffs.common.value;
+using SharpDiffLib.definition;
 
-namespace POCOMerger.algorithms.mergeDiffs
+namespace SharpDiffLib.algorithms.mergeDiffs
 {
 	public static class MergeDiffsRulesExtensions
 	{

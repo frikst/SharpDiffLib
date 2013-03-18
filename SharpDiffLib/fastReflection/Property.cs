@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace POCOMerger.fastReflection
+namespace SharpDiffLib.fastReflection
 {
 	public class Property
 	{

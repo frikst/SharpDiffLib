@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.diffResult.implementation
+namespace SharpDiffLib.diffResult.implementation
 {
 	internal class Diff<TType> : IDiff<TType>
 	{

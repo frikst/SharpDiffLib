@@ -1,7 +1,7 @@
 ﻿using System;
-using POCOMerger.definition.rules;
+using SharpDiffLib.definition.rules;
 
-namespace POCOMerger.@base
+namespace SharpDiffLib.@base
 {
 	public interface IMergerRulesLocator
 	{

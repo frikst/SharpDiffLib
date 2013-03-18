@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace POCOMerger.@base
+namespace SharpDiffLib.@base
 {
 	public interface ICountableEnumerable<T> : IEnumerable<T>
 	{

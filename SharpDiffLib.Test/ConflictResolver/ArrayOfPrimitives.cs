@@ -3,12 +3,12 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POCOMerger.conflictManagement;
-using POCOMerger.definition;
-using POCOMerger.diffResult;
-using POCOMerger.diffResult.action;
+using SharpDiffLib.conflictManagement;
+using SharpDiffLib.definition;
+using SharpDiffLib.diffResult;
+using SharpDiffLib.diffResult.action;
 
-namespace POCOMerger.Test.ConflictResolver
+namespace SharpDiffLib.Test.ConflictResolver
 {
 	[TestClass]
 	public class ArrayOfPrimitives

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.type;
-using POCOMerger.@internal;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
+using SharpDiffLib.@internal;
 
-namespace POCOMerger.diffResult.implementation
+namespace SharpDiffLib.diffResult.implementation
 {
 	internal class DiffOrderedCollectionReplaced<TItemType> : IDiffItemReplaced<TItemType>, IDiffOrderedCollectionItem
 	{

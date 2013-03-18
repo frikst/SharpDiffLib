@@ -1,6 +1,6 @@
-﻿using POCOMerger.diffResult.@base;
+﻿using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.algorithms.applyPatch.@base
+namespace SharpDiffLib.algorithms.applyPatch.@base
 {
 	public interface IApplyPatchAlgorithm
 	{

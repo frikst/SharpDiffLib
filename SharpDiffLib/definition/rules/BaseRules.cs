@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using POCOMerger.implementation;
+using SharpDiffLib.implementation;
 
-namespace POCOMerger.definition.rules
+namespace SharpDiffLib.definition.rules
 {
 	public abstract class BaseRules<TDefinedFor> : IAlgorithmRules<TDefinedFor>
 	{

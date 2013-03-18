@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.implementation;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.implementation;
 
-namespace POCOMerger.conflictManagement
+namespace SharpDiffLib.conflictManagement
 {
 	internal class DynamicDiff<TType> : IDiff<TType>
 	{

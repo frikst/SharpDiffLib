@@ -9,8 +9,8 @@
     <ProjectGuid>{8245A72D-CEEA-4451-B43C-1080EB1F18D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>POCOMerger.Test</RootNamespace>
-    <AssemblyName>POCOMerger.Test</AssemblyName>
+    <RootNamespace>SharpDiffLib.Test</RootNamespace>
+    <AssemblyName>SharpDiffLib.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -110,7 +110,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SharpDiffLib\SharpDiffLib.csproj">
       <Project>{459A6DF9-E02C-4094-A1F4-BE39D51E59E5}</Project>
-      <Name>POCOMerger</Name>
+      <Name>SharpDiffLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

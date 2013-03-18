@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using POCOMerger.diffResult.action;
-using POCOMerger.diffResult.@base;
-using POCOMerger.diffResult.type;
+using SharpDiffLib.diffResult.action;
+using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
 
-namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
+namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
 {
 	internal class BlockIterator
 	{

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using POCOMerger.diffResult.@base;
+using SharpDiffLib.diffResult.@base;
 
-namespace POCOMerger.diffResult.action
+namespace SharpDiffLib.diffResult.action
 {
 	public interface IDiffItemChanged : IDiffItem
 	{
