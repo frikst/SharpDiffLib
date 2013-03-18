@@ -52,7 +52,9 @@ namespace POCOMerger.algorithms.mergeDiffs.common.value
 		private void ProcessConflict(IDiffItem leftItem, IDiffItem rightItem, List<IDiffItem> ret, IConflictContainer conflicts)
 		{
 			if (leftItem is IDiffItemReplaced && rightItem is IDiffItemReplaced && leftItem.IsSame(rightItem))
+			{
 				ret.Add(leftItem);
+			}
 			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
 			{
 				Type itemType = leftItem.ItemType;
@@ -65,6 +67,14 @@ namespace POCOMerger.algorithms.mergeDiffs.common.value
 				IDiff result = mergeItemsDiffs.MergeDiffs(diffLeft, diffRight, conflicts);
 
 				ret.Add(new DiffValueChanged<TType>(itemType, (IDiff<TType>) result));
+			}
+			else if (leftItem is IDiffItemUnchanged)
+			{
+				ret.Add(rightItem);
+			}
+			else if (rightItem is IDiffItemUnchanged)
+			{
+				ret.Add(leftItem);
 			}
 			else
 			{

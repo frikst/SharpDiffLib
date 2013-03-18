@@ -108,7 +108,7 @@
     <Compile Include="_Entities\InnerClassWithId\Sample.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\POCOMerger\POCOMerger.csproj">
+    <ProjectReference Include="..\SharpDiffLib\SharpDiffLib.csproj">
       <Project>{459A6DF9-E02C-4094-A1F4-BE39D51E59E5}</Project>
       <Name>POCOMerger</Name>
     </ProjectReference>

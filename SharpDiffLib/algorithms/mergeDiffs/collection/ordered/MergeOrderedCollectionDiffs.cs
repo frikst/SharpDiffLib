@@ -83,15 +83,29 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		private void ProcessConflict(List<IDiffOrderedCollectionItem> leftItem, List<IDiffOrderedCollectionItem> rightItem, AutoindexedResult ret, IConflictContainer conflicts)
 		{
+			if (leftItem.Count == 1 && leftItem[0] is IDiffItemUnchanged)
+			{
+				ret.AddRange(rightItem);
+				return;
+			}
+			else if (rightItem.Count == 1 && rightItem[0] is IDiffItemUnchanged)
+			{
+				ret.AddRange(leftItem);
+				return;
+			}
 			Lazy<bool> allLeftAdded = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemAdded));
 			Lazy<bool> allLeftRemoved = new Lazy<bool>(() => leftItem.All(x => x is IDiffItemRemoved));
 			Lazy<bool> allRightAdded = new Lazy<bool>(() => rightItem.All(x => x is IDiffItemAdded));
 			Lazy<bool> allRightRemoved = new Lazy<bool>(() => rightItem.All(x => x is IDiffItemRemoved));
 
 			if (allLeftAdded.Value && leftItem.SequenceEqual(rightItem, (a, b) => a.IsSame(b)))
+			{
 				ret.AddRange(leftItem);
+			}
 			else if (leftItem.Count == rightItem.Count && allLeftRemoved.Value && allRightRemoved.Value)
+			{
 				ret.AddRange(leftItem);
+			}
 			else if (leftItem.Count == 1 && (leftItem[0] is IDiffItemReplaced || leftItem[0] is IDiffItemChanged) && allRightAdded.Value)
 			{
 				ret.AddRange(rightItem);
@@ -112,7 +126,15 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 
 		private void ProcessConflict(IDiffOrderedCollectionItem leftItem, IDiffOrderedCollectionItem rightItem, AutoindexedResult ret, IConflictContainer conflicts)
 		{
-			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded)
+			if (leftItem is IDiffItemUnchanged)
+			{
+				ret.Add(rightItem);
+			}
+			else if (rightItem is IDiffItemUnchanged)
+			{
+				ret.Add(leftItem);
+			}
+			else if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded)
 			{
 				if (aEqualityComparer.Equals(((IDiffItemAdded<TItemType>) leftItem).NewValue, ((IDiffItemAdded<TItemType>) rightItem).NewValue))
 					ret.Add(leftItem);
@@ -137,14 +159,16 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.ordered
 				}
 			}
 			else if (leftItem is IDiffItemRemoved && rightItem is IDiffItemRemoved)
+			{
 				ret.Add(leftItem);
+			}
 			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
 			{
 				IDiff<TItemType> diff = this.aMergeItemsDiffs.MergeDiffs(
 					((IDiffItemChanged<TItemType>) leftItem).ValueDiff,
 					((IDiffItemChanged<TItemType>) rightItem).ValueDiff,
 					conflicts
-				);
+					);
 
 				ret.Add(new DiffOrderedCollectionChanged<TItemType>(leftItem.ItemIndex, diff));
 			}

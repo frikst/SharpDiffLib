@@ -68,10 +68,22 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.keyValue
 
 		private void ProcessConflict(TKeyType key, IDiffKeyValueCollectionItem<TKeyType> leftItem, IDiffKeyValueCollectionItem<TKeyType> rightItem, List<IDiffItem> ret, IConflictContainer conflicts)
 		{
-			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded && leftItem.IsSame(rightItem))
+			if (leftItem is IDiffItemUnchanged)
+			{
+				ret.Add(rightItem);
+			}
+			else if (rightItem is IDiffItemUnchanged)
+			{
 				ret.Add(leftItem);
+			}
+			else if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded && leftItem.IsSame(rightItem))
+			{
+				ret.Add(leftItem);
+			}
 			else if (leftItem is IDiffItemRemoved && rightItem is IDiffItemRemoved)
+			{
 				ret.Add(leftItem);
+			}
 			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
 			{
 				IDiff<TItemType> diffLeft = ((IDiffItemChanged<TItemType>)leftItem).ValueDiff;

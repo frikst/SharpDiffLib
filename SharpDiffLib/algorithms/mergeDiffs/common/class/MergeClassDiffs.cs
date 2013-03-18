@@ -200,6 +200,14 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 			 * {
 			 *     add(algorithm.Merge(leftCurrent.ValueDiff, rightCurrent.ValueDiff, conflicts))
 			 * }
+			 * else if (leftCurrent is Unchanged)
+			 * {
+			 *     add(rightCurrent)
+			 * }
+			 * else if (rightCurrent is Unchanged)
+			 * {
+			 *     add(leftCurrent)
+			 * }
 			 * else
 			 *     throw
 			 */
@@ -274,8 +282,24 @@ namespace POCOMerger.algorithms.mergeDiffs.common.@class
 							)
 						)
 					),
-					Expression.Throw(
-						Expression.New(typeof(Exception))
+					Expression.IfThenElse(
+						Expression.TypeIs(leftCurrent, typeof(IDiffItemUnchanged)),
+						Expression.Call(
+							ret,
+							Members.List.Add(typeof(IDiffItem)),
+							rightCurrent
+						),
+						Expression.IfThenElse(
+							Expression.TypeIs(rightCurrent, typeof(IDiffItemUnchanged)),
+							Expression.Call(
+								ret,
+								Members.List.Add(typeof(IDiffItem)),
+								leftCurrent
+							),
+							Expression.Throw(
+								Expression.New(typeof(Exception))
+							)
+						)
 					)
 				)
 			);

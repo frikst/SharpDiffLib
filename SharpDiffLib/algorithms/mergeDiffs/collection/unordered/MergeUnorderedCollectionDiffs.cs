@@ -58,16 +58,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 
 			foreach (IDiffItem item in right)
 			{
-				if (item is IDiffUnorderedCollectionItemWithID)
-					rightIndex[((IDiffUnorderedCollectionItemWithID<TIdType>)item).Id] = (IDiffUnorderedCollectionItem) item;
-				else if (item is IDiffItemAdded)
-					rightIndex[this.aIdAccessor(((IDiffItemAdded<TItemType>) item).NewValue)] = (IDiffUnorderedCollectionItem) item;
-				else if (item is IDiffItemRemoved)
-					rightIndex[this.aIdAccessor(((IDiffItemRemoved<TItemType>)item).OldValue)] = (IDiffUnorderedCollectionItem) item;
-				else if (item is IDiffItemReplaced)
-					rightIndex[this.aIdAccessor(((IDiffItemReplaced<TItemType>) item).OldValue)] = (IDiffUnorderedCollectionItem) item;
-				else
-					throw new Exception();
+				rightIndex[this.GetID(item)] = (IDiffUnorderedCollectionItem) item;
 			}
 
 			List<IDiffItem> ret = new List<IDiffItem>(left.Count + right.Count);
@@ -76,18 +67,7 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 			{
 				IDiffUnorderedCollectionItem rightItem;
 
-				TIdType id;
-
-				if (leftItem is IDiffUnorderedCollectionItemWithID)
-					id = ((IDiffUnorderedCollectionItemWithID<TIdType>) leftItem).Id;
-				else if (leftItem is IDiffItemAdded)
-					id = this.aIdAccessor(((IDiffItemAdded<TItemType>) leftItem).NewValue);
-				else if (leftItem is IDiffItemRemoved)
-					id = this.aIdAccessor(((IDiffItemRemoved<TItemType>) leftItem).OldValue);
-				else if (leftItem is IDiffItemReplaced)
-					id = this.aIdAccessor(((IDiffItemReplaced<TItemType>) leftItem).OldValue);
-				else
-					throw new Exception();
+				TIdType id = this.GetID(leftItem);
 
 				if (rightIndex.TryGetValue(id, out rightItem))
 				{
@@ -104,6 +84,22 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 			return new Diff<TType>(ret);
 		}
 
+		private TIdType GetID(IDiffItem leftItem)
+		{
+			if (leftItem is IDiffUnorderedCollectionItemWithID)
+				return ((IDiffUnorderedCollectionItemWithID<TIdType>) leftItem).Id;
+			else if (leftItem is IDiffItemAdded)
+				return this.aIdAccessor(((IDiffItemAdded<TItemType>)leftItem).NewValue);
+			else if (leftItem is IDiffItemRemoved)
+				return this.aIdAccessor(((IDiffItemRemoved<TItemType>)leftItem).OldValue);
+			else if (leftItem is IDiffItemReplaced)
+				return this.aIdAccessor(((IDiffItemReplaced<TItemType>)leftItem).OldValue);
+			else if (leftItem is IDiffItemUnchanged)
+				return this.aIdAccessor(((IDiffItemUnchanged<TItemType>)leftItem).Value);
+			else
+				throw new Exception();
+		}
+
 		#endregion
 
 		#region Implementation of IMergeDiffsAlgorithm
@@ -118,9 +114,13 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 		private void ProcessConflict(TIdType id, IDiffUnorderedCollectionItem leftItem, IDiffUnorderedCollectionItem rightItem, List<IDiffItem> ret, IConflictContainer conflicts)
 		{
 			if (leftItem is IDiffItemAdded && rightItem is IDiffItemAdded && leftItem.IsSame(rightItem))
+			{
 				ret.Add(leftItem);
+			}
 			else if (leftItem is IDiffItemRemoved && rightItem is IDiffItemRemoved)
+			{
 				ret.Add(leftItem);
+			}
 			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
 			{
 				IDiff<TItemType> diffLeft = ((IDiffItemChanged<TItemType>) leftItem).ValueDiff;
@@ -131,7 +131,17 @@ namespace POCOMerger.algorithms.mergeDiffs.collection.unordered
 				ret.Add(new DiffUnorderedCollectionChanged<TIdType, TItemType>(id, result));
 			}
 			else if (leftItem is IDiffItemReplaced && rightItem is IDiffItemReplaced && leftItem.IsSame(rightItem))
+			{
 				ret.Add(leftItem);
+			}
+			else if (leftItem is IDiffItemUnchanged)
+			{
+				ret.Add(rightItem);
+			}
+			else if (rightItem is IDiffItemUnchanged)
+			{
+				ret.Add(leftItem);
+			}
 			else
 			{
 				DiffAnyConflicted conflict = new DiffAnyConflicted(leftItem, rightItem);
