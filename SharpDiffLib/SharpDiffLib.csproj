@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SharpDiffLib.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +59,7 @@
     <Compile Include="algorithms\applyPatch\common\class\ApplyClassPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatch.cs" />
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatchRules.cs" />
+    <Compile Include="algorithms\applyPatch\NamespaceDoc.cs" />
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithm.cs" />
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithmRules.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\keyValue\MergeKeyValueCollectionDiffs.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="algorithms\mergeDiffs\common\value\MergeValueDiffs.cs" />
     <Compile Include="algorithms\mergeDiffs\common\value\MergeValueDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\MergeDiffsRulesExtensions.cs" />
+    <Compile Include="algorithms\NamespaceDoc.cs" />
     <Compile Include="conflictManagement\ConflictResolver.cs" />
     <Compile Include="conflictManagement\DynamicDiff.cs" />
     <Compile Include="conflictManagement\DynamicDiffItemChangedFactory.cs" />

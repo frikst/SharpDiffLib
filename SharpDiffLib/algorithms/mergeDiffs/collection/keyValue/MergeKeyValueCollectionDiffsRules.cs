@@ -11,6 +11,8 @@ namespace SharpDiffLib.algorithms.mergeDiffs.collection.keyValue
 
 		public IMergeDiffsAlgorithm<TType> GetAlgorithm<TType>()
 		{
+			this.ValidateType<TType>();
+
 			if (Class<TType>.KeyValueParams == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 

@@ -13,6 +13,8 @@ namespace SharpDiffLib.algorithms.diff.common.value
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
+			this.ValidateType<TType>();
+
 			return new ValueDiff<TType>(this.MergerImplementation);
 		}
 

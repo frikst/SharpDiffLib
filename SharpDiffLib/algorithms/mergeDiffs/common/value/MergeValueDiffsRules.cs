@@ -9,6 +9,8 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 
 		IMergeDiffsAlgorithm<TType> IMergeDiffsAlgorithmRules.GetAlgorithm<TType>()
 		{
+			this.ValidateType<TType>();
+
 			return new MergeValueDiffs<TType>(this.MergerImplementation);
 		}
 

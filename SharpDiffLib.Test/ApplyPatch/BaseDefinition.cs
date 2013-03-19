@@ -22,7 +22,7 @@ namespace SharpDiffLib.Test.ApplyPatch
 					);
 
 				Define<SampleBase[]>()
-					.ApplyOrderedCollectionPatchRules();
+					.Inheritable.ApplyOrderedCollectionPatchRules();
 			}
 		}
 

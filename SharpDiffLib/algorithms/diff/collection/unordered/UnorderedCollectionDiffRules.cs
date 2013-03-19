@@ -14,6 +14,8 @@ namespace SharpDiffLib.algorithms.diff.collection.unordered
 
 		IDiffAlgorithm<TType> IDiffAlgorithmRules.GetAlgorithm<TType>()
 		{
+			this.ValidateType<TType>();
+
 			if (Class<TType>.EnumerableParam == null)
 				throw new Exception("Cannot compare non-collection type with OrderedCollectionDiff");
 

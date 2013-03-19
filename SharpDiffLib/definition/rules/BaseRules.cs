@@ -13,6 +13,20 @@ namespace SharpDiffLib.definition.rules
 
 		protected MergerImplementation MergerImplementation { get; private set; }
 
+		private bool CanBeUsedFor<TType>()
+		{
+			if (((IAlgorithmRules) this).IsInheritable)
+				return typeof(TDefinedFor).IsAssignableFrom(typeof(TType));
+			else
+				return typeof(TType) == typeof(TDefinedFor);
+		}
+
+		protected void ValidateType<TType>()
+		{
+			if (!this.CanBeUsedFor<TType>())
+				throw new Exception(string.Format("Cannot use algorithm defined for {0} with the {1} type", typeof(TDefinedFor), typeof(TType)));
+		}
+
 		#region Implementation of IAlgorithmRules
 
 		IEnumerable<Type> IAlgorithmRules.GetPossibleResults()
