@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace SharpDiffLib.@internal
 {
-	public class IdentityComparer<T> : IEqualityComparer<T>
+	internal class IdentityComparer<T> : IEqualityComparer<T>
 		where T : class
 	{
 		public bool Equals(T left, T right)

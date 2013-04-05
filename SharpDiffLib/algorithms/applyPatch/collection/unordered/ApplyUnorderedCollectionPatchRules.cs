@@ -8,7 +8,7 @@ namespace SharpDiffLib.algorithms.applyPatch.collection.unordered
 	/// <summary>
 	/// Rules for unordered collection patch application algorithm.
 	/// </summary>
-	/// <typeparam name="TDefinedFor">Type for which are rules defined.</typeparam>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class ApplyUnorderedCollectionPatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IApplyPatchAlgorithmRules

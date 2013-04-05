@@ -6,7 +6,7 @@ namespace SharpDiffLib.algorithms.applyPatch.common.value
 	/// <summary>
 	/// Rules for simple value patch application.
 	/// </summary>
-	/// <typeparam name="TDefinedFor">Type for which are rules defined.</typeparam>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class ApplyValuePatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IApplyPatchAlgorithmRules

@@ -9,19 +9,19 @@ namespace SharpDiffLib.algorithms.applyPatch.@base
 	public interface IApplyPatchAlgorithmRules : IAlgorithmRules
 	{
 		/// <summary>
-		/// Creates the apply patch algorithm instance for the given object type. Every implementation
+		/// Creates an apply patch algorithm instance for the given object type. Every implementation
 		/// of this method should test whether <typeparamref name="TType"/> type could be used with
 		/// the defined rules.
 		/// </summary>
-		/// <typeparam name="TType">Type of the object which should be</typeparam>
-		/// <returns></returns>
+		/// <typeparam name="TType">Type of the patched object</typeparam>
+		/// <returns>Apply patch algorithm instance</returns>
 		IApplyPatchAlgorithm<TType> GetAlgorithm<TType>();
 	}
 
 	/// <summary>
 	/// Type-safe version of the <see cref="IApplyPatchAlgorithmRules"/> interface.
 	/// </summary>
-	/// <typeparam name="TDefinedFor">Type for which are rules defined.</typeparam>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public interface IApplyPatchAlgorithmRules<TDefinedFor> : IApplyPatchAlgorithmRules, IAlgorithmRules<TDefinedFor>
 	{
 

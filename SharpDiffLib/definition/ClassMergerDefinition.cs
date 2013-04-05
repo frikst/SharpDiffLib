@@ -87,12 +87,12 @@ namespace SharpDiffLib.definition
 			return this.aRules.OfType<TRules>().FirstOrDefault();
 		}
 
-		public IEnumerable<TRules> GetAllRules<TRules>() where TRules : class, IAlgorithmRules
+		IEnumerable<TRules> IClassMergerDefinition.GetAllRules<TRules>()
 		{
 			return this.aRules.OfType<TRules>();
 		}
 
-		public IAlgorithmRules GetRules(Type rulesType)
+		IAlgorithmRules IClassMergerDefinition.GetRules(Type rulesType)
 		{
 			foreach (IAlgorithmRules<TClass> rules in this.aRules)
 			{

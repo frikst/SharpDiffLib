@@ -8,6 +8,10 @@ using SharpDiffLib.fastReflection;
 
 namespace SharpDiffLib.algorithms.diff.collection.keyValue
 {
+	/// <summary>
+	/// Rules for key value collection diff algorithm.
+	/// </summary>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class KeyValueCollectionDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IDiffAlgorithmRules

@@ -7,6 +7,10 @@ using SharpDiffLib.diffResult.type;
 
 namespace SharpDiffLib.algorithms.diff.common.value
 {
+	/// <summary>
+	/// Rules for simple value diff algorithm.
+	/// </summary>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class ValueDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IDiffAlgorithmRules

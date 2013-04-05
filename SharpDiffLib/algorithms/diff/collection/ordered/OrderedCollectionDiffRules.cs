@@ -8,6 +8,10 @@ using SharpDiffLib.fastReflection;
 
 namespace SharpDiffLib.algorithms.diff.collection.ordered
 {
+	/// <summary>
+	/// Rules for ordered collection diff algorithm.
+	/// </summary>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class OrderedCollectionDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IDiffAlgorithmRules

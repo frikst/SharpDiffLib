@@ -8,7 +8,7 @@ namespace SharpDiffLib.algorithms.applyPatch.collection.keyValue
 	/// <summary>
 	/// Rules for key value collection patch application algorithm.
 	/// </summary>
-	/// <typeparam name="TDefinedFor">Type for which are rules defined.</typeparam>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class ApplyKeyValueCollectionPatchRules<TDefinedFor> : BaseRules<TDefinedFor>, IApplyPatchAlgorithmRules<TDefinedFor>
 	{
 		#region Implementation of IApplyPatchAlgorithmRules

@@ -10,12 +10,10 @@ using SharpDiffLib.fastReflection;
 
 namespace SharpDiffLib.algorithms.diff.common.@class
 {
-	internal interface IClassDiffRules
-	{
-		IEnumerable<Property> IgnoredProperties { get; }
-		IEnumerable<Property> AlwaysIncludedProperties { get; }
-	}
-
+	/// <summary>
+	/// Rules for class diff algorithm.
+	/// </summary>
+	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
 	public class ClassDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>, IClassDiffRules
 	{
 		private readonly HashSet<Property> aIgnoreProperties;

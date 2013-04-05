@@ -60,6 +60,8 @@
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatch.cs" />
     <Compile Include="algorithms\applyPatch\common\value\ApplyValuePatchRules.cs" />
     <Compile Include="algorithms\applyPatch\NamespaceDoc.cs" />
+    <Compile Include="algorithms\diff\common\class\IClassDiffRules.cs" />
+    <Compile Include="algorithms\diff\NamespaceDoc.cs" />
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithm.cs" />
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithmRules.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\keyValue\MergeKeyValueCollectionDiffs.cs" />
