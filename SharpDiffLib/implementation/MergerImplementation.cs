@@ -13,6 +13,14 @@ using SharpDiffLib.algorithms.diff.collection.ordered;
 using SharpDiffLib.algorithms.diff.collection.unordered;
 using SharpDiffLib.algorithms.diff.common.@class;
 using SharpDiffLib.algorithms.diff.common.value;
+using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.algorithms.mergeDiffs.collection.keyValue;
+using SharpDiffLib.algorithms.mergeDiffs.collection.ordered;
+using SharpDiffLib.algorithms.mergeDiffs.collection.unordered;
+using SharpDiffLib.algorithms.mergeDiffs.common.@class;
+using SharpDiffLib.algorithms.mergeDiffs.common.value;
+using SharpDiffLib.algorithms.resolveConflicts.@base;
+using SharpDiffLib.algorithms.resolveConflicts.common.dontResolve;
 using SharpDiffLib.@base;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.definition;
@@ -57,12 +65,10 @@ namespace SharpDiffLib.implementation
 
 		private readonly IEnumerable<IClassMergerDefinition> aDefinitions;
 		private readonly Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> aRulesNotFoundFallback;
-		private readonly Action<Type, IConflictResolver> aResolveConflicts;
 
-		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback, Action<Type, IConflictResolver> resolveConflicts)
+		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback)
 		{
 			this.aRulesNotFoundFallback = rulesNotFoundFallback;
-			this.aResolveConflicts = resolveConflicts;
 			this.aDefinitions = definitions.ToList();
 
 			foreach (IClassMergerDefinition definition in this.aDefinitions)
@@ -89,10 +95,7 @@ namespace SharpDiffLib.implementation
 			{
 				ConflictResolver<TType> resolver = new ConflictResolver<TType>(patch, conflicts);
 
-				this.Partial.ResolveConflicts(patch, resolver);
-
-				if (resolver.HasConflicts)
-					this.aResolveConflicts(typeof(TType), resolver);
+				this.Partial.ResolveConflicts(resolver);
 
 				patch = resolver.Finish();
 			}
@@ -220,6 +223,25 @@ namespace SharpDiffLib.implementation
 					ret = typeof(ApplyClassPatchRules<>);
 				else
 					ret = typeof(ApplyValuePatchRules<>);
+			}
+			else if (typeof(IResolveConflictsAlgorithmRules).IsAssignableFrom(typeof(TRules)))
+			{
+				ret = typeof(DontResolveRules<>);
+			}
+			else if (typeof(IMergeDiffsAlgorithmRules).IsAssignableFrom(typeof(TRules)))
+			{
+				if (type.IsValueType || type == typeof(string))
+					ret = typeof(MergeValueDiffsRules<>);
+				else if (implementsISet)
+					ret = typeof(MergeUnorderedCollectionDiffsRules<>);
+				else if (implementsIEnumerableKeyValue)
+					ret = typeof(MergeKeyValueCollectionDiffsRules<>);
+				else if (implementsIEnumerable)
+					ret = typeof(MergeOrderedCollectionDiffsRules<>);
+				else if (this.GetMergerAnyDefinition(type) != null)
+					ret = typeof(MergeClassDiffsRules<>);
+				else
+					ret = typeof(MergeValueDiffsRules<>);
 			}
 
 			if (ret != null)

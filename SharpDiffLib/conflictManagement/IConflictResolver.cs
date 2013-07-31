@@ -9,6 +9,10 @@ namespace SharpDiffLib.conflictManagement
 		void ResolveConflict(IDiffItemConflicted conflict, ResolveAction resolve);
 
 		bool HasConflicts { get; }
+
+		IDiff Original { get; }
+
+		IDiff Resolved { get; }
 	}
 
 	public interface IConflictResolver<TType> : IConflictResolver

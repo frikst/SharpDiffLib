@@ -64,6 +64,9 @@
     <Compile Include="ConflictResolver\SimpleClass.cs" />
     <Compile Include="ConflictResolver\StructuredClass.cs" />
     <Compile Include="Diff\IncludeAlways.cs" />
+    <Compile Include="FullRun\UseAllRight.cs" />
+    <Compile Include="FullRun\UseAllLeft.cs" />
+    <Compile Include="FullRun\WithoutConflictsResolving.cs" />
     <Compile Include="General\DiffResultFactoryTest.cs" />
     <Compile Include="Diff\AlgorithmGuessing.cs" />
     <Compile Include="Diff\ArrayOfObjects.cs" />

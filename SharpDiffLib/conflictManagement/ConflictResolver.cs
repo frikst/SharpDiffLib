@@ -46,6 +46,16 @@ namespace SharpDiffLib.conflictManagement
 			}
 		}
 
+		IDiff IConflictResolver.Original
+		{
+			get { return this.Original; }
+		}
+
+		IDiff IConflictResolver.Resolved
+		{
+			get { return this.Resolved; }
+		}
+
 		#endregion
 
 		#region Implementation of IConflictResolver<TType>

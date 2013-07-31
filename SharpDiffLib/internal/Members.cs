@@ -8,6 +8,7 @@ using System.Text;
 using SharpDiffLib.algorithms.applyPatch.@base;
 using SharpDiffLib.algorithms.diff.@base;
 using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.algorithms.resolveConflicts.@base;
 using SharpDiffLib.@base;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.diffResult.action;
@@ -63,6 +64,16 @@ namespace SharpDiffLib.@internal
 			public static MethodInfo MergeDiffs(Type tType)
 			{
 				return typeof(IMergeDiffsAlgorithm<>).MakeGenericType(tType).GetMethod("MergeDiffs");
+			}
+		}
+
+		public class ResolveConflictsAlgorithm
+		{
+			private static readonly MethodInfo aGetAlgorithm = GetMethod<IResolveConflictsAlgorithmRules, IResolveConflictsAlgorithm>(x => x.GetAlgorithm<object>());
+
+			public static MethodInfo GetAlgorithm(Type tType)
+			{
+				return aGetAlgorithm.MakeGenericMethod(tType);
 			}
 		}
 

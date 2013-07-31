@@ -38,11 +38,8 @@ namespace SharpDiffLib.definition
 					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod("RulesNotFoundFallback", BindingFlags.NonPublic | BindingFlags.Instance);
 					Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback = (rules, type, rulesLocator) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, new object[] { rulesLocator });
 
-					MethodInfo resolveConflictsMethod = definition.GetType().GetMethod("ResolveConflicts", BindingFlags.NonPublic | BindingFlags.Instance);
-					Action<Type, IConflictResolver> resolveConflicts = (type, conflictResolver) => resolveConflictsMethod.MakeGenericMethod(type).Invoke(definition, new object[] { conflictResolver });
-
 					aMerger = new MergerImplementation(
-						definitions, rulesNotFoundFallback, resolveConflicts
+						definitions, rulesNotFoundFallback
 					);
 				}
 
@@ -64,11 +61,6 @@ namespace SharpDiffLib.definition
 			where TAlgorithmRules : class, IAlgorithmRules
 		{
 			return null;
-		}
-
-		protected virtual void ResolveConflicts<TType>(IConflictResolver<TType> conflictResolver)
-		{
-
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using SharpDiffLib.algorithms.applyPatch.@base;
 using SharpDiffLib.algorithms.diff.@base;
 using SharpDiffLib.algorithms.mergeDiffs.@base;
+using SharpDiffLib.algorithms.resolveConflicts.@base;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.diffResult.@base;
 
@@ -46,9 +47,10 @@ namespace SharpDiffLib.implementation
 			return new ConflictResolver<TType>(conflicted, conflicts);
 		}
 
-		public void ResolveConflicts<TType>(IDiff<TType> conflicted, IConflictResolver resolver)
+		public void ResolveConflicts<TType>(IConflictResolver<TType> resolver)
 		{
-			throw new NotImplementedException();
+			IResolveConflictsAlgorithm<TType> algorithm = this.Algorithms.GetResolveConflictsAlgorithm<TType>();
+			algorithm.ResolveConflicts(resolver);
 		}
 
 		public TType ApplyPatch<TType>(TType @object, IDiff<TType> patch)

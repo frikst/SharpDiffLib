@@ -78,6 +78,16 @@
     <Compile Include="algorithms\mergeDiffs\common\value\MergeValueDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\MergeDiffsRulesExtensions.cs" />
     <Compile Include="algorithms\NamespaceDoc.cs" />
+    <Compile Include="algorithms\resolveConflicts\base\IResolveConflictsAlgorithm.cs" />
+    <Compile Include="algorithms\resolveConflicts\base\IResolveConflictsAlgorithmRules.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\callBack\ResolveByCallBack.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\callBack\ResolveByCallBackRules.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\dontResolve\DontResolve.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\dontResolve\DontResolveRules.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\dontResolve\NotPossibleToResolveException.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\resolveAllSame\ResolveAllSame.cs" />
+    <Compile Include="algorithms\resolveConflicts\common\resolveAllSame\ResolveAllSameRules.cs" />
+    <Compile Include="algorithms\resolveConflicts\ResolveConflictsRulesExtensions.cs" />
     <Compile Include="conflictManagement\ConflictResolver.cs" />
     <Compile Include="conflictManagement\DynamicDiff.cs" />
     <Compile Include="conflictManagement\DynamicDiffItemChangedFactory.cs" />
