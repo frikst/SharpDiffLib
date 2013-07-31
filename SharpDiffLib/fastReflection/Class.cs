@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using SharpDiffLib.@base;
 using SharpDiffLib.@internal;
@@ -75,6 +76,11 @@ namespace SharpDiffLib.fastReflection
 		public static Property GetProperty(MemberInfo member)
 		{
 			return Properties.FirstOrDefault(property => property.ReflectionPropertyInfo == member);
+		}
+
+		public static Property GetProperty<TPropertyType>(Expression<Func<TClass, TPropertyType>> property)
+		{
+			return Class<TClass>.GetProperty(((MemberExpression) property.Body).Member);
 		}
 
 		public static Type[] KeyValueParams

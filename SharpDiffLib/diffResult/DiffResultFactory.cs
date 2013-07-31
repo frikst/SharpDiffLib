@@ -28,7 +28,7 @@ namespace SharpDiffLib.diffResult
 
 			public Class Changed<TValue>(Expression<Func<TType, TValue>> property, IDiff<TValue> diff)
 			{
-				var p = Class<TType>.GetProperty(((MemberExpression)property.Body).Member);
+				var p = Class<TType>.GetProperty(property);
 
 				if (p == null)
 					throw new Exception("Property does not exist in the selected class");
@@ -39,7 +39,7 @@ namespace SharpDiffLib.diffResult
 
 			public Class Replaced<TValue>(Expression<Func<TType, TValue>> property, TValue oldValue, TValue newValue)
 			{
-				var p = Class<TType>.GetProperty(((MemberExpression)property.Body).Member);
+				var p = Class<TType>.GetProperty(property);
 
 				if (p == null)
 					throw new Exception("Property does not exist in the selected class");
@@ -63,7 +63,7 @@ namespace SharpDiffLib.diffResult
 
 			public Class Unchanged<TValue>(Expression<Func<TType, TValue>> property, TValue value)
 			{
-				var p = Class<TType>.GetProperty(((MemberExpression)property.Body).Member);
+				var p = Class<TType>.GetProperty(property);
 
 				if (p == null)
 					throw new Exception("Property does not exist in the selected class");

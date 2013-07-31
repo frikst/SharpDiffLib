@@ -28,14 +28,14 @@ namespace SharpDiffLib.algorithms.diff.common.@class
 
 		public ClassDiffRules<TDefinedFor> Ignore<TPropertyType>(Expression<Func<TDefinedFor, TPropertyType>> property)
 		{
-			this.aIgnoreProperties.Add(Class<TDefinedFor>.GetProperty(((MemberExpression)property.Body).Member));
+			this.aIgnoreProperties.Add(Class<TDefinedFor>.GetProperty(property));
 
 			return this;
 		}
 
 		public ClassDiffRules<TDefinedFor> IncludeAlways<TPropertyType>(Expression<Func<TDefinedFor, TPropertyType>> property)
 		{
-			this.aAlwaysIncludedProperties.Add(Class<TDefinedFor>.GetProperty(((MemberExpression)property.Body).Member));
+			this.aAlwaysIncludedProperties.Add(Class<TDefinedFor>.GetProperty(property));
 
 			return this;
 		}

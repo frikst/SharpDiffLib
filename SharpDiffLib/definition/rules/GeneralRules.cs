@@ -26,7 +26,7 @@ namespace SharpDiffLib.definition.rules
 
 		public void Id<TReturnType>(Expression<Func<TType, TReturnType>> property)
 		{
-			this.aIdProperty = Class<TType>.GetProperty(((MemberExpression) property.Body).Member);
+			this.aIdProperty = Class<TType>.GetProperty(property);
 		}
 
 		#region Implementation of IGeneralRules
