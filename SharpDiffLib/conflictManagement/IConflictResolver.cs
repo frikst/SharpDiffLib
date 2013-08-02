@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
 
@@ -13,6 +14,8 @@ namespace SharpDiffLib.conflictManagement
 		IDiff Original { get; }
 
 		IDiff Resolved { get; }
+
+		Type ObjectType { get; }
 	}
 
 	public interface IConflictResolver<TType> : IConflictResolver

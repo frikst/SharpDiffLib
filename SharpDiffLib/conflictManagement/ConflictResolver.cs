@@ -56,6 +56,11 @@ namespace SharpDiffLib.conflictManagement
 			get { return this.Resolved; }
 		}
 
+		public Type ObjectType
+		{
+			get { return typeof(TType); }
+		}
+
 		#endregion
 
 		#region Implementation of IConflictResolver<TType>
