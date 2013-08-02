@@ -82,9 +82,9 @@ namespace SharpDiffLib.definition
 			get { return typeof(TClass); }
 		}
 
-		TRules IClassMergerDefinition.GetRules<TRules>()
+		TRules IClassMergerDefinition.GetRules<TRules>(IAlgorithmRules ignore)
 		{
-			return this.aRules.OfType<TRules>().FirstOrDefault();
+			return this.aRules.OfType<TRules>().FirstOrDefault(x => x != ignore);
 		}
 
 		IEnumerable<TRules> IClassMergerDefinition.GetAllRules<TRules>()

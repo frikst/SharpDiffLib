@@ -18,7 +18,7 @@ namespace SharpDiffLib.definition.rules
 		{
 			Property idProperty = null;
 
-			IGeneralRules rules = mergerImplementation.GetMergerRulesFor<IGeneralRules>(type);
+			IGeneralRules rules = mergerImplementation.GetMergerRulesFor<IGeneralRules>(type, null);
 
 			if (rules != null)
 				idProperty = rules.IdProperty;

@@ -9,7 +9,7 @@ namespace SharpDiffLib.definition
 	{
 		Type DefinedFor { get; }
 
-		TRules GetRules<TRules>()
+		TRules GetRules<TRules>(IAlgorithmRules ignore)
 			where TRules : class, IAlgorithmRules;
 
 		IEnumerable<TRules> GetAllRules<TRules>()

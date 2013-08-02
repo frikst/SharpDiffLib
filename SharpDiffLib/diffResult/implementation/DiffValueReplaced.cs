@@ -70,6 +70,15 @@ namespace SharpDiffLib.diffResult.implementation
 
 		#endregion
 
+		#region Implementation of IDiffValue
+
+		public Type ValueType
+		{
+			get { return typeof(TItemType); }
+		}
+
+		#endregion
+
 		#region Equality members
 
 		public override bool Equals(object obj)

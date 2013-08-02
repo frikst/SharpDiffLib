@@ -11,7 +11,7 @@ namespace SharpDiffLib.diffResult.implementation
 	{
 		public DiffValueChanged(Type type, IDiff<TItemType> valueDiff)
 		{
-			this.ItemType = type;
+			this.ValueType = type;
 			this.ValueDiff = valueDiff;
 		}
 
@@ -25,7 +25,10 @@ namespace SharpDiffLib.diffResult.implementation
 			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>) other).ValueDiff);
 		}
 
-		public Type ItemType { get; private set; }
+		public Type ItemType
+		{
+			get { return typeof(TItemType); }
+		}
 
 		public string ToString(int indentLevel)
 		{
@@ -61,6 +64,12 @@ namespace SharpDiffLib.diffResult.implementation
 		{
 			return new DiffValueChanged<TItemType>(this.ItemType, diff);
 		}
+
+		#endregion
+
+		#region Implementation of IDiffValue
+
+		public Type ValueType { get; private set; }
 
 		#endregion
 

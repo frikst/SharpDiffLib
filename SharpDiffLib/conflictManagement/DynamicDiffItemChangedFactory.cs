@@ -3,52 +3,57 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
+using SharpDiffLib.diffResult.type;
 using SharpDiffLib.@internal;
 
 namespace SharpDiffLib.conflictManagement
 {
 	internal class DynamicDiffItemChangedFactory
 	{
-		private static readonly Dictionary<Type, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>> aCreateItemChangedEnvelopeCache
-			= new Dictionary<Type, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>>();
-
-		private static readonly Dictionary<Type, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>> aCreateFinishedItemChangedEnvelopeCache
-			= new Dictionary<Type, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>>();
+		private static readonly Dictionary<Tuple<Type, Type>, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>> aCreateItemChangedEnvelopeCache
+			= new Dictionary<Tuple<Type, Type>, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>>();
 
 		private readonly Dictionary<IDiffItemConflicted, ResolveAction> aResolveActions;
 		private bool aFinishItems;
-		private readonly Dictionary<Type, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>> aCreateItemChangedEnvelopeCacheLocal;
 
 		public DynamicDiffItemChangedFactory(Dictionary<IDiffItemConflicted, ResolveAction> resolveActions, bool finishItems)
 		{
 			this.aResolveActions = resolveActions;
-
-			this.aCreateItemChangedEnvelopeCacheLocal = finishItems ? aCreateItemChangedEnvelopeCache : aCreateFinishedItemChangedEnvelopeCache;
 			this.aFinishItems = finishItems;
 		}
 
 		public IDiffItem Create(IDiffItemChanged item)
 		{
+			Tuple<Type, Type> key;
+
+			if (item is IDiffValue)
+				key = Tuple.Create(item.ItemType, ((IDiffValue) item).ValueType);
+			else
+				key = Tuple.Create(item.ItemType, item.ItemType);
+
 			Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged> envelope;
-			if (!aCreateItemChangedEnvelopeCache.TryGetValue(item.ItemType, out envelope))
-				envelope = aCreateItemChangedEnvelopeCache[item.ItemType] = this.CompileCreateItemChangedEnvelope(item.ItemType);
+			if (!aCreateItemChangedEnvelopeCache.TryGetValue(key, out envelope))
+				envelope = aCreateItemChangedEnvelopeCache[key] = this.CompileCreateItemChangedEnvelope(key.Item1, key.Item2);
 
 			return envelope(item, this.aResolveActions);
 		}
 
-		private Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged> CompileCreateItemChangedEnvelope(Type type)
+		private Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged> CompileCreateItemChangedEnvelope(Type itemType, Type diffType)
 		{
 			ParameterExpression originalItem = Expression.Parameter(typeof(IDiffItem), "originalItem");
 			ParameterExpression resolveActions = Expression.Parameter(typeof(Dictionary<IDiffItemConflicted, ResolveAction>), "resolveActions");
 
 			Expression newDiff = Expression.New(
-				Members.DynamicDiffMembers.New(type),
-				Expression.Property(
-					Expression.Convert(
-						originalItem,
-						typeof(IDiffItemChanged<>).MakeGenericType(type)
+				Members.DynamicDiffMembers.New(diffType),
+				Expression.Convert(
+					Expression.Property(
+						Expression.Convert(
+							originalItem,
+							typeof(IDiffItemChanged<>).MakeGenericType(itemType)
+						),
+						Members.DiffItems.ChangedDiff(itemType)
 					),
-					Members.DiffItems.ChangedDiff(type)
+					typeof(IDiff<>).MakeGenericType(diffType)
 				),
 				resolveActions
 			);
@@ -57,7 +62,7 @@ namespace SharpDiffLib.conflictManagement
 			{
 				newDiff = Expression.Call(
 					newDiff,
-					Members.DynamicDiffMembers.Finish(type)
+					Members.DynamicDiffMembers.Finish(diffType)
 				);
 			}
 
@@ -65,9 +70,9 @@ namespace SharpDiffLib.conflictManagement
 				Expression.Call(
 					Expression.Convert(
 						originalItem,
-						typeof(IDiffItemChanged<>).MakeGenericType(type)
+						typeof(IDiffItemChanged<>).MakeGenericType(itemType)
 					),
-					Members.DiffItems.ReplaceDiffWith(type),
+					Members.DiffItems.ReplaceDiffWith(itemType),
 					newDiff
 				),
 				originalItem, resolveActions

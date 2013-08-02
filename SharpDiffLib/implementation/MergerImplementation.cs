@@ -45,13 +45,13 @@ namespace SharpDiffLib.implementation
 			public TRules GetMergerRulesFor<TRules>(Type type)
 				where TRules : class, IAlgorithmRules
 			{
-				return this.aMergerImplementation.GetMergerRulesFor<TRules>(type);
+				return this.aMergerImplementation.GetMergerRulesFor<TRules>(type, null);
 			}
 
 			public TRules GetMergerRulesForWithDefault<TRules>(Type type)
 				where TRules : class, IAlgorithmRules
 			{
-				return this.aMergerImplementation.GetMergerRulesForWithDefault<TRules>(type);
+				return this.aMergerImplementation.GetMergerRulesForWithDefault<TRules>(type, null);
 			}
 
 			public TRules GuessRules<TRules>(Type type)
@@ -103,12 +103,12 @@ namespace SharpDiffLib.implementation
 			return this.Partial.ApplyPatch(@base, patch);
 		}
 
-		internal TRules GetMergerRulesFor<TRules>(Type type)
+		internal TRules GetMergerRulesFor<TRules>(Type type, IAlgorithmRules ignore)
 			where TRules : class, IAlgorithmRules
 		{
 			foreach (IClassMergerDefinition definition in this.GetDefinitionFor(type))
 			{
-				TRules rules = definition.GetRules<TRules>();
+				TRules rules = definition.GetRules<TRules>(ignore);
 
 				if (rules != null)
 					return rules;
@@ -151,10 +151,10 @@ namespace SharpDiffLib.implementation
 			return null;
 		}
 
-		internal TRules GetMergerRulesForWithDefault<TRules>(Type type)
+		internal TRules GetMergerRulesForWithDefault<TRules>(Type type, IAlgorithmRules ignore)
 			where TRules : class, IAlgorithmRules
 		{
-			TRules ret = this.GetMergerRulesFor<TRules>(type);
+			TRules ret = this.GetMergerRulesFor<TRules>(type, ignore);
 
 			if (ret != null)
 				return ret;

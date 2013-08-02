@@ -11,7 +11,7 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 		{
 			this.ValidateType<TType>();
 
-			return new MergeValueDiffs<TType>(this.MergerImplementation);
+			return new MergeValueDiffs<TType>(this.MergerImplementation, this);
 		}
 
 		#endregion

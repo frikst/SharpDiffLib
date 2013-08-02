@@ -14,80 +14,82 @@ namespace SharpDiffLib.implementation
 	{
 		private readonly MergerImplementation aMergerImplementation;
 
-		private readonly Dictionary<Type, IDiffAlgorithm> aDiffAlgorithms;
-		private readonly Dictionary<Type, IApplyPatchAlgorithm> aApplyPatchAlgorithms;
-		private readonly Dictionary<Type, IMergeDiffsAlgorithm> aMergeDiffsAlgorithms;
-		private Dictionary<Type, IResolveConflictsAlgorithm> aResolveConflictsAlgorithms;
+		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IDiffAlgorithm> aDiffAlgorithms;
+		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IApplyPatchAlgorithm> aApplyPatchAlgorithms;
+		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IMergeDiffsAlgorithm> aMergeDiffsAlgorithms;
+		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IResolveConflictsAlgorithm> aResolveConflictsAlgorithms;
 
 		internal PartialMergerAlgorithmsContainer(MergerImplementation mergerImplementation)
 		{
-			this.aDiffAlgorithms = new Dictionary<Type, IDiffAlgorithm>();
-			this.aApplyPatchAlgorithms = new Dictionary<Type, IApplyPatchAlgorithm>();
-			this.aMergeDiffsAlgorithms = new Dictionary<Type, IMergeDiffsAlgorithm>();
-			this.aResolveConflictsAlgorithms = new Dictionary<Type, IResolveConflictsAlgorithm>();
+			this.aDiffAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IDiffAlgorithm>();
+			this.aApplyPatchAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IApplyPatchAlgorithm>();
+			this.aMergeDiffsAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IMergeDiffsAlgorithm>();
+			this.aResolveConflictsAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IResolveConflictsAlgorithm>();
 
 			this.aMergerImplementation = mergerImplementation;
 		}
 
-		public IDiffAlgorithm<TType> GetDiffAlgorithm<TType>()
+		public IDiffAlgorithm<TType> GetDiffAlgorithm<TType>(IAlgorithmRules ignore = null)
 		{
-			return (IDiffAlgorithm<TType>)this.GetDiffAlgorithm(typeof(TType));
+			return (IDiffAlgorithm<TType>)this.GetDiffAlgorithm(typeof(TType), ignore);
 		}
 
-		public IDiffAlgorithm GetDiffAlgorithm(Type type)
+		public IDiffAlgorithm GetDiffAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IDiffAlgorithm, IDiffAlgorithmRules>(type, this.aDiffAlgorithms, Members.DiffAlgorithm.GetAlgorithm(type));
+			return this.GetAlgorithmHelper<IDiffAlgorithm, IDiffAlgorithmRules>(type, this.aDiffAlgorithms, Members.DiffAlgorithm.GetAlgorithm(type), ignore);
 		}
 
-		public IMergeDiffsAlgorithm<TType> GetMergeDiffsAlgorithm<TType>()
+		public IMergeDiffsAlgorithm<TType> GetMergeDiffsAlgorithm<TType>(IAlgorithmRules ignore = null)
 		{
-			return (IMergeDiffsAlgorithm<TType>)this.GetMergeDiffsAlgorithm(typeof(TType));
+			return (IMergeDiffsAlgorithm<TType>)this.GetMergeDiffsAlgorithm(typeof(TType), ignore);
 		}
 
-		public IMergeDiffsAlgorithm GetMergeDiffsAlgorithm(Type type)
+		public IMergeDiffsAlgorithm GetMergeDiffsAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IMergeDiffsAlgorithm, IMergeDiffsAlgorithmRules>(type, this.aMergeDiffsAlgorithms, Members.MergeDiffsAlgorithm.GetAlgorithm(type));
+			return this.GetAlgorithmHelper<IMergeDiffsAlgorithm, IMergeDiffsAlgorithmRules>(type, this.aMergeDiffsAlgorithms, Members.MergeDiffsAlgorithm.GetAlgorithm(type), ignore);
 		}
 
-		public IResolveConflictsAlgorithm<TType> GetResolveConflictsAlgorithm<TType>()
+		public IResolveConflictsAlgorithm<TType> GetResolveConflictsAlgorithm<TType>(IAlgorithmRules ignore = null)
 		{
-			return (IResolveConflictsAlgorithm<TType>)this.GetResolveConflictsAlgorithm(typeof(TType));
+			return (IResolveConflictsAlgorithm<TType>)this.GetResolveConflictsAlgorithm(typeof(TType), ignore);
 		}
 
-		public IResolveConflictsAlgorithm GetResolveConflictsAlgorithm(Type type)
+		public IResolveConflictsAlgorithm GetResolveConflictsAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IResolveConflictsAlgorithm, IResolveConflictsAlgorithmRules>(type, this.aResolveConflictsAlgorithms, Members.ResolveConflictsAlgorithm.GetAlgorithm(type));
+			return this.GetAlgorithmHelper<IResolveConflictsAlgorithm, IResolveConflictsAlgorithmRules>(type, this.aResolveConflictsAlgorithms, Members.ResolveConflictsAlgorithm.GetAlgorithm(type), ignore);
 		}
 
-		public IApplyPatchAlgorithm<TType> GetApplyPatchAlgorithm<TType>()
+		public IApplyPatchAlgorithm<TType> GetApplyPatchAlgorithm<TType>(IAlgorithmRules ignore = null)
 		{
-			return (IApplyPatchAlgorithm<TType>)this.GetApplyPatchAlgorithm(typeof(TType));
+			return (IApplyPatchAlgorithm<TType>)this.GetApplyPatchAlgorithm(typeof(TType), ignore);
 		}
 
-		public IApplyPatchAlgorithm GetApplyPatchAlgorithm(Type type)
+		public IApplyPatchAlgorithm GetApplyPatchAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IApplyPatchAlgorithm, IApplyPatchAlgorithmRules>(type, this.aApplyPatchAlgorithms, Members.ApplyPatchAlgorithm.GetAlgorithm(type));
+			return this.GetAlgorithmHelper<IApplyPatchAlgorithm, IApplyPatchAlgorithmRules>(type, this.aApplyPatchAlgorithms, Members.ApplyPatchAlgorithm.GetAlgorithm(type), ignore);
 		}
 
-		private TAlgorithm GetAlgorithmHelper<TAlgorithm, TAlgorithmRules>(Type type, Dictionary<Type, TAlgorithm> algorithms, MethodInfo method)
+		private TAlgorithm GetAlgorithmHelper<TAlgorithm, TAlgorithmRules>(Type type, Dictionary<Tuple<Type, IAlgorithmRules>, TAlgorithm> algorithms, MethodInfo method, IAlgorithmRules ignore)
 			where TAlgorithmRules : class, IAlgorithmRules
 			where TAlgorithm : class
 		{
+			Tuple<Type, IAlgorithmRules> algorihmKey = Tuple.Create(type, ignore);
+
 			TAlgorithm ret;
-			if (algorithms.TryGetValue(type, out ret))
+			if (algorithms.TryGetValue(algorihmKey, out ret))
 				return ret;
 
-			TAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<TAlgorithmRules>(type);
+			TAlgorithmRules rules = this.aMergerImplementation.GetMergerRulesForWithDefault<TAlgorithmRules>(type, ignore);
 
 			if (rules == null)
 			{
-				algorithms[type] = null;
+				algorithms[algorihmKey] = null;
 				return ret;
 			}
 
 			ret = (TAlgorithm)method.Invoke(rules, null);
 
-			algorithms[type] = ret;
+			algorithms[algorihmKey] = ret;
 			return ret;
 		}
 	}

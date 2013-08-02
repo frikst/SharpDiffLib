@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SharpDiffLib.algorithms.applyPatch.@base;
+using SharpDiffLib.definition.rules;
 using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
 using SharpDiffLib.diffResult.type;
@@ -12,10 +13,12 @@ namespace SharpDiffLib.algorithms.applyPatch.common.value
 	{
 		private readonly MergerImplementation aMergerImplementation;
 		private readonly Dictionary<Type, IApplyPatchAlgorithm> aTypes;
+		private readonly IAlgorithmRules aRules;
 
-		public ApplyValuePatch(MergerImplementation mergerImplementation)
+		public ApplyValuePatch(MergerImplementation mergerImplementation, IAlgorithmRules rules)
 		{
 			this.aMergerImplementation = mergerImplementation;
+			this.aRules = rules;
 			this.aTypes = new Dictionary<Type, IApplyPatchAlgorithm>();
 		}
 
@@ -43,7 +46,7 @@ namespace SharpDiffLib.algorithms.applyPatch.common.value
 					IApplyPatchAlgorithm algorithm;
 
 					if (!this.aTypes.TryGetValue(sourceType, out algorithm))
-						algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(sourceType);
+						algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(sourceType,this.aRules);
 
 					return (TType) algorithm.Apply(source, diff);
 

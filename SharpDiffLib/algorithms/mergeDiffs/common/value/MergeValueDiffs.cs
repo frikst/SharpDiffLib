@@ -4,9 +4,11 @@ using System.Linq;
 using SharpDiffLib.algorithms.mergeDiffs.@base;
 using SharpDiffLib.@base;
 using SharpDiffLib.conflictManagement;
+using SharpDiffLib.definition.rules;
 using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
 using SharpDiffLib.diffResult.implementation;
+using SharpDiffLib.diffResult.type;
 using SharpDiffLib.implementation;
 
 namespace SharpDiffLib.algorithms.mergeDiffs.common.value
@@ -14,10 +16,12 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 	internal class MergeValueDiffs<TType> : IMergeDiffsAlgorithm<TType>
 	{
 		private readonly MergerImplementation aMergerImplementation;
+		private readonly IAlgorithmRules aRules;
 
-		public MergeValueDiffs(MergerImplementation mergerImplementation)
+		public MergeValueDiffs(MergerImplementation mergerImplementation, IAlgorithmRules rules)
 		{
 			this.aMergerImplementation = mergerImplementation;
+			aRules = rules;
 		}
 
 		#region Implementation of IMergeDiffsAlgorithm<TType>
@@ -31,7 +35,7 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 			else if (left.Count == 1 && right.Count == 0)
 				ret.AddRange(left);
 			else if (left.Count == 1 && right.Count == 1)
-				this.ProcessConflict(left.First(), right.First(), ret, conflicts);
+				this.ProcessConflict((IDiffValue) left.First(), (IDiffValue) right.First(), ret, conflicts);
 			else if (left.Count > 0 && right.Count > 0)
 				throw new Exception();
 
@@ -49,7 +53,7 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 
 		#endregion
 
-		private void ProcessConflict(IDiffItem leftItem, IDiffItem rightItem, List<IDiffItem> ret, IConflictContainer conflicts)
+		private void ProcessConflict(IDiffValue leftItem, IDiffValue rightItem, List<IDiffItem> ret, IConflictContainer conflicts)
 		{
 			if (leftItem is IDiffItemReplaced && rightItem is IDiffItemReplaced && leftItem.IsSame(rightItem))
 			{
@@ -57,9 +61,9 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 			}
 			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
 			{
-				Type itemType = leftItem.ItemType;
+				Type itemType = leftItem.ValueType;
 
-				IMergeDiffsAlgorithm mergeItemsDiffs = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm(itemType);
+				IMergeDiffsAlgorithm mergeItemsDiffs = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm(itemType, this.aRules);
 
 				IDiff diffLeft = ((IDiffItemChanged) leftItem).ValueDiff;
 				IDiff diffRight = ((IDiffItemChanged) rightItem).ValueDiff;

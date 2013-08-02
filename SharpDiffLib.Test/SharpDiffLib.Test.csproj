@@ -64,6 +64,7 @@
     <Compile Include="ConflictResolver\SimpleClass.cs" />
     <Compile Include="ConflictResolver\StructuredClass.cs" />
     <Compile Include="Diff\IncludeAlways.cs" />
+    <Compile Include="FullRun\SubClass.cs" />
     <Compile Include="FullRun\UseAllRight.cs" />
     <Compile Include="FullRun\UseAllLeft.cs" />
     <Compile Include="FullRun\WithoutConflictsResolving.cs" />

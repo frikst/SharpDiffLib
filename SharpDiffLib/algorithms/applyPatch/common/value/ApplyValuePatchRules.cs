@@ -15,7 +15,7 @@ namespace SharpDiffLib.algorithms.applyPatch.common.value
 		{
 			this.ValidateType<TType>();
 
-			return new ApplyValuePatch<TType>(this.MergerImplementation);
+			return new ApplyValuePatch<TType>(this.MergerImplementation, this);
 		}
 
 		#endregion

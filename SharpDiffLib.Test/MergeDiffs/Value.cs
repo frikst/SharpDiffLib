@@ -21,7 +21,8 @@ namespace SharpDiffLib.Test.MergeDiffs
 					.GeneralRules(rules => rules
 						.Id(x => x.Id)
 					)
-					.MergeValueDiffsRules();
+					.MergeValueDiffsRules()
+					.MergeClassDiffsRules();
 				Define<SampleDescendant1>()
 					.MergeClassDiffsRules();
 				Define<int>()
