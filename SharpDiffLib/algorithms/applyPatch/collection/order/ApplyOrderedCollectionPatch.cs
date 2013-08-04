@@ -98,6 +98,7 @@ namespace SharpDiffLib.algorithms.applyPatch.collection.order
 						)
 					);
 					lastMoveNext = enumerator.MoveNext();
+					currentIndex++;
 				}
 				else if (item is IDiffItemRemoved<TItemType>)
 					lastMoveNext = enumerator.MoveNext();
