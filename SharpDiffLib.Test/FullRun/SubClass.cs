@@ -41,7 +41,7 @@ namespace SharpDiffLib.Test.FullRun
 
 			SampleBase ret = Merger.Instance.Merge(@base, left, right);
 			Assert.IsInstanceOfType(ret, typeof(SampleDescendant1));
-			Assert.AreEqual(((SampleDescendant1) ret).Value, "a");
+			Assert.AreEqual("a", ((SampleDescendant1)ret).Value);
 		}
 
 		[TestMethod]
@@ -64,7 +64,7 @@ namespace SharpDiffLib.Test.FullRun
 
 			SampleBase ret = Merger.Instance.Merge(@base, left, right);
 			Assert.IsInstanceOfType(ret, typeof(SampleDescendant1));
-			Assert.AreEqual(((SampleDescendant1)ret).Value, "a");
+			Assert.AreEqual("a", ((SampleDescendant1)ret).Value);
 		}
 	}
 }

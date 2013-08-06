@@ -29,7 +29,7 @@ namespace SharpDiffLib.Test.ApplyPatch
 			Sample obj = new Sample { ValueInner = new SampleInner { Value = "hello" }, };
 			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(ret.ValueInner.Value, "hello");
+			Assert.AreEqual("hello", ret.ValueInner.Value);
 		}
 
 		[TestMethod]
@@ -42,7 +42,7 @@ namespace SharpDiffLib.Test.ApplyPatch
 			Sample obj = new Sample { ValueInner = new SampleInner { Value = "hello" }, };
 			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(ret.ValueInner.Value, "world");
+			Assert.AreEqual("world", ret.ValueInner.Value);
 		}
 
 		[TestMethod]
@@ -58,7 +58,7 @@ namespace SharpDiffLib.Test.ApplyPatch
 			Sample obj = new Sample { ValueInner = new SampleInner { Value = "hello" }, };
 			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(ret.ValueInner.Value, "world");
+			Assert.AreEqual("world", ret.ValueInner.Value);
 		}
 	}
 }

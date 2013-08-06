@@ -37,7 +37,7 @@ namespace SharpDiffLib.Test.FullRun
 
 			Sample ret = Merger.Instance.Merge(@base, left, right);
 
-			Assert.AreEqual(ret.Value, "a");
+			Assert.AreEqual("a", ret.Value);
 			Assert.IsNull(ret.Value2);
 		}
 
@@ -58,8 +58,8 @@ namespace SharpDiffLib.Test.FullRun
 
 			Sample ret = Merger.Instance.Merge(@base, left, right);
 
-			Assert.AreEqual(ret.Value, "a");
-			Assert.AreEqual(ret.Value2, "b");
+			Assert.AreEqual("a", ret.Value);
+			Assert.AreEqual("b", ret.Value2);
 		}
 
 		[TestMethod]
@@ -79,7 +79,7 @@ namespace SharpDiffLib.Test.FullRun
 
 			Sample ret = Merger.Instance.Merge(@base, left, right);
 
-			Assert.AreEqual(ret.Value, "b");
+			Assert.AreEqual("b", ret.Value);
 			Assert.IsNull(ret.Value2);
 		}
 	}

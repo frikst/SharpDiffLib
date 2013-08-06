@@ -71,7 +71,7 @@ namespace SharpDiffLib.Test.ApplyPatch
 
 			var ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
 
-			Assert.AreEqual(ret.Value, "two");
+			Assert.AreEqual("two", ret.Value);
 		}
 	}
 }
