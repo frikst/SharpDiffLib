@@ -185,7 +185,15 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
 		private Expression CompileCheckConflicts(Property property, Expression leftCurrent, Expression rightCurrent, Expression conflicts, Expression ret)
 		{
 			/* PSEUDO CODE FOR THIS:
-			 * if (leftCurrent is Replace || rightCurrent is Replace)
+			 * if (leftCurrent is Unchanged)
+			 * {
+			 *     add(rightCurrent)
+			 * }
+			 * else if (rightCurrent is Unchanged)
+			 * {
+			 *     add(leftCurrent)
+			 * }
+			 * else if (leftCurrent is Replace || rightCurrent is Replace)
 			 * {
 			 *     if (leftCurrent == rightCurrent)
 			 *          add(leftCurrent)
@@ -200,14 +208,6 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
 			 * {
 			 *     add(algorithm.Merge(leftCurrent.ValueDiff, rightCurrent.ValueDiff, conflicts))
 			 * }
-			 * else if (leftCurrent is Unchanged)
-			 * {
-			 *     add(rightCurrent)
-			 * }
-			 * else if (rightCurrent is Unchanged)
-			 * {
-			 *     add(leftCurrent)
-			 * }
 			 * else
 			 *     throw
 			 */
@@ -218,84 +218,85 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
 			ParameterExpression conflict = Expression.Parameter(typeof(IDiffItemConflicted), "conflict");
 
 			return Expression.IfThenElse(
-				Expression.OrElse(
-					Expression.TypeIs(leftCurrent, itemReplacedType),
-					Expression.TypeIs(rightCurrent, itemReplacedType)
+				Expression.TypeIs(leftCurrent, typeof(IDiffItemUnchanged)),
+				Expression.Call(
+					ret,
+					Members.List.Add(typeof(IDiffItem)),
+					rightCurrent
 				),
 				Expression.IfThenElse(
-					Expression.Call(
-						null,
-						Members.Object.Equals(),
-						leftCurrent,
-						rightCurrent
-					),
+					Expression.TypeIs(rightCurrent, typeof(IDiffItemUnchanged)),
 					Expression.Call(
 						ret,
 						Members.List.Add(typeof(IDiffItem)),
 						leftCurrent
 					),
-					Expression.Block(
-						new[] { conflict },
-						Expression.Assign(
-							conflict,
-							Expression.New(
-								Members.DiffItems.NewConflict(),
-								leftCurrent,
-								rightCurrent
-							)
-						),
-						Expression.Call(
-							ret,
-							Members.List.Add(typeof(IDiffItem)),
-							conflict
-						),
-						Expression.Call(
-							conflicts,
-							Members.ConflictContainer.RegisterConflict(),
-							conflict
-						)
-					)
-				),
-				Expression.IfThenElse(
-					Expression.AndAlso(
-						Expression.TypeIs(leftCurrent, typeof(IDiffItemChanged)),
-						Expression.TypeIs(rightCurrent, typeof(IDiffItemChanged))
-					),
-					Expression.Call(
-						ret,
-						Members.List.Add(typeof(IDiffItem)),
-						Expression.New(
-							Members.DiffItems.NewClassChanged(property.Type),
-							Expression.Constant(property),
-							Expression.Call(
-								Expression.Constant(algorithm, typeof(IMergeDiffsAlgorithm<>).MakeGenericType(property.Type)),
-								Members.MergeDiffsAlgorithm.MergeDiffs(property.Type),
-								Expression.Property(
-									Expression.Convert(leftCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-									Members.DiffItems.ChangedDiff(property.Type)
-								),
-								Expression.Property(
-									Expression.Convert(rightCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-									Members.DiffItems.ChangedDiff(property.Type)
-								),
-								conflicts
-							)
-						)
-					),
 					Expression.IfThenElse(
-						Expression.TypeIs(leftCurrent, typeof(IDiffItemUnchanged)),
-						Expression.Call(
-							ret,
-							Members.List.Add(typeof(IDiffItem)),
-							rightCurrent
+						Expression.OrElse(
+							Expression.TypeIs(leftCurrent, itemReplacedType),
+							Expression.TypeIs(rightCurrent, itemReplacedType)
 						),
 						Expression.IfThenElse(
-							Expression.TypeIs(rightCurrent, typeof(IDiffItemUnchanged)),
+							Expression.Call(
+								null,
+								Members.Object.Equals(),
+								leftCurrent,
+								rightCurrent
+							),
 							Expression.Call(
 								ret,
 								Members.List.Add(typeof(IDiffItem)),
 								leftCurrent
 							),
+							Expression.Block(
+								new[] { conflict },
+								Expression.Assign(
+									conflict,
+									Expression.New(
+										Members.DiffItems.NewConflict(),
+										leftCurrent,
+										rightCurrent
+									)
+								),
+								Expression.Call(
+									ret,
+									Members.List.Add(typeof(IDiffItem)),
+									conflict
+								),
+								Expression.Call(
+									conflicts,
+									Members.ConflictContainer.RegisterConflict(),
+									conflict
+								)
+							)
+						),
+						Expression.IfThenElse(
+							Expression.AndAlso(
+								Expression.TypeIs(leftCurrent, typeof(IDiffItemChanged)),
+								Expression.TypeIs(rightCurrent, typeof(IDiffItemChanged))
+							),
+							Expression.Call(
+								ret,
+								Members.List.Add(typeof(IDiffItem)),
+								Expression.New(
+									Members.DiffItems.NewClassChanged(property.Type),
+									Expression.Constant(property),
+									Expression.Call(
+										Expression.Constant(algorithm, typeof(IMergeDiffsAlgorithm<>).MakeGenericType(property.Type)),
+										Members.MergeDiffsAlgorithm.MergeDiffs(property.Type),
+										Expression.Property(
+											Expression.Convert(leftCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+											Members.DiffItems.ChangedDiff(property.Type)
+										),
+										Expression.Property(
+											Expression.Convert(rightCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
+											Members.DiffItems.ChangedDiff(property.Type)
+										),
+										conflicts
+									)
+								)
+							),
+					
 							Expression.Throw(
 								Expression.New(typeof(Exception))
 							)

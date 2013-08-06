@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDiffLib.Test._Entities.SimpleClass;
 using SharpDiffLib.algorithms.mergeDiffs;
-using SharpDiffLib.@base;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.definition;
 using SharpDiffLib.diffResult;
@@ -121,6 +120,48 @@ namespace SharpDiffLib.Test.MergeDiffs
 
 			var merged = DiffResultFactory.Class<Sample>.Create()
 				.Replaced(x => x.Value, "a", "b")
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(conflicts.HasConflicts);
+		}
+
+		[TestMethod]
+		public void MergeUnchangedReplaced()
+		{
+			var left = DiffResultFactory.Class<Sample>.Create()
+				.Unchanged(x => x.Value, "a")
+				.MakeDiff();
+			var right = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.Value, "a", "b")
+				.MakeDiff();
+
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
+
+			var merged = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.Value, "a", "b")
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(conflicts.HasConflicts);
+		}
+
+		[TestMethod]
+		public void MergeUnchangedUnchanged()
+		{
+			var left = DiffResultFactory.Class<Sample>.Create()
+				.Unchanged(x => x.Value, "a")
+				.MakeDiff();
+			var right = DiffResultFactory.Class<Sample>.Create()
+				.Unchanged(x => x.Value, "a")
+				.MakeDiff();
+
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
+
+			var merged = DiffResultFactory.Class<Sample>.Create()
+				.Unchanged(x => x.Value, "a")
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);

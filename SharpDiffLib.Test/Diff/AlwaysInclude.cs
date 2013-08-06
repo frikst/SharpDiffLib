@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDiffLib.Test._Entities.BaseWithoutId;
 using SharpDiffLib.algorithms.diff;
 using SharpDiffLib.definition;
@@ -10,7 +6,7 @@ using SharpDiffLib.definition;
 namespace SharpDiffLib.Test.Diff
 {
 	[TestClass]
-	public class IncludeAlways
+	public class AlwaysInclude
 	{
 		private class Merger : MergerDefinition<Merger>
 		{
@@ -18,12 +14,12 @@ namespace SharpDiffLib.Test.Diff
 			{
 				Define<SampleBase>()
 					.Inheritable.ClassDiffRules(rules => rules
-						.IncludeAlways(x => x.Value)
+						.AlwaysInclude(x => x.Value)
 					);
 
 				Define<SampleDescendant>()
 					.ClassDiffRules(rules => rules
-						.IncludeAlways(x => x.Value3)
+						.AlwaysInclude(x => x.Value3)
 					);
 			}
 		}

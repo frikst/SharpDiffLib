@@ -33,7 +33,7 @@ namespace SharpDiffLib.algorithms.diff.common.@class
 			return this;
 		}
 
-		public ClassDiffRules<TDefinedFor> IncludeAlways<TPropertyType>(Expression<Func<TDefinedFor, TPropertyType>> property)
+		public ClassDiffRules<TDefinedFor> AlwaysInclude<TPropertyType>(Expression<Func<TDefinedFor, TPropertyType>> property)
 		{
 			this.aAlwaysIncludedProperties.Add(Class<TDefinedFor>.GetProperty(property));
 
