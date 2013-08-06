@@ -129,16 +129,19 @@ namespace SharpDiffLib.algorithms.applyPatch.common.@class
 					),
 					Expression.IfThenElse(
 						Expression.AndAlso(
-							someLeft,
-							Expression.Equal(
-								Expression.Property(
+							Expression.Not(Expression.TypeIs(item, typeof(IDiffItemUnchanged))),
+							Expression.AndAlso(
+								someLeft,
+								Expression.Equal(
 									Expression.Property(
-										item,
-										Members.DiffItems.ClassProperty()
+										Expression.Property(
+											item,
+											Members.DiffItems.ClassProperty()
+										),
+										Members.FastProperty.UniqueID()
 									),
-									Members.FastProperty.UniqueID()
-								),
-								Expression.Constant(property.UniqueID)
+									Expression.Constant(property.UniqueID)
+								)
 							)
 						),
 						Expression.Block(

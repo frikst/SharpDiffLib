@@ -42,5 +42,18 @@ namespace SharpDiffLib.Test.ApplyPatch
 
 			Assert.AreEqual("world", ret.Value);
 		}
+
+		[TestMethod]
+		public void Unchanged()
+		{
+			var diff = DiffResultFactory.Class<Sample>.Create()
+				.Unchanged(x => x.Value, "hello")
+				.MakeDiff();
+
+			Sample obj = new Sample { Value = "hello" };
+			Sample ret = Merger.Instance.Partial.ApplyPatch(obj, diff);
+
+			Assert.AreEqual("hello", ret.Value);
+		}
 	}
 }
