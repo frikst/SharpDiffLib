@@ -98,6 +98,16 @@ namespace SharpDiffLib.conflictManagement
 			return ret.ToString().TrimEnd('\r', '\n');
 		}
 
+		public override string ToString()
+		{
+			return this.ToString(0);
+		}
+
+		public bool HasChanges
+		{
+			get { return this.aOriginal.HasChanges; }
+		}
+
 		#endregion
 
 		#region Equality members

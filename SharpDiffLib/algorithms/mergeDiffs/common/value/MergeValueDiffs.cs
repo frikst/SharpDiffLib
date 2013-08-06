@@ -30,14 +30,12 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 		{
 			List<IDiffItem> ret = new List<IDiffItem>(1);
 
-			if (left.Count == 0 && right.Count == 1)
+			if (!left.HasChanges && right.HasChanges)
 				ret.AddRange(right);
-			else if (left.Count == 1 && right.Count == 0)
+			else if (left.HasChanges && !right.HasChanges)
 				ret.AddRange(left);
-			else if (left.Count == 1 && right.Count == 1)
+			else if (left.HasChanges && right.HasChanges)
 				this.ProcessConflict((IDiffValue) left.First(), (IDiffValue) right.First(), ret, conflicts);
-			else if (left.Count > 0 && right.Count > 0)
-				throw new Exception();
 
 			return new Diff<TType>(ret);
 		}

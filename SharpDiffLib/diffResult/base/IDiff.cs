@@ -7,6 +7,8 @@ namespace SharpDiffLib.diffResult.@base
 	{
 		string ToString(int indentLevel);
 		string ToString();
+
+		bool HasChanges { get; }
 	}
 
 	public interface IDiff<out TType> : IDiff

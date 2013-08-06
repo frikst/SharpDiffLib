@@ -90,7 +90,7 @@ namespace SharpDiffLib.algorithms.diff.collection.keyValue
 							{
 								IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
 
-								if (itemDiff.Count > 0)
+								if (itemDiff.HasChanges)
 									ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
 							}
 						}
@@ -103,7 +103,7 @@ namespace SharpDiffLib.algorithms.diff.collection.keyValue
 						{
 							IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseKeyValue.Value, changedItem);
 
-							if (itemDiff.Count > 0)
+							if (itemDiff.HasChanges)
 								ret.Add(new DiffKeyValueCollectionItemChanged<TKeyType, TItemType>(baseKeyValue.Key, itemDiff));
 						}
 					}

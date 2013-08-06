@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
 
 namespace SharpDiffLib.diffResult.implementation
@@ -34,6 +35,15 @@ namespace SharpDiffLib.diffResult.implementation
 
 		#endregion
 
+		#region Implementation of ICountableEnumerable<IDiffItem>
+
+		public int Count
+		{
+			get { return this.aItems.Count; }
+		}
+
+		#endregion
+
 		#region Implementation of IDiff
 
 		public string ToString(int indentLevel)
@@ -51,9 +61,9 @@ namespace SharpDiffLib.diffResult.implementation
 			return this.ToString(0);
 		}
 
-		public int Count
+		public bool HasChanges
 		{
-			get { return this.aItems.Count; }
+			get { return this.aItems.Count > 0 && !this.aItems.All(x => x is IDiffItemUnchanged); }
 		}
 
 		#endregion

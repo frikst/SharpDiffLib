@@ -43,7 +43,7 @@ namespace SharpDiffLib.algorithms.diff.common.baseClass
 
 				IDiff<TType> diff = (IDiff<TType>) algorithm.Compute(@base, changed);
 
-				if (diff.Count > 0)
+				if (diff.HasChanges)
 				{
 					return new Diff<TType>(
 						new List<IDiffItem>(1)

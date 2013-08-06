@@ -84,7 +84,7 @@ namespace SharpDiffLib.algorithms.diff.collection.unordered
 					{
 						IDiff<TItemType> itemDiff = this.aItemDiff.Compute(baseItem, changedItem);
 
-						if (itemDiff.Count > 0)
+						if (itemDiff.HasChanges)
 							ret.Add(new DiffUnorderedCollectionChanged<TIdType, TItemType>(id, itemDiff));
 					}
 				}

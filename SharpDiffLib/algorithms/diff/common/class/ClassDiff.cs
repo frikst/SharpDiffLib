@@ -41,10 +41,7 @@ namespace SharpDiffLib.algorithms.diff.common.@class
 
 			List<IDiffItem> diffItems = this.aCompiled(@base, changed);
 
-			if (diffItems.All(x => x is IDiffItemUnchanged))
-				return new Diff<TType>(new List<IDiffItem>(0));
-			else
-				return new Diff<TType>(diffItems);
+			return new Diff<TType>(diffItems);
 		}
 
 		#endregion
