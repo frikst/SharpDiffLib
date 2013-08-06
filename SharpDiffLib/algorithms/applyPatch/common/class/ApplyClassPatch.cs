@@ -53,32 +53,51 @@ namespace SharpDiffLib.algorithms.applyPatch.common.@class
 			ParameterExpression orig = Expression.Parameter(typeof(TType), "orig");
 			ParameterExpression diff = Expression.Parameter(typeof(IDiff), "diff");
 			ParameterExpression ret = Expression.Parameter(typeof(TType), "ret");
-			ParameterExpression enumerator = Expression.Parameter(typeof(IEnumerator<IDiffItem>), "enumerator");
-			ParameterExpression someLeft = Expression.Parameter(typeof(bool), "someLeft");
+			ParameterExpression item = Expression.Parameter(typeof(IDiffClassItem), "item");
 
 			return Expression.Lambda<Func<TType, IDiff, TType>>(
 				Expression.Block(
-					new[] { ret, enumerator, someLeft },
+					new[] { ret },
 					Expression.Assign(
 						ret,
 						Expression.New(typeof(TType))
 					),
-					Expression.Assign(
-						enumerator,
-						Expression.Call(diff, Members.Enumerable.GetEnumerator(typeof(IDiffItem)))
+					Expression.Block(Class<TType>.Properties.Select(property =>
+						Expression.Assign(
+							Expression.Property(ret, property.ReflectionPropertyInfo),
+							Expression.Property(orig, property.ReflectionPropertyInfo)
+						)
+					)),
+					ExpressionExtensions.ForEach(
+						item,
+						diff,
+						Expression.IfThen(
+							Expression.Not(Expression.TypeIs(item, typeof(IDiffItemUnchanged))),
+							Expression.Block(
+								Expression.Switch(
+									Expression.Property(
+										Expression.Property(
+											item,
+											Members.DiffItems.ClassProperty()
+										),
+										Members.FastProperty.UniqueID()
+									),
+									Expression.Throw(
+										Expression.New(typeof(Exception))
+									),
+									Class<TType>.Properties.Select(property => this.EvaluateProperty(ret, orig, property, item)).ToArray()
+								)
+							)
+						)
 					),
-					this.MoveEnumerator(enumerator, someLeft),
-					Expression.Block(Class<TType>.Properties.Select(x => this.EvaluateProperty(enumerator, ret, orig, someLeft, x))),
 					ret
 				),
 				orig, diff
 			);
 		}
 
-		private Expression EvaluateProperty(ParameterExpression enumerator, ParameterExpression ret, ParameterExpression orig, ParameterExpression someLeft, Property property)
+		private SwitchCase EvaluateProperty(ParameterExpression ret, ParameterExpression orig, Property property, ParameterExpression item)
 		{
-			ParameterExpression item = Expression.Parameter(typeof(IDiffClassItem), "item");
-
 			IApplyPatchAlgorithm algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(property.Type);
 
 			Expression applicator = Expression.IfThenElse(
@@ -117,54 +136,7 @@ namespace SharpDiffLib.algorithms.applyPatch.common.@class
 				);
 			}
 
-			return
-				Expression.Block(
-					new[] { item },
-					Expression.Assign(
-						item,
-						Expression.Convert(
-							Expression.Property(enumerator, Members.Enumerable.Current(typeof(IDiffItem))),
-							typeof(IDiffClassItem)
-						)
-					),
-					Expression.IfThenElse(
-						Expression.AndAlso(
-							Expression.Not(Expression.TypeIs(item, typeof(IDiffItemUnchanged))),
-							Expression.AndAlso(
-								someLeft,
-								Expression.Equal(
-									Expression.Property(
-										Expression.Property(
-											item,
-											Members.DiffItems.ClassProperty()
-										),
-										Members.FastProperty.UniqueID()
-									),
-									Expression.Constant(property.UniqueID)
-								)
-							)
-						),
-						Expression.Block(
-							applicator,
-							this.MoveEnumerator(enumerator, someLeft)
-						),
-						Expression.Assign(
-							Expression.Property(ret, property.ReflectionPropertyInfo),
-							Expression.Property(orig, property.ReflectionPropertyInfo)
-						)
-					)
-				);
-		}
-
-		private Expression MoveEnumerator(ParameterExpression enumerator, ParameterExpression someLeft)
-		{
-			return Expression.Assign(
-				someLeft,
-				Expression.Call(
-					enumerator,
-					Members.Enumerable.MoveNext(typeof(IDiffItem))
-				)
-			);
+			return Expression.SwitchCase(applicator, Expression.Constant(property.UniqueID));
 		}
 	}
 }
