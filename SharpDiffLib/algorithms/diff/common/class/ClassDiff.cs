@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using SharpDiffLib.algorithms.diff.@base;
 using SharpDiffLib.definition.rules;
+using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
 using SharpDiffLib.diffResult.implementation;
 using SharpDiffLib.fastReflection;
@@ -37,7 +39,12 @@ namespace SharpDiffLib.algorithms.diff.common.@class
 				this.aCompiled = compiled.Compile();
 			}
 
-			return new Diff<TType>(this.aCompiled(@base, changed));
+			List<IDiffItem> diffItems = this.aCompiled(@base, changed);
+
+			if (diffItems.All(x => x is IDiffItemUnchanged))
+				return new Diff<TType>(new List<IDiffItem>(0));
+			else
+				return new Diff<TType>(diffItems);
 		}
 
 		#endregion
