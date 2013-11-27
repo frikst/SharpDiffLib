@@ -133,5 +133,19 @@ namespace SharpDiffLib.Test.Diff
 			Assert.AreEqual(0, ret.Count);
 			Assert.AreEqual(diff, ret.ToString());
 		}
+
+		[TestMethod]
+		public void TestIEnumerable()
+		{
+			const string diff =
+				"+2:3";
+			IEnumerable<int> @base = new[] { 1, 2 };
+			IEnumerable<int> changed = new[] { 1, 2, 3 };
+
+			var ret = Merger.Instance.Partial.Diff(@base, changed);
+
+			Assert.AreEqual(1, ret.Count);
+			Assert.AreEqual(diff, ret.ToString());
+		}
 	}
 }

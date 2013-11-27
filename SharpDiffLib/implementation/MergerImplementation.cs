@@ -179,7 +179,12 @@ namespace SharpDiffLib.implementation
 
 			Type ret = null;
 
-			foreach (Type @interface in type.GetInterfaces())
+			IEnumerable<Type> interfaces = type.GetInterfaces();
+
+			if (type.IsInterface)
+				interfaces = new[] { type }.Concat(interfaces);
+
+			foreach (Type @interface in interfaces)
 			{
 				if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
 				{

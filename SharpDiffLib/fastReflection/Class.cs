@@ -87,7 +87,12 @@ namespace SharpDiffLib.fastReflection
 		{
 			get
 			{
-				foreach (Type @interface in typeof(TClass).GetInterfaces())
+				IEnumerable<Type> interfaces = typeof(TClass).GetInterfaces();
+
+				if (typeof(TClass).IsInterface)
+					interfaces = new[] { typeof(TClass) }.Concat(interfaces);
+
+				foreach (Type @interface in interfaces)
 				{
 					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof (IEnumerable<>))
 					{
@@ -106,7 +111,12 @@ namespace SharpDiffLib.fastReflection
 		{
 			get
 			{
-				foreach (Type @interface in typeof(TClass).GetInterfaces())
+				IEnumerable<Type> interfaces = typeof(TClass).GetInterfaces();
+
+				if (typeof(TClass).IsInterface)
+					interfaces = new[] { typeof(TClass) }.Concat(interfaces);
+
+				foreach (Type @interface in interfaces)
 				{
 					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof (IEnumerable<>))
 					{
