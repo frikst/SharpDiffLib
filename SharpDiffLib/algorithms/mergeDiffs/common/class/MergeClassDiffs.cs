@@ -176,7 +176,8 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
 							ret,
 							Members.List.Add(typeof(IDiffItem)),
 							rightCurrent
-						)
+						),
+						this.MoveEnumerator(rightEnumerator, rightSomeLeft)
 					)
 				)
 			);

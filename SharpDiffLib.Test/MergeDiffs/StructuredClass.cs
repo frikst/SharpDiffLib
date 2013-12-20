@@ -136,5 +136,35 @@ namespace SharpDiffLib.Test.MergeDiffs
 			Assert.AreEqual(merged, result);
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
+
+		[TestMethod]
+		public void MergeNonConflictingRightItemLast()
+		{
+			var left = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.Value, "a", "b")
+				.MakeDiff();
+			var right = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.Value2, "a", "b")
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
+					.Replaced(x => x.Value, "a", "b")
+					.MakeDiff()
+				)
+				.MakeDiff();
+
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
+
+			var merged = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.Value, "a", "b")
+				.Replaced(x => x.Value2, "a", "b")
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
+					.Replaced(x => x.Value, "a", "b")
+					.MakeDiff()
+				)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(conflicts.HasConflicts);
+		}
 	}
 }
