@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDiffLib.algorithms.mergeDiffs;
-using SharpDiffLib.@base;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.definition;
 using SharpDiffLib.diffResult;
@@ -114,7 +113,7 @@ namespace SharpDiffLib.Test.MergeDiffs
 
 			var merged = DiffResultFactory.Ordered<int>.Create()
 				.Removed(3, 3)
-				.Removed(4, 5)
+				.Removed(5, 5)
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
@@ -201,11 +200,11 @@ namespace SharpDiffLib.Test.MergeDiffs
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
 				.Removed(3, 3)
-				.Removed(3, 4)
+				.Removed(4, 4)
 				.MakeDiff();
 			var right = DiffResultFactory.Ordered<int>.Create()
 				.Removed(3, 3)
-				.Removed(3, 4)
+				.Removed(4, 4)
 				.MakeDiff();
 
 			IConflictContainer conflicts;
@@ -213,7 +212,7 @@ namespace SharpDiffLib.Test.MergeDiffs
 
 			var merged = DiffResultFactory.Ordered<int>.Create()
 				.Removed(3, 3)
-				.Removed(3, 4)
+				.Removed(4, 4)
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
@@ -275,8 +274,8 @@ namespace SharpDiffLib.Test.MergeDiffs
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
 				.Removed(3, 3)
-				.Removed(3, 4)
-				.Added(4, 4)
+				.Removed(4, 4)
+				.Added(5, 4)
 				.MakeDiff();
 			var right = DiffResultFactory.Ordered<int>.Create()
 				.Replaced(3, 3, 4)
@@ -287,12 +286,11 @@ namespace SharpDiffLib.Test.MergeDiffs
 
 			var merged = DiffResultFactory.Ordered<int>.Create()
 				.Conflicted(
-					c => c
-						.Removed(3, 3)
-						.Removed(3, 4),
+					c => c.Removed(3, 3),
 					c => c.Replaced(3, 3, 4)
 				)
-				.Added(3, 4)
+				.Removed(4, 4)
+				.Added(5, 4)
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
@@ -76,13 +74,6 @@ namespace SharpDiffLib.diffResult.implementation
 		#region Implementation of IDiffOrderedCollectionItem
 
 		public int ItemIndex { get; private set; }
-
-		public IDiffOrderedCollectionItem CreateWithDelta(int delta)
-		{
-			if (delta == 0)
-				return this;
-			return new DiffOrderedCollectionReplaced<TItemType>(this.ItemIndex + delta, this.OldValue, this.NewValue);
-		}
 
 		#endregion
 

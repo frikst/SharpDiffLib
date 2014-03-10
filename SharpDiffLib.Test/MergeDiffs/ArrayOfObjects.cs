@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDiffLib.Test._Entities.SimpleWithId;
 using SharpDiffLib.algorithms.mergeDiffs;
-using SharpDiffLib.@base;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.definition;
 using SharpDiffLib.definition.rules;
@@ -74,6 +73,38 @@ namespace SharpDiffLib.Test.MergeDiffs
 					)
 					.MakeDiff()
 				)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsTrue(conflicts.HasConflicts);
+		}
+
+		[TestMethod]
+		public void ReplacedChanged()
+		{
+			var left = DiffResultFactory.Ordered<Sample>.Create()
+				.Changed(0, DiffResultFactory.Class<Sample>.Create()
+					.Replaced(x => x.Value, "a", "b")
+					.MakeDiff()
+				)
+				.MakeDiff();
+			var right = DiffResultFactory.Ordered<Sample>.Create()
+				.Removed(0, new Sample { Id = 1 })
+				.Added(1, new Sample { Id = 2 })
+				.MakeDiff();
+
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
+
+			var merged = DiffResultFactory.Ordered<Sample>.Create()
+					.Conflicted(
+						c => c.Changed(0, DiffResultFactory.Class<Sample>.Create()
+							.Replaced(x => x.Value, "a", "b")
+							.MakeDiff()
+						),
+						c => c.Removed(0, new Sample { Id = 1 })
+					)
+					.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);

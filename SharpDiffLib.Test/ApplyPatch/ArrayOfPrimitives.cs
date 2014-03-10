@@ -2,7 +2,6 @@
 using SharpDiffLib.algorithms.applyPatch;
 using SharpDiffLib.definition;
 using SharpDiffLib.diffResult;
-using SharpDiffLib.diffResult.@base;
 
 namespace SharpDiffLib.Test.ApplyPatch
 {
@@ -104,10 +103,10 @@ namespace SharpDiffLib.Test.ApplyPatch
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 2)
-				.Removed(1, 2)
 				.Removed(2, 2)
-				.Removed(3, 2)
 				.Removed(4, 2)
+				.Removed(6, 2)
+				.Removed(8, 2)
 				.MakeDiff();
 
 			var obj = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
@@ -188,15 +187,15 @@ namespace SharpDiffLib.Test.ApplyPatch
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 2)
-				.Added(0, 3)
-				.Removed(1, 2)
 				.Added(1, 3)
 				.Removed(2, 2)
-				.Added(2, 3)
-				.Removed(3, 2)
 				.Added(3, 3)
 				.Removed(4, 2)
-				.Added(4, 3)
+				.Added(5, 3)
+				.Removed(6, 2)
+				.Added(7, 3)
+				.Removed(8, 2)
+				.Added(9, 3)
 				.MakeDiff();
 
 			var obj = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };

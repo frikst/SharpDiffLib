@@ -65,13 +65,6 @@ namespace SharpDiffLib.diffResult.implementation
 
 		public int ItemIndex { get; private set; }
 
-		public IDiffOrderedCollectionItem CreateWithDelta(int delta)
-		{
-			if (delta == 0)
-				return this;
-			return new DiffOrderedCollectionUnchanged<TItemType>(this.ItemIndex + delta, this.Value);
-		}
-
 		#endregion
 
 		#region Equality members

@@ -7,7 +7,7 @@ using SharpDiffLib.diffResult.@base;
 using SharpDiffLib.diffResult.type;
 using SharpDiffLib.implementation;
 
-namespace SharpDiffLib.algorithms.applyPatch.collection.order
+namespace SharpDiffLib.algorithms.applyPatch.collection.ordered
 {
 	internal class ApplyOrderedCollectionPatch<TType, TItemType> : IApplyPatchAlgorithm<TType>
 	{
@@ -88,24 +88,29 @@ namespace SharpDiffLib.algorithms.applyPatch.collection.order
 				}
 
 				if (item is IDiffItemAdded<TItemType>)
-					ret.Add(((IDiffItemAdded<TItemType>)item).NewValue);
+				{
+					ret.Add(((IDiffItemAdded<TItemType>) item).NewValue);
+				}
 				else if (item is IDiffItemChanged)
 				{
 					ret.Add(
 						this.aApplyItemDiff.Apply(
 							enumerator.Current,
-							((IDiffItemChanged<TItemType>)item).ValueDiff
+							((IDiffItemChanged<TItemType>) item).ValueDiff
 						)
 					);
 					lastMoveNext = enumerator.MoveNext();
 					currentIndex++;
 				}
 				else if (item is IDiffItemRemoved<TItemType>)
+				{
 					lastMoveNext = enumerator.MoveNext();
+					currentIndex++;
+				}
 				else if (item is IDiffItemReplaced<TItemType>)
 				{
 					lastMoveNext = enumerator.MoveNext();
-					ret.Add(((IDiffItemReplaced<TItemType>)item).NewValue);
+					ret.Add(((IDiffItemReplaced<TItemType>) item).NewValue);
 					currentIndex++;
 				}
 				else

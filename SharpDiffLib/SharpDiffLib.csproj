@@ -50,8 +50,8 @@
     <Compile Include="algorithms\applyPatch\base\IApplyPatchAlgorithmRules.cs" />
     <Compile Include="algorithms\applyPatch\collection\keyValue\ApplyKeyValueCollectionPatch.cs" />
     <Compile Include="algorithms\applyPatch\collection\keyValue\ApplyKeyValueCollectionPatchRules.cs" />
-    <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatch.cs" />
-    <Compile Include="algorithms\applyPatch\collection\order\ApplyOrderedCollectionPatchRules.cs" />
+    <Compile Include="algorithms\applyPatch\collection\ordered\ApplyOrderedCollectionPatch.cs" />
+    <Compile Include="algorithms\applyPatch\collection\ordered\ApplyOrderedCollectionPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\collection\unordered\ApplyUnorderedCollectionPatch.cs" />
     <Compile Include="algorithms\applyPatch\collection\unordered\ApplyUnorderedCollectionPatchRules.cs" />
     <Compile Include="algorithms\applyPatch\collection\unordered\ApplyUnorderedCollectionWithIdPatch.cs" />
@@ -66,8 +66,8 @@
     <Compile Include="algorithms\mergeDiffs\base\IMergeDiffsAlgorithmRules.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\keyValue\MergeKeyValueCollectionDiffs.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\keyValue\MergeKeyValueCollectionDiffsRules.cs" />
-    <Compile Include="algorithms\mergeDiffs\collection\ordered\AutoindexedResult.cs" />
-    <Compile Include="algorithms\mergeDiffs\collection\ordered\BlockIterator.cs" />
+    <Compile Include="algorithms\mergeDiffs\collection\ordered\Chunker.cs" />
+    <Compile Include="algorithms\mergeDiffs\collection\ordered\MergeJoin.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\ordered\MergeOrderedCollectionDiffs.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\ordered\MergeOrderedCollectionDiffsRules.cs" />
     <Compile Include="algorithms\mergeDiffs\collection\unordered\MergeUnorderedCollectionDiffsRules.cs" />

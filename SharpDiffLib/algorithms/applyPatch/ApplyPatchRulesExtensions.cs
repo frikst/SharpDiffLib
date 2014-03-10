@@ -1,6 +1,6 @@
 ﻿using System;
 using SharpDiffLib.algorithms.applyPatch.collection.keyValue;
-using SharpDiffLib.algorithms.applyPatch.collection.order;
+using SharpDiffLib.algorithms.applyPatch.collection.ordered;
 using SharpDiffLib.algorithms.applyPatch.collection.unordered;
 using SharpDiffLib.algorithms.applyPatch.common.@class;
 using SharpDiffLib.algorithms.applyPatch.common.value;

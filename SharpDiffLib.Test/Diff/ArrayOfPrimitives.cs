@@ -97,10 +97,10 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-0:2\r\n" +
-				"-1:2\r\n" +
 				"-2:2\r\n" +
-				"-3:2\r\n" +
-				"-4:2";
+				"-4:2\r\n" +
+				"-6:2\r\n" +
+				"-8:2";
 			var @base = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
 			var changed = new[] { 1, 1, 1, 1 };
 
@@ -115,7 +115,7 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-2:3\r\n" +
-				"+2:4";
+				"+3:4";
 			var @base = new[] { 1, 2, 3 };
 			var changed = new[] { 1, 2, 4 };
 
@@ -130,9 +130,9 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-2:2\r\n" +
-				"-2:3\r\n" +
-				"+2:4\r\n" +
-				"+2:5";
+				"-3:3\r\n" +
+				"+4:4\r\n" +
+				"+4:5";
 			var @base = new[] { 1, 2, 2, 3 };
 			var changed = new[] { 1, 2, 4, 5 };
 
@@ -147,15 +147,15 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-0:2\r\n" +
-				"+0:3\r\n" +
-				"-1:2\r\n" +
 				"+1:3\r\n" +
 				"-2:2\r\n" +
-				"+2:3\r\n" +
-				"-3:2\r\n" +
 				"+3:3\r\n" +
 				"-4:2\r\n" +
-				"+4:3";
+				"+5:3\r\n" +
+				"-6:2\r\n" +
+				"+7:3\r\n" +
+				"-8:2\r\n" +
+				"+9:3";
 			var @base = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
 			var changed = new[] { 3, 1, 3, 1, 3, 1, 3, 1, 3 };
 
@@ -170,15 +170,15 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"+0:3\r\n" +
-				"+0:3\r\n" +
-				"+0:3\r\n" +
-				"+0:3\r\n" +
-				"+0:3";
+				"-1:2\r\n" +
+				"-2:2\r\n" +
+				"-3:2\r\n" +
+				"-4:2\r\n" +
+				"+5:3\r\n" +
+				"+5:3\r\n" +
+				"+5:3\r\n" +
+				"+5:3\r\n" +
+				"+5:3";
 			var @base = new[] { 2, 2, 2, 2, 2 };
 			var changed = new[] { 3, 3, 3, 3, 3 };
 

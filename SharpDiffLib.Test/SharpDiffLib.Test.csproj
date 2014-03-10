@@ -60,6 +60,7 @@
     <Compile Include="ApplyPatch\SimpleClass.cs" />
     <Compile Include="ApplyPatch\SimpleValue.cs" />
     <Compile Include="ApplyPatch\StructuredClass.cs" />
+    <Compile Include="ConflictResolver\ArrayOfObjects.cs" />
     <Compile Include="ConflictResolver\ArrayOfPrimitives.cs" />
     <Compile Include="ConflictResolver\SimpleClass.cs" />
     <Compile Include="ConflictResolver\StructuredClass.cs" />

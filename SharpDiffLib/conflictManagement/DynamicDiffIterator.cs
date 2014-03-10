@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SharpDiffLib.diffResult.action;
 using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
 
 namespace SharpDiffLib.conflictManagement
 {
@@ -11,14 +10,12 @@ namespace SharpDiffLib.conflictManagement
 		private readonly IDiff aOriginal;
 		private readonly DynamicDiffItemChangedFactory aDynamicDiffItemChangedFactory;
 		private readonly Dictionary<IDiffItemConflicted, ResolveAction> aResolveActions;
-		private int aDelta;
 
 		public DynamicDiffIterator(IDiff original, DynamicDiffItemChangedFactory dynamicDiffItemChangedFactory, Dictionary<IDiffItemConflicted, ResolveAction> resolveActions)
 		{
 			this.aOriginal = original;
 			this.aDynamicDiffItemChangedFactory = dynamicDiffItemChangedFactory;
 			this.aResolveActions = resolveActions;
-			this.aDelta = 0;
 		}
 
 		#region Implementation of IEnumerable<IDiffItem>
@@ -37,23 +34,23 @@ namespace SharpDiffLib.conflictManagement
 						switch (action)
 						{
 							case ResolveAction.UseLeft:
-								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left))
+								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left, conflict))
 									yield return left;
 								break;
 							case ResolveAction.UseRight:
-								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right))
+								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right, conflict))
 									yield return right;
 								break;
 							case ResolveAction.LeftThenRight:
-								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left))
+								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left, conflict))
 									yield return left;
-								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right))
+								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right, conflict))
 									yield return right;
 								break;
 							case ResolveAction.RightThenLeft:
-								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right))
+								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right, conflict))
 									yield return right;
-								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left))
+								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left, conflict))
 									yield return left;
 								break;
 						}
@@ -62,9 +59,9 @@ namespace SharpDiffLib.conflictManagement
 						yield return item;
 				}
 				else if (item is IDiffItemChanged)
-					yield return this.PostprocessItem(this.aDynamicDiffItemChangedFactory.Create((IDiffItemChanged)item));
+					yield return this.aDynamicDiffItemChangedFactory.Create((IDiffItemChanged)item);
 				else
-					yield return this.PostprocessItem(item);
+					yield return item;
 			}
 		}
 
@@ -79,31 +76,14 @@ namespace SharpDiffLib.conflictManagement
 
 		#endregion
 
-		private IDiffItem PostprocessItem(IDiffItem item)
+		private IEnumerable<IDiffItem> PostprocessItemsFromConflict(IEnumerable<IDiffItem> items, IDiffItemConflicted conflict)
 		{
-			IDiffOrderedCollectionItem collectionItem = item as IDiffOrderedCollectionItem;
-
-			if (collectionItem != null)
-				return collectionItem.CreateWithDelta(this.aDelta);
-			else
-				return item;
-		}
-
-		private IEnumerable<IDiffItem> PostprocessItemsFromConflict(IEnumerable<IDiffItem> items)
-		{
-			int delta = 0;
 			foreach (IDiffItem item in items)
 			{
-				IDiffItem ret = this.PostprocessItem(item);
-
-				if (item is IDiffItemRemoved)
-					delta++;
+				IDiffItem ret = item;
 
 				yield return ret;
 			}
-
-			if (delta == 0)
-				this.aDelta++;
 		}
 	}
 }

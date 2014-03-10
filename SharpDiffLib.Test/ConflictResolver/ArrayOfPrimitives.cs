@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDiffLib.conflictManagement;
 using SharpDiffLib.definition;
@@ -29,12 +26,12 @@ namespace SharpDiffLib.Test.ConflictResolver
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
 				)
-				.Replaced(0, 3, 5)
+				.Replaced(1, 3, 5)
 				.MakeDiff();
 
 			var diffResolved = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 0)
-				.Replaced(0, 3, 5)
+				.Replaced(1, 3, 5)
 				.MakeDiff();
 
 			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);
@@ -58,7 +55,7 @@ namespace SharpDiffLib.Test.ConflictResolver
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
 				)
-				.Replaced(0, 3, 5)
+				.Replaced(1, 3, 5)
 				.MakeDiff();
 
 			var diffResolved = DiffResultFactory.Ordered<int>.Create()
@@ -84,18 +81,17 @@ namespace SharpDiffLib.Test.ConflictResolver
 		{
 			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
 				.Conflicted(
-					c => c
-						.Removed(0, 0)
-						.Removed(0, 1),
+					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
 				)
-				.Replaced(0, 3, 5)
+				.Removed(1, 1)
+				.Replaced(2, 3, 5)
 				.MakeDiff();
 
 			var diffResolved = DiffResultFactory.Ordered<int>.Create()
 				.Removed(0, 0)
-				.Removed(0, 1)
-				.Replaced(0, 3, 5)
+				.Removed(1, 1)
+				.Replaced(2, 3, 5)
 				.MakeDiff();
 
 			var conflictResolver = Merger.Instance.Partial.GetConflictResolver(diffConflicted);

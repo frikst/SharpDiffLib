@@ -99,7 +99,7 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-1:<Sample:2>\r\n" +
-				"+1:(null)";
+				"+2:(null)";
 			var @base = new[]
 			{
 				new Sample { Id = 1, Value = "a" },

@@ -106,7 +106,6 @@ namespace SharpDiffLib.algorithms.diff.collection.ordered
 									ret.Add(new DiffOrderedCollectionChanged<TItemType>(index, itemDiff));
 							}
 						}
-
 						index++;
 					}
 					else
@@ -132,7 +131,10 @@ namespace SharpDiffLib.algorithms.diff.collection.ordered
 							if (!baseHasItem && !changedHasItem)
 							{
 								foreach (TItemType item in baseQueueNew)
+								{
 									ret.Add(new DiffOrderedCollectionRemoved<TItemType>(index, item));
+									index++;
+								}
 								baseQueueNew.Clear();
 
 								foreach (TItemType item in changedQueueNew)
@@ -148,7 +150,10 @@ namespace SharpDiffLib.algorithms.diff.collection.ordered
 							if (baseHasItem && idxFromChanged >= 0 && (idxFromChanged < idxFromBase || idxFromBase < 0))
 							{
 								foreach (TItemType item in baseQueueNew.Take(baseQueueNew.Count - 1))
+								{
 									ret.Add(new DiffOrderedCollectionRemoved<TItemType>(index, item));
+									index++;
+								}
 								baseQueueNew.Clear();
 								baseQueueNew.Add(baseItem);
 
@@ -162,7 +167,10 @@ namespace SharpDiffLib.algorithms.diff.collection.ordered
 							if (changedHasItem && idxFromBase >= 0 && (idxFromBase <= idxFromChanged || idxFromChanged < 0))
 							{
 								foreach (TItemType item in baseQueueNew.Take(idxFromBase))
+								{
 									ret.Add(new DiffOrderedCollectionRemoved<TItemType>(index, item));
+									index++;
+								}
 								baseQueueNew.RemoveRange(0, idxFromBase);
 
 								foreach (TItemType item in changedQueueNew.Take(changedQueueNew.Count - 1))

@@ -3,7 +3,7 @@ using SharpDiffLib.algorithms.applyPatch.@base;
 using SharpDiffLib.definition.rules;
 using SharpDiffLib.fastReflection;
 
-namespace SharpDiffLib.algorithms.applyPatch.collection.order
+namespace SharpDiffLib.algorithms.applyPatch.collection.ordered
 {
 	/// <summary>
 	/// Rules for ordered collection patch application algorithm.
