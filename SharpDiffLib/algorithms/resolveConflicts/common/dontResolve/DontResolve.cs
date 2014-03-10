@@ -5,16 +5,20 @@ namespace SharpDiffLib.algorithms.resolveConflicts.common.dontResolve
 {
 	internal class DontResolve<TType> : IResolveConflictsAlgorithm<TType>
 	{
-		#region Implementation of IResolveConflictsAlgorithm
+		#region Implementation of IResolveConflictsAlgorithm<TType>
 
 		public void ResolveConflicts(IConflictResolver<TType> resolver)
 		{
 			throw new NotPossibleToResolveException();
 		}
 
+		#endregion
+
+		#region Implementation of IResolveConflictsAlgorithm
+
 		public void ResolveConflicts(IConflictResolver resolver)
 		{
-			throw new NotPossibleToResolveException();
+			this.ResolveConflicts((IConflictResolver<TType>)resolver);
 		}
 
 		#endregion

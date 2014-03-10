@@ -7,14 +7,14 @@ namespace SharpDiffLib.algorithms.resolveConflicts.common.callBack
 {
 	public class ResolveByCallBackRules<TDefinedFor> : BaseRules<TDefinedFor>, IResolveConflictsAlgorithmRules<TDefinedFor>
 	{
-		private Action<IConflictResolver> aCallBack;
+		private Action<Type, IConflictResolver> aCallBack;
 
 		public ResolveByCallBackRules()
 		{
 			this.aCallBack = null;
 		}
 
-		public ResolveByCallBackRules<TDefinedFor> CallBack(Action<IConflictResolver> callBack)
+		public ResolveByCallBackRules<TDefinedFor> CallBack(Action<Type, IConflictResolver> callBack)
 		{
 			this.aCallBack = callBack;
 

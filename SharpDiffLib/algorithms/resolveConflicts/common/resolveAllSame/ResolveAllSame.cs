@@ -13,7 +13,7 @@ namespace SharpDiffLib.algorithms.resolveConflicts.common.resolveAllSame
 			this.aAction = action;
 		}
 
-		#region Implementation of IResolveConflictsAlgorithm
+		#region Implementation of IResolveConflictsAlgorithm<TType>
 
 		public void ResolveConflicts(IConflictResolver<TType> resolver)
 		{
@@ -21,10 +21,13 @@ namespace SharpDiffLib.algorithms.resolveConflicts.common.resolveAllSame
 				resolver.ResolveConflict(item, this.aAction);
 		}
 
+		#endregion
+
+		#region Implementation of IResolveConflictsAlgorithm
+
 		public void ResolveConflicts(IConflictResolver resolver)
 		{
-			foreach (var item in resolver.ToList())
-				resolver.ResolveConflict(item, this.aAction);
+			this.ResolveConflicts((IConflictResolver<TType>)resolver);
 		}
 
 		#endregion

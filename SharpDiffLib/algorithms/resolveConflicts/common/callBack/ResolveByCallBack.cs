@@ -6,23 +6,27 @@ namespace SharpDiffLib.algorithms.resolveConflicts.common.callBack
 {
 	internal class ResolveByCallBack<TType> : IResolveConflictsAlgorithm<TType>
 	{
-		private readonly Action<IConflictResolver> aCallBack;
+		private readonly Action<Type, IConflictResolver> aCallBack;
 
-		public ResolveByCallBack(Action<IConflictResolver> callBack)
+		public ResolveByCallBack(Action<Type, IConflictResolver> callBack)
 		{
 			this.aCallBack = callBack;
 		}
 
-		#region Implementation of IResolveConflictsAlgorithm
+		#region Implementation of IResolveConflictsAlgorithm<TType>
 
 		public void ResolveConflicts(IConflictResolver<TType> resolver)
 		{
-			this.aCallBack(resolver);
+			this.aCallBack(typeof(TType), resolver);
 		}
+
+		#endregion
+
+		#region Implementation of IResolveConflictsAlgorithm
 
 		public void ResolveConflicts(IConflictResolver resolver)
 		{
-			this.aCallBack(resolver);
+			this.ResolveConflicts((IConflictResolver<TType>) resolver);
 		}
 
 		#endregion
