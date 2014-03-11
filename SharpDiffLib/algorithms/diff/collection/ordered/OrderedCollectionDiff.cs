@@ -187,7 +187,10 @@ namespace SharpDiffLib.algorithms.diff.collection.ordered
 					}
 				}
 				else if (baseHasItem)
+				{
 					ret.Add(new DiffOrderedCollectionRemoved<TItemType>(index, baseItem));
+					index++;
+				}
 				else if (changedHasItem)
 					ret.Add(new DiffOrderedCollectionAdded<TItemType>(index, changedItem));
 				else

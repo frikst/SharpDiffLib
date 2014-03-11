@@ -82,7 +82,7 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-2:2\r\n" +
-				"-2:3";
+				"-3:3";
 			var @base = new[] { 1, 2, 2, 3 };
 			var changed = new[] { 1, 2 };
 
@@ -211,10 +211,10 @@ namespace SharpDiffLib.Test.Diff
 		{
 			const string diff =
 				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"-0:2\r\n" +
-				"-0:2";
+				"-1:2\r\n" +
+				"-2:2\r\n" +
+				"-3:2\r\n" +
+				"-4:2";
 			var @base = new[] { 2, 2, 2, 2, 2 };
 			var changed = new int[] { };
 
