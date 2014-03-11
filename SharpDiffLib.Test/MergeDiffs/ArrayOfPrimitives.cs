@@ -145,6 +145,30 @@ namespace SharpDiffLib.Test.MergeDiffs
 		}
 
 		[TestMethod]
+		public void BothSidesAddedSame()
+		{
+			var left = DiffResultFactory.Ordered<int>.Create()
+				.Added(3, 3)
+				.Added(3, 4)
+				.MakeDiff();
+			var right = DiffResultFactory.Ordered<int>.Create()
+				.Added(3, 3)
+				.Added(3, 4)
+				.MakeDiff();
+
+			IConflictContainer conflicts;
+			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
+
+			var merged = DiffResultFactory.Ordered<int>.Create()
+				.Added(3, 3)
+				.Added(3, 4)
+				.MakeDiff();
+
+			Assert.AreEqual(merged, result);
+			Assert.IsFalse(conflicts.HasConflicts);
+		}
+
+		[TestMethod]
 		public void BothSidesAddedTwo()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()

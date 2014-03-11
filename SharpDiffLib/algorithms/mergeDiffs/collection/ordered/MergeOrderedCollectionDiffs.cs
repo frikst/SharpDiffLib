@@ -69,9 +69,16 @@ namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
 
 			if (addedRight != null && addedLeft != null)
 			{
-				DiffAnyConflicted conflict = new DiffAnyConflicted(addedLeft, addedRight);
-				ret.Add(conflict);
-				conflicts.RegisterConflict(conflict);
+				if (addedLeft.Count == addedRight.Count && addedLeft.Zip(addedRight, (a, b) => a.IsSame(b)).All(x => x))
+				{
+					ret.AddRange(addedLeft);
+				}
+				else
+				{
+					DiffAnyConflicted conflict = new DiffAnyConflicted(addedLeft, addedRight);
+					ret.Add(conflict);
+					conflicts.RegisterConflict(conflict);
+				}
 			}
 			else if (addedLeft != null)
 			{
