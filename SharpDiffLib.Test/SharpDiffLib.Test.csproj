@@ -1,168 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8245A72D-CEEA-4451-B43C-1080EB1F18D3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpDiffLib.Test</RootNamespace>
-    <AssemblyName>SharpDiffLib.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SccProjectName>Svn</SccProjectName>
-    <SccLocalPath>Svn</SccLocalPath>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccProvider>SubversionScc</SccProvider>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ApplyPatch\AlgorithmGuessing.cs" />
-    <Compile Include="ApplyPatch\ArrayOfObjects.cs" />
-    <Compile Include="ApplyPatch\ArrayOfPrimitives.cs" />
-    <Compile Include="ApplyPatch\BaseDefinition.cs" />
-    <Compile Include="ApplyPatch\DictionaryOfObjects.cs" />
-    <Compile Include="ApplyPatch\DictionaryOfPrimitives.cs" />
-    <Compile Include="ApplyPatch\SetOfObjects.cs" />
-    <Compile Include="ApplyPatch\SetOfPrimitives.cs" />
-    <Compile Include="ApplyPatch\SimpleClass.cs" />
-    <Compile Include="ApplyPatch\SimpleValue.cs" />
-    <Compile Include="ApplyPatch\StructuredClass.cs" />
-    <Compile Include="ConflictResolver\ArrayOfObjects.cs" />
-    <Compile Include="ConflictResolver\ArrayOfPrimitives.cs" />
-    <Compile Include="ConflictResolver\SimpleClass.cs" />
-    <Compile Include="ConflictResolver\StructuredClass.cs" />
-    <Compile Include="Diff\AlwaysInclude.cs" />
-    <Compile Include="FullRun\SubClass.cs" />
-    <Compile Include="FullRun\UseAllRight.cs" />
-    <Compile Include="FullRun\UseAllLeft.cs" />
-    <Compile Include="FullRun\WithoutConflictsResolving.cs" />
-    <Compile Include="General\DiffResultFactoryTest.cs" />
-    <Compile Include="Diff\AlgorithmGuessing.cs" />
-    <Compile Include="Diff\ArrayOfObjects.cs" />
-    <Compile Include="Diff\ArrayOfPrimitives.cs" />
-    <Compile Include="Diff\BaseDefinition.cs" />
-    <Compile Include="Diff\CollectionAsItem.cs" />
-    <Compile Include="Diff\DictionaryOfObjects.cs" />
-    <Compile Include="Diff\IgnoreProperty.cs" />
-    <Compile Include="Diff\RulesInheritance.cs" />
-    <Compile Include="Diff\StructDiff.cs" />
-    <Compile Include="Diff\ValueDiffWithId.cs" />
-    <Compile Include="Diff\ValueObjectDiff.cs" />
-    <Compile Include="Diff\DictionaryOfPrimitives.cs" />
-    <Compile Include="Diff\SetOfObjects.cs" />
-    <Compile Include="Diff\SetOfPrimitives.cs" />
-    <Compile Include="Diff\SimpleClassDiff.cs" />
-    <Compile Include="Diff\StructuredClassDiff.cs" />
-    <Compile Include="Diff\ValueNonObjectDiff.cs" />
-    <Compile Include="MergeDiffs\ArrayOfObjects.cs" />
-    <Compile Include="MergeDiffs\ArrayOfPrimitives.cs" />
-    <Compile Include="MergeDiffs\DictionaryOfObjects.cs" />
-    <Compile Include="MergeDiffs\SetOfObjects.cs" />
-    <Compile Include="MergeDiffs\SetOfPrimitives.cs" />
-    <Compile Include="MergeDiffs\SimpleClass.cs" />
-    <Compile Include="MergeDiffs\StructuredClass.cs" />
-    <Compile Include="MergeDiffs\Value.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_Entities\BaseWithId\SampleBase.cs" />
-    <Compile Include="_Entities\BaseWithId\SampleDescendant1.cs" />
-    <Compile Include="_Entities\BaseWithId\SampleDescendant2.cs" />
-    <Compile Include="_Entities\BaseWithoutId\SampleBase.cs" />
-    <Compile Include="_Entities\BaseWithoutId\SampleDescendant.cs" />
-    <Compile Include="_Entities\InnerClassWithId\SampleInner.cs" />
-    <Compile Include="_Entities\InnerClass\SampleInner.cs" />
-    <Compile Include="_Entities\InnerStructure\SampleStruct.cs" />
-    <Compile Include="_Entities\SimpleClass\AnotherSample.cs" />
-    <Compile Include="_Entities\SimpleWithId\Sample.cs" />
-    <Compile Include="_Entities\InnerStructure\Sample.cs" />
-    <Compile Include="_Entities\InnerClass\Sample.cs" />
-    <Compile Include="_Entities\SimpleClass\Sample.cs" />
-    <Compile Include="_Entities\IntArrayProperty\Sample.cs" />
-    <Compile Include="_Entities\InnerClassWithId\Sample.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SharpDiffLib\SharpDiffLib.csproj">
-      <Project>{459A6DF9-E02C-4094-A1F4-BE39D51E59E5}</Project>
-      <Name>SharpDiffLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.0</TargetFramework>
+
+		<IsPackable>false</IsPackable>
+
+		<Configurations>Debug;Release</Configurations>
+
+		<ApplicationIcon />
+
+		<OutputType>Library</OutputType>
+
+		<StartupObject />
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
+		<PackageReference Include="MSTest.TestAdapter" Version="1.3.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="1.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SharpDiffLib\SharpDiffLib.csproj" />
+	</ItemGroup>
 </Project>
