@@ -21,8 +21,7 @@
     <ApiFilter />
     <ComponentConfigurations />
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\SharpDiffLib\bin\Debug\netstandard2.0\SharpDiffLib.dll" />
-      <DocumentationSource sourceFile="..\SharpDiffLib\bin\Debug\netstandard2.0\SharpDiffLib.xml" />
+      <DocumentationSource sourceFile="..\SharpDiffLib\SharpDiffLib.csproj" />
     </DocumentationSources>
     <HelpAttributes />
     <NamespaceSummaries />
