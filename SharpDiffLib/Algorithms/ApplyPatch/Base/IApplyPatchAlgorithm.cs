@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.algorithms.applyPatch.@base
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Base
 {
 	/// <summary>
 	/// Algorithm for patch aplication. Algorithm takes an object and a diff

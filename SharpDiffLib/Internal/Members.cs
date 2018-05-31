@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.fastReflection;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.FastReflection;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.@internal
+namespace KST.SharpDiffLib.Internal
 {
 	internal static class Members
 	{

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
 
-namespace SharpDiffLib.conflictManagement
+namespace KST.SharpDiffLib.ConflictManagement
 {
 	internal class DynamicDiff<TType> : IDiff<TType>
 	{

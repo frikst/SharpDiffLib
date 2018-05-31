@@ -1,8 +1,8 @@
 ﻿using System;
-using SharpDiffLib.fastReflection;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.FastReflection;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.definition.rules
+namespace KST.SharpDiffLib.Definition.Rules
 {
 	public static class GeneralRulesHelper<TType>
 	{

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.definition
+namespace KST.SharpDiffLib.Definition
 {
 	public class ClassMergerDefinition<TClass> : IClassMergerDefinition
 	{
@@ -61,7 +61,7 @@ namespace SharpDiffLib.definition
 			{
 				tmp = tmp.BaseType;
 
-				foreach (IClassMergerDefinition def in aDefinitions)
+				foreach (IClassMergerDefinition def in this.aDefinitions)
 				{
 					if (def.DefinedFor == tmp)
 					{
@@ -108,7 +108,7 @@ namespace SharpDiffLib.definition
 
 		void IClassMergerDefinition.Initialize(MergerImplementation mergerImplementation)
 		{
-			foreach (IAlgorithmRules<TClass> algorithmRules in aRules)
+			foreach (IAlgorithmRules<TClass> algorithmRules in this.aRules)
 			{
 				algorithmRules.Initialize(mergerImplementation);
 			}

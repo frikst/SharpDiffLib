@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SharpDiffLib.@base
+namespace KST.SharpDiffLib.Base
 {
 	public interface ICountableEnumerable<T> : IEnumerable<T>
 	{

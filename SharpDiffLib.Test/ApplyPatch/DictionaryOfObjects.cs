@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using KST.SharpDiffLib.Algorithms.ApplyPatch;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleWithId;
-using SharpDiffLib.algorithms.applyPatch;
-using SharpDiffLib.definition;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult;
 
-namespace SharpDiffLib.Test.ApplyPatch
+namespace KST.SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class DictionaryOfObjects

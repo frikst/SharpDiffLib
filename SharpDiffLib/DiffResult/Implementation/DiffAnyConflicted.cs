@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SharpDiffLib.@base;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.Base;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.diffResult.implementation
+namespace KST.SharpDiffLib.DiffResult.Implementation
 {
 	internal class DiffAnyConflicted : IDiffItemConflicted
 	{
@@ -78,7 +77,7 @@ namespace SharpDiffLib.diffResult.implementation
 				&& this.Right.SequenceEqual(((IDiffItemConflicted) other).Right);
 		}
 
-		public Type ItemType
+		public System.Type ItemType
 		{
 			get { return null; }
 		}
@@ -88,13 +87,13 @@ namespace SharpDiffLib.diffResult.implementation
 			StringBuilder ret = new StringBuilder();
 
 			ret.AppendIndent(indentLevel).Append("C<<<").AppendLine();
-			foreach (IDiffItem diffItem in Left)
+			foreach (IDiffItem diffItem in this.Left)
 			{
 				ret.Append(diffItem.ToString(indentLevel + 1)).AppendLine();
 			}
 			
 			ret.AppendIndent(indentLevel).Append("C>>>").AppendLine();
-			foreach (IDiffItem diffItem in Right)
+			foreach (IDiffItem diffItem in this.Right)
 			{
 				ret.Append(diffItem.ToString(indentLevel + 1)).AppendLine();
 			}

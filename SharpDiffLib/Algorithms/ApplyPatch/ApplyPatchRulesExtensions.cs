@@ -1,12 +1,12 @@
 ﻿using System;
-using SharpDiffLib.algorithms.applyPatch.collection.keyValue;
-using SharpDiffLib.algorithms.applyPatch.collection.ordered;
-using SharpDiffLib.algorithms.applyPatch.collection.unordered;
-using SharpDiffLib.algorithms.applyPatch.common.@class;
-using SharpDiffLib.algorithms.applyPatch.common.value;
-using SharpDiffLib.definition;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.KeyValue;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Ordered;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Unordered;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Value;
+using KST.SharpDiffLib.Definition;
 
-namespace SharpDiffLib.algorithms.applyPatch
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch
 {
 	/// <summary>
 	/// Extension methods for simpler patch application algorithm rules definition using fluent syntax.

@@ -1,4 +1,4 @@
-﻿namespace SharpDiffLib.Test._Entities.IntArrayProperty
+﻿namespace KST.SharpDiffLib.Test._Entities.IntArrayProperty
 {
 	public class Sample
 	{

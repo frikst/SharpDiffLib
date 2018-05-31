@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
-namespace SharpDiffLib.@internal
+namespace KST.SharpDiffLib.Internal
 {
 	internal static class ExpressionExtensions
 	{

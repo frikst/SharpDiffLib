@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.fastReflection;
-using SharpDiffLib.implementation;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.FastReflection;
+using KST.SharpDiffLib.Implementation;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.algorithms.diff.common.@class
+namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 {
 	internal class ClassDiff<TType> : IDiffAlgorithm<TType>
 	{

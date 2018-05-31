@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.implementation
+namespace KST.SharpDiffLib.DiffResult.Implementation
 {
 	internal class Diff<TType> : IDiff<TType>
 	{

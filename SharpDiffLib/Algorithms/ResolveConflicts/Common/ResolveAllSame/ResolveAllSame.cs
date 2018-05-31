@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.conflictManagement;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.ConflictManagement;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.resolveAllSame
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.ResolveAllSame
 {
 	internal class ResolveAllSame<TType> : IResolveConflictsAlgorithm<TType>
 	{

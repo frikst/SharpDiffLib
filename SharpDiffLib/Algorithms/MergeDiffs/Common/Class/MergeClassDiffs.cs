@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.fastReflection;
-using SharpDiffLib.implementation;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.FastReflection;
+using KST.SharpDiffLib.Implementation;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 {
 	internal class MergeClassDiffs<TType> : IMergeDiffsAlgorithm<TType>
 	{

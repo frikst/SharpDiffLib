@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using SharpDiffLib.@base;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.Base;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.fastReflection
+namespace KST.SharpDiffLib.FastReflection
 {
 	public static class Class<TClass>
 	{

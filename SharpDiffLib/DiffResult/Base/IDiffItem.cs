@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpDiffLib.diffResult.@base
+﻿namespace KST.SharpDiffLib.DiffResult.Base
 {
 	public interface IDiffItem
 	{
@@ -13,7 +11,7 @@ namespace SharpDiffLib.diffResult.@base
 		/// <returns></returns>
 		bool IsSame(IDiffItem other);
 
-		Type ItemType { get; }
+		System.Type ItemType { get; }
 
 		string ToString(int indentLevel);
 		string ToString();

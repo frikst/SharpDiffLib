@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using SharpDiffLib.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.definition
+namespace KST.SharpDiffLib.Definition
 {
 	public class MergerDefinition<TDefinition>
 		where TDefinition : MergerDefinition<TDefinition>

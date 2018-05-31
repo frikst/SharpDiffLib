@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.definition.rules
+namespace KST.SharpDiffLib.Definition.Rules
 {
 	public interface IAlgorithmRules
 	{

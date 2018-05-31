@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.diffResult.action;
+﻿using KST.SharpDiffLib.DiffResult.Action;
 
-namespace SharpDiffLib.conflictManagement
+namespace KST.SharpDiffLib.ConflictManagement
 {
 	public interface IConflictContainer
 	{

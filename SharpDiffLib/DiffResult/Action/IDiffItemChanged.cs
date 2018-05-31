@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using SharpDiffLib.diffResult.@base;
+using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.action
+namespace KST.SharpDiffLib.DiffResult.Action
 {
 	public interface IDiffItemChanged : IDiffItem
 	{

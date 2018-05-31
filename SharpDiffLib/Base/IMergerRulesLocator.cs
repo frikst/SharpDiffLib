@@ -1,7 +1,7 @@
 ﻿using System;
-using SharpDiffLib.definition.rules;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.@base
+namespace KST.SharpDiffLib.Base
 {
 	public interface IMergerRulesLocator
 	{

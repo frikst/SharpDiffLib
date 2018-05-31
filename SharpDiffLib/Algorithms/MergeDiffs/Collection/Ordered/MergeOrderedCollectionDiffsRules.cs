@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.fastReflection;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 {
 	public class MergeOrderedCollectionDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.fastReflection;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.diffResult
+namespace KST.SharpDiffLib.DiffResult
 {
 	public static class DiffResultFactory<TType>
 	{

@@ -1,4 +1,4 @@
-﻿namespace SharpDiffLib.Test._Entities.BaseWithoutId
+﻿namespace KST.SharpDiffLib.Test._Entities.BaseWithoutId
 {
 	public class SampleBase
 	{

@@ -1,7 +1,7 @@
-﻿using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.common.value
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Value
 {
 	public class MergeValueDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

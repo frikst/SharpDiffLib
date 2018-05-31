@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.applyPatch.@base
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Base
 {
 	/// <summary>
 	/// Rules for the patch application algorithms. Interface is designed to be used client side only

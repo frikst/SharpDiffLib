@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.common.value
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Value
 {
 	internal class MergeValueDiffs<TType> : IMergeDiffsAlgorithm<TType>
 	{
@@ -21,7 +20,7 @@ namespace SharpDiffLib.algorithms.mergeDiffs.common.value
 		public MergeValueDiffs(MergerImplementation mergerImplementation, IAlgorithmRules rules)
 		{
 			this.aMergerImplementation = mergerImplementation;
-			aRules = rules;
+			this.aRules = rules;
 		}
 
 		#region Implementation of IMergeDiffsAlgorithm<TType>

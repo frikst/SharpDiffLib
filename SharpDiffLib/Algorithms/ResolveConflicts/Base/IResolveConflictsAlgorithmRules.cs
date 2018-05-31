@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.@base
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Base
 {
 	public interface IResolveConflictsAlgorithmRules : IAlgorithmRules
 	{

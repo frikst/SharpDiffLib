@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleClass;
-using SharpDiffLib.algorithms.resolveConflicts;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition;
+﻿using KST.SharpDiffLib.Algorithms.ResolveConflicts;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Test._Entities.SimpleClass;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.FullRun
+namespace KST.SharpDiffLib.Test.FullRun
 {
 	[TestClass]
 	public class UseAllLeft

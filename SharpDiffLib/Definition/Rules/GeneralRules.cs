@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using SharpDiffLib.fastReflection;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.definition.rules
+namespace KST.SharpDiffLib.Definition.Rules
 {
 	internal interface IGeneralRules : IAlgorithmRules
 	{

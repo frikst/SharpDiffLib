@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace SharpDiffLib.@internal
+namespace KST.SharpDiffLib.Internal
 {
 	internal static class StringBuilderExtensions
 	{

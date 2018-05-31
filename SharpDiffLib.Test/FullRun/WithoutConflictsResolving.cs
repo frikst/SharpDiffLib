@@ -1,11 +1,9 @@
-﻿using System;
+﻿using KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.DontResolve;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleClass;
-using SharpDiffLib.algorithms.resolveConflicts.common;
-using SharpDiffLib.algorithms.resolveConflicts.common.dontResolve;
-using SharpDiffLib.definition;
 
-namespace SharpDiffLib.Test.FullRun
+namespace KST.SharpDiffLib.Test.FullRun
 {
 	[TestClass]
 	public class WithoutConflictsResolving

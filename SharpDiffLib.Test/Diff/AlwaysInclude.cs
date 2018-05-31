@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.BaseWithoutId;
-using SharpDiffLib.algorithms.diff;
-using SharpDiffLib.definition;
+﻿using KST.SharpDiffLib.Algorithms.Diff;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Test._Entities.BaseWithoutId;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.Diff
+namespace KST.SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class AlwaysInclude

@@ -1,7 +1,6 @@
-﻿using System;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.type
+namespace KST.SharpDiffLib.DiffResult.Type
 {
 	public interface IDiffUnorderedCollectionItem : IDiffItem
 	{
@@ -15,7 +14,7 @@ namespace SharpDiffLib.diffResult.type
 
 	public interface IDiffUnorderedCollectionItemWithID<TIdType> : IDiffUnorderedCollectionItemWithID
 	{
-		Type IdType { get; }
+		System.Type IdType { get; }
 
 		new TIdType Id { get; }
 	}

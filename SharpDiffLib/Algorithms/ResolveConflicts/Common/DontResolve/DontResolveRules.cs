@@ -1,7 +1,7 @@
-﻿using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.dontResolve
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.DontResolve
 {
 	public class DontResolveRules<TDefinedFor> : BaseRules<TDefinedFor>, IResolveConflictsAlgorithmRules<TDefinedFor>
 	{

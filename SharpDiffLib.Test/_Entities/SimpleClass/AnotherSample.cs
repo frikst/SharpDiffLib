@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpDiffLib.Test._Entities.SimpleClass
+﻿namespace KST.SharpDiffLib.Test._Entities.SimpleClass
 {
 	public class AnotherSample
 	{

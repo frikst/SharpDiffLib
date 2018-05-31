@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using SharpDiffLib.@base;
+﻿using KST.SharpDiffLib.Base;
 
-namespace SharpDiffLib.diffResult.@base
+namespace KST.SharpDiffLib.DiffResult.Base
 {
 	public interface IDiff : ICountableEnumerable<IDiffItem>
 	{

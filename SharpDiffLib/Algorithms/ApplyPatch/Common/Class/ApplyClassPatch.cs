@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.fastReflection;
-using SharpDiffLib.implementation;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.FastReflection;
+using KST.SharpDiffLib.Implementation;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.algorithms.applyPatch.common.@class
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class
 {
 	internal class ApplyClassPatch<TType> : IApplyPatchAlgorithm<TType>
 	{

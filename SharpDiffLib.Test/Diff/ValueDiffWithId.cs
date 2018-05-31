@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using KST.SharpDiffLib.Algorithms.Diff;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.InnerClassWithId;
-using SharpDiffLib.algorithms.diff;
-using SharpDiffLib.definition;
-using SharpDiffLib.definition.rules;
 
-namespace SharpDiffLib.Test.Diff
+namespace KST.SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class ValueDiffWithId

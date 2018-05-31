@@ -1,8 +1,8 @@
-﻿using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.resolveAllSame
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.ResolveAllSame
 {
 	public class ResolveAllSameRules<TDefinedFor> : BaseRules<TDefinedFor>, IResolveConflictsAlgorithmRules<TDefinedFor>
 	{

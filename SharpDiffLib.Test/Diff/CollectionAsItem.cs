@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using KST.SharpDiffLib.Algorithms.Diff;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Test._Entities.IntArrayProperty;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.IntArrayProperty;
-using SharpDiffLib.algorithms.diff;
-using SharpDiffLib.definition;
 
-namespace SharpDiffLib.Test.Diff
+namespace KST.SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class CollectionAsItem

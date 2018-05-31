@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpDiffLib.definition.rules
+namespace KST.SharpDiffLib.Definition.Rules
 {
 	public static class GeneralRulesExtensions
 	{

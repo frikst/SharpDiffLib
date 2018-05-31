@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.InnerClass;
-using SharpDiffLib.diffResult;
+﻿using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.Test._Entities.InnerClass;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.General
+namespace KST.SharpDiffLib.Test.General
 {
 	[TestClass]
 	public class DiffResultFactoryTest

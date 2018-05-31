@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SharpDiffLib.diffResult.type;
+using KST.SharpDiffLib.DiffResult.Type;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 {
 	internal class Chunker : IEnumerable<List<IDiffOrderedCollectionItem>>, IEnumerator<List<IDiffOrderedCollectionItem>>
 	{
@@ -37,7 +37,7 @@ namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
 
 		public void Dispose()
 		{
-			aDiffItemsEnumerator.Dispose();
+			this.aDiffItemsEnumerator.Dispose();
 		}
 
 		#endregion

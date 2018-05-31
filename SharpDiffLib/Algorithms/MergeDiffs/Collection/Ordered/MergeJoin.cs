@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using SharpDiffLib.diffResult.type;
+using KST.SharpDiffLib.DiffResult.Type;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 {
 	internal class MergeJoin : IEnumerable<Tuple<List<IDiffOrderedCollectionItem>, List<IDiffOrderedCollectionItem>>>
 	{

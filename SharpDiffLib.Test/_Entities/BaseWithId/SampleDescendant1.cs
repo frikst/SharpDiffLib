@@ -1,4 +1,4 @@
-namespace SharpDiffLib.Test._Entities.BaseWithId
+namespace KST.SharpDiffLib.Test._Entities.BaseWithId
 {
 	public class SampleDescendant1 : SampleBase
 	{

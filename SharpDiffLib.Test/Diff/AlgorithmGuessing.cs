@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.Base;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleClass;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.@base;
-using SharpDiffLib.definition;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult;
-using SharpDiffLib.diffResult.@base;
 
-namespace SharpDiffLib.Test.Diff
+namespace KST.SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class AlgorithmGuessing

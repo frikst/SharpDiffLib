@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace SharpDiffLib.@internal
+namespace KST.SharpDiffLib.Internal
 {
 	internal class IdentityComparer<T> : IEqualityComparer<T>
 		where T : class

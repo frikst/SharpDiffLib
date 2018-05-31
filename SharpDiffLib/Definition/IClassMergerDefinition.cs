@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.definition
+namespace KST.SharpDiffLib.Definition
 {
 	internal interface IClassMergerDefinition
 	{

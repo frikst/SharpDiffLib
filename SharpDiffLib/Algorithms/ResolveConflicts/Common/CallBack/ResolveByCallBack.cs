@@ -1,8 +1,8 @@
 ﻿using System;
-using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.conflictManagement;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.ConflictManagement;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.callBack
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.CallBack
 {
 	internal class ResolveByCallBack<TType> : IResolveConflictsAlgorithm<TType>
 	{

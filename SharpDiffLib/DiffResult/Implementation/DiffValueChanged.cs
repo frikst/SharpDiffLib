@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Text;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.diffResult.implementation
+namespace KST.SharpDiffLib.DiffResult.Implementation
 {
 	internal class DiffValueChanged<TItemType> : IDiffItemChanged<TItemType>, IDiffValue
 	{
-		public DiffValueChanged(Type type, IDiff<TItemType> valueDiff)
+		public DiffValueChanged(System.Type type, IDiff<TItemType> valueDiff)
 		{
 			this.ValueType = type;
 			this.ValueDiff = valueDiff;
@@ -25,7 +25,7 @@ namespace SharpDiffLib.diffResult.implementation
 			return object.Equals(this.ValueDiff, ((IDiffItemChanged<TItemType>) other).ValueDiff);
 		}
 
-		public Type ItemType
+		public System.Type ItemType
 		{
 			get { return typeof(TItemType); }
 		}
@@ -69,7 +69,7 @@ namespace SharpDiffLib.diffResult.implementation
 
 		#region Implementation of IDiffValue
 
-		public Type ValueType { get; private set; }
+		public System.Type ValueType { get; private set; }
 
 		#endregion
 

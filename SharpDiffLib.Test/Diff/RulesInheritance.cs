@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.BaseWithId;
-using SharpDiffLib.algorithms.diff;
-using SharpDiffLib.definition;
-using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Algorithms.Diff;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.Test._Entities.BaseWithId;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.Diff
+namespace KST.SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class RulesInheritance

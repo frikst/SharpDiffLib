@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.type
+namespace KST.SharpDiffLib.DiffResult.Type
 {
 	public interface IDiffOrderedCollectionItem : IDiffItem
 	{

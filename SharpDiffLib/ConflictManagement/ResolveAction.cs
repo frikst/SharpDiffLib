@@ -1,4 +1,4 @@
-namespace SharpDiffLib.conflictManagement
+namespace KST.SharpDiffLib.ConflictManagement
 {
 	public enum ResolveAction
 	{

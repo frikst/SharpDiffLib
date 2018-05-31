@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.algorithms.applyPatch;
-using SharpDiffLib.definition;
-using SharpDiffLib.diffResult;
+﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.ApplyPatch
+namespace KST.SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class ArrayOfPrimitives

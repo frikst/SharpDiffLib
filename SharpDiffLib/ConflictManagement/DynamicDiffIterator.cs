@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.conflictManagement
+namespace KST.SharpDiffLib.ConflictManagement
 {
 	internal class DynamicDiffIterator : IEnumerable<IDiffItem>
 	{

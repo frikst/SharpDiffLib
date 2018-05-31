@@ -13,6 +13,10 @@
 		<OutputType>Library</OutputType>
 
 		<StartupObject />
+
+		<AssemblyName>KST.SharpDiffLib.Test</AssemblyName>
+
+		<RootNamespace>KST.SharpDiffLib.Test</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Text;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.diffResult.implementation
+namespace KST.SharpDiffLib.DiffResult.Implementation
 {
 	internal class DiffKeyValueCollectionItemAdded<TKeyType, TItemType> : IDiffKeyValueCollectionItem<TKeyType>, IDiffItemAdded<TItemType>
 	{
@@ -25,7 +25,7 @@ namespace SharpDiffLib.diffResult.implementation
 			return object.Equals(this.NewValue, ((IDiffItemAdded<TItemType>) other).NewValue);
 		}
 
-		public Type ItemType
+		public System.Type ItemType
 		{
 			get { return typeof(TItemType); }
 		}
@@ -63,7 +63,7 @@ namespace SharpDiffLib.diffResult.implementation
 
 		#region Implementation of IDiffKeyValueCollectionItem
 
-		public Type KeyType
+		public System.Type KeyType
 		{
 			get { return typeof(TKeyType); }
 		}

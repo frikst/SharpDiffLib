@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace SharpDiffLib.fastReflection
+namespace KST.SharpDiffLib.FastReflection
 {
 	public class Property
 	{

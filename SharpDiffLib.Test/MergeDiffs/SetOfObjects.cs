@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using KST.SharpDiffLib.Algorithms.MergeDiffs;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleWithId;
-using SharpDiffLib.algorithms.mergeDiffs;
-using SharpDiffLib.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult;
 
-namespace SharpDiffLib.Test.MergeDiffs
+namespace KST.SharpDiffLib.Test.MergeDiffs
 {
 	[TestClass]
 	public class SetOfObjects

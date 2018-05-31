@@ -1,9 +1,9 @@
 ﻿using System;
-using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.fastReflection;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.algorithms.applyPatch.collection.ordered
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Ordered
 {
 	/// <summary>
 	/// Rules for ordered collection patch application algorithm.

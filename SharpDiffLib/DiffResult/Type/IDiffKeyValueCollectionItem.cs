@@ -1,7 +1,6 @@
-﻿using System;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.type
+namespace KST.SharpDiffLib.DiffResult.Type
 {
 	public interface IDiffKeyValueCollectionItem : IDiffItem
 	{
@@ -10,7 +9,7 @@ namespace SharpDiffLib.diffResult.type
 
 	public interface IDiffKeyValueCollectionItem<TKeyType> : IDiffKeyValueCollectionItem
 	{
-		Type KeyType { get; }
+		System.Type KeyType { get; }
 
 		new TKeyType Key { get; }
 	}

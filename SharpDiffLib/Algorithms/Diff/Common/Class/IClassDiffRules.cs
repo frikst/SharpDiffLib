@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SharpDiffLib.fastReflection;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.algorithms.diff.common.@class
+namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 {
 	internal interface IClassDiffRules
 	{

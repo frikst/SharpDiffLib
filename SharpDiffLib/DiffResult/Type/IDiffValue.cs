@@ -1,10 +1,9 @@
-﻿using System;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.type
+namespace KST.SharpDiffLib.DiffResult.Type
 {
 	public interface IDiffValue : IDiffItem
 	{
-		Type ValueType { get; }
+		System.Type ValueType { get; }
 	}
 }

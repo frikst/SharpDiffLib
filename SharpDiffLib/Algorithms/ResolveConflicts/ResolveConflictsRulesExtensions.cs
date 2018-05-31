@@ -1,11 +1,10 @@
 ﻿using System;
-using SharpDiffLib.algorithms.resolveConflicts.common;
-using SharpDiffLib.algorithms.resolveConflicts.common.callBack;
-using SharpDiffLib.algorithms.resolveConflicts.common.dontResolve;
-using SharpDiffLib.algorithms.resolveConflicts.common.resolveAllSame;
-using SharpDiffLib.definition;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.CallBack;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.DontResolve;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.ResolveAllSame;
+using KST.SharpDiffLib.Definition;
 
-namespace SharpDiffLib.algorithms.resolveConflicts
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts
 {
 	public static class ResolveConflictsRulesExtensions
 	{

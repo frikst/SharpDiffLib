@@ -1,4 +1,4 @@
-﻿namespace SharpDiffLib.Test._Entities.InnerStructure
+﻿namespace KST.SharpDiffLib.Test._Entities.InnerStructure
 {
 	public struct SampleStruct
 	{

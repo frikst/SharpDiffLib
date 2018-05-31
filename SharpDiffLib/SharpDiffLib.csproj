@@ -3,8 +3,9 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
-		<RootNamespace>SharpDiffLib</RootNamespace>
+		<RootNamespace>KST.SharpDiffLib</RootNamespace>
 		<Configurations>Debug;Release</Configurations>
+		<AssemblyName>KST.SharpDiffLib</AssemblyName>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">

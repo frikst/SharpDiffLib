@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.common.@class
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 {
 	public class MergeClassDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

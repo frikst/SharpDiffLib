@@ -1,7 +1,6 @@
-﻿using SharpDiffLib.conflictManagement;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.ConflictManagement;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.@base
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Base
 {
 	public interface IResolveConflictsAlgorithm
 	{

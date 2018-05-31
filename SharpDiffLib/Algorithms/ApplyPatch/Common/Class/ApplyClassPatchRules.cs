@@ -1,7 +1,7 @@
-﻿using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.applyPatch.common.@class
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class
 {
 	/// <summary>
 	/// Rules for class patch application algorithm.

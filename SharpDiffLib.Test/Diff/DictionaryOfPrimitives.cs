@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using KST.SharpDiffLib.Algorithms.Diff;
+using KST.SharpDiffLib.Definition;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.algorithms.diff;
-using SharpDiffLib.definition;
 
-namespace SharpDiffLib.Test.Diff
+namespace KST.SharpDiffLib.Test.Diff
 {
 	[TestClass]
 	public class DictionaryOfPrimitives

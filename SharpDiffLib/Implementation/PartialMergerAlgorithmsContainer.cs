@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.implementation
+namespace KST.SharpDiffLib.Implementation
 {
 	public class PartialMergerAlgorithmsContainer
 	{

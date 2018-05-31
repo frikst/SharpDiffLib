@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.definition;
-using SharpDiffLib.diffResult;
-using SharpDiffLib.Test._Entities.SimpleClass;
 
-namespace SharpDiffLib.Test.ApplyPatch
+namespace KST.SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class AlgorithmGuessing

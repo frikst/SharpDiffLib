@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.type;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Type;
 
-namespace SharpDiffLib.algorithms.diff.common.baseClass
+namespace KST.SharpDiffLib.Algorithms.Diff.Common.BaseClass
 {
 	/// <summary>
 	/// Rules for inheritance diff algorithm.

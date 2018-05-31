@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.BaseWithId;
-using SharpDiffLib.algorithms.applyPatch;
-using SharpDiffLib.algorithms.diff;
-using SharpDiffLib.algorithms.mergeDiffs;
-using SharpDiffLib.algorithms.resolveConflicts;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition;
+﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
+using KST.SharpDiffLib.Algorithms.Diff;
+using KST.SharpDiffLib.Algorithms.MergeDiffs;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Test._Entities.BaseWithId;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.FullRun
+namespace KST.SharpDiffLib.Test.FullRun
 {
 	[TestClass]
 	public class SubClass

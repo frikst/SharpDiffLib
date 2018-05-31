@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.conflictManagement
+namespace KST.SharpDiffLib.ConflictManagement
 {
 	internal class DynamicDiffItemChangedFactory
 	{

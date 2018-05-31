@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.dontResolve
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.DontResolve
 {
 	public class NotPossibleToResolveException : Exception
 	{

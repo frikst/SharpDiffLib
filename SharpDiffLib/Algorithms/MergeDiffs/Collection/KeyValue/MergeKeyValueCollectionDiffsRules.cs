@@ -1,9 +1,9 @@
 ﻿using System;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.fastReflection;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.collection.keyValue
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.KeyValue
 {
 	public class MergeKeyValueCollectionDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

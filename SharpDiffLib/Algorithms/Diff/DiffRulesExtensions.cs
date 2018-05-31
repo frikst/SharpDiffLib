@@ -1,13 +1,13 @@
 ﻿using System;
-using SharpDiffLib.algorithms.diff.collection.keyValue;
-using SharpDiffLib.algorithms.diff.collection.ordered;
-using SharpDiffLib.algorithms.diff.collection.unordered;
-using SharpDiffLib.algorithms.diff.common.baseClass;
-using SharpDiffLib.algorithms.diff.common.@class;
-using SharpDiffLib.algorithms.diff.common.value;
-using SharpDiffLib.definition;
+using KST.SharpDiffLib.Algorithms.Diff.Collection.KeyValue;
+using KST.SharpDiffLib.Algorithms.Diff.Collection.Ordered;
+using KST.SharpDiffLib.Algorithms.Diff.Collection.Unordered;
+using KST.SharpDiffLib.Algorithms.Diff.Common.BaseClass;
+using KST.SharpDiffLib.Algorithms.Diff.Common.Class;
+using KST.SharpDiffLib.Algorithms.Diff.Common.Value;
+using KST.SharpDiffLib.Definition;
 
-namespace SharpDiffLib.algorithms.diff
+namespace KST.SharpDiffLib.Algorithms.Diff
 {
 	/// <summary>
 	/// Extension methods for simpler diff algorithm rules definition using fluent syntax.

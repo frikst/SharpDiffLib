@@ -1,7 +1,7 @@
-﻿using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.conflictManagement;
+﻿using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.ConflictManagement;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.dontResolve
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.DontResolve
 {
 	internal class DontResolve<TType> : IResolveConflictsAlgorithm<TType>
 	{

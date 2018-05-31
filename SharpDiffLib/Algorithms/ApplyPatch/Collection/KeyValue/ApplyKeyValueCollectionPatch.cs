@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.algorithms.applyPatch.collection.keyValue
+namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.KeyValue
 {
 	internal class ApplyKeyValueCollectionPatch<TType, TKeyType, TItemType> : IApplyPatchAlgorithm<TType>
 	{

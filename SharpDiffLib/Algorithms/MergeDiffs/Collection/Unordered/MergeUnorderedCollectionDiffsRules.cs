@@ -1,9 +1,9 @@
 ﻿using System;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.fastReflection;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.FastReflection;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.collection.unordered
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Unordered
 {
 	public class MergeUnorderedCollectionDiffsRules<TDefinedFor> : BaseRules<TDefinedFor>, IMergeDiffsAlgorithmRules<TDefinedFor>
 	{

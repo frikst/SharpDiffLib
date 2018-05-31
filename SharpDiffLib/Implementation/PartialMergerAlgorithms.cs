@@ -1,12 +1,11 @@
-﻿using System;
-using SharpDiffLib.algorithms.applyPatch.@base;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.implementation
+namespace KST.SharpDiffLib.Implementation
 {
 	public class PartialMergerAlgorithms
 	{

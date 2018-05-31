@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.diff.@base
+namespace KST.SharpDiffLib.Algorithms.Diff.Base
 {
 	/// <summary>
 	/// Rules for diff algorithm. Interface is designed to be used client side only

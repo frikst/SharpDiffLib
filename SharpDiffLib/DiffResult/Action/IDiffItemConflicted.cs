@@ -1,7 +1,7 @@
-﻿using SharpDiffLib.@base;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.Base;
+using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.diffResult.action
+namespace KST.SharpDiffLib.DiffResult.Action
 {
 	public interface IDiffItemConflicted : IDiffItem
 	{

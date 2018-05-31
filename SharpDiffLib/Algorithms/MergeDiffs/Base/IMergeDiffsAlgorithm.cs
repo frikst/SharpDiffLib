@@ -1,8 +1,7 @@
-﻿using SharpDiffLib.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.@base
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Base
 {
 	public interface IMergeDiffsAlgorithm
 	{

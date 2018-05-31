@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using SharpDiffLib.algorithms.diff.@base;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Algorithms.Diff.Base;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.algorithms.diff.collection.unordered
+namespace KST.SharpDiffLib.Algorithms.Diff.Collection.Unordered
 {
 	internal class UnorderedCollectionDiff<TType, TItemType> : IDiffAlgorithm<TType>
 	{

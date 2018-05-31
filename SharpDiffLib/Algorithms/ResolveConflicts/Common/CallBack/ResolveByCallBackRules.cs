@@ -1,9 +1,9 @@
 ﻿using System;
-using SharpDiffLib.algorithms.resolveConflicts.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition.rules;
+using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.resolveConflicts.common.callBack
+namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.CallBack
 {
 	public class ResolveByCallBackRules<TDefinedFor> : BaseRules<TDefinedFor>, IResolveConflictsAlgorithmRules<TDefinedFor>
 	{

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpDiffLib.algorithms.mergeDiffs.@base;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.implementation;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.implementation;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Implementation;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Implementation;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.collection.ordered
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 {
 	internal class MergeOrderedCollectionDiffs<TType, TItemType> : IMergeDiffsAlgorithm<TType>
 	{

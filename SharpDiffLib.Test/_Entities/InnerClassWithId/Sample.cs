@@ -1,4 +1,4 @@
-﻿namespace SharpDiffLib.Test._Entities.InnerClassWithId
+﻿namespace KST.SharpDiffLib.Test._Entities.InnerClassWithId
 {
 	public class Sample
 	{

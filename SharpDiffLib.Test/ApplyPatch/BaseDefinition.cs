@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.BaseWithId;
-using SharpDiffLib.algorithms.applyPatch;
-using SharpDiffLib.definition;
-using SharpDiffLib.definition.rules;
-using SharpDiffLib.diffResult;
+﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.Test._Entities.BaseWithId;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.ApplyPatch
+namespace KST.SharpDiffLib.Test.ApplyPatch
 {
 	[TestClass]
 	public class BaseDefinition

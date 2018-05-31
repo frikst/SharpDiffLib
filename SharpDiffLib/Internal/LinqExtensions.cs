@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SharpDiffLib.@internal
+namespace KST.SharpDiffLib.Internal
 {
 	internal static class LinqExtensions
 	{

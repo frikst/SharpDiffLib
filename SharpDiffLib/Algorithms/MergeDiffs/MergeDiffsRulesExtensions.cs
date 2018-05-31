@@ -1,12 +1,12 @@
 ﻿using System;
-using SharpDiffLib.algorithms.mergeDiffs.collection.keyValue;
-using SharpDiffLib.algorithms.mergeDiffs.collection.ordered;
-using SharpDiffLib.algorithms.mergeDiffs.collection.unordered;
-using SharpDiffLib.algorithms.mergeDiffs.common.@class;
-using SharpDiffLib.algorithms.mergeDiffs.common.value;
-using SharpDiffLib.definition;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.KeyValue;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Unordered;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class;
+using KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Value;
+using KST.SharpDiffLib.Definition;
 
-namespace SharpDiffLib.algorithms.mergeDiffs
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs
 {
 	public static class MergeDiffsRulesExtensions
 	{

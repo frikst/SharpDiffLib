@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using SharpDiffLib.diffResult.action;
-using SharpDiffLib.diffResult.@base;
-using SharpDiffLib.diffResult.type;
-using SharpDiffLib.@internal;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.DiffResult.Type;
+using KST.SharpDiffLib.Internal;
 
-namespace SharpDiffLib.diffResult.implementation
+namespace KST.SharpDiffLib.DiffResult.Implementation
 {
 	internal class DiffUnorderedCollectionReplaced<TItemType> : IDiffItemReplaced<TItemType>, IDiffUnorderedCollectionItem
 	{
@@ -28,7 +26,7 @@ namespace SharpDiffLib.diffResult.implementation
 				&& object.Equals(this.NewValue, ((IDiffItemReplaced<TItemType>) other).NewValue);
 		}
 
-		public Type ItemType
+		public System.Type ItemType
 		{
 			get { return typeof(TItemType); }
 		}

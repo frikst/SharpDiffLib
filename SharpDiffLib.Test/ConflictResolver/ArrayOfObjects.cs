@@ -1,12 +1,12 @@
 ﻿using System.Linq;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleWithId;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition;
-using SharpDiffLib.diffResult;
-using SharpDiffLib.diffResult.action;
 
-namespace SharpDiffLib.Test.ConflictResolver
+namespace KST.SharpDiffLib.Test.ConflictResolver
 {
 	[TestClass]
 	public class ArrayOfObjects

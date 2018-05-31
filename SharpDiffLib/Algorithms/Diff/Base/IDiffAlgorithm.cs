@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.diffResult.@base;
+﻿using KST.SharpDiffLib.DiffResult.Base;
 
-namespace SharpDiffLib.algorithms.diff.@base
+namespace KST.SharpDiffLib.Algorithms.Diff.Base
 {
 	/// <summary>
 	/// Algorithm for object comparison. Algorithm takes two objects and compute diff between

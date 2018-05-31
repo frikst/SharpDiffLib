@@ -1,6 +1,6 @@
-﻿using SharpDiffLib.definition.rules;
+﻿using KST.SharpDiffLib.Definition.Rules;
 
-namespace SharpDiffLib.algorithms.mergeDiffs.@base
+namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Base
 {
 	public interface IMergeDiffsAlgorithmRules : IAlgorithmRules
 	{

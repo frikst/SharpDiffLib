@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpDiffLib.Test._Entities.SimpleClass;
-using SharpDiffLib.algorithms.mergeDiffs;
-using SharpDiffLib.conflictManagement;
-using SharpDiffLib.definition;
-using SharpDiffLib.diffResult;
+﻿using KST.SharpDiffLib.Algorithms.MergeDiffs;
+using KST.SharpDiffLib.ConflictManagement;
+using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.Test._Entities.SimpleClass;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SharpDiffLib.Test.MergeDiffs
+namespace KST.SharpDiffLib.Test.MergeDiffs
 {
 	[TestClass]
 	public class SimpleClass
