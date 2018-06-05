@@ -6,6 +6,14 @@
 		<RootNamespace>KST.SharpDiffLib</RootNamespace>
 		<Configurations>Debug;Release</Configurations>
 		<AssemblyName>KST.SharpDiffLib</AssemblyName>
+		<Authors>Jan Janech</Authors>
+		<Company>Department of Software Technologies, Faculty of Management Science and Informatics, University of Žilina</Company>
+		<Product>SharpDiffLib</Product>
+		<Description>Library for computings diffs between two objects of the same type and processing three-way merge</Description>
+		<Copyright>© 2010-2018 Department of Software Technologies</Copyright>
+		<PackageLicenseUrl>https://rawgit.com/frikst/SharpDiffLib/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/frikst/SharpDiffLib</PackageProjectUrl>
+		<RepositoryUrl></RepositoryUrl>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
