@@ -39,9 +39,7 @@ namespace KST.SharpDiffLib.FastReflection
 			#region Implementation of ICountableEnumerable<T>
 
 			public int Count
-			{
-				get { return this.aCollection.Count; }
-			}
+				=> this.aCollection.Count;
 
 			#endregion
 		}

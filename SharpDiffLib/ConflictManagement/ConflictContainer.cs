@@ -21,9 +21,7 @@ namespace KST.SharpDiffLib.ConflictManagement
 		}
 
 		public bool HasConflicts
-		{
-			get { return this.aConflicts.Count > 0; }
-		}
+			=> this.aConflicts.Count > 0;
 
 		#endregion
 

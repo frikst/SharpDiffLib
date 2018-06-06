@@ -38,9 +38,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 		#region Implementation of ICountableEnumerable<IDiffItem>
 
 		public int Count
-		{
-			get { return this.aItems.Count; }
-		}
+			=> this.aItems.Count;
 
 		#endregion
 

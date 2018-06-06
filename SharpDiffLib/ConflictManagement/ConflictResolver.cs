@@ -47,19 +47,13 @@ namespace KST.SharpDiffLib.ConflictManagement
 		}
 
 		IDiff IConflictResolver.Original
-		{
-			get { return this.Original; }
-		}
+			=> this.Original;
 
 		IDiff IConflictResolver.Resolved
-		{
-			get { return this.Resolved; }
-		}
+			=> this.Resolved;
 
 		public Type ObjectType
-		{
-			get { return typeof(TType); }
-		}
+			=> typeof(TType);
 
 		#endregion
 

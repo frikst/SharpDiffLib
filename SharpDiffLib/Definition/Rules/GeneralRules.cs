@@ -13,7 +13,6 @@ namespace KST.SharpDiffLib.Definition.Rules
 	public class GeneralRules<TType> : BaseRules<TType>, IGeneralRules, IInheritableAlgorithmRules
 	{
 		private Property aIdProperty;
-		private IAlgorithmRules aInheritAfter;
 
 		public GeneralRules()
 		{
@@ -31,8 +30,9 @@ namespace KST.SharpDiffLib.Definition.Rules
 		{
 			get
 			{
-				if (this.aIdProperty == null && this.aInheritAfter is IGeneralRules)
-					this.aIdProperty = ((IGeneralRules) this.aInheritAfter).IdProperty;
+				if (this.aIdProperty == null)
+					if (((IInheritableAlgorithmRules) this).InheritedFrom is IGeneralRules baseRule)
+						this.aIdProperty = baseRule.IdProperty;
 
 				return this.aIdProperty;
 			}
@@ -49,11 +49,7 @@ namespace KST.SharpDiffLib.Definition.Rules
 
 		bool IInheritableAlgorithmRules.IsInheritable { get; set; }
 
-		IAlgorithmRules IInheritableAlgorithmRules.InheritedFrom
-		{
-			get { return this.aInheritAfter; }
-			set { this.aInheritAfter = value; }
-		}
+		IAlgorithmRules IInheritableAlgorithmRules.InheritedFrom { get; set; }
 
 		#endregion
 	}

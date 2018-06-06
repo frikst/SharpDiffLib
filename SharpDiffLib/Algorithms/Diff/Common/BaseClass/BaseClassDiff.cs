@@ -64,9 +64,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.BaseClass
 		#region Implementation of IDiffAlgorithm
 
 		public bool IsDirect
-		{
-			get { return false; }
-		}
+			=> false;
 
 		IDiff IDiffAlgorithm.Compute(object @base, object changed)
 		{

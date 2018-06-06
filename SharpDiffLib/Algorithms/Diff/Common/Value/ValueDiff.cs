@@ -42,9 +42,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 		#region Implementation of IDiffAlgorithm
 
 		public bool IsDirect
-		{
-			get { return true; }
-		}
+			=> true;
 
 		IDiff IDiffAlgorithm.Compute(object @base, object changed)
 		{

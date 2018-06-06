@@ -83,9 +83,7 @@ namespace KST.SharpDiffLib.Definition
 		#region Implementation of IClassMergerDefinition
 
 		Type IClassMergerDefinition.DefinedFor
-		{
-			get { return typeof(TClass); }
-		}
+			=> typeof(TClass);
 
 		TRules IClassMergerDefinition.GetRules<TRules>(IAlgorithmRules ignore)
 		{

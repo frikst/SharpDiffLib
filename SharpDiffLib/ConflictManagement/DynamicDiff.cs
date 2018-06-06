@@ -104,9 +104,7 @@ namespace KST.SharpDiffLib.ConflictManagement
 		}
 
 		public bool HasChanges
-		{
-			get { return this.aOriginal.HasChanges; }
-		}
+			=> this.aOriginal.HasChanges;
 
 		#endregion
 

@@ -18,7 +18,6 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 	{
 		private readonly HashSet<Property> aIgnoreProperties;
 		private readonly HashSet<Property> aAlwaysIncludedProperties;
-		private IAlgorithmRules aInheritAfter;
 
 		public ClassDiffRules()
 		{
@@ -58,11 +57,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 
 		bool IInheritableAlgorithmRules.IsInheritable { get; set; }
 
-		IAlgorithmRules IInheritableAlgorithmRules.InheritedFrom
-		{
-			get { return this.aInheritAfter; }
-			set { this.aInheritAfter = value; }
-		}
+		IAlgorithmRules IInheritableAlgorithmRules.InheritedFrom { get; set; }
 
 		#endregion
 
@@ -74,8 +69,8 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 			{
 				IEnumerable<Property> ignored = this.aIgnoreProperties;
 
-				if (this.aInheritAfter is IClassDiffRules)
-					ignored = ignored.Union(((IClassDiffRules) this.aInheritAfter).IgnoredProperties);
+				if (((IInheritableAlgorithmRules) this).InheritedFrom is IClassDiffRules baseRule)
+					ignored = ignored.Union(baseRule.IgnoredProperties);
 
 				return ignored;
 			}
@@ -87,8 +82,8 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 			{
 				IEnumerable<Property> included = this.aAlwaysIncludedProperties;
 
-				if (this.aInheritAfter is IClassDiffRules)
-					included = included.Union(((IClassDiffRules)this.aInheritAfter).AlwaysIncludedProperties);
+				if (((IInheritableAlgorithmRules) this).InheritedFrom is IClassDiffRules baseRule)
+					included = included.Union(baseRule.AlwaysIncludedProperties);
 
 				return included;
 			}

@@ -27,9 +27,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 		}
 
 		public System.Type ItemType
-		{
-			get { return typeof(TItemType); }
-		}
+			=> typeof(TItemType);
 
 		public string ToString(int indentLevel)
 		{
@@ -51,14 +49,10 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 		#region Implementation of IDiffItemReplaced
 
 		object IDiffItemReplaced.OldValue
-		{
-			get { return this.OldValue; }
-		}
+			=> this.OldValue;
 
 		object IDiffItemReplaced.NewValue
-		{
-			get { return this.NewValue; }
-		}
+			=> this.NewValue;
 
 		#endregion
 
@@ -73,9 +67,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 		#region Implementation of IDiffValue
 
 		public System.Type ValueType
-		{
-			get { return typeof(TItemType); }
-		}
+			=> typeof(TItemType);
 
 		#endregion
 

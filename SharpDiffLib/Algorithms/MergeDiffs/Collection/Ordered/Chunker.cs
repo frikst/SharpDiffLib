@@ -74,14 +74,10 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 		}
 
 		public List<IDiffOrderedCollectionItem> Current
-		{
-			get { return this.aCurrent; }
-		}
+			=> this.aCurrent;
 
 		object IEnumerator.Current
-		{
-			get { return this.aCurrent; }
-		}
+			=> this.aCurrent;
 
 		#endregion
 	}
