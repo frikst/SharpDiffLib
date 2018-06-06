@@ -8,6 +8,7 @@ using KST.SharpDiffLib.DiffResult.Implementation;
 using KST.SharpDiffLib.FastReflection;
 using KST.SharpDiffLib.Implementation;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 {
@@ -72,7 +73,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 				Expression.Assign(
 					ret,
 					Expression.New(
-						Members.List.NewWithCount(typeof(IDiffItem)),
+						ListMembers.NewWithCount(typeof(IDiffItem)),
 						Expression.Constant(Class<TType>.Properties.Count) // maximum number of different items
 					)
 				)
@@ -174,9 +175,9 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 
 			return Expression.Call(
 				ret,
-				Members.List.Add(typeof(IDiffItem)),
+				ListMembers.Add(typeof(IDiffItem)),
 				Expression.New(
-					Members.DiffItems.NewClassUnchanged(property.Type),
+					DiffItemsMembers.NewClassUnchanged(property.Type),
 					Expression.Constant(property),
 					valueProperty
 				)
@@ -190,9 +191,9 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 
 			return Expression.Call(
 				ret,
-				Members.List.Add(typeof(IDiffItem)),
+				ListMembers.Add(typeof(IDiffItem)),
 				Expression.New(
-					Members.DiffItems.NewClassReplaced(property.Type),
+					DiffItemsMembers.NewClassReplaced(property.Type),
 					Expression.Constant(property),
 					baseProperty,
 					changedProperty
@@ -218,21 +219,21 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 					tmp,
 					Expression.Call(
 						Expression.Constant(diff),
-						Members.DiffAlgorithm.Compute(property.Type),
+						DiffAlgorithmMembers.Compute(property.Type),
 						baseProperty,
 						changedProperty
 					)
 				),
 				Expression.IfThenElse(
 					Expression.NotEqual(
-						Expression.Property(tmp, Members.Diff.Count()),
+						Expression.Property(tmp, DiffMembers.Count()),
 						Expression.Constant(0)
 					),
 					Expression.Call(
 						ret,
-						Members.List.Add(typeof(IDiffItem)),
+						ListMembers.Add(typeof(IDiffItem)),
 						Expression.New(
-							Members.DiffItems.NewClassChanged(property.Type),
+							DiffItemsMembers.NewClassChanged(property.Type),
 							Expression.Constant(property),
 							tmp
 						)

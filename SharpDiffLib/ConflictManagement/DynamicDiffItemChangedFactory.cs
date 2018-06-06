@@ -5,6 +5,7 @@ using KST.SharpDiffLib.DiffResult.Action;
 using KST.SharpDiffLib.DiffResult.Base;
 using KST.SharpDiffLib.DiffResult.Type;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.ConflictManagement
 {
@@ -44,14 +45,14 @@ namespace KST.SharpDiffLib.ConflictManagement
 			ParameterExpression resolveActions = Expression.Parameter(typeof(Dictionary<IDiffItemConflicted, ResolveAction>), "resolveActions");
 
 			Expression newDiff = Expression.New(
-				Members.DynamicDiffMembers.New(diffType),
+				DynamicDiffMembers.New(diffType),
 				Expression.Convert(
 					Expression.Property(
 						Expression.Convert(
 							originalItem,
 							typeof(IDiffItemChanged<>).MakeGenericType(itemType)
 						),
-						Members.DiffItems.ChangedDiff(itemType)
+						DiffItemsMembers.ChangedDiff(itemType)
 					),
 					typeof(IDiff<>).MakeGenericType(diffType)
 				),
@@ -62,7 +63,7 @@ namespace KST.SharpDiffLib.ConflictManagement
 			{
 				newDiff = Expression.Call(
 					newDiff,
-					Members.DynamicDiffMembers.Finish(diffType)
+					DynamicDiffMembers.Finish(diffType)
 				);
 			}
 
@@ -72,7 +73,7 @@ namespace KST.SharpDiffLib.ConflictManagement
 						originalItem,
 						typeof(IDiffItemChanged<>).MakeGenericType(itemType)
 					),
-					Members.DiffItems.ReplaceDiffWith(itemType),
+					DiffItemsMembers.ReplaceDiffWith(itemType),
 					newDiff
 				),
 				originalItem, resolveActions

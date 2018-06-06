@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using KST.SharpDiffLib.Base;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.FastReflection
 {
@@ -56,7 +57,7 @@ namespace KST.SharpDiffLib.FastReflection
 					IEnumerable<Property> parentProperties;
 
 					if (typeof(TClass).BaseType != null)
-						parentProperties = (IEnumerable<Property>) Members.FastClass.Properties(typeof(TClass).BaseType).GetValue(null, null);
+						parentProperties = (IEnumerable<Property>) FastClassMembers.Properties(typeof(TClass).BaseType).GetValue(null, null);
 					else
 						parentProperties = Enumerable.Empty<Property>();
 

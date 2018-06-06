@@ -11,6 +11,7 @@ using KST.SharpDiffLib.DiffResult.Type;
 using KST.SharpDiffLib.FastReflection;
 using KST.SharpDiffLib.Implementation;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 {
@@ -69,20 +70,20 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 					Expression.Assign(
 						ret,
 						Expression.New(
-							Members.List.NewWithCount(typeof(IDiffItem)),
+							ListMembers.NewWithCount(typeof(IDiffItem)),
 							Expression.Add(
-								Expression.Property(left, Members.Diff.Count()),
-								Expression.Property(right, Members.Diff.Count())
+								Expression.Property(left, DiffMembers.Count()),
+								Expression.Property(right, DiffMembers.Count())
 							)
 						)
 					),
 					Expression.Assign(
 						leftEnumerator,
-						Expression.Call(left, Members.Enumerable.GetEnumerator(typeof(IDiffItem)))
+						Expression.Call(left, EnumerableMembers.GetEnumerator(typeof(IDiffItem)))
 					),
 					Expression.Assign(
 						rightEnumerator,
-						Expression.Call(right, Members.Enumerable.GetEnumerator(typeof(IDiffItem)))
+						Expression.Call(right, EnumerableMembers.GetEnumerator(typeof(IDiffItem)))
 					),
 					this.MoveEnumerator(leftEnumerator, leftSomeLeft),
 					this.MoveEnumerator(rightEnumerator, rightSomeLeft),
@@ -95,8 +96,8 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 
 		private Expression EvaluateProperty(ParameterExpression leftEnumerator, ParameterExpression leftSomeLeft, ParameterExpression rightEnumerator, ParameterExpression rightSomeLeft, Expression conflicts, Expression ret, Property property)
 		{
-			Expression leftCurrent = Expression.Property(leftEnumerator, Members.Enumerable.Current(typeof(IDiffItem)));
-			Expression rightCurrent = Expression.Property(rightEnumerator, Members.Enumerable.Current(typeof(IDiffItem)));
+			Expression leftCurrent = Expression.Property(leftEnumerator, EnumerableMembers.Current(typeof(IDiffItem)));
+			Expression rightCurrent = Expression.Property(rightEnumerator, EnumerableMembers.Current(typeof(IDiffItem)));
 
 			/* PSEUDO CODE FOR THIS:
 			 * if (leftSomeLeft && leftCurrent.UniqueID == ID)
@@ -126,9 +127,9 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 								leftCurrent,
 								typeof(IDiffClassItem)
 							),
-							Members.DiffItems.ClassProperty()
+							DiffItemsMembers.ClassProperty()
 						),
-						Members.FastProperty.UniqueID()
+						FastPropertyMembers.UniqueID()
 					),
 					Expression.Constant(property.UniqueID)
 				)
@@ -143,9 +144,9 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 								rightCurrent,
 								typeof(IDiffClassItem)
 							),
-							Members.DiffItems.ClassProperty()
+							DiffItemsMembers.ClassProperty()
 						),
-						Members.FastProperty.UniqueID()
+						FastPropertyMembers.UniqueID()
 					),
 					Expression.Constant(property.UniqueID)
 				)
@@ -162,7 +163,7 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 						),
 						Expression.Call(
 							ret,
-							Members.List.Add(typeof(IDiffItem)),
+							ListMembers.Add(typeof(IDiffItem)),
 							leftCurrent
 						)
 					),
@@ -173,7 +174,7 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 					Expression.Block(
 						Expression.Call(
 							ret,
-							Members.List.Add(typeof(IDiffItem)),
+							ListMembers.Add(typeof(IDiffItem)),
 							rightCurrent
 						),
 						this.MoveEnumerator(rightEnumerator, rightSomeLeft)
@@ -221,14 +222,14 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 				Expression.TypeIs(leftCurrent, typeof(IDiffItemUnchanged)),
 				Expression.Call(
 					ret,
-					Members.List.Add(typeof(IDiffItem)),
+					ListMembers.Add(typeof(IDiffItem)),
 					rightCurrent
 				),
 				Expression.IfThenElse(
 					Expression.TypeIs(rightCurrent, typeof(IDiffItemUnchanged)),
 					Expression.Call(
 						ret,
-						Members.List.Add(typeof(IDiffItem)),
+						ListMembers.Add(typeof(IDiffItem)),
 						leftCurrent
 					),
 					Expression.IfThenElse(
@@ -239,13 +240,13 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 						Expression.IfThenElse(
 							Expression.Call(
 								null,
-								Members.Object.Equals(),
+								ObjectMembers.Equals(),
 								leftCurrent,
 								rightCurrent
 							),
 							Expression.Call(
 								ret,
-								Members.List.Add(typeof(IDiffItem)),
+								ListMembers.Add(typeof(IDiffItem)),
 								leftCurrent
 							),
 							Expression.Block(
@@ -253,19 +254,19 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 								Expression.Assign(
 									conflict,
 									Expression.New(
-										Members.DiffItems.NewConflict(),
+										DiffItemsMembers.NewConflict(),
 										leftCurrent,
 										rightCurrent
 									)
 								),
 								Expression.Call(
 									ret,
-									Members.List.Add(typeof(IDiffItem)),
+									ListMembers.Add(typeof(IDiffItem)),
 									conflict
 								),
 								Expression.Call(
 									conflicts,
-									Members.ConflictContainer.RegisterConflict(),
+									ConflictContainerMembers.RegisterConflict(),
 									conflict
 								)
 							)
@@ -277,20 +278,20 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 							),
 							Expression.Call(
 								ret,
-								Members.List.Add(typeof(IDiffItem)),
+								ListMembers.Add(typeof(IDiffItem)),
 								Expression.New(
-									Members.DiffItems.NewClassChanged(property.Type),
+									DiffItemsMembers.NewClassChanged(property.Type),
 									Expression.Constant(property),
 									Expression.Call(
 										Expression.Constant(algorithm, typeof(IMergeDiffsAlgorithm<>).MakeGenericType(property.Type)),
-										Members.MergeDiffsAlgorithm.MergeDiffs(property.Type),
+										MergeDiffsAlgorithmMembers.MergeDiffs(property.Type),
 										Expression.Property(
 											Expression.Convert(leftCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-											Members.DiffItems.ChangedDiff(property.Type)
+											DiffItemsMembers.ChangedDiff(property.Type)
 										),
 										Expression.Property(
 											Expression.Convert(rightCurrent, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-											Members.DiffItems.ChangedDiff(property.Type)
+											DiffItemsMembers.ChangedDiff(property.Type)
 										),
 										conflicts
 									)
@@ -312,7 +313,7 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class
 				someLeft,
 				Expression.Call(
 					enumerator,
-					Members.Enumerable.MoveNext(typeof(IDiffItem))
+					EnumerableMembers.MoveNext(typeof(IDiffItem))
 				)
 			);
 		}

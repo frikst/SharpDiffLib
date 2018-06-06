@@ -7,6 +7,7 @@ using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
 using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Implementation
 {
@@ -36,7 +37,7 @@ namespace KST.SharpDiffLib.Implementation
 
 		public IDiffAlgorithm GetDiffAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IDiffAlgorithm, IDiffAlgorithmRules>(type, this.aDiffAlgorithms, Members.DiffAlgorithm.GetAlgorithm(type), ignore);
+			return this.GetAlgorithmHelper<IDiffAlgorithm, IDiffAlgorithmRules>(type, this.aDiffAlgorithms, DiffAlgorithmMembers.GetAlgorithm(type), ignore);
 		}
 
 		public IMergeDiffsAlgorithm<TType> GetMergeDiffsAlgorithm<TType>(IAlgorithmRules ignore = null)
@@ -46,7 +47,7 @@ namespace KST.SharpDiffLib.Implementation
 
 		public IMergeDiffsAlgorithm GetMergeDiffsAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IMergeDiffsAlgorithm, IMergeDiffsAlgorithmRules>(type, this.aMergeDiffsAlgorithms, Members.MergeDiffsAlgorithm.GetAlgorithm(type), ignore);
+			return this.GetAlgorithmHelper<IMergeDiffsAlgorithm, IMergeDiffsAlgorithmRules>(type, this.aMergeDiffsAlgorithms, MergeDiffsAlgorithmMembers.GetAlgorithm(type), ignore);
 		}
 
 		public IResolveConflictsAlgorithm<TType> GetResolveConflictsAlgorithm<TType>(IAlgorithmRules ignore = null)
@@ -56,7 +57,7 @@ namespace KST.SharpDiffLib.Implementation
 
 		public IResolveConflictsAlgorithm GetResolveConflictsAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IResolveConflictsAlgorithm, IResolveConflictsAlgorithmRules>(type, this.aResolveConflictsAlgorithms, Members.ResolveConflictsAlgorithm.GetAlgorithm(type), ignore);
+			return this.GetAlgorithmHelper<IResolveConflictsAlgorithm, IResolveConflictsAlgorithmRules>(type, this.aResolveConflictsAlgorithms, ResolveConflictsAlgorithmMembers.GetAlgorithm(type), ignore);
 		}
 
 		public IApplyPatchAlgorithm<TType> GetApplyPatchAlgorithm<TType>(IAlgorithmRules ignore = null)
@@ -66,7 +67,7 @@ namespace KST.SharpDiffLib.Implementation
 
 		public IApplyPatchAlgorithm GetApplyPatchAlgorithm(Type type, IAlgorithmRules ignore = null)
 		{
-			return this.GetAlgorithmHelper<IApplyPatchAlgorithm, IApplyPatchAlgorithmRules>(type, this.aApplyPatchAlgorithms, Members.ApplyPatchAlgorithm.GetAlgorithm(type), ignore);
+			return this.GetAlgorithmHelper<IApplyPatchAlgorithm, IApplyPatchAlgorithmRules>(type, this.aApplyPatchAlgorithms, ApplyPatchAlgorithmMembers.GetAlgorithm(type), ignore);
 		}
 
 		private TAlgorithm GetAlgorithmHelper<TAlgorithm, TAlgorithmRules>(Type type, Dictionary<Tuple<Type, IAlgorithmRules>, TAlgorithm> algorithms, MethodInfo method, IAlgorithmRules ignore)

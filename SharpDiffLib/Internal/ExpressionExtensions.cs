@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Internal
 {
@@ -18,7 +19,7 @@ namespace KST.SharpDiffLib.Internal
 				if (left.Type != right.Type)
 					throw;
 
-				object cmp = Members.EqualityComparerImplementation.Default(left.Type).GetValue(null, null);
+				object cmp = EqualityComparerMembers.Default(left.Type).GetValue(null, null);
 
 				if (cmp == null)
 					throw;
@@ -26,7 +27,7 @@ namespace KST.SharpDiffLib.Internal
 				return Expression.Not(
 					Expression.Call(
 						Expression.Constant(cmp),
-						Members.EqualityComparerImplementation.Equals(left.Type),
+						EqualityComparerMembers.Equals(left.Type),
 						left, right
 					)
 				);
@@ -46,15 +47,15 @@ namespace KST.SharpDiffLib.Internal
 
 				Expression.Assign(
 					enumerator,
-					Expression.Call(source, Members.Enumerable.GetEnumerator())
+					Expression.Call(source, EnumerableMembers.GetEnumerator())
 				),
 
 				Expression.Loop(
 					Expression.IfThenElse(
-						Expression.Call(enumerator, Members.Enumerable.MoveNext()),
+						Expression.Call(enumerator, EnumerableMembers.MoveNext()),
 
 						Expression.Block(
-							Expression.Assign(item, Expression.Convert(Expression.Property(enumerator, Members.Enumerable.Current()), item.Type)),
+							Expression.Assign(item, Expression.Convert(Expression.Property(enumerator, EnumerableMembers.Current()), item.Type)),
 							body
 						),
 

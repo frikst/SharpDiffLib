@@ -8,6 +8,7 @@ using KST.SharpDiffLib.DiffResult.Type;
 using KST.SharpDiffLib.FastReflection;
 using KST.SharpDiffLib.Implementation;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class
 {
@@ -77,9 +78,9 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class
 									Expression.Property(
 										Expression.Property(
 											item,
-											Members.DiffItems.ClassProperty()
+											DiffItemsMembers.ClassProperty()
 										),
-										Members.FastProperty.UniqueID()
+										FastPropertyMembers.UniqueID()
 									),
 									Expression.Throw(
 										Expression.New(typeof(Exception))
@@ -105,7 +106,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class
 					Expression.Property(ret, property.ReflectionPropertyInfo),
 					Expression.Property(
 						Expression.Convert(item, typeof(IDiffItemReplaced<>).MakeGenericType(property.Type)),
-						Members.DiffItems.ReplacedNewValue(property.Type)
+						DiffItemsMembers.ReplacedNewValue(property.Type)
 					)
 				),
 				Expression.Throw(
@@ -123,11 +124,11 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Class
 						Expression.Property(ret, property.ReflectionPropertyInfo),
 						Expression.Call(
 							Expression.Constant(algorithm),
-							Members.ApplyPatchAlgorithm.Apply(property.Type),
+							ApplyPatchAlgorithmMembers.Apply(property.Type),
 							Expression.Property(orig, property.ReflectionPropertyInfo),
 							Expression.Property(
 								Expression.Convert(item, typeof(IDiffItemChanged<>).MakeGenericType(property.Type)),
-								Members.DiffItems.ChangedDiff(property.Type)
+								DiffItemsMembers.ChangedDiff(property.Type)
 							)
 						)
 					),

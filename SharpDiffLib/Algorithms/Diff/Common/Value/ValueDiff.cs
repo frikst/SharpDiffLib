@@ -8,6 +8,7 @@ using KST.SharpDiffLib.DiffResult.Implementation;
 using KST.SharpDiffLib.FastReflection;
 using KST.SharpDiffLib.Implementation;
 using KST.SharpDiffLib.Internal;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 {
@@ -70,9 +71,9 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 					ExpressionExtensions.NotEqual(@base, changed),
 					Expression.Call(
 						ret,
-						Members.List.Add(typeof(IDiffItem)),
+						ListMembers.Add(typeof(IDiffItem)),
 						Expression.New(
-							Members.DiffItems.NewValueReplaced(typeof(TType)),
+							DiffItemsMembers.NewValueReplaced(typeof(TType)),
 							@base,
 							changed
 						)
@@ -88,9 +89,9 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 					),
 					Expression.Call(
 						ret,
-						Members.List.Add(typeof(IDiffItem)),
+						ListMembers.Add(typeof(IDiffItem)),
 						Expression.New(
-							Members.DiffItems.NewValueReplaced(typeof(TType)),
+							DiffItemsMembers.NewValueReplaced(typeof(TType)),
 							@base,
 							changed
 						)
@@ -108,7 +109,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 					Expression.IfThen(
 						Expression.ReferenceEqual(@base, changed),
 						Expression.New(
-							Members.DiffItems.NewValueReplaced(typeof(TType)),
+							DiffItemsMembers.NewValueReplaced(typeof(TType)),
 							@base,
 							changed
 						)
@@ -123,7 +124,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 					Expression.Assign(
 						ret,
 						Expression.New(
-							Members.List.NewWithCount(typeof(IDiffItem)),
+							ListMembers.NewWithCount(typeof(IDiffItem)),
 							Expression.Constant(1) // maximum number of changes
 						)
 					),
