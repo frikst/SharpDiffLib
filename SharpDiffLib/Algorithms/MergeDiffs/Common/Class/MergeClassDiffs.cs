@@ -10,7 +10,6 @@ using KST.SharpDiffLib.DiffResult.Implementation;
 using KST.SharpDiffLib.DiffResult.Type;
 using KST.SharpDiffLib.FastReflection;
 using KST.SharpDiffLib.Implementation;
-using KST.SharpDiffLib.Internal;
 using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Class

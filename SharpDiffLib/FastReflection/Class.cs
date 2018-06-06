@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using KST.SharpDiffLib.Base;
-using KST.SharpDiffLib.Internal;
 using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.FastReflection

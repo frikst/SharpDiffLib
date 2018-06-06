@@ -6,7 +6,6 @@ using KST.SharpDiffLib.Algorithms.Diff.Base;
 using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
 using KST.SharpDiffLib.Algorithms.ResolveConflicts.Base;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.Internal;
 using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Implementation
