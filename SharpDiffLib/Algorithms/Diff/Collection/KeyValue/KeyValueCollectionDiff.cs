@@ -58,7 +58,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Collection.KeyValue
 
 		#endregion
 
-		public IDiff<TType> ComputeInternal(IEnumerable<KeyValuePair<TKeyType, TItemType>> @base, IEnumerable<KeyValuePair<TKeyType, TItemType>> changed)
+		private IDiff<TType> ComputeInternal(IEnumerable<KeyValuePair<TKeyType, TItemType>> @base, IEnumerable<KeyValuePair<TKeyType, TItemType>> changed)
 		{
 			List<IDiffItem> ret = new List<IDiffItem>(20); // 20 seems to be a good value :)
 
