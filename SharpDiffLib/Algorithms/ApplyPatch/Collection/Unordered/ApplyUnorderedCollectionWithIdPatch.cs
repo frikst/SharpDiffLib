@@ -79,52 +79,60 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Unordered
 
 			foreach (IDiffUnorderedCollectionItem item in patch)
 			{
-				if (item is IDiffItemAdded<TItemType>)
+				switch (item)
 				{
-					TIdType id;
-					if (item is IDiffUnorderedCollectionItemWithID<TIdType>)
-						id = ((IDiffUnorderedCollectionItemWithID<TIdType>) item).Id;
-					else
-						id = this.aIdAccessor(((IDiffItemAdded<TItemType>) item).NewValue);
+					case IDiffItemAdded<TItemType> itemAdded:
+						{
+							TIdType id;
+							if (itemAdded is IDiffUnorderedCollectionItemWithID<TIdType> itemWithID)
+								id = itemWithID.Id;
+							else
+								id = this.aIdAccessor(itemAdded.NewValue);
 
-					ret[id] = ((IDiffItemAdded<TItemType>) item).NewValue;
-				}
-				else if (item is IDiffItemRemoved<TItemType>)
-				{
-					TIdType id;
-					if (item is IDiffUnorderedCollectionItemWithID<TIdType>)
-						id = ((IDiffUnorderedCollectionItemWithID<TIdType>) item).Id;
-					else
-						id = this.aIdAccessor(((IDiffItemRemoved<TItemType>) item).OldValue);
+							ret[id] = itemAdded.NewValue;
+							break;
+						}
 
-					ret.Remove(id);
-				}
-				else if (item is IDiffItemReplaced<TItemType>)
-				{
-					TIdType idOld;
-					TIdType idNew;
-					if (item is IDiffUnorderedCollectionItemWithID<TIdType>)
-						idNew = idOld = ((IDiffUnorderedCollectionItemWithID<TIdType>) item).Id;
-					else
-					{
-						idOld = this.aIdAccessor(((IDiffItemReplaced<TItemType>) item).OldValue);
-						idNew = this.aIdAccessor(((IDiffItemReplaced<TItemType>) item).NewValue);
-					}
+					case IDiffItemRemoved<TItemType> itemRemoved:
+						{
+							TIdType id;
+							if (itemRemoved is IDiffUnorderedCollectionItemWithID<TIdType> itemWithID)
+								id = itemWithID.Id;
+							else
+								id = this.aIdAccessor(itemRemoved.OldValue);
 
-					ret.Remove(idOld);
-					ret[idNew] = ((IDiffItemReplaced<TItemType>) item).NewValue;
-				}
-				else if (item is IDiffItemChanged)
-				{
-					TIdType id = ((IDiffUnorderedCollectionItemWithID<TIdType>)item).Id;
+							ret.Remove(id);
+							break;
+						}
 
-					ret[id] = this.aApplyItemDiff.Apply(
-						ret[id],
-						((IDiffItemChanged<TItemType>)item).ValueDiff
-					);
+					case IDiffItemReplaced<TItemType> itemReplaced:
+						{
+							TIdType idOld;
+							TIdType idNew;
+							if (itemReplaced is IDiffUnorderedCollectionItemWithID<TIdType> itemWithID)
+								idNew = idOld = itemWithID.Id;
+							else
+							{
+								idOld = this.aIdAccessor(itemReplaced.OldValue);
+								idNew = this.aIdAccessor(itemReplaced.NewValue);
+							}
+
+							ret.Remove(idOld);
+							ret[idNew] = itemReplaced.NewValue;
+							break;
+						}
+
+					case IDiffItemChanged<TItemType> itemChanged:
+						{
+							TIdType id = ((IDiffUnorderedCollectionItemWithID<TIdType>)itemChanged).Id;
+
+							ret[id] = this.aApplyItemDiff.Apply(ret[id], itemChanged.ValueDiff);
+							break;
+						}
+
+					default:
+						throw new InvalidOperationException();
 				}
-				else
-					throw new InvalidOperationException();
 			}
 
 			return this.aConvertor(ret.Values);

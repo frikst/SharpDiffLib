@@ -52,10 +52,8 @@ namespace KST.SharpDiffLib.ConflictManagement
 				int ret = 0;
 				foreach (IDiffItem item in this.aOriginal)
 				{
-					if (item is IDiffItemConflicted)
+					if (item is IDiffItemConflicted conflict)
 					{
-						IDiffItemConflicted conflict = (IDiffItemConflicted) item;
-
 						ResolveAction action;
 						if (this.aResolveActions.TryGetValue(conflict, out action))
 						{

@@ -74,17 +74,21 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Unordered
 
 			foreach (IDiffUnorderedCollectionItem item in patch)
 			{
-				if (item is IDiffItemAdded<TItemType>)
-					ret.Add(((IDiffItemAdded<TItemType>) item).NewValue);
-				else if (item is IDiffItemRemoved<TItemType>)
-					ret.Remove(((IDiffItemRemoved<TItemType>)item).OldValue);
-				else if (item is IDiffItemReplaced<TItemType>)
+				switch (item)
 				{
-					ret.Remove(((IDiffItemReplaced<TItemType>)item).OldValue);
-					ret.Add(((IDiffItemReplaced<TItemType>) item).NewValue);
+					case IDiffItemAdded<TItemType> itemAdded:
+						ret.Add(itemAdded.NewValue);
+						break;
+					case IDiffItemRemoved<TItemType> itemRemoved:
+						ret.Remove(itemRemoved.OldValue);
+						break;
+					case IDiffItemReplaced<TItemType> itemReplaced:
+						ret.Remove(itemReplaced.OldValue);
+						ret.Add(itemReplaced.NewValue);
+						break;
+					default:
+						throw new InvalidOperationException();
 				}
-				else
-					throw new InvalidOperationException();
 			}
 
 			return this.aConvertor(ret);

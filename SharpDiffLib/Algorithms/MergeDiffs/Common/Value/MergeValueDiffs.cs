@@ -56,14 +56,14 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Common.Value
 			{
 				ret.Add(leftItem);
 			}
-			else if (leftItem is IDiffItemChanged && rightItem is IDiffItemChanged)
+			else if (leftItem is IDiffItemChanged leftChanged && rightItem is IDiffItemChanged rightChanged)
 			{
 				Type itemType = leftItem.ValueType;
 
 				IMergeDiffsAlgorithm mergeItemsDiffs = this.aMergerImplementation.Partial.Algorithms.GetMergeDiffsAlgorithm(itemType, this.aRules);
 
-				IDiff diffLeft = ((IDiffItemChanged) leftItem).ValueDiff;
-				IDiff diffRight = ((IDiffItemChanged) rightItem).ValueDiff;
+				IDiff diffLeft = leftChanged.ValueDiff;
+				IDiff diffRight = rightChanged.ValueDiff;
 
 				IDiff result = mergeItemsDiffs.MergeDiffs(diffLeft, diffRight, conflicts);
 

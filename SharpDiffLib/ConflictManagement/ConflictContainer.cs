@@ -34,10 +34,15 @@ namespace KST.SharpDiffLib.ConflictManagement
 		{
 			foreach (IDiffItem item in diff)
 			{
-				if (item is IDiffItemConflicted)
-					this.RegisterConflict((IDiffItemConflicted) item);
-				else if (item is IDiffItemChanged)
-					this.RegisterAll(((IDiffItemChanged) item).ValueDiff);
+				switch (item)
+				{
+					case IDiffItemConflicted itemConflicted:
+						this.RegisterConflict(itemConflicted);
+						break;
+					case IDiffItemChanged itemChanged:
+						this.RegisterAll(itemChanged.ValueDiff);
+						break;
+				}
 			}
 		}
 	}

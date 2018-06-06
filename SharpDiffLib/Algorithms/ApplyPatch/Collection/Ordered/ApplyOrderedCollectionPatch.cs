@@ -87,34 +87,28 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Ordered
 					currentIndex++;
 				}
 
-				if (item is IDiffItemAdded<TItemType>)
+				switch (item)
 				{
-					ret.Add(((IDiffItemAdded<TItemType>) item).NewValue);
+					case IDiffItemAdded<TItemType> itemAdded:
+						ret.Add(itemAdded.NewValue);
+						break;
+					case IDiffItemChanged<TItemType> itemChanged:
+						ret.Add(this.aApplyItemDiff.Apply(enumerator.Current, itemChanged.ValueDiff));
+						lastMoveNext = enumerator.MoveNext();
+						currentIndex++;
+						break;
+					case IDiffItemRemoved<TItemType> _:
+						lastMoveNext = enumerator.MoveNext();
+						currentIndex++;
+						break;
+					case IDiffItemReplaced<TItemType> itemReplaced:
+						lastMoveNext = enumerator.MoveNext();
+						ret.Add(itemReplaced.NewValue);
+						currentIndex++;
+						break;
+					default:
+						throw new InvalidOperationException();
 				}
-				else if (item is IDiffItemChanged)
-				{
-					ret.Add(
-						this.aApplyItemDiff.Apply(
-							enumerator.Current,
-							((IDiffItemChanged<TItemType>) item).ValueDiff
-						)
-					);
-					lastMoveNext = enumerator.MoveNext();
-					currentIndex++;
-				}
-				else if (item is IDiffItemRemoved<TItemType>)
-				{
-					lastMoveNext = enumerator.MoveNext();
-					currentIndex++;
-				}
-				else if (item is IDiffItemReplaced<TItemType>)
-				{
-					lastMoveNext = enumerator.MoveNext();
-					ret.Add(((IDiffItemReplaced<TItemType>) item).NewValue);
-					currentIndex++;
-				}
-				else
-					throw new InvalidOperationException();
 			}
 
 			while (lastMoveNext)

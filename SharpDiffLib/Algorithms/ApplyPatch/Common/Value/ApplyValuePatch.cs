@@ -37,22 +37,22 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Value
 		{
 			foreach (IDiffValue item in patch)
 			{
-				if (item is IDiffItemReplaced<TType>)
-					return ((IDiffItemReplaced<TType>) item).NewValue;
-				if (item is IDiffItemChanged)
+				switch (item)
 				{
-					Type sourceType = source.GetType();
-					IDiff diff = ((IDiffItemChanged)item).ValueDiff;
-					IApplyPatchAlgorithm algorithm;
+					case IDiffItemReplaced<TType> itemReplaced:
+						return itemReplaced.NewValue;
+					case IDiffItemChanged itemChanged:
+						Type sourceType = source.GetType();
+						IDiff diff = itemChanged.ValueDiff;
+						IApplyPatchAlgorithm algorithm;
 
-					if (!this.aTypes.TryGetValue(sourceType, out algorithm))
-						algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(sourceType,this.aRules);
+						if (!this.aTypes.TryGetValue(sourceType, out algorithm))
+							algorithm = this.aMergerImplementation.Partial.Algorithms.GetApplyPatchAlgorithm(sourceType,this.aRules);
 
-					return (TType) algorithm.Apply(source, diff);
-
+						return (TType) algorithm.Apply(source, diff);
+					default:
+						throw new InvalidOperationException();
 				}
-				else
-					throw new InvalidOperationException();
 			}
 
 			return source;

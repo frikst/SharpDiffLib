@@ -24,44 +24,47 @@ namespace KST.SharpDiffLib.ConflictManagement
 		{
 			foreach (IDiffItem item in this.aOriginal)
 			{
-				if (item is IDiffItemConflicted)
+				switch (item)
 				{
-					IDiffItemConflicted conflict = (IDiffItemConflicted)item;
-
-					ResolveAction action;
-					if (this.aResolveActions.TryGetValue(conflict, out action))
-					{
-						switch (action)
+					case IDiffItemConflicted itemConflicted:
+						ResolveAction action;
+						if (this.aResolveActions.TryGetValue(itemConflicted, out action))
 						{
-							case ResolveAction.UseLeft:
-								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left, conflict))
-									yield return left;
-								break;
-							case ResolveAction.UseRight:
-								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right, conflict))
-									yield return right;
-								break;
-							case ResolveAction.LeftThenRight:
-								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left, conflict))
-									yield return left;
-								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right, conflict))
-									yield return right;
-								break;
-							case ResolveAction.RightThenLeft:
-								foreach (var right in this.PostprocessItemsFromConflict(conflict.Right, conflict))
-									yield return right;
-								foreach (var left in this.PostprocessItemsFromConflict(conflict.Left, conflict))
-									yield return left;
-								break;
+							switch (action)
+							{
+								case ResolveAction.UseLeft:
+									foreach (var left in this.PostprocessItemsFromConflict(itemConflicted.Left, itemConflicted))
+										yield return left;
+									break;
+								case ResolveAction.UseRight:
+									foreach (var right in this.PostprocessItemsFromConflict(itemConflicted.Right, itemConflicted))
+										yield return right;
+									break;
+								case ResolveAction.LeftThenRight:
+									foreach (var left in this.PostprocessItemsFromConflict(itemConflicted.Left, itemConflicted))
+										yield return left;
+									foreach (var right in this.PostprocessItemsFromConflict(itemConflicted.Right, itemConflicted))
+										yield return right;
+									break;
+								case ResolveAction.RightThenLeft:
+									foreach (var right in this.PostprocessItemsFromConflict(itemConflicted.Right, itemConflicted))
+										yield return right;
+									foreach (var left in this.PostprocessItemsFromConflict(itemConflicted.Left, itemConflicted))
+										yield return left;
+									break;
+							}
 						}
-					}
-					else
+						else
+							yield return item;
+
+						break;
+					case IDiffItemChanged itemChanged:
+						yield return this.aDynamicDiffItemChangedFactory.Create(itemChanged);
+						break;
+					default:
 						yield return item;
+						break;
 				}
-				else if (item is IDiffItemChanged)
-					yield return this.aDynamicDiffItemChangedFactory.Create((IDiffItemChanged)item);
-				else
-					yield return item;
 			}
 		}
 

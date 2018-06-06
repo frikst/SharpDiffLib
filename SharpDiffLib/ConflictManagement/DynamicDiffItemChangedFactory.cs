@@ -27,8 +27,8 @@ namespace KST.SharpDiffLib.ConflictManagement
 		{
 			Tuple<Type, Type> key;
 
-			if (item is IDiffValue)
-				key = Tuple.Create(item.ItemType, ((IDiffValue) item).ValueType);
+			if (item is IDiffValue valueItem)
+				key = Tuple.Create(valueItem.ItemType, valueItem.ValueType);
 			else
 				key = Tuple.Create(item.ItemType, item.ItemType);
 

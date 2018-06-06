@@ -6,41 +6,44 @@ namespace KST.SharpDiffLib.Internal
 {
 	internal static class LinqExtensions
 	{
-		public static Queue<T> ToQueue<T>(this IEnumerable<T> collection)
+		public static Queue<T> ToQueue<T>(this IEnumerable<T> enumerable)
 		{
-			if (collection is ICollection)
+			if (enumerable is ICollection collection)
 			{
-				Queue<T> ret = new Queue<T>(((ICollection) collection).Count);
+				Queue<T> ret = new Queue<T>(collection.Count);
 				foreach (T item in collection)
 					ret.Enqueue(item);
 
 				return ret;
 			}
 			else
-				return new Queue<T>(collection);
+				return new Queue<T>(enumerable);
 		}
 
 		public static bool SequenceEqual<T>(this IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool> comparer)
 		{
-			if (first is ICollection && second is ICollection)
+			if (first is ICollection firstCollection && second is ICollection secondCollection)
 			{
-				if (((ICollection) first).Count != ((ICollection) second).Count)
+				if (firstCollection.Count != secondCollection.Count)
 					return false;
 			}
 
-			IEnumerator<T> firstEnumerator = first.GetEnumerator();
-			IEnumerator<T> secondEnumerator = second.GetEnumerator();
-
-			while (firstEnumerator.MoveNext())
+			using (IEnumerator<T> firstEnumerator = first.GetEnumerator())
 			{
-				if (!secondEnumerator.MoveNext())
-					return false;
+				using (IEnumerator<T> secondEnumerator = second.GetEnumerator())
+				{
+					while (firstEnumerator.MoveNext())
+					{
+						if (!secondEnumerator.MoveNext())
+							return false;
 
-				if (!comparer(firstEnumerator.Current, secondEnumerator.Current))
-					return false;
+						if (!comparer(firstEnumerator.Current, secondEnumerator.Current))
+							return false;
+					}
+
+					return !secondEnumerator.MoveNext();
+				}
 			}
-
-			return !secondEnumerator.MoveNext();
 		}
 	}
 }

@@ -76,19 +76,23 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.KeyValue
 
 			foreach (IDiffKeyValueCollectionItem<TKeyType> item in patch)
 			{
-				if (item is IDiffItemAdded<TItemType>)
-					ret[item.Key] = (((IDiffItemAdded<TItemType>)item).NewValue);
-				else if (item is IDiffItemChanged)
-					ret[item.Key] = this.aApplyItemDiff.Apply(
-						ret[item.Key],
-						((IDiffItemChanged<TItemType>)item).ValueDiff
-					);
-				else if (item is IDiffItemRemoved<TItemType>)
-					ret.Remove(item.Key);
-				else if (item is IDiffItemReplaced<TItemType>)
-					ret[item.Key] = (((IDiffItemReplaced<TItemType>)item).NewValue);
-				else
-					throw new InvalidOperationException();
+				switch (item)
+				{
+					case IDiffItemAdded<TItemType> itemAdded:
+						ret[item.Key] = itemAdded.NewValue;
+						break;
+					case IDiffItemChanged<TItemType> itemChanged:
+						ret[item.Key] = this.aApplyItemDiff.Apply(ret[item.Key], itemChanged.ValueDiff);
+						break;
+					case IDiffItemRemoved<TItemType> _:
+						ret.Remove(item.Key);
+						break;
+					case IDiffItemReplaced<TItemType> itemReplaced:
+						ret[item.Key] = itemReplaced.NewValue;
+						break;
+					default:
+						throw new InvalidOperationException();
+				}
 			}
 
 			return this.aConvertor(ret);
