@@ -20,9 +20,9 @@ namespace KST.SharpDiffLib.ConflictManagement
 
 	public interface IConflictResolver<TType> : IConflictResolver
 	{
-		IDiff<TType> Original { get; }
+		new IDiff<TType> Original { get; }
 
-		IDiff<TType> Resolved { get; }
+		new IDiff<TType> Resolved { get; }
 
 		IDiff<TType> Finish();
 	}
