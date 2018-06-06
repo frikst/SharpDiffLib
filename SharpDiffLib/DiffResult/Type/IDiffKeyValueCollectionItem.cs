@@ -9,7 +9,7 @@ namespace KST.SharpDiffLib.DiffResult.Type
 		object Key { get; }
 	}
 
-	public interface IDiffKeyValueCollectionItem<TKeyType> : IDiffKeyValueCollectionItem
+	public interface IDiffKeyValueCollectionItem<out TKeyType> : IDiffKeyValueCollectionItem
 	{
 		new TKeyType Key { get; }
 	}

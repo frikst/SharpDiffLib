@@ -7,7 +7,7 @@ namespace KST.SharpDiffLib.Algorithms.ResolveConflicts.Base
 		void ResolveConflicts(IConflictResolver resolver);
 	}
 
-	public interface IResolveConflictsAlgorithm<TType> : IResolveConflictsAlgorithm
+	public interface IResolveConflictsAlgorithm<in TType> : IResolveConflictsAlgorithm
 	{
 		void ResolveConflicts(IConflictResolver<TType> resolver);
 	}

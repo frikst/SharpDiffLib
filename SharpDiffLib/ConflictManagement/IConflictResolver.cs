@@ -18,7 +18,7 @@ namespace KST.SharpDiffLib.ConflictManagement
 		Type ObjectType { get; }
 	}
 
-	public interface IConflictResolver<TType> : IConflictResolver
+	public interface IConflictResolver<out TType> : IConflictResolver
 	{
 		new IDiff<TType> Original { get; }
 

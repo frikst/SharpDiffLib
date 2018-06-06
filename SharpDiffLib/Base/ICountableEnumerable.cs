@@ -2,7 +2,7 @@
 
 namespace KST.SharpDiffLib.Base
 {
-	public interface ICountableEnumerable<T> : IEnumerable<T>
+	public interface ICountableEnumerable<out T> : IEnumerable<T>
 	{
 		int Count { get; }
 	}

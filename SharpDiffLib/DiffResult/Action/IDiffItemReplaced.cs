@@ -8,7 +8,7 @@ namespace KST.SharpDiffLib.DiffResult.Action
 		object NewValue { get; }
 	}
 
-	public interface IDiffItemReplaced<TItemType> : IDiffItemReplaced
+	public interface IDiffItemReplaced<out TItemType> : IDiffItemReplaced
 	{
 		new TItemType OldValue { get; }
 		new TItemType NewValue { get; }

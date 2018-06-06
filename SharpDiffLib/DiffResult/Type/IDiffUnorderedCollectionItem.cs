@@ -14,7 +14,7 @@ namespace KST.SharpDiffLib.DiffResult.Type
 		object Id { get; }
 	}
 
-	public interface IDiffUnorderedCollectionItemWithID<TIdType> : IDiffUnorderedCollectionItemWithID
+	public interface IDiffUnorderedCollectionItemWithID<out TIdType> : IDiffUnorderedCollectionItemWithID
 	{
 		new TIdType Id { get; }
 	}

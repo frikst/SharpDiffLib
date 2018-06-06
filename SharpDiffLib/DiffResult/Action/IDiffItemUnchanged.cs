@@ -7,7 +7,7 @@ namespace KST.SharpDiffLib.DiffResult.Action
 		object Value { get; }
 	}
 
-	public interface IDiffItemUnchanged<TItemType> : IDiffItemUnchanged
+	public interface IDiffItemUnchanged<out TItemType> : IDiffItemUnchanged
 	{
 		new TItemType Value { get; }
 	}
