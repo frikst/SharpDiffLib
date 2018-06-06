@@ -53,13 +53,13 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemRemoved<TItemType>
 
-		public TItemType OldValue { get; private set; }
+		public TItemType OldValue { get; }
 
 		#endregion
 
 		#region Implementation of IDiffOrderedCollectionItem
 
-		public int ItemIndex { get; private set; }
+		public int ItemIndex { get; }
 
 		#endregion
 

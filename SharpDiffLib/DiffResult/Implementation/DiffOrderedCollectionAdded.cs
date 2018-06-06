@@ -53,13 +53,13 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemAdded<TItemType>
 
-		public TItemType NewValue { get; private set; }
+		public TItemType NewValue { get; }
 
 		#endregion
 
 		#region Implementation of IDiffOrderedCollectionItem
 
-		public int ItemIndex { get; private set; }
+		public int ItemIndex { get; }
 
 		#endregion
 

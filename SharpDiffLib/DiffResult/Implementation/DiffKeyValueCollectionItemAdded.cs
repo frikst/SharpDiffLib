@@ -53,7 +53,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemAdded<TItemType>
 
-		public TItemType NewValue { get; private set; }
+		public TItemType NewValue { get; }
 
 		#endregion
 
@@ -69,7 +69,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffKeyValueCollectionItem<TKeyType>
 
-		public TKeyType Key { get; private set; }
+		public TKeyType Key { get; }
 
 		#endregion
 

@@ -79,7 +79,7 @@ namespace KST.SharpDiffLib.Implementation
 			this.Partial = new PartialMergerAlgorithms(this);
 		}
 
-		public PartialMergerAlgorithms Partial { get; private set; }
+		public PartialMergerAlgorithms Partial { get; }
 
 		public TType Merge<TType>(TType @base, TType left, TType right)
 		{

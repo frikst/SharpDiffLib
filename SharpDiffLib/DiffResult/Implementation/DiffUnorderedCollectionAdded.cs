@@ -52,7 +52,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemAdded<TItemType>
 
-		public TItemType NewValue { get; private set; }
+		public TItemType NewValue { get; }
 
 		#endregion
 

@@ -17,7 +17,7 @@ namespace KST.SharpDiffLib.Implementation
 			this.Algorithms = new PartialMergerAlgorithmsContainer(this.aMergerImplementation);
 		}
 
-		public PartialMergerAlgorithmsContainer Algorithms { get; private set; }
+		public PartialMergerAlgorithmsContainer Algorithms { get; }
 
 		public IDiff<TType> Diff<TType>(TType @base, TType changed)
 		{

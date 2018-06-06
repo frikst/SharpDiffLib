@@ -49,7 +49,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemChanged<TItemType>
 
-		public IDiff<TItemType> ValueDiff { get; private set; }
+		public IDiff<TItemType> ValueDiff { get; }
 
 		public IDiffItemChanged<TItemType> ReplaceWith(IDiff<TItemType> diff)
 		{
@@ -60,7 +60,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffOrderedCollectionItem
 
-		public int ItemIndex { get; private set; }
+		public int ItemIndex { get; }
 
 		#endregion
 

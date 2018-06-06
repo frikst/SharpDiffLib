@@ -59,15 +59,15 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemReplaced<TItemType>
 
-		public TItemType NewValue { get; private set; }
+		public TItemType NewValue { get; }
 
-		public TItemType OldValue { get; private set; }
+		public TItemType OldValue { get; }
 
 		#endregion
 
 		#region Implementation of IDiffOrderedCollectionItem
 
-		public int ItemIndex { get; private set; }
+		public int ItemIndex { get; }
 
 		#endregion
 

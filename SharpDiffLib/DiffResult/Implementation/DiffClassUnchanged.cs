@@ -54,13 +54,13 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemUnchanged<TItemType>
 
-		public TItemType Value { get; private set; }
+		public TItemType Value { get; }
 
 		#endregion
 
 		#region Implementation of IDiffClassItem
 
-		public Property Property { get; private set; }
+		public Property Property { get; }
 
 		#endregion
 

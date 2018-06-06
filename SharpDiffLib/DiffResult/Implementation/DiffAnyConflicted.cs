@@ -101,9 +101,9 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemConflicted
 
-		public ICountableEnumerable<IDiffItem> Left { get; private set; }
+		public ICountableEnumerable<IDiffItem> Left { get; }
 
-		public ICountableEnumerable<IDiffItem> Right { get; private set; }
+		public ICountableEnumerable<IDiffItem> Right { get; }
 
 		#endregion
 

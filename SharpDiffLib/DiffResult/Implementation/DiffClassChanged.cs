@@ -55,7 +55,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffItemChanged<TItemType>
 
-		public IDiff<TItemType> ValueDiff { get; private set; }
+		public IDiff<TItemType> ValueDiff { get; }
 
 		public IDiffItemChanged<TItemType> ReplaceWith(IDiff<TItemType> diff)
 		{
@@ -66,7 +66,7 @@ namespace KST.SharpDiffLib.DiffResult.Implementation
 
 		#region Implementation of IDiffClassItem
 
-		public Property Property { get; private set; }
+		public Property Property { get; }
 
 		#endregion
 

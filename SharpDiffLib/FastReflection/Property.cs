@@ -15,11 +15,11 @@ namespace KST.SharpDiffLib.FastReflection
 			this.Type = reflectionPropertyInfo.PropertyType;
 		}
 
-		public string Name { get; private set; }
-		public Type Type { get; private set; }
+		public string Name { get; }
+		public Type Type { get; }
 
-		public int UniqueID { get; private set; }
+		public int UniqueID { get; }
 
-		public PropertyInfo ReflectionPropertyInfo { get; private set; }
+		public PropertyInfo ReflectionPropertyInfo { get; }
 	}
 }
