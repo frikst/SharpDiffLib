@@ -22,56 +22,48 @@ namespace KST.SharpDiffLib.Internal
 	{
 		public static class DiffAlgorithm
 		{
-			private static readonly MethodInfo aGetAlgorithm = GetMethod<IDiffAlgorithmRules, IDiffAlgorithm>(x => x.GetAlgorithm<object>());
-
 			public static MethodInfo GetAlgorithm(Type tType)
 			{
-				return aGetAlgorithm.MakeGenericMethod(tType);
+				return typeof(IDiffAlgorithmRules).GetMethod(nameof(IDiffAlgorithmRules.GetAlgorithm)).MakeGenericMethod(tType);
 			}
 
 			public static MethodInfo Compute(Type tType)
 			{
-				return typeof(IDiffAlgorithm<>).MakeGenericType(tType).GetMethod("Compute");
+				return typeof(IDiffAlgorithm<>).MakeGenericType(tType).GetMethod(nameof(IDiffAlgorithm<object>.Compute));
 			}
 		}
 
 		public static class ApplyPatchAlgorithm
 		{
-			private static readonly MethodInfo aGetAlgorithm = GetMethod<IApplyPatchAlgorithmRules, IApplyPatchAlgorithm>(x => x.GetAlgorithm<object>());
-
 			public static MethodInfo GetAlgorithm(Type tType)
 			{
-				return aGetAlgorithm.MakeGenericMethod(tType);
+				return typeof(IApplyPatchAlgorithmRules).GetMethod(nameof(IApplyPatchAlgorithmRules.GetAlgorithm)).MakeGenericMethod(tType);
 			}
 
 			public static MethodInfo Apply(Type tType)
 			{
-				return typeof(IApplyPatchAlgorithm<>).MakeGenericType(tType).GetMethod("Apply");
+				return typeof(IApplyPatchAlgorithm<>).MakeGenericType(tType).GetMethod(nameof(IApplyPatchAlgorithm<object>.Apply));
 			}
 		}
 
-		public class MergeDiffsAlgorithm
+		public static class MergeDiffsAlgorithm
 		{
-			private static readonly MethodInfo aGetAlgorithm = GetMethod<IMergeDiffsAlgorithmRules, IMergeDiffsAlgorithm>(x => x.GetAlgorithm<object>());
-
 			public static MethodInfo GetAlgorithm(Type tType)
 			{
-				return aGetAlgorithm.MakeGenericMethod(tType);
+				return typeof(IMergeDiffsAlgorithmRules).GetMethod(nameof(IMergeDiffsAlgorithmRules.GetAlgorithm)).MakeGenericMethod(tType);
 			}
 
 			public static MethodInfo MergeDiffs(Type tType)
 			{
-				return typeof(IMergeDiffsAlgorithm<>).MakeGenericType(tType).GetMethod("MergeDiffs");
+				return typeof(IMergeDiffsAlgorithm<>).MakeGenericType(tType).GetMethod(nameof(IMergeDiffsAlgorithm<object>.MergeDiffs));
 			}
 		}
 
-		public class ResolveConflictsAlgorithm
+		public static class ResolveConflictsAlgorithm
 		{
-			private static readonly MethodInfo aGetAlgorithm = GetMethod<IResolveConflictsAlgorithmRules, IResolveConflictsAlgorithm>(x => x.GetAlgorithm<object>());
-
 			public static MethodInfo GetAlgorithm(Type tType)
 			{
-				return aGetAlgorithm.MakeGenericMethod(tType);
+				return typeof(IResolveConflictsAlgorithmRules).GetMethod(nameof(IResolveConflictsAlgorithmRules.GetAlgorithm)).MakeGenericMethod(tType);
 			}
 		}
 
@@ -104,27 +96,27 @@ namespace KST.SharpDiffLib.Internal
 
 			public static PropertyInfo ClassProperty()
 			{
-				return typeof(IDiffClassItem).GetProperty("Property");
+				return typeof(IDiffClassItem).GetProperty(nameof(IDiffClassItem.Property));
 			}
 
 			public static PropertyInfo ReplacedNewValue(Type tType)
 			{
-				return typeof(IDiffItemReplaced<>).MakeGenericType(tType).GetProperty("NewValue");
+				return typeof(IDiffItemReplaced<>).MakeGenericType(tType).GetProperty(nameof(IDiffItemReplaced<object>.NewValue));
 			}
 
 			public static PropertyInfo ChangedDiff(Type tType)
 			{
-				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetProperty("ValueDiff");
+				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetProperty(nameof(IDiffItemChanged<object>.ValueDiff));
 			}
 
 			public static MethodInfo IsSame()
 			{
-				return typeof(IDiffItem).GetMethod("IsSame");
+				return typeof(IDiffItem).GetMethod(nameof(IDiffItem.IsSame));
 			}
 
 			public static MethodInfo ReplaceDiffWith(Type tType)
 			{
-				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetMethod("ReplaceWith");
+				return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetMethod(nameof(IDiffItemChanged<object>.ReplaceWith));
 			}
 		}
 
@@ -132,7 +124,7 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static PropertyInfo Count()
 			{
-				return typeof(ICountableEnumerable<IDiffItem>).GetProperty("Count");
+				return typeof(ICountableEnumerable<IDiffItem>).GetProperty(nameof(ICountableEnumerable<object>.Count));
 			}
 		}
 
@@ -145,7 +137,7 @@ namespace KST.SharpDiffLib.Internal
 
 			public static MethodInfo Add(Type tItemType)
 			{
-				return typeof(List<>).MakeGenericType(tItemType).GetMethod("Add", BindingFlags.Public | BindingFlags.Instance);
+				return typeof(List<>).MakeGenericType(tItemType).GetMethod(nameof(List<object>.Add), BindingFlags.Public | BindingFlags.Instance);
 			}
 		}
 
@@ -153,15 +145,15 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static MethodInfo Diff(Type tType)
 			{
-				return typeof(PartialMergerAlgorithms).GetMethod("Diff").MakeGenericMethod(tType);
+				return typeof(PartialMergerAlgorithms).GetMethod(nameof(PartialMergerAlgorithms.Diff)).MakeGenericMethod(tType);
 			}
 		}
 
-		public class ConflictContainer
+		public static class ConflictContainer
 		{
 			public static MethodInfo RegisterConflict()
 			{
-				return typeof(IConflictContainer).GetMethod("RegisterConflict");
+				return typeof(IConflictContainer).GetMethod(nameof(IConflictContainer.RegisterConflict));
 			}
 		}
 
@@ -169,7 +161,7 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static PropertyInfo Properties(Type tType)
 			{
-				return typeof(Class<>).MakeGenericType(tType).GetProperty("Properties", BindingFlags.Static | BindingFlags.Public);
+				return typeof(Class<>).MakeGenericType(tType).GetProperty(nameof(Class<object>.Properties), BindingFlags.Static | BindingFlags.Public);
 			}
 		}
 
@@ -177,7 +169,7 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static PropertyInfo UniqueID()
 			{
-				return typeof(Property).GetProperty("UniqueID");
+				return typeof(Property).GetProperty(nameof(Property.UniqueID));
 			}
 		}
 
@@ -185,12 +177,12 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static MethodInfo Equals(Type tType)
 			{
-				return typeof(IEqualityComparer<>).MakeGenericType(tType).GetMethod("Equals");
+				return typeof(IEqualityComparer<>).MakeGenericType(tType).GetMethod(nameof(IEqualityComparer<object>.Equals));
 			}
 
 			public static PropertyInfo Default(Type tType)
 			{
-				return typeof(EqualityComparer<>).MakeGenericType(tType).GetProperty("Default", BindingFlags.Static | BindingFlags.Public);
+				return typeof(EqualityComparer<>).MakeGenericType(tType).GetProperty(nameof(EqualityComparer<object>.Default), BindingFlags.Static | BindingFlags.Public);
 			}
 		}
 
@@ -203,7 +195,7 @@ namespace KST.SharpDiffLib.Internal
 
 			public static MethodInfo Remove(Type tType)
 			{
-				return typeof(HashSet<>).MakeGenericType(tType).GetMethod("Remove");
+				return typeof(HashSet<>).MakeGenericType(tType).GetMethod(nameof(HashSet<object>.Remove));
 			}
 		}
 
@@ -211,17 +203,32 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static MethodInfo GetEnumerator(Type tType)
 			{
-				return typeof(IEnumerable<>).MakeGenericType(tType).GetMethod("GetEnumerator");
+				return typeof(IEnumerable<>).MakeGenericType(tType).GetMethod(nameof(IEnumerable<object>.GetEnumerator));
 			}
 
 			public static MethodInfo MoveNext(Type tType)
 			{
-				return typeof(IEnumerator).GetMethod("MoveNext");
+				return typeof(IEnumerator).GetMethod(nameof(IEnumerator.MoveNext));
 			}
 
 			public static PropertyInfo Current(Type tType)
 			{
-				return typeof(IEnumerator<>).MakeGenericType(tType).GetProperty("Current");
+				return typeof(IEnumerator<>).MakeGenericType(tType).GetProperty(nameof(IEnumerator<object>.Current));
+			}
+
+			public static MethodInfo GetEnumerator()
+			{
+				return typeof(IEnumerable).GetMethod(nameof(IEnumerable.GetEnumerator));
+			}
+
+			public static MethodInfo MoveNext()
+			{
+				return typeof(IEnumerator).GetMethod(nameof(IEnumerator.MoveNext));
+			}
+
+			public static PropertyInfo Current()
+			{
+				return typeof(IEnumerator).GetProperty(nameof(IEnumerator.Current));
 			}
 		}
 
@@ -229,7 +236,7 @@ namespace KST.SharpDiffLib.Internal
 		{
 			public static MethodInfo Equals()
 			{
-				return typeof(object).GetMethod("Equals", BindingFlags.Static | BindingFlags.Public);
+				return typeof(object).GetMethod(nameof(object.Equals), BindingFlags.Static | BindingFlags.Public);
 			}
 		}
 
@@ -242,25 +249,8 @@ namespace KST.SharpDiffLib.Internal
 
 			public static MethodInfo Finish(Type tType)
 			{
-				return typeof(DynamicDiff<>).MakeGenericType(tType).GetMethod("Finish");
+				return typeof(DynamicDiff<>).MakeGenericType(tType).GetMethod(nameof(DynamicDiff<object>.Finish));
 			}
-		}
-
-		private static MethodInfo GetMethod<TType, TReturnType>(Expression<Func<TType, TReturnType>> func)
-		{
-			MethodInfo methodInfo = ((MethodCallExpression) func.Body).Method;
-
-			if (methodInfo.IsGenericMethod)
-				methodInfo = methodInfo.GetGenericMethodDefinition();
-
-			return methodInfo;
-		}
-
-		private static ConstructorInfo GetConstructor<TType>(Expression<Func<TType>> func)
-		{
-			ConstructorInfo constructorInfo = ((NewExpression)func.Body).Constructor;
-
-			return constructorInfo;
 		}
 	}
 }

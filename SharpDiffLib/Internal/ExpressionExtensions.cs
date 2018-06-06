@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace KST.SharpDiffLib.Internal
@@ -34,6 +35,9 @@ namespace KST.SharpDiffLib.Internal
 
 		public static Expression ForEach(ParameterExpression item, Expression source, Expression body)
 		{
+			if (!typeof(IEnumerable).IsAssignableFrom(source.Type))
+				throw new InvalidOperationException($"{source.Type} does not implement IEnumerable and cannot be iterated using foreach");
+
 			ParameterExpression enumerator = Expression.Parameter(typeof(IEnumerator), "enumerator");
 			LabelTarget forEachEnd = Expression.Label();
 
@@ -42,15 +46,15 @@ namespace KST.SharpDiffLib.Internal
 
 				Expression.Assign(
 					enumerator,
-					Expression.Call(source, typeof(IEnumerable).GetMethod("GetEnumerator"))
+					Expression.Call(source, Members.Enumerable.GetEnumerator())
 				),
 
 				Expression.Loop(
 					Expression.IfThenElse(
-						Expression.Call(enumerator, typeof(IEnumerator).GetMethod("MoveNext")),
+						Expression.Call(enumerator, Members.Enumerable.MoveNext()),
 
 						Expression.Block(
-							Expression.Assign(item, Expression.Convert(Expression.Property(enumerator, "Current"), item.Type)),
+							Expression.Assign(item, Expression.Convert(Expression.Property(enumerator, Members.Enumerable.Current()), item.Type)),
 							body
 						),
 

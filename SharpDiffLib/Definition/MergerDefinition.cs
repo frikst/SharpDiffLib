@@ -34,7 +34,7 @@ namespace KST.SharpDiffLib.Definition
 
 					List<IClassMergerDefinition> definitions = definition.aDefinitions;
 
-					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod("RulesNotFoundFallback", BindingFlags.NonPublic | BindingFlags.Instance);
+					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod(nameof(RulesNotFoundFallback), BindingFlags.NonPublic | BindingFlags.Instance);
 					Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback = (rules, type, rulesLocator) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, new object[] { rulesLocator });
 
 					aMerger = new MergerImplementation(
