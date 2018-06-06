@@ -25,7 +25,7 @@ namespace KST.SharpDiffLib.Definition.Rules
 		protected void ValidateType<TType>()
 		{
 			if (!this.CanBeUsedFor<TType>())
-				throw new Exception(string.Format("Cannot use algorithm defined for {0} with the {1} type", typeof(TDefinedFor), typeof(TType)));
+				throw new Exception($"Cannot use algorithm defined for {typeof(TDefinedFor).Name} with the {typeof(TType).Name} type");
 		}
 
 		#region Implementation of IAlgorithmRules
