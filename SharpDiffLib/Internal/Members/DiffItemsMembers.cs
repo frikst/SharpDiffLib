@@ -50,11 +50,6 @@ namespace KST.SharpDiffLib.Internal.Members
 			return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetProperty(nameof(IDiffItemChanged<object>.ValueDiff));
 		}
 
-		public static MethodInfo IsSame()
-		{
-			return typeof(IDiffItem).GetMethod(nameof(IDiffItem.IsSame));
-		}
-
 		public static MethodInfo ReplaceDiffWith(Type tType)
 		{
 			return typeof(IDiffItemChanged<>).MakeGenericType(tType).GetMethod(nameof(IDiffItemChanged<object>.ReplaceWith));

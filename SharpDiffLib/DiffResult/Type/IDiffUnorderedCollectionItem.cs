@@ -9,13 +9,13 @@ namespace KST.SharpDiffLib.DiffResult.Type
 
 	public interface IDiffUnorderedCollectionItemWithID : IDiffUnorderedCollectionItem
 	{
+		System.Type IdType { get; }
+
 		object Id { get; }
 	}
 
 	public interface IDiffUnorderedCollectionItemWithID<TIdType> : IDiffUnorderedCollectionItemWithID
 	{
-		System.Type IdType { get; }
-
 		new TIdType Id { get; }
 	}
 }

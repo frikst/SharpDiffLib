@@ -7,35 +7,6 @@ namespace KST.SharpDiffLib.Internal
 {
 	internal static class IdHelpers
 	{
-		private class IdEqualityComparer<TItemType, TIdType> : IEqualityComparer<TItemType>
-		{
-			private readonly Func<TItemType, TItemType, bool> aIsTheSame;
-			private readonly Func<TItemType, TIdType> aIdAccessor;
-
-			public IdEqualityComparer(Property idProperty)
-			{
-				this.aIsTheSame = CompileIsTheSame<TItemType>(idProperty);
-				this.aIdAccessor = CreateIdAccessor<TItemType, TIdType>(idProperty);
-			}
-
-			#region Implementation of IEqualityComparer<in TItemType>
-
-			bool IEqualityComparer<TItemType>.Equals(TItemType x, TItemType y)
-			{
-				return this.aIsTheSame(x, y);
-			}
-
-			int IEqualityComparer<TItemType>.GetHashCode(TItemType obj)
-			{
-				if (ReferenceEquals(obj, null))
-					return 0;
-
-				return this.aIdAccessor(obj).GetHashCode();
-			}
-
-			#endregion
-		}
-
 		public static Func<TItemType, TItemType, bool> CompileIsTheSame<TItemType>(Property idProperty)
 		{
 			if (idProperty == null)
@@ -78,15 +49,6 @@ namespace KST.SharpDiffLib.Internal
 				);
 
 			return propertyGetter.Compile();
-		}
-
-		public static IEqualityComparer<TItemType> CreateIdEqualityComparer<TItemType>(Property idProperty)
-		{
-			return (IEqualityComparer<TItemType>) Activator.CreateInstance(
-				typeof(IdEqualityComparer<,>)
-					.MakeGenericType(typeof(TItemType), idProperty.Type),
-				idProperty
-			);
 		}
 	}
 }

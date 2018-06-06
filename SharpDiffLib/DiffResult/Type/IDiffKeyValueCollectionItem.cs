@@ -4,13 +4,13 @@ namespace KST.SharpDiffLib.DiffResult.Type
 {
 	public interface IDiffKeyValueCollectionItem : IDiffItem
 	{
+		System.Type KeyType { get; }
+
 		object Key { get; }
 	}
 
 	public interface IDiffKeyValueCollectionItem<TKeyType> : IDiffKeyValueCollectionItem
 	{
-		System.Type KeyType { get; }
-
 		new TKeyType Key { get; }
 	}
 }

@@ -19,31 +19,5 @@ namespace KST.SharpDiffLib.Internal
 			else
 				return new Queue<T>(enumerable);
 		}
-
-		public static bool SequenceEqual<T>(this IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool> comparer)
-		{
-			if (first is ICollection firstCollection && second is ICollection secondCollection)
-			{
-				if (firstCollection.Count != secondCollection.Count)
-					return false;
-			}
-
-			using (IEnumerator<T> firstEnumerator = first.GetEnumerator())
-			{
-				using (IEnumerator<T> secondEnumerator = second.GetEnumerator())
-				{
-					while (firstEnumerator.MoveNext())
-					{
-						if (!secondEnumerator.MoveNext())
-							return false;
-
-						if (!comparer(firstEnumerator.Current, secondEnumerator.Current))
-							return false;
-					}
-
-					return !secondEnumerator.MoveNext();
-				}
-			}
-		}
 	}
 }
