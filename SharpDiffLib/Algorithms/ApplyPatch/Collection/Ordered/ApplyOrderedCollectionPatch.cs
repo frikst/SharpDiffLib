@@ -74,47 +74,49 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Ordered
 		{
 			List<TItemType> ret = new List<TItemType>();
 
-			IEnumerator<TItemType> enumerator = source.GetEnumerator();
-			bool lastMoveNext = enumerator.MoveNext();
-			int currentIndex = 0;
-
-			foreach (IDiffOrderedCollectionItem item in patch)
+			using (IEnumerator<TItemType> enumerator = source.GetEnumerator())
 			{
-				while (currentIndex < item.ItemIndex)
+				bool lastMoveNext = enumerator.MoveNext();
+				int currentIndex = 0;
+
+				foreach (IDiffOrderedCollectionItem item in patch)
+				{
+					while (currentIndex < item.ItemIndex)
+					{
+						ret.Add(enumerator.Current);
+						lastMoveNext = enumerator.MoveNext();
+						currentIndex++;
+					}
+
+					switch (item)
+					{
+						case IDiffItemAdded<TItemType> itemAdded:
+							ret.Add(itemAdded.NewValue);
+							break;
+						case IDiffItemChanged<TItemType> itemChanged:
+							ret.Add(this.aApplyItemDiff.Apply(enumerator.Current, itemChanged.ValueDiff));
+							lastMoveNext = enumerator.MoveNext();
+							currentIndex++;
+							break;
+						case IDiffItemRemoved<TItemType> _:
+							lastMoveNext = enumerator.MoveNext();
+							currentIndex++;
+							break;
+						case IDiffItemReplaced<TItemType> itemReplaced:
+							lastMoveNext = enumerator.MoveNext();
+							ret.Add(itemReplaced.NewValue);
+							currentIndex++;
+							break;
+						default:
+							throw new InvalidOperationException();
+					}
+				}
+
+				while (lastMoveNext)
 				{
 					ret.Add(enumerator.Current);
 					lastMoveNext = enumerator.MoveNext();
-					currentIndex++;
 				}
-
-				switch (item)
-				{
-					case IDiffItemAdded<TItemType> itemAdded:
-						ret.Add(itemAdded.NewValue);
-						break;
-					case IDiffItemChanged<TItemType> itemChanged:
-						ret.Add(this.aApplyItemDiff.Apply(enumerator.Current, itemChanged.ValueDiff));
-						lastMoveNext = enumerator.MoveNext();
-						currentIndex++;
-						break;
-					case IDiffItemRemoved<TItemType> _:
-						lastMoveNext = enumerator.MoveNext();
-						currentIndex++;
-						break;
-					case IDiffItemReplaced<TItemType> itemReplaced:
-						lastMoveNext = enumerator.MoveNext();
-						ret.Add(itemReplaced.NewValue);
-						currentIndex++;
-						break;
-					default:
-						throw new InvalidOperationException();
-				}
-			}
-
-			while (lastMoveNext)
-			{
-				ret.Add(enumerator.Current);
-				lastMoveNext = enumerator.MoveNext();
 			}
 
 			return this.aConvertor(ret);

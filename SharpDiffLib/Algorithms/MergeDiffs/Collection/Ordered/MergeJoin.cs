@@ -20,42 +20,46 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 
 		public IEnumerator<Tuple<List<IDiffOrderedCollectionItem>, List<IDiffOrderedCollectionItem>>> GetEnumerator()
 		{
-			IEnumerator<List<IDiffOrderedCollectionItem>> firstEnumerator = this.aFirst.GetEnumerator();
-			IEnumerator<List<IDiffOrderedCollectionItem>> secondEnumerator = this.aSecond.GetEnumerator();
-
-			bool firstHasItem = firstEnumerator.MoveNext();
-			bool secondHasItem = secondEnumerator.MoveNext();
-
-			while (firstHasItem && secondHasItem)
+			using (IEnumerator<List<IDiffOrderedCollectionItem>> firstEnumerator = this.aFirst.GetEnumerator())
 			{
-				if (firstEnumerator.Current[0].ItemIndex < secondEnumerator.Current[0].ItemIndex)
+				using (IEnumerator<List<IDiffOrderedCollectionItem>> secondEnumerator = this.aSecond.GetEnumerator())
 				{
-					yield return Tuple.Create(firstEnumerator.Current, (List<IDiffOrderedCollectionItem>)null);
-					firstHasItem = firstEnumerator.MoveNext();
-				}
-				else if (firstEnumerator.Current[0].ItemIndex > secondEnumerator.Current[0].ItemIndex)
-				{
-					yield return Tuple.Create((List<IDiffOrderedCollectionItem>)null, secondEnumerator.Current);
-					secondHasItem = secondEnumerator.MoveNext();
-				}
-				else
-				{
-					yield return Tuple.Create(firstEnumerator.Current, secondEnumerator.Current);
-					firstHasItem = firstEnumerator.MoveNext();
-					secondHasItem = secondEnumerator.MoveNext();
-				}
-			}
 
-			while (firstHasItem)
-			{
-				yield return Tuple.Create(firstEnumerator.Current, (List<IDiffOrderedCollectionItem>) null);
-				firstHasItem = firstEnumerator.MoveNext();
-			}
+					bool firstHasItem = firstEnumerator.MoveNext();
+					bool secondHasItem = secondEnumerator.MoveNext();
 
-			while (secondHasItem)
-			{
-				yield return Tuple.Create((List<IDiffOrderedCollectionItem>)null, secondEnumerator.Current);
-				secondHasItem = secondEnumerator.MoveNext();
+					while (firstHasItem && secondHasItem)
+					{
+						if (firstEnumerator.Current[0].ItemIndex < secondEnumerator.Current[0].ItemIndex)
+						{
+							yield return Tuple.Create(firstEnumerator.Current, (List<IDiffOrderedCollectionItem>) null);
+							firstHasItem = firstEnumerator.MoveNext();
+						}
+						else if (firstEnumerator.Current[0].ItemIndex > secondEnumerator.Current[0].ItemIndex)
+						{
+							yield return Tuple.Create((List<IDiffOrderedCollectionItem>) null, secondEnumerator.Current);
+							secondHasItem = secondEnumerator.MoveNext();
+						}
+						else
+						{
+							yield return Tuple.Create(firstEnumerator.Current, secondEnumerator.Current);
+							firstHasItem = firstEnumerator.MoveNext();
+							secondHasItem = secondEnumerator.MoveNext();
+						}
+					}
+
+					while (firstHasItem)
+					{
+						yield return Tuple.Create(firstEnumerator.Current, (List<IDiffOrderedCollectionItem>) null);
+						firstHasItem = firstEnumerator.MoveNext();
+					}
+
+					while (secondHasItem)
+					{
+						yield return Tuple.Create((List<IDiffOrderedCollectionItem>) null, secondEnumerator.Current);
+						secondHasItem = secondEnumerator.MoveNext();
+					}
+				}
 			}
 		}
 
