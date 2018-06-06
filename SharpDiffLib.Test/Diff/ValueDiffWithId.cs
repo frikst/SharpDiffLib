@@ -3,11 +3,11 @@ using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
 {
-	[TestClass]
+	[TestFixture]
 	public class ValueDiffWithId
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -34,7 +34,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestClassReplaced()
 		{
 			const string diff =
@@ -64,7 +64,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestArrayReplaced()
 		{
 			const string diff =
@@ -87,7 +87,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSetReplaced()
 		{
 			const string diff =
@@ -102,7 +102,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestDictionaryReplaced()
 		{
 			const string diff =

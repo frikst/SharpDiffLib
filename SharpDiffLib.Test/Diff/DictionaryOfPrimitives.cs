@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
 {
-	[TestClass]
+	[TestFixture]
 	public class DictionaryOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -17,7 +17,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneAdded()
 		{
 			const string diff =
@@ -31,7 +31,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoAdded()
 		{
 			const string diff =
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoRemoved()
 		{
 			const string diff =
@@ -61,7 +61,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneReplaced()
 		{
 			const string diff =
@@ -76,7 +76,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllAdded()
 		{
 			const string diff =
@@ -91,7 +91,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllRemoved()
 		{
 			const string diff =
@@ -106,7 +106,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void UnchangedEmpty()
 		{
 			const string diff = "";
@@ -119,7 +119,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void UnchangedNonEmpty()
 		{
 			const string diff = "";

@@ -3,11 +3,11 @@ using System.Linq;
 using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
 {
-	[TestClass]
+	[TestFixture]
 	public class SetOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -19,7 +19,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneAdded()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -34,7 +34,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoAdded()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -50,7 +50,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoRemoved()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -66,7 +66,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllAdded()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -82,7 +82,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllRemoved()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -98,7 +98,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void UnchangedEmpty()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -112,7 +112,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void UnchangedNonEmpty()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()

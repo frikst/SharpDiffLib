@@ -4,11 +4,11 @@ using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.DiffResult.Action;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ConflictResolver
 {
-	[TestClass]
+	[TestFixture]
 	public class SimpleClass
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -19,7 +19,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneConflictUseLeft()
 		{
 			var diffConflicted = DiffResultFactory.Class<Sample>.Create()
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 			Assert.AreEqual(diffResolved, conflictResolver.Finish());
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneConflictUseRight()
 		{
 			var diffConflicted = DiffResultFactory.Class<Sample>.Create()

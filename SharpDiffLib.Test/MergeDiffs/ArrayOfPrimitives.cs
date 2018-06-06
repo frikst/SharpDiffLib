@@ -2,11 +2,11 @@
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.MergeDiffs
 {
-	[TestClass]
+	[TestFixture]
 	public class ArrayOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -18,7 +18,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyDiffs()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -36,7 +36,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OnlyLeftAdded()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -56,7 +56,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OnlyRightAdded()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -76,7 +76,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesAddedOnDifferentIndexes()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -98,7 +98,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesRemovedOnDifferentIndexes()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -120,7 +120,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesAddedOne()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -144,7 +144,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesAddedSame()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -168,7 +168,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesAddedTwo()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -198,7 +198,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesRemovedOne()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -219,7 +219,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothSidesRemovedTwo()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -243,7 +243,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AddedAndReplaced()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -267,7 +267,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AddedAndReplacedPlusNonConflicted()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()
@@ -293,7 +293,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void RemovedAndReplacedPlusNonConflicted()
 		{
 			var left = DiffResultFactory.Ordered<int>.Create()

@@ -6,11 +6,11 @@ using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.DiffResult.Base;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
 {
-	[TestClass]
+	[TestFixture]
 	public class AlgorithmGuessing
 	{
 		private class CustomDiffAlgorithmRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>
@@ -63,7 +63,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestInt()
 		{
 			const string diff =
@@ -76,7 +76,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIntArray()
 		{
 			const string diff =
@@ -90,7 +90,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIntSet()
 		{
 			const string diff =
@@ -104,7 +104,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestDifferentObjects()
 		{
 			const string diff =
@@ -120,7 +120,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestCustomGuess()
 		{
 			const string diff = "";
@@ -134,7 +134,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIEnumerable()
 		{
 			const string diff =

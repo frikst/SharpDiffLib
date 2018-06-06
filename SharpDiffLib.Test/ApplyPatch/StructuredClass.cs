@@ -2,11 +2,11 @@
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
 {
-	[TestClass]
+	[TestFixture]
 	public class StructuredClass
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -20,7 +20,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyPatch()
 		{
 			var diff = DiffResultFactory.Class<Sample>.Create()
@@ -32,7 +32,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			Assert.AreEqual("hello", ret.ValueInner.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ReplaceGoodValue()
 		{
 			var diff = DiffResultFactory.Class<Sample>.Create()
@@ -45,7 +45,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			Assert.AreEqual("world", ret.ValueInner.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ChangeInner()
 		{
 			var diff = DiffResultFactory.Class<Sample>.Create()

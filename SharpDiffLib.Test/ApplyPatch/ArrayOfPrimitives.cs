@@ -1,11 +1,11 @@
 ﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
 {
-	[TestClass]
+	[TestFixture]
 	public class ArrayOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -17,7 +17,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneAdded()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -32,7 +32,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoAdded()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -48,7 +48,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ManyAdded()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -67,7 +67,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneRemoved()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -82,7 +82,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoRemoved()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -98,7 +98,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ManyRemoved()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -117,7 +117,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneReplaced()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -133,7 +133,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneReplacedWithReplace()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -148,7 +148,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoReplaced()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -166,7 +166,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TwoReplacedWithReplace()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -182,7 +182,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ManyReplaced()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -206,7 +206,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ManyReplacedWithReplace()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -225,7 +225,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllReplaced()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -249,7 +249,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllReplacedWithReplace()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -268,7 +268,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllAdded()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -287,7 +287,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AllRemoved()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -306,7 +306,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyUnchanged()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -320,7 +320,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void NonEmptyUnchanged()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()

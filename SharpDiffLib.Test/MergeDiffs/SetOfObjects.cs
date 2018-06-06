@@ -5,11 +5,11 @@ using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.MergeDiffs
 {
-	[TestClass]
+	[TestFixture]
 	public class SetOfObjects
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -27,7 +27,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void OnlyLeftAdded()
 		{
 			var left = DiffResultFactory.Unordered<Sample>.Create()
@@ -47,7 +47,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BothChanged()
 		{
 			var left = DiffResultFactory.Unordered<Sample>.Create()
@@ -80,7 +80,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ChangedRemoved()
 		{
 			var left = DiffResultFactory.Unordered<Sample>.Create()

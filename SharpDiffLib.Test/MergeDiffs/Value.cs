@@ -4,11 +4,11 @@ using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.BaseWithId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.MergeDiffs
 {
-	[TestClass]
+	[TestFixture]
 	public class Value
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -28,7 +28,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeEmptyDiffs()
 		{
 			var left = DiffResultFactory.Value<int>.Create()
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeIntReplacedLeft()
 		{
 			var left = DiffResultFactory.Value<int>.Create()
@@ -66,7 +66,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeIntReplacedRight()
 		{
 			var left = DiffResultFactory.Value<int>.Create()
@@ -86,7 +86,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeIntReplacedBoth()
 		{
 			var left = DiffResultFactory.Value<int>.Create()
@@ -107,7 +107,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeIntReplacedConflict()
 		{
 			var left = DiffResultFactory.Value<int>.Create()
@@ -131,7 +131,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeObject()
 		{
 			var left = DiffResultFactory.Value<SampleBase>.Create()
@@ -160,7 +160,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeObjectConflict()
 		{
 			var left = DiffResultFactory.Value<SampleBase>.Create()
@@ -193,7 +193,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeObjectConflictDescendants()
 		{
 			var left = DiffResultFactory.Value<SampleBase>.Create()

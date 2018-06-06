@@ -5,11 +5,11 @@ using KST.SharpDiffLib.Algorithms.ResolveConflicts;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Test._Entities.BaseWithId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.FullRun
 {
-	[TestClass]
+	[TestFixture]
 	public class SubClass
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -32,7 +32,7 @@ namespace KST.SharpDiffLib.Test.FullRun
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConflictedProperty()
 		{
 			SampleBase @base = new SampleDescendant1();
@@ -40,11 +40,11 @@ namespace KST.SharpDiffLib.Test.FullRun
 			SampleBase right = new SampleDescendant1 { Value = "b" };
 
 			SampleBase ret = Merger.Instance.Merge(@base, left, right);
-			Assert.IsInstanceOfType(ret, typeof(SampleDescendant1));
+			Assert.IsInstanceOf<SampleDescendant1>(ret);
 			Assert.AreEqual("a", ((SampleDescendant1)ret).Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ChangedType()
 		{
 			SampleBase @base = new SampleDescendant1();
@@ -52,10 +52,10 @@ namespace KST.SharpDiffLib.Test.FullRun
 			SampleBase right = new SampleDescendant2();
 
 			SampleBase ret = Merger.Instance.Merge(@base, left, right);
-			Assert.IsInstanceOfType(ret, typeof(SampleDescendant2));
+			Assert.IsInstanceOf<SampleDescendant2>(ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ChangedTypeWithConflict()
 		{
 			SampleBase @base = new SampleDescendant1();
@@ -63,7 +63,7 @@ namespace KST.SharpDiffLib.Test.FullRun
 			SampleBase right = new SampleDescendant2();
 
 			SampleBase ret = Merger.Instance.Merge(@base, left, right);
-			Assert.IsInstanceOfType(ret, typeof(SampleDescendant1));
+			Assert.IsInstanceOf<SampleDescendant1>(ret);
 			Assert.AreEqual("a", ((SampleDescendant1)ret).Value);
 		}
 	}

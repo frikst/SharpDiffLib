@@ -1,13 +1,13 @@
 ﻿using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.General
 {
-	[TestClass]
+	[TestFixture]
 	public class DiffResultFactoryTest
 	{
-		[TestMethod]
+		[Test]
 		public void Class()
 		{
 			var diff = DiffResultFactory.Class<Sample>.Create()
@@ -30,7 +30,7 @@ namespace KST.SharpDiffLib.Test.General
 			Assert.AreEqual(diffString, diff.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void Array()
 		{
 			var diff = DiffResultFactory.Ordered<SampleInner>.Create()
@@ -57,7 +57,7 @@ namespace KST.SharpDiffLib.Test.General
 			Assert.AreEqual(diffString, diff.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void Dictionary()
 		{
 			var diff = DiffResultFactory.KeyValue<string, SampleInner>.Create()
@@ -84,7 +84,7 @@ namespace KST.SharpDiffLib.Test.General
 			Assert.AreEqual(diffString, diff.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void Set()
 		{
 			var diff = DiffResultFactory.Unordered<SampleInner>.Create()
@@ -111,7 +111,7 @@ namespace KST.SharpDiffLib.Test.General
 			Assert.AreEqual(diffString, diff.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void Conflicts()
 		{
 			var diff = DiffResultFactory.Class<SampleInner>.Create()

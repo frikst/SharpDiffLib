@@ -3,11 +3,11 @@ using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.MergeDiffs
 {
-	[TestClass]
+	[TestFixture]
 	public class SimpleClass
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -19,7 +19,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeEmptyDiffs()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -37,7 +37,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeNonConflictingDiffs()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -59,7 +59,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeNonConflictingDiffsReverseOrder()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -81,7 +81,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeConflictingDiffs()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -105,7 +105,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeSameChanges()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -126,7 +126,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeUnchangedReplaced()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -147,7 +147,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeUnchangedUnchanged()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()

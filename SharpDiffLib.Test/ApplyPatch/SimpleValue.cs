@@ -1,11 +1,11 @@
 ﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
 {
-	[TestClass]
+	[TestFixture]
 	public class SimpleValue
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -17,7 +17,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIntDifferent()
 		{
 			var diff = DiffResultFactory.Value<int>.Create()
@@ -29,7 +29,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			Assert.AreEqual(0, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSameValues()
 		{
 			var diff = DiffResultFactory.Value<int>.Create()

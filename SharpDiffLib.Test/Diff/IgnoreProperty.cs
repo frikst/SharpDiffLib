@@ -1,11 +1,11 @@
 ﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Test._Entities.BaseWithoutId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
 {
-	[TestClass]
+	[TestFixture]
 	public class IgnoreProperty
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -24,7 +24,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIgnoredDifferent()
 		{
 			const string diff = "";
@@ -38,7 +38,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestProcessedDifferent()
 		{
 			const string diff =
@@ -54,7 +54,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIgnoredDifferentDescendant()
 		{
 			const string diff = "";
@@ -68,7 +68,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			Assert.AreEqual(diff, ret.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestProcessedDifferentDescendant()
 		{
 			const string diff =

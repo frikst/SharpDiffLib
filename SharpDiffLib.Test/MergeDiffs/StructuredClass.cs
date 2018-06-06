@@ -4,11 +4,11 @@ using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.MergeDiffs
 {
-	[TestClass]
+	[TestFixture]
 	public class StructuredClass
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -26,7 +26,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeEmptyDiffs()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -44,7 +44,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeNonConflictingDiffsWithInnerChanges()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -73,7 +73,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeConflictingDiffsWithInnerChanges()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -106,7 +106,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeNonConflictingDiffsWithSameInnerChanges()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()
@@ -136,7 +136,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void MergeNonConflictingRightItemLast()
 		{
 			var left = DiffResultFactory.Class<Sample>.Create()

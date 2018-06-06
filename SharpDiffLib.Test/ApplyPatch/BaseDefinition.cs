@@ -3,11 +3,11 @@ using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.BaseWithId;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
 {
-	[TestClass]
+	[TestFixture]
 	public class BaseDefinition
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -26,7 +26,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneAdded()
 		{
 			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
@@ -48,7 +48,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneReplacedWithOtherDescendant()
 		{
 			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
@@ -77,7 +77,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void OneChangedProperty()
 		{
 			var diff = DiffResultFactory.Ordered<SampleBase>.Create()

@@ -3,11 +3,11 @@ using System.Linq;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
 {
-	[TestClass]
+	[TestFixture]
 	public class AlgorithmGuessing
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -18,7 +18,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestInt()
 		{
 			var diff = DiffResultFactory.Value<int>.Create()
@@ -30,7 +30,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			Assert.AreEqual(0, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIntArray()
 		{
 			var diff = DiffResultFactory.Ordered<int>.Create()
@@ -45,7 +45,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed, ret);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestIntSet()
 		{
 			var diff = DiffResultFactory.Unordered<int>.Create()
@@ -60,7 +60,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 			CollectionAssert.AreEqual(changed.OrderBy(x => x).ToArray(), ret.OrderBy(x => x).ToArray());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestDifferentObjects()
 		{
 			var diff = DiffResultFactory.Class<Sample>.Create()

@@ -1,11 +1,11 @@
 ﻿using KST.SharpDiffLib.Algorithms.ResolveConflicts.Common.DontResolve;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.FullRun
 {
-	[TestClass]
+	[TestFixture]
 	public class WithoutConflictsResolving
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -16,7 +16,7 @@ namespace KST.SharpDiffLib.Test.FullRun
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void SameChanges()
 		{
 			Sample @base = new Sample();
@@ -37,7 +37,7 @@ namespace KST.SharpDiffLib.Test.FullRun
 			Assert.IsNull(ret.Value2);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Merged()
 		{
 			Sample @base = new Sample();
@@ -58,8 +58,7 @@ namespace KST.SharpDiffLib.Test.FullRun
 			Assert.AreEqual("b", ret.Value2);
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(NotPossibleToResolveException))]
+		[Test]
 		public void Conflicted()
 		{
 			Sample @base = new Sample();
@@ -74,7 +73,8 @@ namespace KST.SharpDiffLib.Test.FullRun
 				Value = "b"
 			};
 
-			Merger.Instance.Merge(@base, left, right);
+			Assert.Throws<NotPossibleToResolveException>(() => Merger.Instance.Merge(@base, left, right));
+
 		}
 	}
 }

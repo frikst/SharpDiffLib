@@ -3,11 +3,11 @@ using KST.SharpDiffLib.Algorithms.MergeDiffs;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.DiffResult;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.MergeDiffs
 {
-	[TestClass]
+	[TestFixture]
 	public class SetOfPrimitives
 	{
 		private class Merger : MergerDefinition<Merger>
@@ -19,7 +19,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyDiffs()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -37,7 +37,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyLeftAdded()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -57,7 +57,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyRightAdded()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -79,7 +79,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyBothAddedTheSame()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -100,7 +100,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyRemovedReplaced()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -124,7 +124,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyBothRemovedTheSame()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -145,7 +145,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsFalse(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyReplacedReplaced()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
@@ -169,7 +169,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			Assert.IsTrue(conflicts.HasConflicts);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EmptyReplacedReplacedBothSame()
 		{
 			var left = DiffResultFactory.Unordered<int>.Create()
