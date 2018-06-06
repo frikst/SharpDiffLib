@@ -16,7 +16,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Value
 	{
 		private Func<TType, TType, List<IDiffItem>> aCompiledDiff;
 		private readonly MergerImplementation aMergerImplementation;
-		private Property aIDProperty;
+		private readonly Property aIDProperty;
 
 		public ValueDiff(MergerImplementation mergerImplementation)
 		{

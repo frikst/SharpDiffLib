@@ -9,8 +9,8 @@ namespace KST.SharpDiffLib.Internal
 	{
 		private class IdEqualityComparer<TItemType, TIdType> : IEqualityComparer<TItemType>
 		{
-			private Func<TItemType, TItemType, bool> aIsTheSame;
-			private Func<TItemType, TIdType> aIdAccessor;
+			private readonly Func<TItemType, TItemType, bool> aIsTheSame;
+			private readonly Func<TItemType, TIdType> aIdAccessor;
 
 			public IdEqualityComparer(Property idProperty)
 			{

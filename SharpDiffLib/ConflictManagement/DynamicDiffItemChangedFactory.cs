@@ -15,7 +15,7 @@ namespace KST.SharpDiffLib.ConflictManagement
 			= new Dictionary<(Type itemType, Type diffType), Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>>();
 
 		private readonly Dictionary<IDiffItemConflicted, ResolveAction> aResolveActions;
-		private bool aFinishItems;
+		private readonly bool aFinishItems;
 
 		public DynamicDiffItemChangedFactory(Dictionary<IDiffItemConflicted, ResolveAction> resolveActions, bool finishItems)
 		{
