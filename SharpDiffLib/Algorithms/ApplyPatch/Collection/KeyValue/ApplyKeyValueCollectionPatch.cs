@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
 using KST.SharpDiffLib.DiffResult.Action;
@@ -74,7 +75,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.KeyValue
 			foreach (KeyValuePair<TKeyType, TItemType> item in source)
 				ret[item.Key] = item.Value;
 
-			foreach (IDiffKeyValueCollectionItem<TKeyType> item in patch)
+			foreach (var item in patch.Cast<IDiffKeyValueCollectionItem<TKeyType>>())
 			{
 				switch (item)
 				{

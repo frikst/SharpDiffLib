@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
 using KST.SharpDiffLib.DiffResult.Action;
@@ -79,7 +80,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Ordered
 				bool lastMoveNext = enumerator.MoveNext();
 				int currentIndex = 0;
 
-				foreach (IDiffOrderedCollectionItem item in patch)
+				foreach (var item in patch.Cast<IDiffOrderedCollectionItem>())
 				{
 					while (currentIndex < item.ItemIndex)
 					{

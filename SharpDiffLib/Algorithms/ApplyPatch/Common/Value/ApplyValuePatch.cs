@@ -35,6 +35,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Value
 
 		public TType Apply(TType source, IDiff<TType> patch)
 		{
+			// ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
 			foreach (IDiffValue item in patch)
 			{
 				switch (item)

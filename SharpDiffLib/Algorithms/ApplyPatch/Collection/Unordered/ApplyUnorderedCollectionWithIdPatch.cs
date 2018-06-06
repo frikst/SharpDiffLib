@@ -77,7 +77,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Unordered
 		{
 			Dictionary<TIdType, TItemType> ret = source.ToDictionary(this.aIdAccessor);
 
-			foreach (IDiffUnorderedCollectionItem item in patch)
+			foreach (var item in patch.Cast<IDiffUnorderedCollectionItem>())
 			{
 				switch (item)
 				{

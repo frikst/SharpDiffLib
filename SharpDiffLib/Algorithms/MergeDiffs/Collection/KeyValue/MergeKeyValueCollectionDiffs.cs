@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.DiffResult.Action;
@@ -35,7 +36,7 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.KeyValue
 
 			List<IDiffItem> ret = new List<IDiffItem>(left.Count + right.Count);
 
-			foreach (IDiffKeyValueCollectionItem<TKeyType> leftItem in left)
+			foreach (var leftItem in left.Cast<IDiffKeyValueCollectionItem<TKeyType>>())
 			{
 				IDiffKeyValueCollectionItem<TKeyType> rightItem;
 

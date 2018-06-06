@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using KST.SharpDiffLib.Algorithms.MergeDiffs.Base;
 using KST.SharpDiffLib.ConflictManagement;
@@ -62,7 +63,7 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Unordered
 
 			List<IDiffItem> ret = new List<IDiffItem>(left.Count + right.Count);
 
-			foreach (IDiffUnorderedCollectionItem leftItem in left)
+			foreach (var leftItem in left.Cast<IDiffUnorderedCollectionItem>())
 			{
 				IDiffUnorderedCollectionItem rightItem;
 

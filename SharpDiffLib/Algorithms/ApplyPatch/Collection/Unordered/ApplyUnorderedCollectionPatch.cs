@@ -72,7 +72,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Unordered
 		{
 			HashSet<TItemType> ret = new HashSet<TItemType>(source, this.aItemComparer);
 
-			foreach (IDiffUnorderedCollectionItem item in patch)
+			foreach (var item in patch.Cast<IDiffUnorderedCollectionItem>())
 			{
 				switch (item)
 				{
