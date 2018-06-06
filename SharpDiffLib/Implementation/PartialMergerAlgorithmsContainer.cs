@@ -14,17 +14,17 @@ namespace KST.SharpDiffLib.Implementation
 	{
 		private readonly MergerImplementation aMergerImplementation;
 
-		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IDiffAlgorithm> aDiffAlgorithms;
-		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IApplyPatchAlgorithm> aApplyPatchAlgorithms;
-		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IMergeDiffsAlgorithm> aMergeDiffsAlgorithms;
-		private readonly Dictionary<Tuple<Type, IAlgorithmRules>, IResolveConflictsAlgorithm> aResolveConflictsAlgorithms;
+		private readonly Dictionary<(Type, IAlgorithmRules), IDiffAlgorithm> aDiffAlgorithms;
+		private readonly Dictionary<(Type, IAlgorithmRules), IApplyPatchAlgorithm> aApplyPatchAlgorithms;
+		private readonly Dictionary<(Type, IAlgorithmRules), IMergeDiffsAlgorithm> aMergeDiffsAlgorithms;
+		private readonly Dictionary<(Type, IAlgorithmRules), IResolveConflictsAlgorithm> aResolveConflictsAlgorithms;
 
 		internal PartialMergerAlgorithmsContainer(MergerImplementation mergerImplementation)
 		{
-			this.aDiffAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IDiffAlgorithm>();
-			this.aApplyPatchAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IApplyPatchAlgorithm>();
-			this.aMergeDiffsAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IMergeDiffsAlgorithm>();
-			this.aResolveConflictsAlgorithms = new Dictionary<Tuple<Type, IAlgorithmRules>, IResolveConflictsAlgorithm>();
+			this.aDiffAlgorithms = new Dictionary<(Type, IAlgorithmRules), IDiffAlgorithm>();
+			this.aApplyPatchAlgorithms = new Dictionary<(Type, IAlgorithmRules), IApplyPatchAlgorithm>();
+			this.aMergeDiffsAlgorithms = new Dictionary<(Type, IAlgorithmRules), IMergeDiffsAlgorithm>();
+			this.aResolveConflictsAlgorithms = new Dictionary<(Type, IAlgorithmRules), IResolveConflictsAlgorithm>();
 
 			this.aMergerImplementation = mergerImplementation;
 		}
@@ -69,11 +69,11 @@ namespace KST.SharpDiffLib.Implementation
 			return this.GetAlgorithmHelper<IApplyPatchAlgorithm, IApplyPatchAlgorithmRules>(type, this.aApplyPatchAlgorithms, ApplyPatchAlgorithmMembers.GetAlgorithm(type), ignore);
 		}
 
-		private TAlgorithm GetAlgorithmHelper<TAlgorithm, TAlgorithmRules>(Type type, Dictionary<Tuple<Type, IAlgorithmRules>, TAlgorithm> algorithms, MethodInfo method, IAlgorithmRules ignore)
+		private TAlgorithm GetAlgorithmHelper<TAlgorithm, TAlgorithmRules>(Type type, Dictionary<(Type, IAlgorithmRules), TAlgorithm> algorithms, MethodInfo method, IAlgorithmRules ignore)
 			where TAlgorithmRules : class, IAlgorithmRules
 			where TAlgorithm : class
 		{
-			Tuple<Type, IAlgorithmRules> algorihmKey = Tuple.Create(type, ignore);
+			var algorihmKey = (type, ignore);
 
 			TAlgorithm ret;
 			if (algorithms.TryGetValue(algorihmKey, out ret))

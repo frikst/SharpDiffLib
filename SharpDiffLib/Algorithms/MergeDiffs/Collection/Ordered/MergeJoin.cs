@@ -5,7 +5,7 @@ using KST.SharpDiffLib.DiffResult.Type;
 
 namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 {
-	internal class MergeJoin : IEnumerable<Tuple<List<IDiffOrderedCollectionItem>, List<IDiffOrderedCollectionItem>>>
+	internal class MergeJoin : IEnumerable<(List<IDiffOrderedCollectionItem> firstItems, List<IDiffOrderedCollectionItem> secondItems)>
 	{
 		private readonly IEnumerable<List<IDiffOrderedCollectionItem>> aFirst;
 		private readonly IEnumerable<List<IDiffOrderedCollectionItem>> aSecond;
@@ -18,7 +18,7 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 
 		#region Implementation of IEnumerable
 
-		public IEnumerator<Tuple<List<IDiffOrderedCollectionItem>, List<IDiffOrderedCollectionItem>>> GetEnumerator()
+		public IEnumerator<(List<IDiffOrderedCollectionItem> firstItems, List<IDiffOrderedCollectionItem> secondItems)> GetEnumerator()
 		{
 			using (IEnumerator<List<IDiffOrderedCollectionItem>> firstEnumerator = this.aFirst.GetEnumerator())
 			{
@@ -32,17 +32,17 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 					{
 						if (firstEnumerator.Current[0].ItemIndex < secondEnumerator.Current[0].ItemIndex)
 						{
-							yield return Tuple.Create(firstEnumerator.Current, (List<IDiffOrderedCollectionItem>) null);
+							yield return (firstEnumerator.Current, null);
 							firstHasItem = firstEnumerator.MoveNext();
 						}
 						else if (firstEnumerator.Current[0].ItemIndex > secondEnumerator.Current[0].ItemIndex)
 						{
-							yield return Tuple.Create((List<IDiffOrderedCollectionItem>) null, secondEnumerator.Current);
+							yield return (null, secondEnumerator.Current);
 							secondHasItem = secondEnumerator.MoveNext();
 						}
 						else
 						{
-							yield return Tuple.Create(firstEnumerator.Current, secondEnumerator.Current);
+							yield return (firstEnumerator.Current, secondEnumerator.Current);
 							firstHasItem = firstEnumerator.MoveNext();
 							secondHasItem = secondEnumerator.MoveNext();
 						}
@@ -50,13 +50,13 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 
 					while (firstHasItem)
 					{
-						yield return Tuple.Create(firstEnumerator.Current, (List<IDiffOrderedCollectionItem>) null);
+						yield return (firstEnumerator.Current, null);
 						firstHasItem = firstEnumerator.MoveNext();
 					}
 
 					while (secondHasItem)
 					{
-						yield return Tuple.Create((List<IDiffOrderedCollectionItem>) null, secondEnumerator.Current);
+						yield return (null, secondEnumerator.Current);
 						secondHasItem = secondEnumerator.MoveNext();
 					}
 				}

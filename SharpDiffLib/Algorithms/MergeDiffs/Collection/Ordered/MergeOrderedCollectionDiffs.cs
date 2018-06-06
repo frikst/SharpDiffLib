@@ -32,14 +32,14 @@ namespace KST.SharpDiffLib.Algorithms.MergeDiffs.Collection.Ordered
 
 			List<IDiffItem> ret = new List<IDiffItem>();
 
-			foreach (var diffItem in new MergeJoin(new Chunker(left.Cast<IDiffOrderedCollectionItem>()), new Chunker(right.Cast<IDiffOrderedCollectionItem>())))
+			foreach (var (leftItems, rightItems) in new MergeJoin(new Chunker(left.Cast<IDiffOrderedCollectionItem>()), new Chunker(right.Cast<IDiffOrderedCollectionItem>())))
 			{
-				if (diffItem.Item1 == null)
-					ret.AddRange(diffItem.Item2);
-				else if (diffItem.Item2 == null)
-					ret.AddRange(diffItem.Item1);
+				if (leftItems == null)
+					ret.AddRange(rightItems);
+				else if (rightItems == null)
+					ret.AddRange(leftItems);
 				else
-					this.ProcessConflicts(ret, diffItem.Item1, diffItem.Item2, conflicts);
+					this.ProcessConflicts(ret, leftItems, rightItems, conflicts);
 			}
 
 			return new Diff<TType>(ret);

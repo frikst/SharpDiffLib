@@ -11,8 +11,8 @@ namespace KST.SharpDiffLib.ConflictManagement
 {
 	internal class DynamicDiffItemChangedFactory
 	{
-		private static readonly Dictionary<Tuple<Type, Type>, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>> aCreateItemChangedEnvelopeCache
-			= new Dictionary<Tuple<Type, Type>, Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>>();
+		private static readonly Dictionary<(Type itemType, Type diffType), Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>> aCreateItemChangedEnvelopeCache
+			= new Dictionary<(Type itemType, Type diffType), Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged>>();
 
 		private readonly Dictionary<IDiffItemConflicted, ResolveAction> aResolveActions;
 		private bool aFinishItems;
@@ -25,12 +25,12 @@ namespace KST.SharpDiffLib.ConflictManagement
 
 		public IDiffItem Create(IDiffItemChanged item)
 		{
-			Tuple<Type, Type> key;
+			(Type itemType, Type diffType) key;
 
 			if (item is IDiffValue valueItem)
-				key = Tuple.Create(valueItem.ItemType, valueItem.ValueType);
+				key = (valueItem.ItemType, valueItem.ValueType);
 			else
-				key = Tuple.Create(item.ItemType, item.ItemType);
+				key = (item.ItemType, item.ItemType);
 
 			Func<IDiffItem, Dictionary<IDiffItemConflicted, ResolveAction>, IDiffItemChanged> envelope;
 			if (!aCreateItemChangedEnvelopeCache.TryGetValue(key, out envelope))
