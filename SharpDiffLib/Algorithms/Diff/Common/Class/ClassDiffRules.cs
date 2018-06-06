@@ -14,7 +14,7 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 	/// Rules for class diff algorithm.
 	/// </summary>
 	/// <typeparam name="TDefinedFor">Type for which the rules are defined.</typeparam>
-	public class ClassDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>, IClassDiffRules
+	public class ClassDiffRules<TDefinedFor> : BaseRules<TDefinedFor>, IDiffAlgorithmRules<TDefinedFor>, IClassDiffRules, IInheritableAlgorithmRules
 	{
 		private readonly HashSet<Property> aIgnoreProperties;
 		private readonly HashSet<Property> aAlwaysIncludedProperties;
@@ -56,7 +56,9 @@ namespace KST.SharpDiffLib.Algorithms.Diff.Common.Class
 			yield return typeof(IDiffItemReplaced);
 		}
 
-		IAlgorithmRules IAlgorithmRules.InheritAfter
+		bool IInheritableAlgorithmRules.IsInheritable { get; set; }
+
+		IAlgorithmRules IInheritableAlgorithmRules.InheritedFrom
 		{
 			get { return this.aInheritAfter; }
 			set { this.aInheritAfter = value; }

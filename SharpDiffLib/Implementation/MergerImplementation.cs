@@ -120,8 +120,9 @@ namespace KST.SharpDiffLib.Implementation
 				{
 					foreach (TRules rules in definition.GetAllRules<TRules>())
 					{
-						if (rules.IsInheritable)
-							return rules;
+						if (rules is IInheritableAlgorithmRules inheritable)
+							if (inheritable.IsInheritable)
+								return rules;
 					}
 				}
 			}
@@ -143,7 +144,7 @@ namespace KST.SharpDiffLib.Implementation
 			{
 				foreach (IClassMergerDefinition definition in this.GetDefinitionFor(tmp))
 				{
-					if (definition.GetAllRules<IAlgorithmRules>().Any(x => x.IsInheritable))
+					if (definition.GetAllRules<IAlgorithmRules>().OfType<IInheritableAlgorithmRules>().Any(x => x.IsInheritable))
 						return definition;
 				}
 			}

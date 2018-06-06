@@ -9,8 +9,6 @@ namespace KST.SharpDiffLib.Definition.Rules
 		IEnumerable<Type> GetPossibleResults();
 
 		void Initialize(MergerImplementation mergerImplementation);
-		bool IsInheritable { get; set; }
-		IAlgorithmRules InheritAfter { get; set; }
 	}
 
 	public interface IAlgorithmRules<TDefinedFor> : IAlgorithmRules

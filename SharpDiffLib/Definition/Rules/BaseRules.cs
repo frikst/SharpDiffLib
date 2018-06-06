@@ -15,10 +15,11 @@ namespace KST.SharpDiffLib.Definition.Rules
 
 		private bool CanBeUsedFor<TType>()
 		{
-			if (((IAlgorithmRules) this).IsInheritable)
-				return typeof(TDefinedFor).IsAssignableFrom(typeof(TType));
-			else
-				return typeof(TType) == typeof(TDefinedFor);
+			if (this is IInheritableAlgorithmRules inheritable)
+				if (inheritable.IsInheritable)
+					return typeof(TDefinedFor).IsAssignableFrom(typeof(TType));
+
+			return typeof(TType) == typeof(TDefinedFor);
 		}
 
 		protected void ValidateType<TType>()
@@ -37,14 +38,6 @@ namespace KST.SharpDiffLib.Definition.Rules
 		void IAlgorithmRules.Initialize(MergerImplementation mergerImplementation)
 		{
 			this.MergerImplementation = mergerImplementation;
-		}
-
-		bool IAlgorithmRules.IsInheritable { get; set; }
-
-		IAlgorithmRules IAlgorithmRules.InheritAfter
-		{
-			get { return null; }
-			set { if (value != null) throw new InvalidOperationException("Cannot inherit rules for " + this.GetType().Name); }
 		}
 
 		#endregion

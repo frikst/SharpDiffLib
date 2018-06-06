@@ -34,8 +34,12 @@ namespace KST.SharpDiffLib.Definition
 		{
 			TRules definition = new TRules();
 
-			definition.InheritAfter = this.GetAncestor<TRules>(typeof(TClass));
-			definition.IsInheritable = this.aInheritable;
+			if (definition is IInheritableAlgorithmRules inheritable)
+			{
+				inheritable.InheritedFrom = this.GetAncestor<TRules>(typeof(TClass));
+				inheritable.IsInheritable = this.aInheritable;
+			}
+
 			this.aInheritable = false;
 
 			if (func != null)
@@ -66,8 +70,9 @@ namespace KST.SharpDiffLib.Definition
 					if (def.DefinedFor == tmp)
 					{
 						IAlgorithmRules rules = def.GetRules(typeof(TRules));
-						if (rules != null && rules.IsInheritable)
-							return rules;
+						if (rules is IInheritableAlgorithmRules inheritable)
+							if (inheritable.IsInheritable)
+								return rules;
 					}
 				}
 			}
