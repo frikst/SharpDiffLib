@@ -1,7 +1,7 @@
-﻿using System;
-using KST.SharpDiffLib.Algorithms.Diff;
+﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
 using NUnit.Framework;
 
@@ -28,11 +28,6 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerChanged()
 		{
-			string diff =
-				"=ValueInner:" + Environment.NewLine +
-				"\t-Value:one" + Environment.NewLine +
-				"\t+Value:two";
-
 			var @base = new Sample
 			{
 				Value = "one",
@@ -52,17 +47,21 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
+					.Replaced(x => x.Value, "one", "two")
+					.MakeDiff()
+				)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestInnerSame()
 		{
-			string diff = "";
-
 			var @base = new Sample
 			{
 				Value = "one",
@@ -82,19 +81,17 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestInnerReplaced()
 		{
-			string diff =
-				"-ValueInner:<SampleInner:1>" + Environment.NewLine +
-				"+ValueInner:<SampleInner:2>";
-
 			var @base = new Sample
 			{
 				Value = "one",
@@ -114,19 +111,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, new SampleInner {Id = 2, Value = "one"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestInnerNullLeft()
 		{
-			string diff =
-				"-ValueInner:(null)" + Environment.NewLine +
-				"+ValueInner:<SampleInner:2>";
-
 			var @base = new Sample
 			{
 				Value = "one",
@@ -142,19 +138,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.ValueInner, null, new SampleInner {Id = 2, Value = "one"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestInnerNullRight()
 		{
-			string diff =
-				"-ValueInner:<SampleInner:1>" + Environment.NewLine +
-				"+ValueInner:(null)";
-
 			var @base = new Sample
 			{
 				Value = "one",
@@ -170,17 +165,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				ValueInner = null
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, null)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestInnerNullBoth()
 		{
-			string diff = "";
-
 			var @base = new Sample
 			{
 				Value = "one",
@@ -192,10 +188,12 @@ namespace KST.SharpDiffLib.Test.Diff
 				ValueInner = null
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

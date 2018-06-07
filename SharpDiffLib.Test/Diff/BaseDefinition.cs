@@ -1,7 +1,7 @@
-﻿using System;
-using KST.SharpDiffLib.Algorithms.Diff;
+﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.BaseWithId;
 using NUnit.Framework;
 
@@ -29,8 +29,6 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			string diff =
-				"+1:<Sample1:2>";
 			var @base = new SampleBase[]
 			{
 				new SampleDescendant1 { Id = 1, Value = "a" }
@@ -41,19 +39,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleDescendant1 { Id = 2, Value = "b" }
 			};
 
+			var expected = DiffResultFactory.Ordered<SampleBase>.Create()
+				.Added(1, new SampleDescendant1 {Id = 2, Value = "b"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void OneReplacedWithOtherDescendant()
 		{
-			string diff =
-				"=1:" + Environment.NewLine +
-				"\t-<Sample1:2>" + Environment.NewLine +
-				"\t+<Sample2:2>";
 			var @base = new SampleBase[]
 			{
 				new SampleDescendant1 { Id = 1, Value = "a" },
@@ -65,20 +62,21 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleDescendant2 { Id = 2, Value = "b" }
 			};
 
+			var expected = DiffResultFactory.Ordered<SampleBase>.Create()
+				.Changed(1, DiffResultFactory.Value<SampleBase>.Create()
+					.Replaced(new SampleDescendant1 {Id = 2, Value = "b"}, new SampleDescendant2 {Id = 2, Value = "b"})
+					.MakeDiff()
+				)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void OneChangedProperty()
 		{
-			string diff =
-				"=1:" + Environment.NewLine +
-				"\t=:" + Environment.NewLine +
-				"\t\t-Value:b" + Environment.NewLine +
-				"\t\t+Value:c";
 			var @base = new SampleBase[]
 			{
 				new SampleDescendant1 { Id = 1, Value = "a" },
@@ -90,10 +88,19 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleDescendant1 { Id = 2, Value = "c" }
 			};
 
+			var expected = DiffResultFactory.Ordered<SampleBase>.Create()
+				.Changed(1, DiffResultFactory.Value<SampleBase>.Create()
+					.Changed(DiffResultFactory.Class<SampleDescendant1>.Create()
+						.Replaced(x => x.Value, "b", "c")
+						.MakeDiff()
+					)
+					.MakeDiff()
+				)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

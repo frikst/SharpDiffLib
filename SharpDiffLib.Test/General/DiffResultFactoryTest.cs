@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Text;
 using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
 using NUnit.Framework;
@@ -20,15 +20,15 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged(x => x.Value2, "xxx")
 				.MakeDiff();
 
-			string diffString =
-				"=ValueInner:" + Environment.NewLine +
-				"\t-Value:Hello" + Environment.NewLine +
-				"\t+Value:World" + Environment.NewLine +
-				"-Value:Value" + Environment.NewLine +
-				"+Value:Value2" + Environment.NewLine +
-				" Value2:xxx";
+			var expected = new StringBuilder();
+			expected.AppendLine("=ValueInner:");
+			expected.AppendLine("\t-Value:Hello");
+			expected.AppendLine("\t+Value:World");
+			expected.AppendLine("-Value:Value");
+			expected.AppendLine("+Value:Value2");
+			expected.Append(" Value2:xxx");
 
-			Assert.AreEqual(diffString, diff.ToString());
+			Assert.AreEqual(expected.ToString(), diff.ToString());
 		}
 
 		[Test]
@@ -45,17 +45,17 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged(3, new SampleInner())
 				.MakeDiff();
 
-			string diffString =
-				"=0:" + Environment.NewLine +
-				"\t-Value:Hello" + Environment.NewLine +
-				"\t+Value:World" + Environment.NewLine +
-				"-1:<SampleInner>" + Environment.NewLine +
-				"+1:<SampleInner>" + Environment.NewLine +
-				"-2:<SampleInner>" + Environment.NewLine +
-				"+2:<SampleInner>" + Environment.NewLine +
-				" 3:<SampleInner>";
+			var expected = new StringBuilder();
+			expected.AppendLine("=0:");
+			expected.AppendLine("\t-Value:Hello");
+			expected.AppendLine("\t+Value:World");
+			expected.AppendLine("-1:<SampleInner>");
+			expected.AppendLine("+1:<SampleInner>");
+			expected.AppendLine("-2:<SampleInner>");
+			expected.AppendLine("+2:<SampleInner>");
+			expected.Append(" 3:<SampleInner>");
 
-			Assert.AreEqual(diffString, diff.ToString());
+			Assert.AreEqual(expected.ToString(), diff.ToString());
 		}
 
 		[Test]
@@ -72,17 +72,17 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged("e", new SampleInner())
 				.MakeDiff();
 
-			string diffString =
-				"=a:" + Environment.NewLine +
-				"\t-Value:Hello" + Environment.NewLine +
-				"\t+Value:World" + Environment.NewLine +
-				"-b:<SampleInner>" + Environment.NewLine +
-				"+b:<SampleInner>" + Environment.NewLine +
-				"-c:<SampleInner>" + Environment.NewLine +
-				"+d:<SampleInner>" + Environment.NewLine +
-				" e:<SampleInner>";
+			var expected = new StringBuilder();
+			expected.AppendLine("=a:");
+			expected.AppendLine("\t-Value:Hello");
+			expected.AppendLine("\t+Value:World");
+			expected.AppendLine("-b:<SampleInner>");
+			expected.AppendLine("+b:<SampleInner>");
+			expected.AppendLine("-c:<SampleInner>");
+			expected.AppendLine("+d:<SampleInner>");
+			expected.Append(" e:<SampleInner>");
 
-			Assert.AreEqual(diffString, diff.ToString());
+			Assert.AreEqual(expected.ToString(), diff.ToString());
 		}
 
 		[Test]
@@ -99,17 +99,17 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged(new SampleInner())
 				.MakeDiff();
 
-			string diffString =
-				"=1:" + Environment.NewLine +
-				"\t-Value:Hello" + Environment.NewLine +
-				"\t+Value:World" + Environment.NewLine +
-				"-<SampleInner>" + Environment.NewLine +
-				"+<SampleInner>" + Environment.NewLine +
-				"-<SampleInner>" + Environment.NewLine +
-				"+<SampleInner>" + Environment.NewLine +
-				" <SampleInner>";
+			var expected = new StringBuilder();
+			expected.AppendLine("=1:");
+			expected.AppendLine("\t-Value:Hello");
+			expected.AppendLine("\t+Value:World");
+			expected.AppendLine("-<SampleInner>");
+			expected.AppendLine("+<SampleInner>");
+			expected.AppendLine("-<SampleInner>");
+			expected.AppendLine("+<SampleInner>");
+			expected.Append(" <SampleInner>");
 
-			Assert.AreEqual(diffString, diff.ToString());
+			Assert.AreEqual(expected.ToString(), diff.ToString());
 		}
 
 		[Test]
@@ -122,15 +122,15 @@ namespace KST.SharpDiffLib.Test.General
 				)
 				.MakeDiff();
 
-			string diffString =
-				"C<<<" + Environment.NewLine +
-				"\t-Value:a" + Environment.NewLine +
-				"\t+Value:b" + Environment.NewLine +
-				"C>>>" + Environment.NewLine +
-				"\t-Value:a" + Environment.NewLine +
-				"\t+Value:c";
+			var expected = new StringBuilder();
+			expected.AppendLine("C<<<");
+			expected.AppendLine("\t-Value:a");
+			expected.AppendLine("\t+Value:b");
+			expected.AppendLine("C>>>");
+			expected.AppendLine("\t-Value:a");
+			expected.Append("\t+Value:c");
 
-			Assert.AreEqual(diffString, diff.ToString());
+			Assert.AreEqual(expected.ToString(), diff.ToString());
 		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff.Base;
 using KST.SharpDiffLib.Base;
 using KST.SharpDiffLib.Definition;
@@ -67,86 +66,87 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInt()
 		{
-			string diff =
-				"-5" + Environment.NewLine +
-				"+0";
+			var expected = DiffResultFactory.Value<int>.Create()
+				.Replaced(5, 0)
+				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(5, 0);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestIntArray()
 		{
-			string diff =
-				"+2:3";
 			var @base = new[] { 1, 2 };
 			var changed = new[] { 1, 2, 3 };
 
+			var expected = DiffResultFactory.Ordered<int>.Create()
+				.Added(2, 3)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestIntSet()
 		{
-			string diff =
-				"+3";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3 };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.Added(3)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestDifferentObjects()
 		{
-			string diff =
-				"-Value:one" + Environment.NewLine +
-				"+Value:two";
-
 			var @base = new Sample { Value = "one" };
 			var changed = new Sample { Value = "two" };
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.Value, "one", "two")
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestCustomGuess()
 		{
-			string diff = "";
-
 			var @base = new AnotherSample { AnotherValue = "one" };
 			var changed = new AnotherSample { AnotherValue = "two" };
 
+			var expected = DiffResultFactory.Class<AnotherSample>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestIEnumerable()
 		{
-			string diff =
-				"+2:3";
 			IEnumerable<int> @base = new[] { 1, 2 };
 			IEnumerable<int> changed = new[] { 1, 2, 3 };
 
+			var expected = DiffResultFactory.Ordered<int>.Create()
+				.Added(2, 3)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

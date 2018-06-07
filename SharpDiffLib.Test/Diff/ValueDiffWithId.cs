@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
 using NUnit.Framework;
 
@@ -38,10 +38,6 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestClassReplaced()
 		{
-			string diff =
-				"-ValueInner:<SampleInner:1>" + Environment.NewLine +
-				"+ValueInner:<SampleInner:1>";
-
 			var @base = new Sample
 			{
 				ValueInner = new SampleInner
@@ -59,18 +55,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, new SampleInner {Id = 1, Value = "two"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestArrayReplaced()
 		{
-			string diff =
-				"-1:<SampleInner:2>" + Environment.NewLine +
-				"+1:<SampleInner:2>";
 			var @base = new[]
 			{
 				new SampleInner { Id = 1, Value = "a" },
@@ -82,34 +78,33 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleInner { Id = 2, Value = "a" }
 			};
 
+			var expected = DiffResultFactory.Ordered<SampleInner>.Create()
+				.Replaced(1, new SampleInner {Id = 2, Value = "b"}, new SampleInner {Id = 2, Value = "a"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestSetReplaced()
 		{
-			string diff =
-				"-<SampleInner:2>" + Environment.NewLine +
-				"+<SampleInner:2>";
 			var @base = new HashSet<SampleInner> { new SampleInner { Id = 1, Value = "a" }, new SampleInner { Id = 2, Value = "b" } };
 			var changed = new HashSet<SampleInner> { new SampleInner { Id = 1, Value = "a" }, new SampleInner { Id = 2, Value = "a" } };
 
+			var expected = DiffResultFactory.Unordered<SampleInner>.Create()
+				.Replaced(new SampleInner {Id = 2, Value = "b"}, new SampleInner {Id = 2, Value = "a"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestDictionaryReplaced()
 		{
-			string diff =
-				"-b:<SampleInner:2>" + Environment.NewLine +
-				"+b:<SampleInner:2>";
-
 			var @base = new Dictionary<string, SampleInner>
 			{
 				{ "a", new SampleInner { Id = 1, Value = "a" } },
@@ -121,10 +116,13 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "b", new SampleInner { Id = 2, Value = "a" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, SampleInner>.Create()
+				.Replaced("b", new SampleInner {Id = 2, Value = "b"}, new SampleInner {Id = 2, Value = "a"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

@@ -1,7 +1,7 @@
-﻿using System;
-using KST.SharpDiffLib.Algorithms.Diff;
+﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -19,33 +19,30 @@ namespace KST.SharpDiffLib.Test.Diff
 						.Id(x => x.Id)
 					)
 					.ValueDiffRules();
-				Define<int>()
-					.ValueDiffRules();
 			}
 		}
 
 		[Test]
 		public void TestIntDifferent()
 		{
-			string diff =
-				"-<Sample:5>" + Environment.NewLine +
-				"+<Sample:0>";
+			var expected = DiffResultFactory.Value<Sample>.Create()
+				.Replaced(new Sample {Id = 5, Value = "a"}, new Sample {Id = 0, Value = "b"})
+				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(new Sample { Id = 5, Value = "a" }, new Sample { Id = 0, Value = "b" });
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestSameValues()
 		{
-			string diff = "";
+			var expected = DiffResultFactory.Value<Sample>.Create()
+				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(new Sample { Id = 5, Value = "a" }, new Sample { Id = 5, Value = "a" });
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

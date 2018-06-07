@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.IntArrayProperty;
 using NUnit.Framework;
 
@@ -28,57 +28,65 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void ClassOneAdded()
 		{
-			string diff =
-				"=Value:" + Environment.NewLine +
-				"\t+2:3";
 			var @base = new Sample { Value = new[] { 1, 2 } };
 			var changed = new Sample { Value = new[] { 1, 2, 3 } };
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.Changed(x => x.Value, DiffResultFactory.Ordered<int>.Create()
+					.Added(2, 3)
+					.MakeDiff()
+				)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void ClassUnchanged()
 		{
-			string diff = "";
 			var @base = new Sample { Value = new[] { 1, 2, 3 } };
 			var changed = new Sample { Value = new[] { 1, 2, 3 } };
 
+			var expected = DiffResultFactory.Class<Sample>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void DictionaryOneAdded()
 		{
-			string diff =
-				"=a:" + Environment.NewLine +
-				"\t+2:3";
 			var @base = new Dictionary<string, int[]> { { "a", new[] { 1, 2 } } };
 			var changed = new Dictionary<string, int[]> { { "a", new[] { 1, 2, 3 } } };
 
+			var expected = DiffResultFactory.KeyValue<string, int[]>.Create()
+				.Changed("a", DiffResultFactory.Ordered<int>.Create()
+					.Added(2, 3)
+					.MakeDiff()
+				)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void DictionaryUnchanged()
 		{
-			string diff = "";
 			var @base = new Dictionary<string, int[]> { { "a", new[] { 1, 2, 3 } } };
 			var changed = new Dictionary<string, int[]> { { "a", new[] { 1, 2, 3 } } };
 
+			var expected = DiffResultFactory.KeyValue<string, int[]>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

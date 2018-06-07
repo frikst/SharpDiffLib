@@ -1,6 +1,6 @@
-﻿using System;
-using KST.SharpDiffLib.Algorithms.Diff;
+﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.BaseWithoutId;
 using NUnit.Framework;
 
@@ -28,63 +28,60 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIgnoredDifferent()
 		{
-			string diff = "";
-
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "two", Value2 = "three" };
 
+			var expected = DiffResultFactory.Class<SampleBase>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestProcessedDifferent()
 		{
-			string diff =
-				"-Value2:three" + Environment.NewLine +
-				"+Value2:four";
-
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "one", Value2 = "four" };
 
+			var expected = DiffResultFactory.Class<SampleBase>.Create()
+				.Replaced(x => x.Value2, "three", "four")
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestIgnoredDifferentDescendant()
 		{
-			string diff = "";
-
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "two", Value2 = "three", Value3 = "six", Value4 = "seven" };
 
+			var expected = DiffResultFactory.Class<SampleDescendant>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TestProcessedDifferentDescendant()
 		{
-			string diff =
-				"-Value2:three" + Environment.NewLine +
-				"+Value2:four" + Environment.NewLine +
-				"-Value4:seven" + Environment.NewLine +
-				"+Value4:eight";
-
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "one", Value2 = "four", Value3 = "five", Value4 = "eight" };
 
+			var expected = DiffResultFactory.Class<SampleDescendant>.Create()
+				.Replaced(x => x.Value2, "three", "four")
+				.Replaced(x => x.Value4, "seven", "eight")
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

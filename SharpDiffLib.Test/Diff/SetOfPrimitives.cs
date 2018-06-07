@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
+using KST.SharpDiffLib.DiffResult;
 using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
@@ -21,101 +21,108 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			string diff =
-				"+3";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3 };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.Added(3)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TwoAdded()
 		{
-			string diff =
-				"+3" + Environment.NewLine +
-				"+4";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3, 4 };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.Added(3)
+				.Added(4)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TwoRemoved()
 		{
-			string diff =
-				"-3" + Environment.NewLine +
-				"-4";
 			var @base = new HashSet<int> { 1, 2, 3, 4 };
 			var changed = new HashSet<int> { 1, 2 };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.Removed(3)
+				.Removed(4)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void AllAdded()
 		{
-			string diff =
-				"+1" + Environment.NewLine +
-				"+2";
 			var @base = new HashSet<int> { };
 			var changed = new HashSet<int> { 1, 2 };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.Added(1)
+				.Added(2)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void AllRemoved()
 		{
-			string diff =
-				"-1" + Environment.NewLine +
-				"-2";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.Removed(1)
+				.Removed(2)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void UnchangedEmpty()
 		{
-			string diff = "";
 			var @base = new HashSet<int> { };
 			var changed = new HashSet<int> { };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void UnchangedNonEmpty()
 		{
-			string diff = "";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2 };
 
+			var expected = DiffResultFactory.Unordered<int>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }

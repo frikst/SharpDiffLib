@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -29,9 +29,6 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			string diff =
-				"+c:<Sample:3>";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -44,19 +41,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "c", new Sample { Id = 3, Value = "c" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Added("c", new Sample {Id = 3, Value = "c"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TwoAdded()
 		{
-			string diff =
-				"+c:<Sample:3>" + Environment.NewLine +
-				"+d:<Sample:4>";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -70,19 +66,19 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "d", new Sample { Id = 4, Value = "d" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Added("c", new Sample {Id = 3, Value = "c"})
+				.Added("d", new Sample {Id = 4, Value = "d"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void TwoRemoved()
 		{
-			string diff =
-				"-c:<Sample:3>" + Environment.NewLine +
-				"-d:<Sample:4>";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -96,19 +92,19 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "b", new Sample { Id = 2, Value = "b" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Removed("c", new Sample {Id = 3, Value = "c"})
+				.Removed("d", new Sample {Id = 4, Value = "d"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void OneReplaced()
 		{
-			string diff =
-				"-c:<Sample:3>" + Environment.NewLine +
-				"+c:<Sample:4>";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -122,20 +118,18 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "c", new Sample { Id = 4, Value = "d" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Replaced("c", new Sample {Id = 3, Value = "c"}, new Sample {Id = 4, Value = "d"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void OneChanged()
 		{
-			string diff =
-				"=c:" + Environment.NewLine +
-				"\t-Value:c" + Environment.NewLine +
-				"\t+Value:d";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -149,19 +143,21 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "c", new Sample { Id = 3, Value = "d" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Changed("c", DiffResultFactory.Class<Sample>.Create()
+					.Replaced(x => x.Value, "c", "d")
+					.MakeDiff()
+				)
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(1, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void AllAdded()
 		{
-			string diff =
-				"+a:<Sample:1>" + Environment.NewLine +
-				"+b:<Sample:2>";
-
 			var @base = new Dictionary<string, Sample> { };
 			var changed = new Dictionary<string, Sample>
 			{
@@ -169,19 +165,19 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "b", new Sample { Id = 2, Value = "b" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Added("a", new Sample {Id = 1, Value = "a"})
+				.Added("b", new Sample {Id = 2, Value = "b"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void AllRemoved()
 		{
-			string diff =
-				"-a:<Sample:1>" + Environment.NewLine +
-				"-b:<Sample:2>";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -189,31 +185,33 @@ namespace KST.SharpDiffLib.Test.Diff
 			};
 			var changed = new Dictionary<string, Sample> { };
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.Removed("a", new Sample {Id = 1, Value = "a"})
+				.Removed("b", new Sample {Id = 2, Value = "b"})
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(2, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void UnchangedEmpty()
 		{
-			string diff = "";
-
 			var @base = new Dictionary<string, Sample> { };
 			var changed = new Dictionary<string, Sample> { };
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 
 		[Test]
 		public void UnchangedNonEmpty()
 		{
-			string diff = "";
-
 			var @base = new Dictionary<string, Sample>
 			{
 				{ "a", new Sample { Id = 1, Value = "a" } },
@@ -225,10 +223,12 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "b", new Sample { Id = 2, Value = "b" } }
 			};
 
+			var expected = DiffResultFactory.KeyValue<string, Sample>.Create()
+				.MakeDiff();
+
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
 
-			Assert.AreEqual(0, ret.Count);
-			Assert.AreEqual(diff, ret.ToString());
+			Assert.AreEqual(expected, ret);
 		}
 	}
 }
