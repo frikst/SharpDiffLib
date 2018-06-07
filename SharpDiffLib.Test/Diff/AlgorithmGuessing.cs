@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff.Base;
 using KST.SharpDiffLib.Base;
 using KST.SharpDiffLib.Definition;
@@ -66,8 +67,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInt()
 		{
-			const string diff =
-				"-5\r\n" +
+			string diff =
+				"-5" + Environment.NewLine +
 				"+0";
 
 			var ret = Merger.Instance.Partial.Diff(5, 0);
@@ -79,7 +80,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIntArray()
 		{
-			const string diff =
+			string diff =
 				"+2:3";
 			var @base = new[] { 1, 2 };
 			var changed = new[] { 1, 2, 3 };
@@ -93,7 +94,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIntSet()
 		{
-			const string diff =
+			string diff =
 				"+3";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3 };
@@ -107,8 +108,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestDifferentObjects()
 		{
-			const string diff =
-				"-Value:one\r\n" +
+			string diff =
+				"-Value:one" + Environment.NewLine +
 				"+Value:two";
 
 			var @base = new Sample { Value = "one" };
@@ -123,7 +124,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestCustomGuess()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new AnotherSample { AnotherValue = "one" };
 			var changed = new AnotherSample { AnotherValue = "two" };
@@ -137,7 +138,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIEnumerable()
 		{
-			const string diff =
+			string diff =
 				"+2:3";
 			IEnumerable<int> @base = new[] { 1, 2 };
 			IEnumerable<int> changed = new[] { 1, 2, 3 };

@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
@@ -26,8 +27,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIntDifferent()
 		{
-			const string diff =
-				"-<Sample:5>\r\n" +
+			string diff =
+				"-<Sample:5>" + Environment.NewLine +
 				"+<Sample:0>";
 
 			var ret = Merger.Instance.Partial.Diff(new Sample { Id = 5, Value = "a" }, new Sample { Id = 0, Value = "b" });
@@ -39,7 +40,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestSameValues()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var ret = Merger.Instance.Partial.Diff(new Sample { Id = 5, Value = "a" }, new Sample { Id = 5, Value = "a" });
 

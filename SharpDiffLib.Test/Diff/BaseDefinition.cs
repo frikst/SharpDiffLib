@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.Test._Entities.BaseWithId;
@@ -28,7 +29,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			const string diff =
+			string diff =
 				"+1:<Sample1:2>";
 			var @base = new SampleBase[]
 			{
@@ -49,9 +50,9 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneReplacedWithOtherDescendant()
 		{
-			const string diff =
-				"=1:\r\n" +
-				"\t-<Sample1:2>\r\n" +
+			string diff =
+				"=1:" + Environment.NewLine +
+				"\t-<Sample1:2>" + Environment.NewLine +
 				"\t+<Sample2:2>";
 			var @base = new SampleBase[]
 			{
@@ -73,10 +74,10 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneChangedProperty()
 		{
-			const string diff =
-				"=1:\r\n" +
-				"\t=:\r\n" +
-				"\t\t-Value:b\r\n" +
+			string diff =
+				"=1:" + Environment.NewLine +
+				"\t=:" + Environment.NewLine +
+				"\t\t-Value:b" + Environment.NewLine +
 				"\t\t+Value:c";
 			var @base = new SampleBase[]
 			{

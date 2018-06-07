@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
@@ -27,9 +28,9 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerChanged()
 		{
-			const string diff =
-				"=ValueInner:\r\n" +
-				"\t-Value:one\r\n" +
+			string diff =
+				"=ValueInner:" + Environment.NewLine +
+				"\t-Value:one" + Environment.NewLine +
 				"\t+Value:two";
 
 			var @base = new Sample
@@ -60,7 +61,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerSame()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new Sample
 			{
@@ -90,8 +91,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerReplaced()
 		{
-			const string diff =
-				"-ValueInner:<SampleInner:1>\r\n" +
+			string diff =
+				"-ValueInner:<SampleInner:1>" + Environment.NewLine +
 				"+ValueInner:<SampleInner:2>";
 
 			var @base = new Sample
@@ -122,8 +123,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerNullLeft()
 		{
-			const string diff =
-				"-ValueInner:(null)\r\n" +
+			string diff =
+				"-ValueInner:(null)" + Environment.NewLine +
 				"+ValueInner:<SampleInner:2>";
 
 			var @base = new Sample
@@ -150,8 +151,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerNullRight()
 		{
-			const string diff =
-				"-ValueInner:<SampleInner:1>\r\n" +
+			string diff =
+				"-ValueInner:<SampleInner:1>" + Environment.NewLine +
 				"+ValueInner:(null)";
 
 			var @base = new Sample
@@ -178,7 +179,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInnerNullBoth()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new Sample
 			{

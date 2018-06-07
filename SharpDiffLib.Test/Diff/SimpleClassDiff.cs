@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using NUnit.Framework;
@@ -20,8 +21,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestOneDifferent()
 		{
-			const string diff =
-				"-Value:one\r\n" +
+			string diff =
+				"-Value:one" + Environment.NewLine +
 				"+Value:two";
 
 			var @base = new Sample { Value = "one" };
@@ -36,10 +37,10 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestAllDifferent()
 		{
-			const string diff =
-				"-Value:one\r\n" +
-				"+Value:two\r\n" +
-				"-Value2:one2\r\n" +
+			string diff =
+				"-Value:one" + Environment.NewLine +
+				"+Value:two" + Environment.NewLine +
+				"-Value2:one2" + Environment.NewLine +
 				"+Value2:two2";
 
 			var @base = new Sample
@@ -62,7 +63,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestNoneDifferent()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new Sample
 			{
@@ -84,8 +85,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestNullLeft()
 		{
-			const string diff =
-				"-Value2:(null)\r\n" +
+			string diff =
+				"-Value2:(null)" + Environment.NewLine +
 				"+Value2:one2";
 
 			var @base = new Sample
@@ -108,8 +109,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestNullRight()
 		{
-			const string diff =
-				"-Value2:one2\r\n" +
+			string diff =
+				"-Value2:one2" + Environment.NewLine +
 				"+Value2:(null)";
 
 			var @base = new Sample
@@ -132,7 +133,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestNullBoth()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new Sample
 			{

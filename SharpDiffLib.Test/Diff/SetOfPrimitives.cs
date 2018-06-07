@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			const string diff =
+			string diff =
 				"+3";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3 };
@@ -34,8 +35,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TwoAdded()
 		{
-			const string diff =
-				"+3\r\n" +
+			string diff =
+				"+3" + Environment.NewLine +
 				"+4";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3, 4 };
@@ -49,8 +50,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TwoRemoved()
 		{
-			const string diff =
-				"-3\r\n" +
+			string diff =
+				"-3" + Environment.NewLine +
 				"-4";
 			var @base = new HashSet<int> { 1, 2, 3, 4 };
 			var changed = new HashSet<int> { 1, 2 };
@@ -64,8 +65,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void AllAdded()
 		{
-			const string diff =
-				"+1\r\n" +
+			string diff =
+				"+1" + Environment.NewLine +
 				"+2";
 			var @base = new HashSet<int> { };
 			var changed = new HashSet<int> { 1, 2 };
@@ -79,8 +80,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void AllRemoved()
 		{
-			const string diff =
-				"-1\r\n" +
+			string diff =
+				"-1" + Environment.NewLine +
 				"-2";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { };
@@ -94,7 +95,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void UnchangedEmpty()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new HashSet<int> { };
 			var changed = new HashSet<int> { };
 
@@ -107,7 +108,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void UnchangedNonEmpty()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2 };
 

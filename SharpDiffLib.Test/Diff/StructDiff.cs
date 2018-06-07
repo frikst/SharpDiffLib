@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Test._Entities.InnerStructure;
@@ -27,8 +28,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void StructChanged()
 		{
-			const string diff =
-				"-Value:1\r\n" +
+			string diff =
+				"-Value:1" + Environment.NewLine +
 				"+Value:2";
 			var @base = new SampleStruct { Value = 1 };
 			var changed = new SampleStruct { Value = 2 };
@@ -42,7 +43,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void StructUnchanged()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new SampleStruct { Value = 1 };
 			var changed = new SampleStruct { Value = 1 };
 
@@ -55,9 +56,9 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void ClassChanged()
 		{
-			const string diff =
-				"=Value:\r\n" +
-				"\t-Value:1\r\n" +
+			string diff =
+				"=Value:" + Environment.NewLine +
+				"\t-Value:1" + Environment.NewLine +
 				"\t+Value:2";
 			var @base = new Sample { Value = new SampleStruct { Value = 1 } };
 			var changed = new Sample { Value = new SampleStruct { Value = 2 } };
@@ -71,7 +72,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void ClassUnchanged()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new Sample { Value = new SampleStruct { Value = 1 } };
 			var changed = new Sample { Value = new SampleStruct { Value = 1 } };
 
@@ -84,9 +85,9 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void DictionaryChanged()
 		{
-			const string diff =
-				"=a:\r\n" +
-				"\t-Value:1\r\n" +
+			string diff =
+				"=a:" + Environment.NewLine +
+				"\t-Value:1" + Environment.NewLine +
 				"\t+Value:2";
 			var @base = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 1 } } };
 			var changed = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 2 } } };
@@ -100,7 +101,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void DictionaryUnchanged()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 1 } } };
 			var changed = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 1 } } };
 

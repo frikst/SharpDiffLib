@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
@@ -27,7 +28,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			const string diff =
+			string diff =
 				"+2:<Sample:3>";
 			var @base = new[]
 			{
@@ -50,7 +51,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneRemoved()
 		{
-			const string diff =
+			string diff =
 				"-0:<Sample:0>";
 			var @base = new[]
 			{
@@ -73,9 +74,9 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneChanged()
 		{
-			const string diff =
-				"=0:\r\n" +
-				"\t-Value:a\r\n" +
+			string diff =
+				"=0:" + Environment.NewLine +
+				"\t-Value:a" + Environment.NewLine +
 				"\t+Value:c";
 			var @base = new[]
 			{
@@ -97,8 +98,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneReplacedWithNull()
 		{
-			const string diff =
-				"-1:<Sample:2>\r\n" +
+			string diff =
+				"-1:<Sample:2>" + Environment.NewLine +
 				"+2:(null)";
 			var @base = new[]
 			{

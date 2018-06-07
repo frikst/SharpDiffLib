@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using NUnit.Framework;
 
@@ -19,8 +20,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIntDifferent()
 		{
-			const string diff =
-				"-5\r\n" +
+			string diff =
+				"-5" + Environment.NewLine +
 				"+0";
 
 			var ret = Merger.Instance.Partial.Diff(5, 0);
@@ -32,7 +33,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestSameValues()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var ret = Merger.Instance.Partial.Diff(0, 0);
 

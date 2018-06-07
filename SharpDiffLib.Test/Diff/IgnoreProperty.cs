@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.Algorithms.Diff;
+﻿using System;
+using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Test._Entities.BaseWithoutId;
 using NUnit.Framework;
@@ -27,7 +28,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIgnoredDifferent()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "two", Value2 = "three" };
@@ -41,8 +42,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestProcessedDifferent()
 		{
-			const string diff =
-				"-Value2:three\r\n" +
+			string diff =
+				"-Value2:three" + Environment.NewLine +
 				"+Value2:four";
 
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
@@ -57,7 +58,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIgnoredDifferentDescendant()
 		{
-			const string diff = "";
+			string diff = "";
 
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "two", Value2 = "three", Value3 = "six", Value4 = "seven" };
@@ -71,10 +72,10 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestProcessedDifferentDescendant()
 		{
-			const string diff =
-				"-Value2:three\r\n" +
-				"+Value2:four\r\n" +
-				"-Value4:seven\r\n" +
+			string diff =
+				"-Value2:three" + Environment.NewLine +
+				"+Value2:four" + Environment.NewLine +
+				"-Value4:seven" + Environment.NewLine +
 				"+Value4:eight";
 
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };

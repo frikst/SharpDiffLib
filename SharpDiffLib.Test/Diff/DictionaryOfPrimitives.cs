@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			const string diff =
+			string diff =
 				"+c:3";
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 } };
@@ -34,8 +35,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TwoAdded()
 		{
-			const string diff =
-				"+c:3\r\n" +
+			string diff =
+				"+c:3" + Environment.NewLine +
 				"+d:4";
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 } };
@@ -49,8 +50,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TwoRemoved()
 		{
-			const string diff =
-				"-c:3\r\n" +
+			string diff =
+				"-c:3" + Environment.NewLine +
 				"-d:4";
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
@@ -64,8 +65,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneReplaced()
 		{
-			const string diff =
-				"-c:3\r\n" +
+			string diff =
+				"-c:3" + Environment.NewLine +
 				"+c:4";
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 4 } };
@@ -79,8 +80,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void AllAdded()
 		{
-			const string diff =
-				"+a:1\r\n" +
+			string diff =
+				"+a:1" + Environment.NewLine +
 				"+b:2";
 			var @base = new Dictionary<string, int> { };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
@@ -94,8 +95,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void AllRemoved()
 		{
-			const string diff =
-				"-a:1\r\n" +
+			string diff =
+				"-a:1" + Environment.NewLine +
 				"-b:2";
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { };
@@ -109,7 +110,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void UnchangedEmpty()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new Dictionary<string, int> { };
 			var changed = new Dictionary<string, int> { };
 
@@ -122,7 +123,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void UnchangedNonEmpty()
 		{
-			const string diff = "";
+			string diff = "";
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 

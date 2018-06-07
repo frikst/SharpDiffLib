@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
@@ -27,7 +28,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneAdded()
 		{
-			const string diff =
+			string diff =
 				"+<Sample:3>";
 			var @base = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" } };
 			var changed = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" }, new Sample { Id = 3, Value = "c" } };
@@ -41,8 +42,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TwoAdded()
 		{
-			const string diff =
-				"+<Sample:3>\r\n" +
+			string diff =
+				"+<Sample:3>" + Environment.NewLine +
 				"+<Sample:4>";
 			var @base = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" } };
 			var changed = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" }, new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" } };
@@ -56,8 +57,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TwoRemoved()
 		{
-			const string diff =
-				"-<Sample:3>\r\n" +
+			string diff =
+				"-<Sample:3>" + Environment.NewLine +
 				"-<Sample:4>";
 			var @base = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" }, new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" } };
 			var changed = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" } };
@@ -71,9 +72,9 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void OneChanged()
 		{
-			const string diff =
-				"=1:\r\n" +
-				"\t-Value:a\r\n" +
+			string diff =
+				"=1:" + Environment.NewLine +
+				"\t-Value:a" + Environment.NewLine +
 				"\t+Value:c";
 			var @base = new HashSet<Sample> { new Sample { Id = 1, Value = "a" }, new Sample { Id = 2, Value = "b" } };
 			var changed = new HashSet<Sample> { new Sample { Id = 1, Value = "c" }, new Sample { Id = 2, Value = "b" } };

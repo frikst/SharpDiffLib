@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
@@ -37,8 +38,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestClassReplaced()
 		{
-			const string diff =
-				"-ValueInner:<SampleInner:1>\r\n" +
+			string diff =
+				"-ValueInner:<SampleInner:1>" + Environment.NewLine +
 				"+ValueInner:<SampleInner:1>";
 
 			var @base = new Sample
@@ -67,8 +68,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestArrayReplaced()
 		{
-			const string diff =
-				"-1:<SampleInner:2>\r\n" +
+			string diff =
+				"-1:<SampleInner:2>" + Environment.NewLine +
 				"+1:<SampleInner:2>";
 			var @base = new[]
 			{
@@ -90,8 +91,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestSetReplaced()
 		{
-			const string diff =
-				"-<SampleInner:2>\r\n" +
+			string diff =
+				"-<SampleInner:2>" + Environment.NewLine +
 				"+<SampleInner:2>";
 			var @base = new HashSet<SampleInner> { new SampleInner { Id = 1, Value = "a" }, new SampleInner { Id = 2, Value = "b" } };
 			var changed = new HashSet<SampleInner> { new SampleInner { Id = 1, Value = "a" }, new SampleInner { Id = 2, Value = "a" } };
@@ -105,8 +106,8 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestDictionaryReplaced()
 		{
-			const string diff =
-				"-b:<SampleInner:2>\r\n" +
+			string diff =
+				"-b:<SampleInner:2>" + Environment.NewLine +
 				"+b:<SampleInner:2>";
 
 			var @base = new Dictionary<string, SampleInner>

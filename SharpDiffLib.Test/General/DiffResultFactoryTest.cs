@@ -1,4 +1,5 @@
-﻿using KST.SharpDiffLib.DiffResult;
+﻿using System;
+using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
 using NUnit.Framework;
 
@@ -19,12 +20,12 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged(x => x.Value2, "xxx")
 				.MakeDiff();
 
-			const string diffString =
-				"=ValueInner:\r\n" +
-				"\t-Value:Hello\r\n" +
-				"\t+Value:World\r\n" +
-				"-Value:Value\r\n" +
-				"+Value:Value2\r\n" +
+			string diffString =
+				"=ValueInner:" + Environment.NewLine +
+				"\t-Value:Hello" + Environment.NewLine +
+				"\t+Value:World" + Environment.NewLine +
+				"-Value:Value" + Environment.NewLine +
+				"+Value:Value2" + Environment.NewLine +
 				" Value2:xxx";
 
 			Assert.AreEqual(diffString, diff.ToString());
@@ -44,14 +45,14 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged(3, new SampleInner())
 				.MakeDiff();
 
-			const string diffString =
-				"=0:\r\n" +
-				"\t-Value:Hello\r\n" +
-				"\t+Value:World\r\n" +
-				"-1:<SampleInner>\r\n" +
-				"+1:<SampleInner>\r\n" +
-				"-2:<SampleInner>\r\n" +
-				"+2:<SampleInner>\r\n" +
+			string diffString =
+				"=0:" + Environment.NewLine +
+				"\t-Value:Hello" + Environment.NewLine +
+				"\t+Value:World" + Environment.NewLine +
+				"-1:<SampleInner>" + Environment.NewLine +
+				"+1:<SampleInner>" + Environment.NewLine +
+				"-2:<SampleInner>" + Environment.NewLine +
+				"+2:<SampleInner>" + Environment.NewLine +
 				" 3:<SampleInner>";
 
 			Assert.AreEqual(diffString, diff.ToString());
@@ -71,14 +72,14 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged("e", new SampleInner())
 				.MakeDiff();
 
-			const string diffString =
-				"=a:\r\n" +
-				"\t-Value:Hello\r\n" +
-				"\t+Value:World\r\n" +
-				"-b:<SampleInner>\r\n" +
-				"+b:<SampleInner>\r\n" +
-				"-c:<SampleInner>\r\n" +
-				"+d:<SampleInner>\r\n" +
+			string diffString =
+				"=a:" + Environment.NewLine +
+				"\t-Value:Hello" + Environment.NewLine +
+				"\t+Value:World" + Environment.NewLine +
+				"-b:<SampleInner>" + Environment.NewLine +
+				"+b:<SampleInner>" + Environment.NewLine +
+				"-c:<SampleInner>" + Environment.NewLine +
+				"+d:<SampleInner>" + Environment.NewLine +
 				" e:<SampleInner>";
 
 			Assert.AreEqual(diffString, diff.ToString());
@@ -98,14 +99,14 @@ namespace KST.SharpDiffLib.Test.General
 				.Unchanged(new SampleInner())
 				.MakeDiff();
 
-			const string diffString =
-				"=1:\r\n" +
-				"\t-Value:Hello\r\n" +
-				"\t+Value:World\r\n" +
-				"-<SampleInner>\r\n" +
-				"+<SampleInner>\r\n" +
-				"-<SampleInner>\r\n" +
-				"+<SampleInner>\r\n" +
+			string diffString =
+				"=1:" + Environment.NewLine +
+				"\t-Value:Hello" + Environment.NewLine +
+				"\t+Value:World" + Environment.NewLine +
+				"-<SampleInner>" + Environment.NewLine +
+				"+<SampleInner>" + Environment.NewLine +
+				"-<SampleInner>" + Environment.NewLine +
+				"+<SampleInner>" + Environment.NewLine +
 				" <SampleInner>";
 
 			Assert.AreEqual(diffString, diff.ToString());
@@ -121,12 +122,12 @@ namespace KST.SharpDiffLib.Test.General
 				)
 				.MakeDiff();
 
-			const string diffString =
-				"C<<<\r\n" +
-				"\t-Value:a\r\n" +
-				"\t+Value:b\r\n" +
-				"C>>>\r\n" +
-				"\t-Value:a\r\n" +
+			string diffString =
+				"C<<<" + Environment.NewLine +
+				"\t-Value:a" + Environment.NewLine +
+				"\t+Value:b" + Environment.NewLine +
+				"C>>>" + Environment.NewLine +
+				"\t-Value:a" + Environment.NewLine +
 				"\t+Value:c";
 
 			Assert.AreEqual(diffString, diff.ToString());
