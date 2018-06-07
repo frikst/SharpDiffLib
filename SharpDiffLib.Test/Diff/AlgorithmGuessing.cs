@@ -48,14 +48,14 @@ namespace KST.SharpDiffLib.Test.Diff
 			#endregion
 		}
 
-		private class Merger : MergerDefinition<Merger>
+		private class Merger : MergerDefinition<Merger>, IRulesNotFoundFallback
 		{
 			private Merger()
 			{
 				Define<Sample>();
 			}
 
-			protected override TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>(IMergerRulesLocator rulesLocator)
+			TAlgorithmRules IRulesNotFoundFallback.RulesNotFoundFallback<TAlgorithmRules, TType>(IMergerRulesLocator rulesLocator)
 			{
 				if (typeof(TAlgorithmRules) == typeof(IDiffAlgorithmRules) && typeof(TType) == typeof(AnotherSample))
 					return (TAlgorithmRules)(object)(new CustomDiffAlgorithmRules<TType>());

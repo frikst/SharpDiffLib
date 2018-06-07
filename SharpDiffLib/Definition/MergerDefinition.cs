@@ -34,11 +34,8 @@ namespace KST.SharpDiffLib.Definition
 
 					List<IClassMergerDefinition> definitions = definition.aDefinitions;
 
-					MethodInfo rulesNotFoundFallbackMethod = definition.GetType().GetMethod(nameof(RulesNotFoundFallback), BindingFlags.NonPublic | BindingFlags.Instance);
-					Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback = (rules, type, rulesLocator) => (IAlgorithmRules) rulesNotFoundFallbackMethod.MakeGenericMethod(rules, type).Invoke(definition, new object[] { rulesLocator });
-
 					aMerger = new MergerImplementation(
-						definitions, rulesNotFoundFallback
+						definitions, definition as IRulesNotFoundFallback
 					);
 				}
 
@@ -54,12 +51,6 @@ namespace KST.SharpDiffLib.Definition
 			ClassMergerDefinition<TClass> ret = new ClassMergerDefinition<TClass>(this.aDefinitions);
 			this.aDefinitions.Add(ret);
 			return ret;
-		}
-
-		protected virtual TAlgorithmRules RulesNotFoundFallback<TAlgorithmRules, TType>(IMergerRulesLocator rulesLocator)
-			where TAlgorithmRules : class, IAlgorithmRules
-		{
-			return null;
 		}
 	}
 }

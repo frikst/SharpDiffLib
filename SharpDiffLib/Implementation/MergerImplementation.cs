@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
 using KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.KeyValue;
 using KST.SharpDiffLib.Algorithms.ApplyPatch.Collection.Ordered;
@@ -26,6 +27,7 @@ using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult.Base;
+using KST.SharpDiffLib.Internal.Members;
 
 namespace KST.SharpDiffLib.Implementation
 {
@@ -64,11 +66,12 @@ namespace KST.SharpDiffLib.Implementation
 		}
 
 		private readonly IEnumerable<IClassMergerDefinition> aDefinitions;
-		private readonly Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> aRulesNotFoundFallback;
+		private readonly IRulesNotFoundFallback aRulesNotFoundFallback;
 
-		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, Func<Type, Type, IMergerRulesLocator, IAlgorithmRules> rulesNotFoundFallback)
+		internal MergerImplementation(IEnumerable<IClassMergerDefinition> definitions, IRulesNotFoundFallback rulesNotFoundFallback)
 		{
 			this.aRulesNotFoundFallback = rulesNotFoundFallback;
+
 			this.aDefinitions = definitions.ToList();
 
 			foreach (IClassMergerDefinition definition in this.aDefinitions)
@@ -160,13 +163,14 @@ namespace KST.SharpDiffLib.Implementation
 			if (ret != null)
 				return ret;
 
-			ret = this.aRulesNotFoundFallback(typeof(TRules), type, new MergerRulesLocator(this)) as TRules;
+			if (this.aRulesNotFoundFallback != null)
+				ret = RulesNotFoundFallbackMembers.RulesNotFoundFallback(typeof(TRules), type)
+					.Invoke(this.aRulesNotFoundFallback, new object[] {new MergerRulesLocator(this)}) as TRules;
 
 			if (ret == null)
 				ret = this.GuessRules<TRules>(type);
 
-			if (ret != null)
-				ret.Initialize(this);
+			ret?.Initialize(this);
 
 			return ret;
 		}
