@@ -1,6 +1,6 @@
 ﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
 using NUnit.Framework;
 
@@ -23,7 +23,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void EmptyPatch()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
+			var diff = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			Sample obj = new Sample { ValueInner = new SampleInner { Value = "hello" }, };
@@ -35,7 +35,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ReplaceGoodValue()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
+			var diff = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.ValueInner, new SampleInner { Value = "hello" }, new SampleInner { Value = "world" })
 				.MakeDiff();
 
@@ -48,8 +48,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ChangeInner()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x=>x.ValueInner, DiffResultFactory<SampleInner>.Class.Create()
+			var diff = DiffResultFactory.Class<Sample>()
+				.Changed(x=>x.ValueInner, DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "hello", "world")
 					.MakeDiff()
 				)

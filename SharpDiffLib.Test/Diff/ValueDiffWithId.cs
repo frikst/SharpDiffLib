@@ -2,7 +2,7 @@
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
 using NUnit.Framework;
 
@@ -55,7 +55,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, new SampleInner {Id = 1, Value = "two"})
 				.MakeDiff();
 
@@ -78,7 +78,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleInner { Id = 2, Value = "a" }
 			};
 
-			var expected = DiffResultFactory.Ordered<SampleInner>.Create()
+			var expected = DiffResultFactory.Ordered<SampleInner>()
 				.Replaced(1, new SampleInner {Id = 2, Value = "b"}, new SampleInner {Id = 2, Value = "a"})
 				.MakeDiff();
 
@@ -93,7 +93,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<SampleInner> { new SampleInner { Id = 1, Value = "a" }, new SampleInner { Id = 2, Value = "b" } };
 			var changed = new HashSet<SampleInner> { new SampleInner { Id = 1, Value = "a" }, new SampleInner { Id = 2, Value = "a" } };
 
-			var expected = DiffResultFactory.Unordered<SampleInner>.Create()
+			var expected = DiffResultFactory.Unordered<SampleInner>()
 				.Replaced(new SampleInner {Id = 2, Value = "b"}, new SampleInner {Id = 2, Value = "a"})
 				.MakeDiff();
 
@@ -116,7 +116,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				{ "b", new SampleInner { Id = 2, Value = "a" } }
 			};
 
-			var expected = DiffResultFactory.KeyValue<string, SampleInner>.Create()
+			var expected = DiffResultFactory.KeyValue<string, SampleInner>()
 				.Replaced("b", new SampleInner {Id = 2, Value = "b"}, new SampleInner {Id = 2, Value = "a"})
 				.MakeDiff();
 

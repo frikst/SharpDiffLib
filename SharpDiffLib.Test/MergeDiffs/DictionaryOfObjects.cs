@@ -3,7 +3,7 @@ using KST.SharpDiffLib.Algorithms.MergeDiffs;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -30,15 +30,15 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void EmptyDiffs()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
@@ -48,16 +48,16 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void LeftAdded()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 1 })
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 1 })
 				.MakeDiff();
 
@@ -68,17 +68,17 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothAdded()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 1 })
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 1 })
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 1 })
 				.MakeDiff();
 
@@ -89,17 +89,17 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothAddedDifferent()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 1 })
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("a", new Sample { Id = 2 })
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
 				.Conflicted(
 					c => c.Added("a", new Sample { Id = 1 }),
 					c => c.Added("a", new Sample { Id = 2 })
@@ -113,14 +113,14 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothChanged()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.MakeDiff()
 				)
 				.MakeDiff();
@@ -128,8 +128,8 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)
@@ -142,14 +142,14 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothChangedSame()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)
@@ -158,8 +158,8 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)
@@ -172,14 +172,14 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothChangedWithConflicts()
 		{
-			var left = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var left = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var right = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "c")
 					.MakeDiff()
 				)
@@ -188,8 +188,8 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("a", DiffResultFactory.Class<Sample>.Create()
+			var merged = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("a", DiffResultFactory.Class<Sample>()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
 						c => c.Replaced(x => x.Value, "a", "c")

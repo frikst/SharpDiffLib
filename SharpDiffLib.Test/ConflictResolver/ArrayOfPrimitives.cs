@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Factory;
 using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ConflictResolver
@@ -21,7 +21,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void ConflictRemovedThenReplacedUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<int>()
 				.Conflicted(
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
@@ -29,7 +29,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Replaced(1, 3, 5)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<int>.Create()
+			var diffResolved = DiffResultFactory.Ordered<int>()
 				.Removed(0, 0)
 				.Replaced(1, 3, 5)
 				.MakeDiff();
@@ -50,7 +50,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void ConflictRemovedThenReplacedUseRight()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<int>()
 				.Conflicted(
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
@@ -58,7 +58,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Replaced(1, 3, 5)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<int>.Create()
+			var diffResolved = DiffResultFactory.Ordered<int>()
 				.Replaced(0, 0, 5)
 				.Replaced(1, 3, 5)
 				.MakeDiff();
@@ -79,7 +79,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void ConflictRemovedRemovedThenReplacedUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<int>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<int>()
 				.Conflicted(
 					c => c.Removed(0, 0),
 					c => c.Replaced(0, 0, 5)
@@ -88,7 +88,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Replaced(2, 3, 5)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<int>.Create()
+			var diffResolved = DiffResultFactory.Ordered<int>()
 				.Removed(0, 0)
 				.Removed(1, 1)
 				.Replaced(2, 3, 5)

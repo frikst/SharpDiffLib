@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using NUnit.Framework;
 
@@ -21,7 +21,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TestInt()
 		{
-			var diff = DiffResultFactory.Value<int>.Create()
+			var diff = DiffResultFactory.Value<int>()
 			    .Replaced(5, 0)
 				.MakeDiff();
 
@@ -33,7 +33,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TestIntArray()
 		{
-			var diff = DiffResultFactory.Ordered<int>.Create()
+			var diff = DiffResultFactory.Ordered<int>()
 				.Added(2, 3)
 				.MakeDiff();
 
@@ -48,7 +48,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TestIntSet()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.Added(3)
 				.MakeDiff();
 
@@ -63,7 +63,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TestDifferentObjects()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
+			var diff = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value, "one", "two")
 				.MakeDiff();
 

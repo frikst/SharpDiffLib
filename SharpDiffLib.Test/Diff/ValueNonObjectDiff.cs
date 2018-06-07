@@ -1,6 +1,6 @@
 ﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
@@ -20,7 +20,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIntDifferent()
 		{
-			var expected = DiffResultFactory.Value<int>.Create()
+			var expected = DiffResultFactory.Value<int>()
 				.Replaced(5, 0)
 				.MakeDiff();
 
@@ -32,7 +32,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestSameValues()
 		{
-			var expected = DiffResultFactory.Value<int>.Create()
+			var expected = DiffResultFactory.Value<int>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(0, 0);

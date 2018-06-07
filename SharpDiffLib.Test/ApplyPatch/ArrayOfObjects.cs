@@ -1,7 +1,7 @@
 ﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -28,7 +28,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>.Create()
+			var diff = DiffResultFactory.Ordered<Sample>()
 				.Added(2, new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 			
@@ -52,7 +52,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>.Create()
+			var diff = DiffResultFactory.Ordered<Sample>()
 				.Removed(2, new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -76,7 +76,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>.Create()
+			var diff = DiffResultFactory.Ordered<Sample>()
 				.Replaced(2, new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" })
 				.MakeDiff();
 
@@ -101,8 +101,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChanged()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>.Create()
-				.Changed(2, DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.Ordered<Sample>()
+				.Changed(2, DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "c", "d")
 					.MakeDiff()
 				)
@@ -129,12 +129,12 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoChanged()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>.Create()
-				.Changed(1, DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.Ordered<Sample>()
+				.Changed(1, DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "b", "d")
 					.MakeDiff()
 				)
-				.Changed(2, DiffResultFactory<Sample>.Class.Create()
+				.Changed(2, DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "c", "d")
 					.MakeDiff()
 				)

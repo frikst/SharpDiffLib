@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.Diff
@@ -24,7 +24,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 } };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.Added("c", 3)
 				.MakeDiff();
 
@@ -39,7 +39,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 } };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.Added("c", 3)
 				.Added("d", 4)
 				.MakeDiff();
@@ -55,7 +55,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.Removed("c", 3)
 				.Removed("d", 4)
 				.MakeDiff();
@@ -71,7 +71,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 3 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 }, { "c", 4 } };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.Replaced("c", 3, 4)
 				.MakeDiff();
 
@@ -86,7 +86,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.Added("a", 1)
 				.Added("b", 2)
 				.MakeDiff();
@@ -102,7 +102,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.Removed("a", 1)
 				.Removed("b", 2)
 				.MakeDiff();
@@ -118,7 +118,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { };
 			var changed = new Dictionary<string, int> { };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -132,7 +132,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 			var changed = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
 
-			var expected = DiffResultFactory.KeyValue<string, int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

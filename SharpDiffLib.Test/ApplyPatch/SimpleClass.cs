@@ -1,6 +1,6 @@
 ﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using NUnit.Framework;
 
@@ -21,7 +21,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void EmptyPatch()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
+			var diff = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			Sample obj = new Sample { Value = "hello" };
@@ -33,7 +33,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ReplaceGoodValue()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
+			var diff = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value, "hello", "world")
 				.MakeDiff();
 
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void Unchanged()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
+			var diff = DiffResultFactory.Class<Sample>()
 				.Unchanged(x => x.Value, "hello")
 				.MakeDiff();
 

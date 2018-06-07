@@ -1,6 +1,6 @@
 ﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using NUnit.Framework;
 
@@ -24,7 +24,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Sample { Value = "one" };
 			var changed = new Sample { Value = "two" };
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value, "one", "two")
 				.MakeDiff();
 
@@ -47,7 +47,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				Value2 = "two2"
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value, "one", "two")
 				.Replaced(x => x.Value2, "one2", "two2")
 				.MakeDiff();
@@ -71,7 +71,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				Value2 = "one2"
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -93,7 +93,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				Value2 = "one2"
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value2, null, "one2")
 				.MakeDiff();
 
@@ -116,7 +116,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				Value2 = null
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value2, "one2", null)
 				.MakeDiff();
 
@@ -139,7 +139,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				Value2 = null
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

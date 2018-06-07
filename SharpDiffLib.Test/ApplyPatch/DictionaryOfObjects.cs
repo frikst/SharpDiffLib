@@ -2,7 +2,7 @@
 using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -29,7 +29,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var diff = DiffResultFactory.KeyValue<string, Sample>()
 				.Added("c", new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -53,7 +53,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var diff = DiffResultFactory.KeyValue<string, Sample>()
 				.Removed("c", new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -77,7 +77,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>.Create()
+			var diff = DiffResultFactory.KeyValue<string, Sample>()
 				.Replaced("c", new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" })
 				.MakeDiff();
 
@@ -102,8 +102,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChanged()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>.Create()
-				.Changed("c", DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.KeyValue<string, Sample>()
+				.Changed("c", DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "c", "d")
 					.MakeDiff()
 				)

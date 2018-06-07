@@ -1,7 +1,7 @@
 ﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.InnerClassWithId;
 using NUnit.Framework;
 
@@ -47,8 +47,8 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "one", "two")
 					.MakeDiff()
 				)
@@ -81,7 +81,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -111,7 +111,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, new SampleInner {Id = 2, Value = "one"})
 				.MakeDiff();
 
@@ -138,7 +138,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.ValueInner, null, new SampleInner {Id = 2, Value = "one"})
 				.MakeDiff();
 
@@ -165,7 +165,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				ValueInner = null
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, null)
 				.MakeDiff();
 
@@ -188,7 +188,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				ValueInner = null
 			};
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

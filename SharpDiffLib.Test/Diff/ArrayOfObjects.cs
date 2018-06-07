@@ -1,7 +1,7 @@
 ﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -40,7 +40,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 3, Value = "c" }
 			};
 
-			var expected = DiffResultFactory.Ordered<Sample>.Create()
+			var expected = DiffResultFactory.Ordered<Sample>()
 				.Added(2, new Sample {Id = 3, Value = "c"})
 				.MakeDiff();
 
@@ -64,7 +64,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 2, Value = "b" }
 			};
 
-			var expected = DiffResultFactory.Ordered<Sample>.Create()
+			var expected = DiffResultFactory.Ordered<Sample>()
 				.Removed(0, new Sample {Id = 0, Value = "a"})
 				.MakeDiff();
 
@@ -87,8 +87,8 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 2, Value = "b" }
 			};
 
-			var expected = DiffResultFactory.Ordered<Sample>.Create()
-				.Changed(0, DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Ordered<Sample>()
+				.Changed(0, DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "c")
 					.MakeDiff()
 				)
@@ -113,7 +113,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				null
 			};
 
-			var expected = DiffResultFactory.Ordered<Sample>.Create()
+			var expected = DiffResultFactory.Ordered<Sample>()
 				.Removed(1, new Sample {Id = 2, Value = "b"})
 				.Added(2, null)
 				.MakeDiff();

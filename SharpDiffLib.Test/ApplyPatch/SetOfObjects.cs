@@ -3,7 +3,7 @@ using System.Linq;
 using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -30,7 +30,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>.Create()
+			var diff = DiffResultFactory.Unordered<Sample>()
 				.Added(new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -54,7 +54,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>.Create()
+			var diff = DiffResultFactory.Unordered<Sample>()
 				.Removed(new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -78,7 +78,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>.Create()
+			var diff = DiffResultFactory.Unordered<Sample>()
 				.Replaced(new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" })
 				.MakeDiff();
 
@@ -103,8 +103,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChanged()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>.Create()
-				.Changed(3, DiffResultFactory<Sample>.Class.Create()
+			var diff = DiffResultFactory.Unordered<Sample>()
+				.Changed(3, DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "c", "d")
 					.MakeDiff()
 				)

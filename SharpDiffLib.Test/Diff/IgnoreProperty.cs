@@ -1,6 +1,6 @@
 ﻿using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.BaseWithoutId;
 using NUnit.Framework;
 
@@ -31,7 +31,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "two", Value2 = "three" };
 
-			var expected = DiffResultFactory.Class<SampleBase>.Create()
+			var expected = DiffResultFactory.Class<SampleBase>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -45,7 +45,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "one", Value2 = "four" };
 
-			var expected = DiffResultFactory.Class<SampleBase>.Create()
+			var expected = DiffResultFactory.Class<SampleBase>()
 				.Replaced(x => x.Value2, "three", "four")
 				.MakeDiff();
 
@@ -60,7 +60,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "two", Value2 = "three", Value3 = "six", Value4 = "seven" };
 
-			var expected = DiffResultFactory.Class<SampleDescendant>.Create()
+			var expected = DiffResultFactory.Class<SampleDescendant>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -74,7 +74,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "one", Value2 = "four", Value3 = "five", Value4 = "eight" };
 
-			var expected = DiffResultFactory.Class<SampleDescendant>.Create()
+			var expected = DiffResultFactory.Class<SampleDescendant>()
 				.Replaced(x => x.Value2, "three", "four")
 				.Replaced(x => x.Value4, "seven", "eight")
 				.MakeDiff();

@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
 using NUnit.Framework;
 
@@ -11,8 +11,8 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Class()
 		{
-			var diff = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x => x.ValueInner, DiffResultFactory<SampleInner>.Class.Create()
+			var diff = DiffResultFactory.Class<Sample>()
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
 				)
@@ -34,8 +34,8 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Array()
 		{
-			var diff = DiffResultFactory.Ordered<SampleInner>.Create()
-				.Changed(0, DiffResultFactory<SampleInner>.Class.Create()
+			var diff = DiffResultFactory.Ordered<SampleInner>()
+				.Changed(0, DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
 				)
@@ -61,8 +61,8 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Dictionary()
 		{
-			var diff = DiffResultFactory.KeyValue<string, SampleInner>.Create()
-				.Changed("a", DiffResultFactory<SampleInner>.Class.Create()
+			var diff = DiffResultFactory.KeyValue<string, SampleInner>()
+				.Changed("a", DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
 				)
@@ -88,8 +88,8 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Set()
 		{
-			var diff = DiffResultFactory.Unordered<SampleInner>.Create()
-				.Changed(1, DiffResultFactory<SampleInner>.Class.Create()
+			var diff = DiffResultFactory.Unordered<SampleInner>()
+				.Changed(1, DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "Hello", "World")
 					.MakeDiff()
 				)
@@ -115,7 +115,7 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Conflicts()
 		{
-			var diff = DiffResultFactory.Class<SampleInner>.Create()
+			var diff = DiffResultFactory.Class<SampleInner>()
 				.Conflicted(
 					c => c.Replaced(x => x.Value, "a", "b"),
 					c => c.Replaced(x => x.Value, "a", "c")

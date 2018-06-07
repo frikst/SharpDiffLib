@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
 using NUnit.Framework;
 
@@ -22,8 +22,8 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void OneConflictUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
+			var diffConflicted = DiffResultFactory.Class<Sample>()
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
 						c => c.Replaced(x => x.Value, "a", "c")
@@ -32,8 +32,8 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>.Create()
+			var diffResolved = DiffResultFactory.Class<Sample>()
+				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)

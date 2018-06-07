@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using KST.SharpDiffLib.Algorithms.Diff;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.IntArrayProperty;
 using NUnit.Framework;
 
@@ -31,8 +31,8 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Sample { Value = new[] { 1, 2 } };
 			var changed = new Sample { Value = new[] { 1, 2, 3 } };
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
-				.Changed(x => x.Value, DiffResultFactory.Ordered<int>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
+				.Changed(x => x.Value, DiffResultFactory.Ordered<int>()
 					.Added(2, 3)
 					.MakeDiff()
 				)
@@ -49,7 +49,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Sample { Value = new[] { 1, 2, 3 } };
 			var changed = new Sample { Value = new[] { 1, 2, 3 } };
 
-			var expected = DiffResultFactory.Class<Sample>.Create()
+			var expected = DiffResultFactory.Class<Sample>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -63,8 +63,8 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int[]> { { "a", new[] { 1, 2 } } };
 			var changed = new Dictionary<string, int[]> { { "a", new[] { 1, 2, 3 } } };
 
-			var expected = DiffResultFactory.KeyValue<string, int[]>.Create()
-				.Changed("a", DiffResultFactory.Ordered<int>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int[]>()
+				.Changed("a", DiffResultFactory.Ordered<int>()
 					.Added(2, 3)
 					.MakeDiff()
 				)
@@ -81,7 +81,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, int[]> { { "a", new[] { 1, 2, 3 } } };
 			var changed = new Dictionary<string, int[]> { { "a", new[] { 1, 2, 3 } } };
 
-			var expected = DiffResultFactory.KeyValue<string, int[]>.Create()
+			var expected = DiffResultFactory.KeyValue<string, int[]>()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

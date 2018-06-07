@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleClass;
 using NUnit.Framework;
 
@@ -22,14 +22,14 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void OneConflictUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Class<Sample>.Create()
+			var diffConflicted = DiffResultFactory.Class<Sample>()
 				.Conflicted(
 					c => c.Replaced(x => x.Value, "a", "b"),
 					c => c.Replaced(x => x.Value, "a", "c")
 				)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Class<Sample>.Create()
+			var diffResolved = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value, "a", "b")
 				.MakeDiff();
 
@@ -49,14 +49,14 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void OneConflictUseRight()
 		{
-			var diffConflicted = DiffResultFactory.Class<Sample>.Create()
+			var diffConflicted = DiffResultFactory.Class<Sample>()
 				.Conflicted(
 					c => c.Replaced(x => x.Value, "a", "b"),
 					c => c.Replaced(x => x.Value, "a", "c")
 				)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Class<Sample>.Create()
+			var diffResolved = DiffResultFactory.Class<Sample>()
 				.Replaced(x => x.Value, "a", "c")
 				.MakeDiff();
 

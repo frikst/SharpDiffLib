@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using KST.SharpDiffLib.ConflictManagement;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
 using KST.SharpDiffLib.DiffResult.Action;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.SimpleWithId;
 using NUnit.Framework;
 
@@ -22,10 +22,10 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void TestReplacedConflictedUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<Sample>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<Sample>()
 				.Conflicted(
 					c => c.Removed(0, new Sample { Id = 1 }),
-					c => c.Changed(0, DiffResultFactory.Class<Sample>.Create()
+					c => c.Changed(0, DiffResultFactory.Class<Sample>()
 						.Replaced(x => x.Value, "a", "b")
 						.MakeDiff()
 					)
@@ -33,7 +33,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<Sample>.Create()
+			var diffResolved = DiffResultFactory.Ordered<Sample>()
 				.Removed(0, new Sample { Id = 1 })
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
@@ -54,10 +54,10 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void TestReplacedConflictedUseRight()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<Sample>.Create()
+			var diffConflicted = DiffResultFactory.Ordered<Sample>()
 				.Conflicted(
 					c => c.Removed(0, new Sample { Id = 1 }),
-					c => c.Changed(0, DiffResultFactory.Class<Sample>.Create()
+					c => c.Changed(0, DiffResultFactory.Class<Sample>()
 						.Replaced(x => x.Value, "a", "b")
 						.MakeDiff()
 					)
@@ -65,8 +65,8 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<Sample>.Create()
-				.Changed(0, DiffResultFactory.Class<Sample>.Create()
+			var diffResolved = DiffResultFactory.Ordered<Sample>()
+				.Changed(0, DiffResultFactory.Class<Sample>()
 					.Replaced(x => x.Value, "a", "b")
 					.MakeDiff()
 				)

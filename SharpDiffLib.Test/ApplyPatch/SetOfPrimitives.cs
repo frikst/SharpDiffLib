@@ -2,7 +2,7 @@
 using System.Linq;
 using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using NUnit.Framework;
 
 namespace KST.SharpDiffLib.Test.ApplyPatch
@@ -22,7 +22,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.Added(3)
 			    .MakeDiff();
 
@@ -37,7 +37,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoAdded()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.Added(3)
 				.Added(4)
 				.MakeDiff();
@@ -53,7 +53,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoRemoved()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.Removed(3)
 				.Removed(4)
 				.MakeDiff();
@@ -69,7 +69,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllAdded()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.Added(1)
 				.Added(2)
 				.MakeDiff();
@@ -85,7 +85,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllRemoved()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.Removed(1)
 				.Removed(2)
 				.MakeDiff();
@@ -101,7 +101,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void UnchangedEmpty()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.MakeDiff();
 
 			var obj = new HashSet<int> { };
@@ -115,7 +115,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void UnchangedNonEmpty()
 		{
-			var diff = DiffResultFactory.Unordered<int>.Create()
+			var diff = DiffResultFactory.Unordered<int>()
 				.MakeDiff();
 
 			var obj = new HashSet<int> { 1, 2 };

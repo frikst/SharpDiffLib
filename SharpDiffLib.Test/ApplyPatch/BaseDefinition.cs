@@ -1,7 +1,7 @@
 ﻿using KST.SharpDiffLib.Algorithms.ApplyPatch;
 using KST.SharpDiffLib.Definition;
 using KST.SharpDiffLib.Definition.Rules;
-using KST.SharpDiffLib.DiffResult;
+using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.BaseWithId;
 using NUnit.Framework;
 
@@ -29,7 +29,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
+			var diff = DiffResultFactory.Ordered<SampleBase>()
 				.Added(1, new SampleDescendant1 { Id = 2, Value = "b" })
 				.MakeDiff();
 
@@ -51,8 +51,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplacedWithOtherDescendant()
 		{
-			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
-				.Changed(1, DiffResultFactory.Value<SampleBase>.Create()
+			var diff = DiffResultFactory.Ordered<SampleBase>()
+				.Changed(1, DiffResultFactory.Value<SampleBase>()
 					.Replaced(
 						new SampleDescendant1 { Id = 2, Value = "b" },
 						new SampleDescendant2 { Id = 2, Value = "b" }
@@ -80,9 +80,9 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChangedProperty()
 		{
-			var diff = DiffResultFactory.Ordered<SampleBase>.Create()
-				.Changed(1, DiffResultFactory.Value<SampleBase>.Create()
-					.Changed(DiffResultFactory.Class<SampleDescendant1>.Create()
+			var diff = DiffResultFactory.Ordered<SampleBase>()
+				.Changed(1, DiffResultFactory.Value<SampleBase>()
+					.Changed(DiffResultFactory.Class<SampleDescendant1>()
 						.Replaced(x => x.Value, "b", "c")
 						.MakeDiff()
 					)
