@@ -30,16 +30,16 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void OnlyLeftAdded()
 		{
-			var left = DiffResultFactory.Unordered<Sample>()
+			var left = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.MakeDiff();
-			var right = DiffResultFactory.Unordered<Sample>()
+			var right = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Added(new Sample { Id = 1, Value = "Hello" })
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Unordered<Sample>()
+			var merged = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Added(new Sample { Id = 1, Value = "Hello" })
 				.MakeDiff();
 
@@ -50,12 +50,12 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothChanged()
 		{
-			var left = DiffResultFactory.Unordered<Sample>()
+			var left = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Unordered<Sample>()
+			var right = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "c")
 				)
@@ -64,7 +64,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Unordered<Sample>()
+			var merged = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Changed(1, inner => inner.Class()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
@@ -80,19 +80,19 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void ChangedRemoved()
 		{
-			var left = DiffResultFactory.Unordered<Sample>()
+			var left = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Unordered<Sample>()
+			var right = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Removed(new Sample { Id = 1, Value = "a" })
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Unordered<Sample>()
+			var merged = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Conflicted(
 					c => c.Changed(1, inner => inner.Class()
 						.Replaced(x => x.Value, "a", "b")

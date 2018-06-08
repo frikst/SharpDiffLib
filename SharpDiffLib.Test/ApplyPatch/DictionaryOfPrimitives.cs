@@ -21,7 +21,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.Added("c", 3)
 				.MakeDiff();
 
@@ -36,7 +36,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoAdded()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.Added("c", 3)
 				.Added("d", 4)
 				.MakeDiff();
@@ -52,7 +52,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoRemoved()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.Removed("c", 3)
 				.Removed("d", 4)
 				.MakeDiff();
@@ -68,7 +68,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.Replaced("c", 3, 4)
 				.MakeDiff();
 
@@ -83,7 +83,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllAdded()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.Added("a", 1)
 				.Added("b", 2)
 				.MakeDiff();
@@ -99,7 +99,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllRemoved()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.Removed("a", 1)
 				.Removed("b", 2)
 				.MakeDiff();
@@ -115,7 +115,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void UnchangedEmpty()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.MakeDiff();
 
 			var obj = new Dictionary<string, int> { };
@@ -129,7 +129,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void UnchangedNonEmpty()
 		{
-			var diff = DiffResultFactory.KeyValue<string, int>()
+			var diff = DiffFactory.Create<Dictionary<string, int>>().KeyValue()
 				.MakeDiff();
 
 			var obj = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };

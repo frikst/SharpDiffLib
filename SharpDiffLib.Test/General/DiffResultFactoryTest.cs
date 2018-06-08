@@ -12,7 +12,7 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Class()
 		{
-			var diff = DiffResultFactory.Class<Sample>()
+			var diff = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
 				)
@@ -34,7 +34,7 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Array()
 		{
-			var diff = DiffResultFactory.Ordered<SampleInner>()
+			var diff = DiffFactory.Create<SampleInner[]>().Ordered()
 				.Changed(0, inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
 				)
@@ -60,7 +60,7 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Dictionary()
 		{
-			var diff = DiffResultFactory.KeyValue<string, SampleInner>()
+			var diff = DiffFactory.Create<Dictionary<string, SampleInner>>().KeyValue()
 				.Changed("a", inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
 				)
@@ -86,7 +86,7 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Set()
 		{
-			var diff = DiffResultFactory.Unordered<SampleInner>()
+			var diff = DiffFactory.Create<HashSet<SampleInner>>().Unordered()
 				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
 				)
@@ -112,7 +112,7 @@ namespace KST.SharpDiffLib.Test.General
 		[Test]
 		public void Conflicts()
 		{
-			var diff = DiffResultFactory.Class<SampleInner>()
+			var diff = DiffFactory.Create<SampleInner>().Class()
 				.Conflicted(
 					c => c.Replaced(x => x.Value, "a", "b"),
 					c => c.Replaced(x => x.Value, "a", "c")

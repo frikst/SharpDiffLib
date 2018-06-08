@@ -20,7 +20,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Added(2, 3)
 				.MakeDiff();
 
@@ -35,7 +35,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoAdded()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Added(2, 2)
 				.Added(2, 3)
 				.MakeDiff();
@@ -51,7 +51,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ManyAdded()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Added(0, 2)
 				.Added(1, 2)
 				.Added(2, 2)
@@ -70,7 +70,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 3)
 				.MakeDiff();
 
@@ -85,7 +85,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoRemoved()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 2)
 				.Removed(2, 3)
 				.MakeDiff();
@@ -101,7 +101,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ManyRemoved()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Removed(2, 2)
 				.Removed(4, 2)
@@ -120,7 +120,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 3)
 				.Added(2, 4)
 				.MakeDiff();
@@ -136,7 +136,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplacedWithReplace()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Replaced(2, 3, 4)
 				.MakeDiff();
 
@@ -151,7 +151,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoReplaced()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 2)
 				.Removed(2, 3)
 				.Added(2, 4)
@@ -169,7 +169,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoReplacedWithReplace()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Replaced(2, 2, 4)
 				.Replaced(3, 3, 5)
 				.MakeDiff();
@@ -185,7 +185,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ManyReplaced()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Added(1, 3)
 				.Removed(2, 2)
@@ -209,7 +209,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ManyReplacedWithReplace()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Replaced(0, 2, 3)
 				.Replaced(2, 2, 3)
 				.Replaced(4, 2, 3)
@@ -228,7 +228,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllReplaced()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Removed(0, 2)
 				.Removed(0, 2)
@@ -252,7 +252,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllReplacedWithReplace()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Replaced(0, 2, 3)
 				.Replaced(1, 2, 3)
 				.Replaced(2, 2, 3)
@@ -271,7 +271,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllAdded()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Added(0, 3)
 				.Added(0, 3)
 				.Added(0, 3)
@@ -290,7 +290,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void AllRemoved()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Removed(0, 2)
 				.Removed(0, 2)
@@ -309,7 +309,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void EmptyUnchanged()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.MakeDiff();
 
 			var obj = new int[] { };
@@ -323,7 +323,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void NonEmptyUnchanged()
 		{
-			var diff = DiffResultFactory.Ordered<int>()
+			var diff = DiffFactory.Create<int[]>().Ordered()
 				.MakeDiff();
 
 			var obj = new[] { 2, 2, 2, 2, 2 };

@@ -16,9 +16,9 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 			this.aDiffItems = new List<IDiffItem>();
 		}
 
-		public ClassDiffItemFactory<TType> Changed<TValue>(Expression<Func<TType, TValue>> property, Func<InnerDiffFactory.IParameter<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
+		public ClassDiffItemFactory<TType> Changed<TValue>(Expression<Func<TType, TValue>> property, Func<InnerDiffFactory.IDiffFactory<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
 		{
-			var diff = diffFactory(new InnerDiffFactory.Parameter<TValue, TValue>()).MakeDiff();
+			var diff = diffFactory(new InnerDiffFactory.DiffFactoryImplementation<TValue, TValue>()).MakeDiff();
 
 			return this.Changed(property, diff);
 		}

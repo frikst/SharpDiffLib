@@ -47,7 +47,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "one", "two")
 				)
@@ -80,7 +80,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -110,7 +110,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, new SampleInner {Id = 2, Value = "one"})
 				.MakeDiff();
 
@@ -137,7 +137,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				}
 			};
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.ValueInner, null, new SampleInner {Id = 2, Value = "one"})
 				.MakeDiff();
 
@@ -164,7 +164,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				ValueInner = null
 			};
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.ValueInner, new SampleInner {Id = 1, Value = "one"}, null)
 				.MakeDiff();
 
@@ -187,7 +187,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				ValueInner = null
 			};
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

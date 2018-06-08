@@ -28,7 +28,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>()
+			var diff = DiffFactory.Create<Sample[]>().Ordered()
 				.Added(2, new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 			
@@ -52,7 +52,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>()
+			var diff = DiffFactory.Create<Sample[]>().Ordered()
 				.Removed(2, new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -76,7 +76,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>()
+			var diff = DiffFactory.Create<Sample[]>().Ordered()
 				.Replaced(2, new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" })
 				.MakeDiff();
 
@@ -101,7 +101,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChanged()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>()
+			var diff = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(2, inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
 				)
@@ -128,7 +128,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TwoChanged()
 		{
-			var diff = DiffResultFactory.Ordered<Sample>()
+			var diff = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "b", "d")
 				)

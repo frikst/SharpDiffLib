@@ -20,7 +20,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TestIntDifferent()
 		{
-			var diff = DiffResultFactory.Value<int>()
+			var diff = DiffFactory.Create<int>().Value()
 			    .Replaced(5, 0)
 				.MakeDiff();
 
@@ -32,7 +32,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void TestSameValues()
 		{
-			var diff = DiffResultFactory.Value<int>()
+			var diff = DiffFactory.Create<int>().Value()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.ApplyPatch(5, diff);

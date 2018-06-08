@@ -22,7 +22,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void OneConflictUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Class<Sample>()
+			var diffConflicted = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
@@ -31,7 +31,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				)
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Class<Sample>()
+			var diffResolved = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)

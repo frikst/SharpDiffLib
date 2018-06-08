@@ -24,7 +24,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3 };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.Added(3)
 				.MakeDiff();
 
@@ -39,7 +39,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3, 4 };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.Added(3)
 				.Added(4)
 				.MakeDiff();
@@ -55,7 +55,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { 1, 2, 3, 4 };
 			var changed = new HashSet<int> { 1, 2 };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.Removed(3)
 				.Removed(4)
 				.MakeDiff();
@@ -71,7 +71,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { };
 			var changed = new HashSet<int> { 1, 2 };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.Added(1)
 				.Added(2)
 				.MakeDiff();
@@ -87,7 +87,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.Removed(1)
 				.Removed(2)
 				.MakeDiff();
@@ -103,7 +103,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { };
 			var changed = new HashSet<int> { };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -117,7 +117,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2 };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

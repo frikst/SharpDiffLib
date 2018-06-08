@@ -21,7 +21,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void EmptyPatch()
 		{
-			var diff = DiffResultFactory.Class<Sample>()
+			var diff = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
 
 			Sample obj = new Sample { Value = "hello" };
@@ -33,7 +33,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void ReplaceGoodValue()
 		{
-			var diff = DiffResultFactory.Class<Sample>()
+			var diff = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.Value, "hello", "world")
 				.MakeDiff();
 
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void Unchanged()
 		{
-			var diff = DiffResultFactory.Class<Sample>()
+			var diff = DiffFactory.Create<Sample>().Class()
 				.Unchanged(x => x.Value, "hello")
 				.MakeDiff();
 

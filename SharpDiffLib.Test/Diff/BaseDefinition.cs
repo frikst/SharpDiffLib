@@ -39,7 +39,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleDescendant1 { Id = 2, Value = "b" }
 			};
 
-			var expected = DiffResultFactory.Ordered<SampleBase>()
+			var expected = DiffFactory.Create<SampleBase[]>().Ordered()
 				.Added(1, new SampleDescendant1 {Id = 2, Value = "b"})
 				.MakeDiff();
 
@@ -62,7 +62,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleDescendant2 { Id = 2, Value = "b" }
 			};
 
-			var expected = DiffResultFactory.Ordered<SampleBase>()
+			var expected = DiffFactory.Create<SampleBase[]>().Ordered()
 				.Changed(1, inner => inner.Value()
 					.Replaced(new SampleDescendant1 {Id = 2, Value = "b"}, new SampleDescendant2 {Id = 2, Value = "b"})
 				)
@@ -87,7 +87,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new SampleDescendant1 { Id = 2, Value = "c" }
 			};
 
-			var expected = DiffResultFactory.Ordered<SampleBase>()
+			var expected = DiffFactory.Create<SampleBase[]>().Ordered()
 				.Changed(1, inner => inner.Value()
 					.ChangedType<SampleDescendant1>(inner2 => inner2.Class()
 						.Replaced(x => x.Value, "b", "c")

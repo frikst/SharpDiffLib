@@ -29,16 +29,16 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void OnlyLeftAdded()
 		{
-			var left = DiffResultFactory.Ordered<Sample>()
+			var left = DiffFactory.Create<Sample[]>().Ordered()
 				.Added(5, new Sample { Id = 1, Value = "Hello" })
 				.MakeDiff();
-			var right = DiffResultFactory.Ordered<Sample>()
+			var right = DiffFactory.Create<Sample[]>().Ordered()
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Ordered<Sample>()
+			var merged = DiffFactory.Create<Sample[]>().Ordered()
 				.Added(5, new Sample { Id = 1, Value = "Hello" })
 				.MakeDiff();
 
@@ -49,12 +49,12 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void BothChanged()
 		{
-			var left = DiffResultFactory.Ordered<Sample>()
+			var left = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(5, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Ordered<Sample>()
+			var right = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(5, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "c")
 				)
@@ -63,7 +63,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Ordered<Sample>()
+			var merged = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(5, inner => inner.Class()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
@@ -79,12 +79,12 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void ReplacedChanged()
 		{
-			var left = DiffResultFactory.Ordered<Sample>()
+			var left = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(0, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Ordered<Sample>()
+			var right = DiffFactory.Create<Sample[]>().Ordered()
 				.Removed(0, new Sample { Id = 1 })
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
@@ -92,7 +92,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Ordered<Sample>()
+			var merged = DiffFactory.Create<Sample[]>().Ordered()
 					.Conflicted(
 						c => c.Changed(0, inner => inner.Class()
 							.Replaced(x => x.Value, "a", "b")

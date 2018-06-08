@@ -22,7 +22,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void TestReplacedConflictedUseLeft()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<Sample>()
+			var diffConflicted = DiffFactory.Create<Sample[]>().Ordered()
 				.Conflicted(
 					c => c.Removed(0, new Sample { Id = 1 }),
 					c => c.Changed(0, inner => inner.Class()
@@ -32,7 +32,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<Sample>()
+			var diffResolved = DiffFactory.Create<Sample[]>().Ordered()
 				.Removed(0, new Sample { Id = 1 })
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
@@ -53,7 +53,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 		[Test]
 		public void TestReplacedConflictedUseRight()
 		{
-			var diffConflicted = DiffResultFactory.Ordered<Sample>()
+			var diffConflicted = DiffFactory.Create<Sample[]>().Ordered()
 				.Conflicted(
 					c => c.Removed(0, new Sample { Id = 1 }),
 					c => c.Changed(0, inner => inner.Class()
@@ -63,7 +63,7 @@ namespace KST.SharpDiffLib.Test.ConflictResolver
 				.Added(1, new Sample { Id = 2 })
 				.MakeDiff();
 
-			var diffResolved = DiffResultFactory.Ordered<Sample>()
+			var diffResolved = DiffFactory.Create<Sample[]>().Ordered()
 				.Changed(0, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)

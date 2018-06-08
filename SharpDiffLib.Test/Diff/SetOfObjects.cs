@@ -40,7 +40,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 3, Value = "c" }
 			};
 
-			var expected = DiffResultFactory.Unordered<Sample>()
+			var expected = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Added(new Sample {Id = 3, Value = "c"})
 				.MakeDiff();
 
@@ -65,7 +65,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 4, Value = "d" }
 			};
 
-			var expected = DiffResultFactory.Unordered<Sample>()
+			var expected = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Added(new Sample {Id = 3, Value = "c"})
 				.Added(new Sample {Id = 4, Value = "d"})
 				.MakeDiff();
@@ -91,7 +91,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 2, Value = "b" }
 			};
 
-			var expected = DiffResultFactory.Unordered<Sample>()
+			var expected = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Removed(new Sample {Id = 3, Value = "c"})
 				.Removed(new Sample {Id = 4, Value = "d"})
 				.MakeDiff();
@@ -115,7 +115,7 @@ namespace KST.SharpDiffLib.Test.Diff
 				new Sample { Id = 2, Value = "b" }
 			};
 
-			var expected = DiffResultFactory.Unordered<Sample>()
+			var expected = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "c")
 				)

@@ -32,9 +32,9 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 			return this;
 		}
 
-		public UnorderedDiffItemFactory<TType, TValue> Changed<TId>(TId id, Func<InnerDiffFactory.IParameter<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
+		public UnorderedDiffItemFactory<TType, TValue> Changed<TId>(TId id, Func<InnerDiffFactory.IDiffFactory<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
 		{
-			var diff = diffFactory(new InnerDiffFactory.Parameter<TValue, TValue>()).MakeDiff();
+			var diff = diffFactory(new InnerDiffFactory.DiffFactoryImplementation<TValue, TValue>()).MakeDiff();
 
 			return this.Changed(id, diff);
 		}

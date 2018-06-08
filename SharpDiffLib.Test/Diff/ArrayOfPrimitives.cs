@@ -23,7 +23,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2 };
 			var changed = new[] { 1, 2, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Added(2, 3)
 				.MakeDiff();
 
@@ -38,7 +38,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2 };
 			var changed = new[] { 1, 2, 2, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Added(2, 2)
 				.Added(2, 3)
 				.MakeDiff();
@@ -54,7 +54,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 1, 1, 1 };
 			var changed = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Added(0, 2)
 				.Added(1, 2)
 				.Added(2, 2)
@@ -73,7 +73,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2, 3 };
 			var changed = new[] { 1, 2 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 3)
 				.MakeDiff();
 
@@ -88,7 +88,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2, 2, 3 };
 			var changed = new[] { 1, 2 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 2)
 				.Removed(3, 3)
 				.MakeDiff();
@@ -104,7 +104,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
 			var changed = new[] { 1, 1, 1, 1 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Removed(2, 2)
 				.Removed(4, 2)
@@ -123,7 +123,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2, 3 };
 			var changed = new[] { 1, 2, 4 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 3)
 				.Added(3, 4)
 				.MakeDiff();
@@ -139,7 +139,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2, 2, 3 };
 			var changed = new[] { 1, 2, 4, 5 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(2, 2)
 				.Removed(3, 3)
 				.Added(4, 4)
@@ -157,7 +157,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
 			var changed = new[] { 3, 1, 3, 1, 3, 1, 3, 1, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Added(1, 3)
 				.Removed(2, 2)
@@ -181,7 +181,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 2, 2, 2, 2, 2 };
 			var changed = new[] { 3, 3, 3, 3, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Removed(1, 2)
 				.Removed(2, 2)
@@ -205,7 +205,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new int[] { };
 			var changed = new[] { 3, 3, 3, 3, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Added(0, 3)
 				.Added(0, 3)
 				.Added(0, 3)
@@ -224,7 +224,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 2, 2, 2, 2, 2 };
 			var changed = new int[] { };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Removed(0, 2)
 				.Removed(1, 2)
 				.Removed(2, 2)
@@ -243,7 +243,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new int[] { };
 			var changed = new int[] { };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -257,7 +257,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 2, 2, 2, 2, 2 };
 			var changed = new[] { 2, 2, 2, 2, 2 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

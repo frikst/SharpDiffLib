@@ -31,7 +31,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleStruct { Value = 1 };
 			var changed = new SampleStruct { Value = 2 };
 
-			var expected = DiffResultFactory.Class<SampleStruct>()
+			var expected = DiffFactory.Create<SampleStruct>().Class()
 				.Replaced(x => x.Value, 1, 2)
 				.MakeDiff();
 
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleStruct { Value = 1 };
 			var changed = new SampleStruct { Value = 1 };
 
-			var expected = DiffResultFactory.Class<SampleStruct>()
+			var expected = DiffFactory.Create<SampleStruct>().Class()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -60,7 +60,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Sample { Value = new SampleStruct { Value = 1 } };
 			var changed = new Sample { Value = new SampleStruct { Value = 2 } };
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.Value, inner => inner.Class()
 					.Replaced(x => x.Value, 1, 2)
 				)
@@ -77,7 +77,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Sample { Value = new SampleStruct { Value = 1 } };
 			var changed = new Sample { Value = new SampleStruct { Value = 1 } };
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -91,7 +91,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 1 } } };
 			var changed = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 2 } } };
 
-			var expected = DiffResultFactory.KeyValue<string, SampleStruct>()
+			var expected = DiffFactory.Create<Dictionary<string, SampleStruct>>().KeyValue()
 				.Changed("a", inner => inner.Class()
 					.Replaced(x => x.Value, 1, 2)
 				)
@@ -108,7 +108,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 1 } } };
 			var changed = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 1 } } };
 
-			var expected = DiffResultFactory.KeyValue<string, SampleStruct>()
+			var expected = DiffFactory.Create<Dictionary<string, SampleStruct>>().KeyValue()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

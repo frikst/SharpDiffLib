@@ -31,7 +31,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "two", Value2 = "three" };
 
-			var expected = DiffResultFactory.Class<SampleBase>()
+			var expected = DiffFactory.Create<SampleBase>().Class()
 				.Replaced(x => x.Value, "one", "two")
 				.MakeDiff();
 
@@ -46,7 +46,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleBase { Value = "one", Value2 = "three" };
 			var changed = new SampleBase { Value = "one", Value2 = "four" };
 
-			var expected = DiffResultFactory.Class<SampleBase>()
+			var expected = DiffFactory.Create<SampleBase>().Class()
 				.Unchanged(x => x.Value, "one")
 				.Replaced(x => x.Value2, "three", "four")
 				.MakeDiff();
@@ -62,7 +62,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "two", Value2 = "three", Value3 = "six", Value4 = "seven" };
 
-			var expected = DiffResultFactory.Class<SampleDescendant>()
+			var expected = DiffFactory.Create<SampleDescendant>().Class()
 				.Replaced(x => x.Value, "one", "two")
 				.Replaced(x => x.Value3, "five", "six")
 				.MakeDiff();
@@ -78,7 +78,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new SampleDescendant { Value = "one", Value2 = "three", Value3 = "five", Value4 = "seven" };
 			var changed = new SampleDescendant { Value = "one", Value2 = "four", Value3 = "five", Value4 = "eight" };
 
-			var expected = DiffResultFactory.Class<SampleDescendant>()
+			var expected = DiffFactory.Create<SampleDescendant>().Class()
 				.Unchanged(x => x.Value, "one")
 				.Replaced(x => x.Value2, "three", "four")
 				.Unchanged(x => x.Value3, "five")

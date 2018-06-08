@@ -31,7 +31,7 @@ namespace KST.SharpDiffLib.Test.Diff
 
 			public IDiff<TType> Compute(TType @base, TType changed)
 			{
-				return DiffResultFactory.Class<TType>()
+				return DiffFactory.Create<TType>().Class()
 					// ignore differences
 				    .MakeDiff();
 			}
@@ -66,7 +66,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestInt()
 		{
-			var expected = DiffResultFactory.Value<int>()
+			var expected = DiffFactory.Create<int>().Value()
 				.Replaced(5, 0)
 				.MakeDiff();
 
@@ -81,7 +81,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new[] { 1, 2 };
 			var changed = new[] { 1, 2, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Added(2, 3)
 				.MakeDiff();
 
@@ -96,7 +96,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new HashSet<int> { 1, 2 };
 			var changed = new HashSet<int> { 1, 2, 3 };
 
-			var expected = DiffResultFactory.Unordered<int>()
+			var expected = DiffFactory.Create<HashSet<int>>().Unordered()
 				.Added(3)
 				.MakeDiff();
 
@@ -111,7 +111,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new Sample { Value = "one" };
 			var changed = new Sample { Value = "two" };
 
-			var expected = DiffResultFactory.Class<Sample>()
+			var expected = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.Value, "one", "two")
 				.MakeDiff();
 
@@ -126,7 +126,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			var @base = new AnotherSample { AnotherValue = "one" };
 			var changed = new AnotherSample { AnotherValue = "two" };
 
-			var expected = DiffResultFactory.Class<AnotherSample>()
+			var expected = DiffFactory.Create<AnotherSample>().Class()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);
@@ -140,7 +140,7 @@ namespace KST.SharpDiffLib.Test.Diff
 			IEnumerable<int> @base = new[] { 1, 2 };
 			IEnumerable<int> changed = new[] { 1, 2, 3 };
 
-			var expected = DiffResultFactory.Ordered<int>()
+			var expected = DiffFactory.Create<int[]>().Ordered()
 				.Added(2, 3)
 				.MakeDiff();
 

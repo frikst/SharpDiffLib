@@ -29,7 +29,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>()
+			var diff = DiffFactory.Create<Dictionary<string, Sample>>().KeyValue()
 				.Added("c", new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -53,7 +53,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>()
+			var diff = DiffFactory.Create<Dictionary<string, Sample>>().KeyValue()
 				.Removed("c", new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -77,7 +77,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>()
+			var diff = DiffFactory.Create<Dictionary<string, Sample>>().KeyValue()
 				.Replaced("c", new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" })
 				.MakeDiff();
 
@@ -102,7 +102,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChanged()
 		{
-			var diff = DiffResultFactory.KeyValue<string, Sample>()
+			var diff = DiffFactory.Create<Dictionary<string, Sample>>().KeyValue()
 				.Changed("c", inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
 				)

@@ -29,15 +29,15 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void MergeEmptyDiffs()
 		{
-			var left = DiffResultFactory.Class<Sample>()
+			var left = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
-			var right = DiffResultFactory.Class<Sample>()
+			var right = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Class<Sample>()
+			var merged = DiffFactory.Create<Sample>().Class()
 				.MakeDiff();
 
 			Assert.AreEqual(merged, result);
@@ -47,19 +47,19 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void MergeNonConflictingDiffsWithInnerChanges()
 		{
-			var left = DiffResultFactory.Class<Sample>()
+			var left = DiffFactory.Create<Sample>().Class()
 				.Changed(x=>x.ValueInner, inner => inner.Class()
 					.Replaced(x=>x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Class<Sample>()
+			var right = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class())
 				.MakeDiff();
 
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Class<Sample>()
+			var merged = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
@@ -72,12 +72,12 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void MergeConflictingDiffsWithInnerChanges()
 		{
-			var left = DiffResultFactory.Class<Sample>()
+			var left = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Class<Sample>()
+			var right = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "c")
 				)
@@ -86,7 +86,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Class<Sample>()
+			var merged = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
@@ -102,12 +102,12 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void MergeNonConflictingDiffsWithSameInnerChanges()
 		{
-			var left = DiffResultFactory.Class<Sample>()
+			var left = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
 				.MakeDiff();
-			var right = DiffResultFactory.Class<Sample>()
+			var right = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
@@ -116,7 +116,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Class<Sample>()
+			var merged = DiffFactory.Create<Sample>().Class()
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
 				)
@@ -129,10 +129,10 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		[Test]
 		public void MergeNonConflictingRightItemLast()
 		{
-			var left = DiffResultFactory.Class<Sample>()
+			var left = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.Value, "a", "b")
 				.MakeDiff();
-			var right = DiffResultFactory.Class<Sample>()
+			var right = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.Value2, "a", "b")
 				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
@@ -142,7 +142,7 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			IConflictContainer conflicts;
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
-			var merged = DiffResultFactory.Class<Sample>()
+			var merged = DiffFactory.Create<Sample>().Class()
 				.Replaced(x => x.Value, "a", "b")
 				.Replaced(x => x.Value2, "a", "b")
 				.Changed(x => x.ValueInner, inner => inner.Class()

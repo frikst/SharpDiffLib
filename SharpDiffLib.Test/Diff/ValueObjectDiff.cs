@@ -25,7 +25,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestIntDifferent()
 		{
-			var expected = DiffResultFactory.Value<Sample>()
+			var expected = DiffFactory.Create<Sample>().Value()
 				.Replaced(new Sample {Id = 5, Value = "a"}, new Sample {Id = 0, Value = "b"})
 				.MakeDiff();
 
@@ -37,7 +37,7 @@ namespace KST.SharpDiffLib.Test.Diff
 		[Test]
 		public void TestSameValues()
 		{
-			var expected = DiffResultFactory.Value<Sample>()
+			var expected = DiffFactory.Create<Sample>().Value()
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(new Sample { Id = 5, Value = "a" }, new Sample { Id = 5, Value = "a" });

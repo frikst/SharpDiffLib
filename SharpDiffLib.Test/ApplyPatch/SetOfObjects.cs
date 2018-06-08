@@ -30,7 +30,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneAdded()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>()
+			var diff = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Added(new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -54,7 +54,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneRemoved()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>()
+			var diff = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Removed(new Sample { Id = 3, Value = "c" })
 				.MakeDiff();
 
@@ -78,7 +78,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneReplaced()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>()
+			var diff = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Replaced(new Sample { Id = 3, Value = "c" }, new Sample { Id = 4, Value = "d" })
 				.MakeDiff();
 
@@ -103,7 +103,7 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		[Test]
 		public void OneChanged()
 		{
-			var diff = DiffResultFactory.Unordered<Sample>()
+			var diff = DiffFactory.Create<HashSet<Sample>>().Unordered()
 				.Changed(3, inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
 				)
