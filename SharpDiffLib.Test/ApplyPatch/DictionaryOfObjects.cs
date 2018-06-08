@@ -103,9 +103,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		public void OneChanged()
 		{
 			var diff = DiffResultFactory.KeyValue<string, Sample>()
-				.Changed("c", DiffResultFactory.Class<Sample>()
+				.Changed("c", inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
-					.MakeDiff()
 				)
 				.MakeDiff();
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using KST.SharpDiffLib.DiffResult.Factory;
 using KST.SharpDiffLib.Test._Entities.InnerClass;
 using NUnit.Framework;
@@ -12,9 +13,8 @@ namespace KST.SharpDiffLib.Test.General
 		public void Class()
 		{
 			var diff = DiffResultFactory.Class<Sample>()
-				.Changed(x => x.ValueInner, DiffResultFactory.Class<SampleInner>()
+				.Changed(x => x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
-					.MakeDiff()
 				)
 				.Replaced(x => x.Value, "Value", "Value2")
 				.Unchanged(x => x.Value2, "xxx")
@@ -35,9 +35,8 @@ namespace KST.SharpDiffLib.Test.General
 		public void Array()
 		{
 			var diff = DiffResultFactory.Ordered<SampleInner>()
-				.Changed(0, DiffResultFactory.Class<SampleInner>()
+				.Changed(0, inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
-					.MakeDiff()
 				)
 				.Replaced(1, new SampleInner(), new SampleInner())
 				.Removed(2, new SampleInner())
@@ -62,9 +61,8 @@ namespace KST.SharpDiffLib.Test.General
 		public void Dictionary()
 		{
 			var diff = DiffResultFactory.KeyValue<string, SampleInner>()
-				.Changed("a", DiffResultFactory.Class<SampleInner>()
+				.Changed("a", inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
-					.MakeDiff()
 				)
 				.Replaced("b", new SampleInner(), new SampleInner())
 				.Removed("c", new SampleInner())
@@ -89,9 +87,8 @@ namespace KST.SharpDiffLib.Test.General
 		public void Set()
 		{
 			var diff = DiffResultFactory.Unordered<SampleInner>()
-				.Changed(1, DiffResultFactory.Class<SampleInner>()
+				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "Hello", "World")
-					.MakeDiff()
 				)
 				.Replaced(new SampleInner(), new SampleInner())
 				.Removed(new SampleInner())

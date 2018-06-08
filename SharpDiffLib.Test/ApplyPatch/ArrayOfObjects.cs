@@ -102,9 +102,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		public void OneChanged()
 		{
 			var diff = DiffResultFactory.Ordered<Sample>()
-				.Changed(2, DiffResultFactory.Class<Sample>()
+				.Changed(2, inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
-					.MakeDiff()
 				)
 				.MakeDiff();
 
@@ -130,13 +129,11 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		public void TwoChanged()
 		{
 			var diff = DiffResultFactory.Ordered<Sample>()
-				.Changed(1, DiffResultFactory.Class<Sample>()
+				.Changed(1, inner => inner.Class()
 					.Replaced(x => x.Value, "b", "d")
-					.MakeDiff()
 				)
-				.Changed(2, DiffResultFactory.Class<Sample>()
+				.Changed(2, inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
-					.MakeDiff()
 				)
 				.MakeDiff();
 

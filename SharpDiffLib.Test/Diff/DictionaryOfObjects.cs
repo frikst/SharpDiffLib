@@ -144,9 +144,8 @@ namespace KST.SharpDiffLib.Test.Diff
 			};
 
 			var expected = DiffResultFactory.KeyValue<string, Sample>()
-				.Changed("c", DiffResultFactory.Class<Sample>()
+				.Changed("c", inner => inner.Class()
 					.Replaced(x => x.Value, "c", "d")
-					.MakeDiff()
 				)
 				.MakeDiff();
 

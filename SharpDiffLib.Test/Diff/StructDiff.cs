@@ -61,9 +61,8 @@ namespace KST.SharpDiffLib.Test.Diff
 			var changed = new Sample { Value = new SampleStruct { Value = 2 } };
 
 			var expected = DiffResultFactory.Class<Sample>()
-				.Changed(x => x.Value, DiffResultFactory.Class<SampleStruct>()
+				.Changed(x => x.Value, inner => inner.Class()
 					.Replaced(x => x.Value, 1, 2)
-					.MakeDiff()
 				)
 				.MakeDiff();
 
@@ -93,9 +92,8 @@ namespace KST.SharpDiffLib.Test.Diff
 			var changed = new Dictionary<string, SampleStruct> { { "a", new SampleStruct { Value = 2 } } };
 
 			var expected = DiffResultFactory.KeyValue<string, SampleStruct>()
-				.Changed("a", DiffResultFactory.Class<SampleStruct>()
+				.Changed("a", inner => inner.Class()
 					.Replaced(x => x.Value, 1, 2)
-					.MakeDiff()
 				)
 				.MakeDiff();
 

@@ -66,9 +66,9 @@ namespace KST.SharpDiffLib.Test.Diff
 			};
 
 			var expected = DiffResultFactory.Ordered<SampleDescendant1>()
-				.Changed(0, DiffResultFactory.Class<SampleDescendant1>()
+				.Changed(0, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
-					.MakeDiff())
+				)
 				.MakeDiff();
 
 			var ret = Merger.Instance.Partial.Diff(@base, changed);

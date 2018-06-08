@@ -49,9 +49,8 @@ namespace KST.SharpDiffLib.Test.ApplyPatch
 		public void ChangeInner()
 		{
 			var diff = DiffResultFactory.Class<Sample>()
-				.Changed(x=>x.ValueInner, DiffResultFactory.Class<SampleInner>()
+				.Changed(x=>x.ValueInner, inner => inner.Class()
 					.Replaced(x => x.Value, "hello", "world")
-					.MakeDiff()
 				)
 				.MakeDiff();
 

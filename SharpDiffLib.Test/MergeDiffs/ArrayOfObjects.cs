@@ -50,15 +50,13 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		public void BothChanged()
 		{
 			var left = DiffResultFactory.Ordered<Sample>()
-				.Changed(5, DiffResultFactory.Class<Sample>()
+				.Changed(5, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
-					.MakeDiff()
 				)
 				.MakeDiff();
 			var right = DiffResultFactory.Ordered<Sample>()
-				.Changed(5, DiffResultFactory.Class<Sample>()
+				.Changed(5, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "c")
-					.MakeDiff()
 				)
 				.MakeDiff();
 
@@ -66,12 +64,11 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 			var result = Merger.Instance.Partial.MergeDiffs(left, right, out conflicts);
 
 			var merged = DiffResultFactory.Ordered<Sample>()
-				.Changed(5, DiffResultFactory.Class<Sample>()
+				.Changed(5, inner => inner.Class()
 					.Conflicted(
 						c => c.Replaced(x => x.Value, "a", "b"),
 						c => c.Replaced(x => x.Value, "a", "c")
 					)
-					.MakeDiff()
 				)
 				.MakeDiff();
 
@@ -83,9 +80,8 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 		public void ReplacedChanged()
 		{
 			var left = DiffResultFactory.Ordered<Sample>()
-				.Changed(0, DiffResultFactory.Class<Sample>()
+				.Changed(0, inner => inner.Class()
 					.Replaced(x => x.Value, "a", "b")
-					.MakeDiff()
 				)
 				.MakeDiff();
 			var right = DiffResultFactory.Ordered<Sample>()
@@ -98,9 +94,8 @@ namespace KST.SharpDiffLib.Test.MergeDiffs
 
 			var merged = DiffResultFactory.Ordered<Sample>()
 					.Conflicted(
-						c => c.Changed(0, DiffResultFactory.Class<Sample>()
+						c => c.Changed(0, inner => inner.Class()
 							.Replaced(x => x.Value, "a", "b")
-							.MakeDiff()
 						),
 						c => c.Removed(0, new Sample { Id = 1 })
 					)

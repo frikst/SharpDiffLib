@@ -7,13 +7,20 @@ using KST.SharpDiffLib.FastReflection;
 
 namespace KST.SharpDiffLib.DiffResult.Factory
 {
-	public class ClassDiffItemFactory<TType>
+	public class ClassDiffItemFactory<TType> : IDiffItemFactory<TType>
 	{
 		private readonly List<IDiffItem> aDiffItems;
 	
 		internal ClassDiffItemFactory()
 		{
 			this.aDiffItems = new List<IDiffItem>();
+		}
+
+		public ClassDiffItemFactory<TType> Changed<TValue>(Expression<Func<TType, TValue>> property, Func<InnerDiffFactory.IParameter<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
+		{
+			var diff = diffFactory(new InnerDiffFactory.Parameter<TValue, TValue>()).MakeDiff();
+
+			return this.Changed(property, diff);
 		}
 
 		public ClassDiffItemFactory<TType> Changed<TValue>(Expression<Func<TType, TValue>> property, IDiff<TValue> diff)
@@ -46,6 +53,11 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 			var conflictsRight = new ClassDiffItemFactory<TType>();
 			right(conflictsRight);
 
+			return this.Conflicted(conflictsLeft, conflictsRight);
+		}
+
+		public ClassDiffItemFactory<TType> Conflicted(ClassDiffItemFactory<TType> conflictsLeft, ClassDiffItemFactory<TType> conflictsRight)
+		{
 			this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 			return this;

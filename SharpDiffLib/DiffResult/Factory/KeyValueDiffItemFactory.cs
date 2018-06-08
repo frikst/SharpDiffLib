@@ -5,7 +5,7 @@ using KST.SharpDiffLib.DiffResult.Implementation;
 
 namespace KST.SharpDiffLib.DiffResult.Factory
 {
-	public class KeyValueDiffItemFactory<TType, TKey, TValue>
+	public class KeyValueDiffItemFactory<TType, TKey, TValue> : IDiffItemFactory<TType>
 	{
 		private readonly List<IDiffItem> aDiffItems;
 	
@@ -32,6 +32,13 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 			return this;
 		}
 
+		public KeyValueDiffItemFactory<TType, TKey, TValue> Changed(TKey key, Func<InnerDiffFactory.IParameter<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
+		{
+			var diff = diffFactory(new InnerDiffFactory.Parameter<TValue, TValue>()).MakeDiff();
+
+			return this.Changed(key, diff);
+		}
+
 		public KeyValueDiffItemFactory<TType, TKey, TValue> Changed(TKey key, IDiff<TValue> diff)
 		{
 			this.aDiffItems.Add(new DiffKeyValueCollectionItemChanged<TKey, TValue>(key, diff));
@@ -46,6 +53,11 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 			var conflictsRight = new KeyValueDiffItemFactory<TType, TKey, TValue>();
 			right(conflictsRight);
 
+			return this.Conflicted(conflictsLeft, conflictsRight);
+		}
+
+		public KeyValueDiffItemFactory<TType, TKey, TValue> Conflicted(KeyValueDiffItemFactory<TType, TKey, TValue> conflictsLeft, KeyValueDiffItemFactory<TType, TKey, TValue> conflictsRight)
+		{
 			this.aDiffItems.Add(new DiffAnyConflicted(conflictsLeft.aDiffItems, conflictsRight.aDiffItems));
 
 			return this;
