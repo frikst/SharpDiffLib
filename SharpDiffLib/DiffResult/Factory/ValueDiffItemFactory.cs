@@ -23,7 +23,7 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 		public ValueDiffItemFactory<TType> ChangedType<TSubType>(Func<InnerDiffFactory.IDiffFactory<TSubType, TSubType>, IDiffItemFactory<TSubType>> diffFactory)
 			where TSubType : TType
 		{
-			var diff = diffFactory(new InnerDiffFactory.DiffFactoryImplementation<TSubType, TSubType>()).MakeDiff();
+			var diff = diffFactory(null).MakeDiff();
 
 			return this.ChangedType(diff);
 		}
@@ -37,7 +37,7 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 
 		public ValueDiffItemFactory<TType> Changed(Func<InnerDiffFactory.IDiffFactory<TType, TType>, IDiffItemFactory<TType>> diffFactory)
 		{
-			var diff = diffFactory(new InnerDiffFactory.DiffFactoryImplementation<TType, TType>()).MakeDiff();
+			var diff = diffFactory(null).MakeDiff();
 
 			return this.Changed(diff);
 		}

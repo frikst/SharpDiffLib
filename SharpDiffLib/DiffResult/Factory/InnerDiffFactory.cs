@@ -11,11 +11,6 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 		    
 	    }
 
-	    internal class DiffFactoryImplementation<TType, THelperType> : IDiffFactory<TType, THelperType>
-	    {
-			public DiffFactoryImplementation() { }
-	    }
-
 	    public static ClassDiffItemFactory<TType> Class<TType>(this IDiffFactory<TType, TType> diffFactory)
 	    {
 		    return new ClassDiffItemFactory<TType>();

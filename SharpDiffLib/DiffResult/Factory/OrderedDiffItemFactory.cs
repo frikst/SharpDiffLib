@@ -34,7 +34,7 @@ namespace KST.SharpDiffLib.DiffResult.Factory
 
 		public OrderedDiffItemFactory<TType, TValue> Changed(int index, Func<InnerDiffFactory.IDiffFactory<TValue, TValue>, IDiffItemFactory<TValue>> diffFactory)
 		{
-			var diff = diffFactory(new InnerDiffFactory.DiffFactoryImplementation<TValue, TValue>()).MakeDiff();
+			var diff = diffFactory(null).MakeDiff();
 
 			return this.Changed(index, diff);
 		}
