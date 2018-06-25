@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using KST.SharpDiffLib.Algorithms.ApplyPatch.Base;
 using KST.SharpDiffLib.Definition.Rules;
 using KST.SharpDiffLib.DiffResult.Action;
@@ -36,7 +37,7 @@ namespace KST.SharpDiffLib.Algorithms.ApplyPatch.Common.Value
 		public TType Apply(TType source, IDiff<TType> patch)
 		{
 			// ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
-			foreach (IDiffValue item in patch)
+			foreach (var item in patch.Cast<IDiffValue>())
 			{
 				switch (item)
 				{
